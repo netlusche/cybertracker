@@ -33,11 +33,11 @@
     ```
     This script starts the PHP backend server (port 8000) and the Vite frontend dev server. Access at `http://localhost:5173`.
 
-### ☁️ Deployment (Strato Hosting Plus / Apache)
+### ☁️ Deployment (Apache / Shared Hosting)
 
 This project is **deployment-path agnostic**. It works seamlessly in:
 *   **Root Directory**: `yourdomain.com/`
-*   **Subdirectory**: `yourdomain.com/tasks/`
+*   **Any Subdirectory**: `yourdomain.com/app/`, `yourdomain.com/tasks/`, `yourdomain.com/secret-mission/` etc.
 
 #### 1. Build the Frontend
 Run the build command locally to generate the production files:
