@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cyber-black: #0a0a0a;
+  --color-cyber-dark: #121212;
+  --color-cyber-gray: #1e1e1e;
+  --color-cyber-neonPink: #ff00ff;
+  --color-cyber-neonCyan: #00ffff;
+  --color-cyber-neonGreen: #00ff00;
+  --color-cyber-card: rgba(30, 30, 30, 0.8);
+
+  --font-mono: 'Courier New', Courier, monospace;
+
+  --shadow-neon-pink: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+  --shadow-neon-cyan: 0 0 10px #00ffff, 0 0 20px #00ffff;
+}
+
+:root {
+  background-color: var(--color-cyber-black);
+  color: #e0e0e0;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  .btn-cyber {
+    @apply px-4 py-2 font-bold text-black transition-all duration-300 transform;
+  }
+
+  .btn-neon-pink {
+    @apply bg-cyber-neonPink shadow-neon-pink hover:scale-105 hover:bg-white;
+  }
+
+  .btn-neon-cyan {
+    @apply bg-cyber-neonCyan shadow-neon-cyan hover:scale-105 hover:bg-white;
+  }
+
+  .card-cyber {
+    @apply bg-cyber-card backdrop-blur-md border border-cyber-gray rounded-lg p-4 shadow-lg;
+  }
+
+  .input-cyber {
+    @apply bg-cyber-dark border border-cyber-gray p-2 text-white focus:outline-none focus:border-cyber-neonCyan transition-colors;
+  }
+}
