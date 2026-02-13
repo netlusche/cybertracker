@@ -30,7 +30,7 @@ $action = $_GET['action'] ?? 'list';
 
 if ($method === 'GET' && $action === 'list') {
     // List all users
-    $stmt = $pdo->query("SELECT id, username, role, created_at FROM users ORDER BY id ASC");
+    $stmt = $pdo->query("SELECT id, username, role, is_verified, created_at FROM users ORDER BY id ASC");
     $users = $stmt->fetchAll();
     echo json_encode($users);
 
@@ -38,7 +38,45 @@ if ($method === 'GET' && $action === 'list') {
 elseif ($method === 'POST') {
     $data = json_decode(file_get_contents("php://input"), true);
 
-    if ($action === 'update_role') {
+    if ($action === 'toggle_verified') {
+        $targetId = $data['target_id'];
+
+        // Get current status and role
+        $stmt = $pdo->prepare("SELECT role, is_verified FROM users WHERE id = ?");
+        $stmt->execute([$targetId]);
+        $targetUser = $stmt->fetch();
+
+        if (!$targetUser) {
+            http_response_code(404);
+            echo json_encode(['error' => 'User not found']);
+            exit;
+        }
+
+        $newStatus = $targetUser['is_verified'] ? 0 : 1;
+
+        // Safety Check: If revoking verification (1 -> 0) AND user is Admin
+        if ($newStatus === 0 && $targetUser['role'] === 'admin') {
+            // Count OTHER verified admins
+            $stmt = $pdo->query("SELECT COUNT(*) as count FROM users WHERE role = 'admin' AND is_verified = 1");
+            $count = $stmt->fetch()['count'];
+
+            // If this user is verified, they are part of that count. 
+            // We need to ensure that *after* they are unverified, there is still at least 1 verified admin.
+            // Actually, simply: if count <= 1, it means THIS is the only verified admin (or there are 0, which shouldn't happen if we are logged in).
+
+            if ($count <= 1) {
+                http_response_code(409);
+                echo json_encode(['error' => 'Cannot unverify the last verified Admin.']);
+                exit;
+            }
+        }
+
+        $update = $pdo->prepare("UPDATE users SET is_verified = ? WHERE id = ?");
+        $update->execute([$newStatus, $targetId]);
+        echo json_encode(['success' => true, 'new_status' => $newStatus]);
+    }
+
+    elseif ($action === 'update_role') {
         $targetId = $data['target_id'];
         $newRole = $data['new_role'];
 

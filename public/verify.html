@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberTasker // Verification</title>
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #00ff9d;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            border: 1px solid #00ff9d;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+            max-width: 400px;
+        }
+
+        .loader {
+            border: 4px solid #333;
+            border-top: 4px solid #00ff9d;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .error {
+            color: #ff0055;
+            border-color: #ff0055;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid currentColor;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        a {
+            color: #00ffff;
+            text-decoration: none;
+            border: 1px solid #00ffff;
+            padding: 10px 20px;
+            display: inline-block;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        a:hover {
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 10px #00ffff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card" id="card">
+        <h1>IDENTITY VERIFICATION</h1>
+        <div id="content">
+            <div class="loader"></div>
+            <p>ESTABLISHING SECURE UPLINK...</p>
+        </div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get('token');
+        const content = document.getElementById('content');
+        const card = document.getElementById('card');
+
+        if (!token) {
+            card.classList.add('error');
+            content.innerHTML = "<p>ERROR: MISSING VERIFICATION TOKEN.</p>";
+        } else {
+            fetch('api/auth.php?action=verify_email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: token })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        content.innerHTML = `<p>${data.message}</p><a href="./">PROCEED TO LOGIN</a>`;
+                    } else {
+                        card.classList.add('error');
+                        content.innerHTML = `<p>VERIFICATION FAILED:<br>${data.error}</p>`;
+                    }
+                })
+                .catch(err => {
+                    card.classList.add('error');
+                    content.innerHTML = "<p>SYSTEM ERROR: CONNECTION FAILED.</p>";
+                });
+        }
+    </script>
+</body>
+
+</html>

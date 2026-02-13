@@ -139,6 +139,23 @@ const AdminPanel = ({ onClose }) => {
         } catch (err) { setError('Network Error'); }
     };
 
+    const handleToggleVerified = async (user) => {
+        try {
+            const res = await fetch('api/admin.php?action=toggle_verified', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ target_id: user.id })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                fetchUsers(); // Refresh list to show new status
+            } else {
+                setError(data.error || 'Failed to toggle verification');
+            }
+        } catch (err) { setError('Network Error'); }
+    };
+
+
     const handleResetPasswordClick = (user) => {
         setPromptAction({
             message: `Enter new password for ${user.username}:`,
@@ -196,6 +213,7 @@ const AdminPanel = ({ onClose }) => {
                                 <th className="p-2">ID</th>
                                 <th className="p-2">CODENAME</th>
                                 <th className="p-2">ROLE</th>
+                                <th className="p-2 text-center">VERIFIED</th>
                                 <th className="p-2">CREATED</th>
                                 <th className="p-2 text-right">ACTIONS</th>
                             </tr>
@@ -209,6 +227,15 @@ const AdminPanel = ({ onClose }) => {
                                         <span className={`text-xs px-2 py-1 rounded border ${u.role === 'admin' ? 'border-yellow-500 text-yellow-500' : 'border-gray-600 text-gray-400'}`}>
                                             {u.role.toUpperCase()}
                                         </span>
+                                    </td>
+                                    <td className="p-2 text-center">
+                                        <button
+                                            onClick={() => handleToggleVerified(u)}
+                                            className={`text-xs font-bold ${u.is_verified == 1 ? 'text-green-500 hover:text-green-400' : 'text-red-500 hover:text-red-400'}`}
+                                            title="Toggle Verification"
+                                        >
+                                            {u.is_verified == 1 ? '✓ VERIFIED' : '✖ UNVERIFIED'}
+                                        </button>
                                     </td>
                                     <td className="p-2 text-xs text-gray-500">{u.created_at}</td>
                                     <td className="p-2 text-right space-x-2">

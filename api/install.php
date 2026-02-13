@@ -37,6 +37,22 @@ try {
             echo "Columns 'two_factor_enabled' and 'two_factor_secret' added to users.<br>";
         }
     }
+
+    catch (Exception $e) { /* Ignore */
+    }
+
+    // Check for 'email' and related columns (Phase 2)
+    try {
+        $check = $pdo->query("SHOW COLUMNS FROM users LIKE 'email'");
+        if ($check->rowCount() == 0) {
+            $pdo->exec("ALTER TABLE users ADD COLUMN email VARCHAR(255) UNIQUE DEFAULT NULL");
+            $pdo->exec("ALTER TABLE users ADD COLUMN is_verified BOOLEAN DEFAULT 1"); // Default 1 for existing users
+            $pdo->exec("ALTER TABLE users ADD COLUMN verification_token VARCHAR(64) DEFAULT NULL");
+            $pdo->exec("ALTER TABLE users ADD COLUMN reset_token VARCHAR(64) DEFAULT NULL");
+            $pdo->exec("ALTER TABLE users ADD COLUMN reset_expires DATETIME DEFAULT NULL");
+            echo "Columns 'email', 'is_verified', and tokens added to users.<br>";
+        }
+    }
     catch (Exception $e) { /* Ignore */
     }
 
@@ -87,6 +103,8 @@ try {
         $pdo->exec("INSERT INTO user_stats (id, total_points, current_level, badges_json) VALUES ($adminId, 0, 1, '[]')");
         echo "Default Admin user 'admin' created.<br>";
     }
+
+    echo "Installation/Update Complete!";
 
     echo "Installation/Update Complete!";
 

@@ -119,6 +119,58 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate }) => {
         } catch (err) { setError("Network error"); }
     };
 
+    const handleUpdateEmail = async (newEmail, password) => {
+        try {
+            const res = await fetch('api/auth.php?action=update_email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: newEmail, password: password })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                alert(data.message + " You will be logged out.");
+                onLogout();
+            } else {
+                setError(data.error || 'Update failed');
+            }
+        } catch (err) { setError("Network error"); }
+    };
+
+    const UpdateEmailForm = ({ currentEmail, onUpdate }) => {
+        const [email, setEmail] = useState(currentEmail || '');
+        const [password, setPassword] = useState('');
+
+        const handleSubmit = (e) => {
+            e.preventDefault();
+            if (email === currentEmail) return;
+            onUpdate(email, password);
+        };
+
+        return (
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3 p-3 border border-gray-800 bg-black/20 rounded">
+                <input
+                    type="email"
+                    placeholder="New Email Frequency"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="input-cyber text-sm"
+                    required
+                />
+                <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="input-cyber text-sm"
+                    required
+                />
+                <button type="submit" className="btn-cyber text-cyber-neonCyan border-cyber-neonCyan hover:bg-cyber-neonCyan hover:text-black text-xs self-end">
+                    RE-ROUTE FREQUENCY
+                </button>
+            </form>
+        );
+    };
+
 
     return (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
@@ -180,6 +232,22 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate }) => {
                                 </div>
                             )
                         )}
+                    </div>
+
+                    {/* Email Update Section */}
+                    <div>
+                        <h3 className="text-white font-bold mb-3 flex items-center gap-2">
+                            <span className="text-cyber-neonCyan">@</span> CONTACT CHANNEL
+                        </h3>
+                        <div className="flex flex-col gap-3">
+                            <div className="text-xs text-gray-400 mb-1">
+                                Current: <span className="text-white font-mono">{user.email || 'N/A'}</span>
+                            </div>
+                            <UpdateEmailForm
+                                currentEmail={user.email}
+                                onUpdate={(email, pass) => handleUpdateEmail(email, pass)}
+                            />
+                        </div>
                     </div>
 
                     {/* Change Password Section */}
