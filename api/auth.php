@@ -1,6 +1,7 @@
 <?php
 // auth.php
 require_once 'db.php';
+require_once 'TOTP.php';
 
 header("Content-Type: application/json");
 session_start();
@@ -9,7 +10,108 @@ $pdo = getDBConnection();
 $data = json_decode(file_get_contents("php://input"), true);
 $action = $_GET['action'] ?? '';
 
-if ($action === 'register') {
+// --- 2FA ACTIONS ---
+
+if ($action === 'setup_2fa') {
+    if (!isset($_SESSION['user_id'])) {
+        http_response_code(401);
+        echo json_encode(['error' => 'Unauthorized']);
+        exit;
+    }
+
+    $stmt = $pdo->prepare("SELECT username FROM users WHERE id = ?");
+    $stmt->execute([$_SESSION['user_id']]);
+    $username = $stmt->fetchColumn();
+
+    $secret = TOTP::generateSecret();
+    $url = TOTP::getProvisioningUri($username, $secret, 'CyberTracker');
+
+    echo json_encode(['secret' => $secret, 'qr_url' => $url]);
+}
+
+elseif ($action === 'enable_2fa') {
+    if (!isset($_SESSION['user_id'])) {
+        http_response_code(401);
+        echo json_encode(['error' => 'Unauthorized']);
+        exit;
+    }
+
+    $secret = $data['secret'] ?? '';
+    $code = $data['code'] ?? '';
+
+    if (TOTP::verifyCode($secret, $code)) {
+        $stmt = $pdo->prepare("UPDATE users SET two_factor_secret = ?, two_factor_enabled = 1 WHERE id = ?");
+        $stmt->execute([$secret, $_SESSION['user_id']]);
+        echo json_encode(['success' => true, 'message' => '2FA Enabled']);
+    }
+    else {
+        http_response_code(400);
+        echo json_encode(['error' => 'Invalid Code']);
+    }
+}
+
+elseif ($action === 'disable_2fa') {
+    if (!isset($_SESSION['user_id'])) {
+        http_response_code(401);
+        echo json_encode(['error' => 'Unauthorized']);
+        exit;
+    }
+
+    // Optional: Verify password before disabling (Skipping for now as per "simple button" request, but can be added if needed)
+
+    $stmt = $pdo->prepare("UPDATE users SET two_factor_enabled = 0, two_factor_secret = NULL WHERE id = ?");
+    $stmt->execute([$_SESSION['user_id']]);
+    echo json_encode(['success' => true, 'message' => '2FA Disabled']);
+}
+
+elseif ($action === 'verify_2fa') {
+    if (!isset($_SESSION['partial_id'])) {
+        http_response_code(401);
+        echo json_encode(['error' => 'No login attempt found']);
+        exit;
+    }
+
+    $code = $data['code'] ?? '';
+    $userId = $_SESSION['partial_id'];
+
+    $stmt = $pdo->prepare("SELECT two_factor_secret FROM users WHERE id = ?");
+    $stmt->execute([$userId]);
+    $secret = $stmt->fetchColumn();
+
+    if (TOTP::verifyCode($secret, $code)) {
+        // Promote to full session
+        $_SESSION['user_id'] = $userId;
+        unset($_SESSION['partial_id']);
+
+        // Fetch user data for response
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+        $stmt->execute([$userId]);
+        $user = $stmt->fetch();
+
+        $stmtStats = $pdo->prepare("SELECT * FROM user_stats WHERE id = ?");
+        $stmtStats->execute([$userId]);
+        $stats = $stmtStats->fetch();
+
+        echo json_encode([
+            'success' => true,
+            'user' => [
+                'id' => $user['id'],
+                'username' => $user['username'],
+                'role' => $user['role'],
+                'two_factor_enabled' => (bool)$user['two_factor_enabled'],
+                'stats' => $stats
+            ]
+        ]);
+    }
+    else {
+        http_response_code(401);
+        echo json_encode(['error' => 'Invalid Code']);
+    }
+}
+
+// --- STANDARD AUTH ACTIONS ---
+
+elseif ($action === 'register') {
     $username = $data['username'] ?? '';
     $password = $data['password'] ?? '';
 
@@ -19,7 +121,6 @@ if ($action === 'register') {
         exit;
     }
 
-    // Hash password
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
     try {
@@ -27,7 +128,6 @@ if ($action === 'register') {
         $stmt->execute([$username, $hash]);
         $userId = $pdo->lastInsertId();
 
-        // Initialize stats
         $pdo->exec("INSERT INTO user_stats (id, total_points, current_level, badges_json) VALUES ($userId, 0, 1, '[]')");
 
         echo json_encode(['success' => true, 'message' => 'User registered']);
@@ -36,8 +136,8 @@ if ($action === 'register') {
         http_response_code(409);
         echo json_encode(['error' => 'Username already exists']);
     }
-
 }
+
 elseif ($action === 'login') {
     $username = $data['username'] ?? '';
     $password = $data['password'] ?? '';
@@ -47,9 +147,17 @@ elseif ($action === 'login') {
     $user = $stmt->fetch();
 
     if ($user && password_verify($password, $user['password'])) {
+
+        // Check 2FA
+        if ($user['two_factor_enabled']) {
+            $_SESSION['partial_id'] = $user['id'];
+            echo json_encode(['success' => true, 'requires_2fa' => true]);
+            exit;
+        }
+
+        // Standard Login
         $_SESSION['user_id'] = $user['id'];
 
-        // Fetch stats
         $stmtStats = $pdo->prepare("SELECT * FROM user_stats WHERE id = ?");
         $stmtStats->execute([$user['id']]);
         $stats = $stmtStats->fetch();
@@ -60,6 +168,7 @@ elseif ($action === 'login') {
                 'id' => $user['id'],
                 'username' => $user['username'],
                 'role' => $user['role'],
+                'two_factor_enabled' => (bool)$user['two_factor_enabled'],
                 'stats' => $stats
             ]
         ]);
@@ -73,7 +182,6 @@ elseif ($action === 'login') {
 elseif ($action === 'logout') {
     session_destroy();
     echo json_encode(['success' => true]);
-
 }
 elseif ($action === 'change_password') {
     if (!isset($_SESSION['user_id'])) {
@@ -85,12 +193,6 @@ elseif ($action === 'change_password') {
     $userId = $_SESSION['user_id'];
     $currentPassword = $data['current_password'] ?? '';
     $newPassword = $data['new_password'] ?? '';
-
-    if (!$currentPassword || !$newPassword) {
-        http_response_code(400);
-        echo json_encode(['error' => 'Current and new password required']);
-        exit;
-    }
 
     $stmt = $pdo->prepare("SELECT password FROM users WHERE id = ?");
     $stmt->execute([$userId]);
@@ -116,20 +218,13 @@ elseif ($action === 'delete_account') {
     }
 
     $userId = $_SESSION['user_id'];
-    $password = $data['password'] ?? ''; // Confirm with password
-
-    if (!$password) {
-        http_response_code(400);
-        echo json_encode(['error' => 'Password confirmation required']);
-        exit;
-    }
+    $password = $data['password'] ?? '';
 
     $stmt = $pdo->prepare("SELECT password FROM users WHERE id = ?");
     $stmt->execute([$userId]);
     $user = $stmt->fetch();
 
     if ($user && password_verify($password, $user['password'])) {
-        // Delete tasks first (foreign key manual handling if no CASCADE)
         $pdo->prepare("DELETE FROM tasks WHERE user_id = ?")->execute([$userId]);
         $pdo->prepare("DELETE FROM user_stats WHERE id = ?")->execute([$userId]);
         $pdo->prepare("DELETE FROM users WHERE id = ?")->execute([$userId]);
@@ -146,7 +241,7 @@ elseif ($action === 'delete_account') {
 else {
     // Check Status
     if (isset($_SESSION['user_id'])) {
-        $stmt = $pdo->prepare("SELECT id, username, role FROM users WHERE id = ?");
+        $stmt = $pdo->prepare("SELECT id, username, role, two_factor_enabled FROM users WHERE id = ?");
         $stmt->execute([$_SESSION['user_id']]);
         $user = $stmt->fetch();
 
@@ -161,6 +256,7 @@ else {
                     'id' => $user['id'],
                     'username' => $user['username'],
                     'role' => $user['role'],
+                    'two_factor_enabled' => (bool)$user['two_factor_enabled'],
                     'stats' => $stats
                 ]
             ]);

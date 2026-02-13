@@ -251,6 +251,7 @@ function App() {
           user={user}
           onClose={() => setShowProfile(false)}
           onLogout={handleLogout}
+          onUserUpdate={checkAuth}
         />
       )}
 
