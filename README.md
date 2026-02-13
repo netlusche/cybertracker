@@ -35,7 +35,9 @@
 
 ### ☁️ Deployment (Strato Hosting Plus / Apache)
 
-This project is optimized for subdirectory deployment (e.g., `yourdomain.com/tasks/`).
+This project is **deployment-path agnostic**. It works seamlessly in:
+*   **Root Directory**: `yourdomain.com/`
+*   **Subdirectory**: `yourdomain.com/tasks/`
 
 #### 1. Build the Frontend
 Run the build command locally to generate the production files:
