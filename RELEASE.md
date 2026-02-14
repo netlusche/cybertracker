@@ -1,3 +1,10 @@
+# CyberTasker v1.2.1 - Release Notes
+
+## 🕵️‍♂️ Admin Panel Fixes
+- **Password Visibility**: Added an eye icon (Neon Cyan) to the "Reset Password" modal, allowing admins to verify the new password before submission. This matches the style of the global authentication forms.
+
+---
+
 # CyberTasker v1.2.0 - Release Notes
 
 ## 🕵️‍♂️ Admin Panel 2.0

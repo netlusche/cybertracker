@@ -1,3 +1,22 @@
+# CyberTasker Server Update Instructions (v1.2.0 → v1.2.1)
+
+These instructions guide you through updating your existing CyberTasker server installation to version **1.2.1**. This is a **patch release** containing UI fixes and does not require database changes.
+
+## 1. Backup
+
+- **Files**: Backup your `api/config.php`.
+
+## 2. Deploy Files
+
+1.  Upload the new `dist` folder contents to your server.
+2.  Overwrite all files **EXCEPT** `api/config.php` and your database file.
+
+## 3. Database Update
+
+**No database changes required.**
+
+---
+
 # CyberTasker Server Update Instructions (v1.1.0 → v1.2.0)
 
 These instructions guide you through updating your existing CyberTasker server installation from version **1.1.0** to **1.2.0**. This release introduces **Admin Panel 2.0** with advanced search, sorting, pagination, and user activity tracking.

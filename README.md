@@ -26,6 +26,12 @@
 
 ---
 
+## 🆕 New in Version 1.2.1
+
+### 🛠 Fixes & Improvements
+*   **Admin Password Visibility**: Admins can now toggle password visibility when resetting user credentials.
+*   **UI Polish**: Sidebar and modal inputs now share a consistent Cyberpunk aesthetic.
+
 ## 🆕 New in Version 1.2.0
 
 ### 🕵️‍♂️ Admin Panel 2.0
