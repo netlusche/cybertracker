@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import CyberDateInput from './CyberDateInput';
 
 const TaskForm = ({ onAddTask, categoryRefreshTrigger }) => {
     const [title, setTitle] = useState('');
@@ -100,11 +101,9 @@ const TaskForm = ({ onAddTask, categoryRefreshTrigger }) => {
                         <option value="3">Low (3)</option>
                     </select>
 
-                    <input
-                        type="date"
+                    <CyberDateInput
                         value={dueDate}
-                        onChange={(e) => setDueDate(e.target.value)}
-                        className="input-cyber w-auto text-sm"
+                        onChange={setDueDate}
                         placeholder="Due Date"
                     />
 
