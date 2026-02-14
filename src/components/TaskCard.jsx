@@ -112,6 +112,15 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete }) => {
                         </h3>
                     )}
 
+                    {task.due_date && (
+                        <div className="flex items-center gap-2 mb-2 text-xs font-mono text-gray-400">
+                            <span className="text-cyber-neonPink">🕒</span>
+                            <span className={new Date(task.due_date) < new Date() && task.status != 1 ? "text-red-500 font-bold" : ""}>
+                                {new Date(task.due_date).toLocaleDateString()}
+                            </span>
+                        </div>
+                    )}
+
                     <p className="text-xs text-cyber-neonPink font-mono">
                         +{task.points_value} XP
                     </p>

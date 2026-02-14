@@ -28,7 +28,14 @@ switch ($method) {
         $totalParam = $stmt->fetch()['total'];
 
         // Get Paginated Data
-        $sql = "SELECT * FROM tasks WHERE user_id = ? ORDER BY created_at DESC LIMIT ? OFFSET ?";
+        // Sorting: 1. Due Date (ASC), 2. Priority (ASC - High to Low), 3. Created At (DESC - Newest)
+        $sql = "SELECT * FROM tasks WHERE user_id = ? 
+                ORDER BY 
+                CASE WHEN due_date IS NOT NULL THEN 0 ELSE 1 END ASC,
+                due_date ASC,
+                priority ASC,
+                created_at DESC
+                LIMIT ? OFFSET ?";
         $stmt = $pdo->prepare($sql);
         // Bind params explicitly because LIMIT/OFFSET need integers, and execute array treats all as strings sometimes
         $stmt->bindParam(1, $userId, PDO::PARAM_INT);
@@ -60,10 +67,11 @@ switch ($method) {
         $category = $data['category'] ?? 'General';
         $priority = $data['priority'] ?? 2;
         $points = $data['points_value'] ?? 10;
+        $dueDate = !empty($data['due_date']) ? $data['due_date'] : null;
 
-        $sql = "INSERT INTO tasks (user_id, title, category, priority, points_value) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO tasks (user_id, title, category, priority, points_value, due_date) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$userId, $title, $category, $priority, $points]);
+        $stmt->execute([$userId, $title, $category, $priority, $points, $dueDate]);
 
         echo json_encode(['id' => $pdo->lastInsertId(), 'message' => 'Task created']);
         break;
@@ -126,6 +134,10 @@ switch ($method) {
             $pointsValue = 10 + (3 - $priority) * 5;
             $fields[] = 'points_value = ?';
             $params[] = $pointsValue;
+        }
+        if (array_key_exists('due_date', $data)) {
+            $fields[] = 'due_date = ?';
+            $params[] = !empty($data['due_date']) ? $data['due_date'] : null;
         }
 
         if (empty($fields)) {

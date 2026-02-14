@@ -4,6 +4,7 @@ const TaskForm = ({ onAddTask, categoryRefreshTrigger }) => {
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('');
     const [priority, setPriority] = useState('2');
+    const [dueDate, setDueDate] = useState('');
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
@@ -54,9 +55,11 @@ const TaskForm = ({ onAddTask, categoryRefreshTrigger }) => {
             title,
             category: selectedCategory,
             priority: parseInt(priority),
-            points_value: 10 + (3 - parseInt(priority)) * 5
+            points_value: 10 + (3 - parseInt(priority)) * 5,
+            due_date: dueDate // Pass due date
         });
         setTitle('');
+        setDueDate(''); // Reset due date
     };
 
     return (
@@ -74,7 +77,7 @@ const TaskForm = ({ onAddTask, categoryRefreshTrigger }) => {
                     />
                 </div>
 
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-wrap gap-4 items-center">
                     <select
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
@@ -97,7 +100,15 @@ const TaskForm = ({ onAddTask, categoryRefreshTrigger }) => {
                         <option value="3">Low (3)</option>
                     </select>
 
-                    <button type="submit" className="btn-cyber btn-neon-cyan flex-none w-full sm:w-auto">
+                    <input
+                        type="date"
+                        value={dueDate}
+                        onChange={(e) => setDueDate(e.target.value)}
+                        className="input-cyber w-auto text-sm"
+                        placeholder="Due Date"
+                    />
+
+                    <button type="submit" className="btn-cyber btn-neon-cyan flex-none w-full sm:w-auto ml-auto">
                         INITIALIZE
                     </button>
                 </div>

@@ -100,10 +100,17 @@ try {
         priority INT DEFAULT 2,
         status BOOLEAN DEFAULT 0,
         points_value INT DEFAULT 10,
+        due_date DATETIME DEFAULT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )";
     $pdo->exec($sqlTasks);
     echo "Table 'tasks' check/create complete.<br>\n";
+
+    // Add due_date if missing
+    if (!columnExists($pdo, 'tasks', 'due_date')) {
+        $pdo->exec("ALTER TABLE tasks ADD COLUMN due_date DATETIME DEFAULT NULL");
+        echo "Column 'due_date' added to tasks.<br>\n";
+    }
 
     // --- USER CATEGORIES TABLE ---
     $sqlCategories = "CREATE TABLE IF NOT EXISTS user_categories (
