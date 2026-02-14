@@ -12,6 +12,35 @@ $action = $_GET['action'] ?? '';
 
 // --- 2FA ACTIONS ---
 
+// Helper: Check Password Strength
+function check_password_strength($password, $pdo)
+{
+    // 1. Check if policy is enabled
+    $stmt = $pdo->prepare("SELECT setting_value FROM system_settings WHERE setting_key = 'strict_password_policy'");
+    $stmt->execute();
+    $result = $stmt->fetch();
+
+    // Default to strict off if not set
+    $isStrict = ($result && $result['setting_value'] === '1');
+
+    if (!$isStrict) {
+        return true; // Any password allowed
+    }
+
+    // 2. Validate against rules
+    // Min 12, 1 Upper, 1 Number, 1 Special
+    if (strlen($password) < 12)
+        return "Password too short (min 12 chars).";
+    if (!preg_match('/[A-Z]/', $password))
+        return "Password must contain at least one uppercase letter.";
+    if (!preg_match('/\d/', $password))
+        return "Password must contain at least one number.";
+    if (!preg_match('/[\W_]/', $password))
+        return "Password must contain at least one special character.";
+
+    return true;
+}
+
 if ($action === 'setup_2fa') {
     if (!isset($_SESSION['user_id'])) {
         http_response_code(401);
@@ -120,6 +149,14 @@ elseif ($action === 'register') {
     if (!$username || !$password || !$email) {
         http_response_code(400);
         echo json_encode(['error' => 'Username, password, and email required']);
+        exit;
+    }
+
+    // Check Password Policy
+    $policyCheck = check_password_strength($password, $pdo);
+    if ($policyCheck !== true) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Password Policy Violation: ' . $policyCheck]);
         exit;
     }
 
@@ -315,6 +352,14 @@ elseif ($action === 'change_password') {
     $user = $stmt->fetch();
 
     if ($user && password_verify($currentPassword, $user['password'])) {
+        // Check Password Policy
+        $policyCheck = check_password_strength($newPassword, $pdo);
+        if ($policyCheck !== true) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Password Policy Violation: ' . $policyCheck]);
+            exit;
+        }
+
         $newHash = password_hash($newPassword, PASSWORD_DEFAULT);
         $updateStmt = $pdo->prepare("UPDATE users SET password = ? WHERE id = ?");
         $updateStmt->execute([$newHash, $userId]);
@@ -400,6 +445,14 @@ elseif ($action === 'reset_password') {
     $user = $stmt->fetch();
 
     if ($user) {
+        // Check Password Policy
+        $policyCheck = check_password_strength($newPassword, $pdo);
+        if ($policyCheck !== true) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Password Policy Violation: ' . $policyCheck]);
+            exit;
+        }
+
         $hash = password_hash($newPassword, PASSWORD_DEFAULT);
         $update = $pdo->prepare("UPDATE users SET password = ?, reset_token = NULL, reset_expires = NULL WHERE id = ?");
         $update->execute([$hash, $user['id']]);

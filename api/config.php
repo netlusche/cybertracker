@@ -9,6 +9,8 @@ if (file_exists(__DIR__ . '/config.local.php')) {
 else {
     // DEFAULT / PRODUCTION TEMPLATE
     // Update these values or create a config.local.php
+    if (!defined('DB_TYPE'))
+        define('DB_TYPE', 'mysql'); // 'mysql' (default) or 'sqlite'
     if (!defined('DB_HOST'))
         define('DB_HOST', 'localhost');
     if (!defined('DB_NAME'))

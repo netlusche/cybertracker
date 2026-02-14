@@ -49,6 +49,7 @@ const PromptModal = ({ message, onConfirm, onCancel }) => {
 
 const AdminPanel = ({ onClose }) => {
     const [users, setUsers] = useState([]);
+    const [settings, setSettings] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
@@ -59,7 +60,34 @@ const AdminPanel = ({ onClose }) => {
 
     useEffect(() => {
         fetchUsers();
+        fetchSettings();
     }, []);
+
+    const fetchSettings = async () => {
+        try {
+            const res = await fetch('api/admin.php?action=get_settings');
+            if (res.ok) {
+                const data = await res.json();
+                setSettings(data);
+            }
+        } catch (err) { console.error("Failed to load settings", err); }
+    };
+
+    const handleToggleSetting = async (key, newValue) => {
+        try {
+            const res = await fetch('api/admin.php?action=update_setting', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ key, value: newValue })
+            });
+            if (res.ok) {
+                setSettings(prev => ({ ...prev, [key]: newValue }));
+                setMessage(`System Policy Updated: ${key}`);
+            } else {
+                setError('Failed to update setting');
+            }
+        } catch (err) { setError('Connection Error'); }
+    };
 
     const fetchUsers = async () => {
         try {
@@ -262,6 +290,30 @@ const AdminPanel = ({ onClose }) => {
                             ))}
                         </tbody>
                     </table>
+                </div>
+
+                {/* System Policies Section */}
+                <div className="border-t border-yellow-900/50 pt-4 mt-4">
+                    <h3 className="text-yellow-500 font-bold mb-3 flex items-center gap-2">
+                        <span>⚙</span> SYSTEM POLICIES
+                    </h3>
+                    <div className="flex items-center gap-4 bg-yellow-900/10 p-3 rounded border border-yellow-900/30">
+                        <div className="flex-1">
+                            <h4 className="text-white font-bold text-sm">Strict Password Policy</h4>
+                            <p className="text-xs text-gray-400">
+                                Enforce heavy encryption protocols (Min 12 chars, Upper, Number, Special).
+                            </p>
+                        </div>
+                        <label className="relative inline-flex items-center cursor-pointer">
+                            <input
+                                type="checkbox"
+                                className="sr-only peer"
+                                checked={String(settings.strict_password_policy) === '1'}
+                                onChange={() => handleToggleSetting('strict_password_policy', String(settings.strict_password_policy) === '1' ? '0' : '1')}
+                            />
+                            <div className="w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-yellow-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-600"></div>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>

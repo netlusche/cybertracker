@@ -3,6 +3,9 @@
 require_once 'db.php';
 session_start();
 header("Content-Type: application/json");
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
 
 // Middleware: Verify Admin Role
 if (!isset($_SESSION['user_id'])) {
@@ -28,12 +31,30 @@ if (!$user || $user['role'] !== 'admin') {
 $method = $_SERVER['REQUEST_METHOD'];
 $action = $_GET['action'] ?? 'list';
 
-if ($method === 'GET' && $action === 'list') {
-    // List all users
-    $stmt = $pdo->query("SELECT id, username, role, is_verified, created_at FROM users ORDER BY id ASC");
-    $users = $stmt->fetchAll();
-    echo json_encode($users);
-
+if ($method === 'GET') {
+    if ($action === 'list') {
+        // List all users
+        $stmt = $pdo->query("SELECT id, username, role, is_verified, created_at FROM users ORDER BY id ASC");
+        $users = $stmt->fetchAll();
+        echo json_encode($users);
+    }
+    elseif ($action === 'get_settings') {
+        try {
+            error_log("Admin API: Fetching settings...");
+            $stmt = $pdo->query("SELECT setting_key, setting_value FROM system_settings");
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $settings = [];
+            foreach ($rows as $row) {
+                $settings[$row['setting_key']] = $row['setting_value'];
+            }
+            error_log("Admin API: Settings fetched: " . json_encode($settings));
+            echo json_encode($settings);
+        }
+        catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['error' => $e->getMessage()]);
+        }
+    }
 }
 elseif ($method === 'POST') {
     $data = json_decode(file_get_contents("php://input"), true);
@@ -149,6 +170,31 @@ elseif ($method === 'POST') {
         $stmt->execute([$hash, $targetId]);
 
         echo json_encode(['success' => true, 'message' => 'Password reset']);
+    }
+
+    elseif ($action === 'update_setting') {
+        $key = $data['key'] ?? null;
+        $value = $data['value'] ?? null;
+
+        if (!$key) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Missing setting key']);
+            exit;
+        }
+
+        // Whitelist allowed settings to prevent arbitrary insertion
+        $allowedSettings = ['strict_password_policy'];
+        if (!in_array($key, $allowedSettings)) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Invalid setting key: ' . htmlspecialchars($key)]);
+            exit;
+        }
+
+        // REPLACE INTO works for both MySQL and SQLite
+        $stmt = $pdo->prepare("REPLACE INTO system_settings (setting_key, setting_value) VALUES (?, ?)");
+        $stmt->execute([$key, $value]);
+
+        echo json_encode(['success' => true]);
     }
 }
 ?>

@@ -33,11 +33,11 @@ const TaskForm = ({ onAddTask }) => {
                     />
                 </div>
 
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-4">
                     <select
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
-                        className="input-cyber flex-1"
+                        className="input-cyber flex-1 min-w-[120px]"
                     >
                         <option value="Work">Work</option>
                         <option value="Private">Private</option>
@@ -49,14 +49,14 @@ const TaskForm = ({ onAddTask }) => {
                     <select
                         value={priority}
                         onChange={(e) => setPriority(e.target.value)}
-                        className="input-cyber w-32"
+                        className="input-cyber w-32 flex-none"
                     >
                         <option value="1">High (1)</option>
                         <option value="2">Med (2)</option>
                         <option value="3">Low (3)</option>
                     </select>
 
-                    <button type="submit" className="btn-cyber btn-neon-cyan flex-none">
+                    <button type="submit" className="btn-cyber btn-neon-cyan flex-none w-full sm:w-auto">
                         INITIALIZE
                     </button>
                 </div>
