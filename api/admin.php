@@ -39,16 +39,29 @@ if ($method === 'GET') {
         $limit = 10;
         $offset = ($page - 1) * $limit;
 
+        // Sorting Parameters
+        $allowedSorts = ['id', 'username', 'is_verified', 'last_login'];
+        $sortBy = $_GET['sort'] ?? 'id';
+        $sortDir = strtoupper($_GET['dir'] ?? 'ASC');
+
+        if (!in_array($sortBy, $allowedSorts))
+            $sortBy = 'id';
+        if ($sortDir !== 'ASC' && $sortDir !== 'DESC')
+            $sortDir = 'ASC';
+
         // Count total users
         $totalStmt = $pdo->query("SELECT COUNT(*) FROM users");
         $totalUsers = (int)$totalStmt->fetchColumn();
         $totalPages = (int)ceil($totalUsers / $limit);
 
-        // Fetch users (Admins first, then alphabetical)
-        $stmt = $pdo->prepare("SELECT id, username, role, is_verified, created_at, last_login 
-                               FROM users 
-                               ORDER BY (CASE WHEN role = 'admin' THEN 0 ELSE 1 END), username ASC 
-                               LIMIT :limit OFFSET :offset");
+        // Fetch users (Admins first, then dynamic sort)
+        // Note: We prioritize admins (role='admin' -> 0)
+        $sql = "SELECT id, username, role, is_verified, created_at, last_login 
+                FROM users 
+                ORDER BY (CASE WHEN role = 'admin' THEN 0 ELSE 1 END), $sortBy $sortDir 
+                LIMIT :limit OFFSET :offset";
+
+        $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();

@@ -50,6 +50,7 @@ const PromptModal = ({ message, onConfirm, onCancel }) => {
 const AdminPanel = ({ onClose }) => {
     const [users, setUsers] = useState([]);
     const [pagination, setPagination] = useState({ totalUsers: 0, totalPages: 1, currentPage: 1 });
+    const [sortConfig, setSortConfig] = useState({ key: 'id', direction: 'ASC' }); // [NEW] Sorting State
     const [settings, setSettings] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -90,9 +91,9 @@ const AdminPanel = ({ onClose }) => {
         } catch (err) { setError('Connection Error'); }
     };
 
-    const fetchUsers = async (page = 1) => {
+    const fetchUsers = async (page = 1, sortKey = sortConfig.key, sortDir = sortConfig.direction) => {
         try {
-            const res = await fetch(`api/admin.php?action=list&page=${page}`);
+            const res = await fetch(`api/admin.php?action=list&page=${page}&sort=${sortKey}&dir=${sortDir}`);
             if (res.ok) {
                 const data = await res.json();
                 setUsers(data.users);
@@ -109,6 +110,20 @@ const AdminPanel = ({ onClose }) => {
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleSort = (key) => {
+        let direction = 'ASC';
+        if (sortConfig.key === key && sortConfig.direction === 'ASC') {
+            direction = 'DESC';
+        }
+        setSortConfig({ key, direction });
+        fetchUsers(pagination.currentPage, key, direction); // Fetch with new sort
+    };
+
+    const SortIcon = ({ columnKey }) => {
+        if (sortConfig.key !== columnKey) return <span className="text-gray-600 ml-1">↕</span>;
+        return <span className="text-yellow-500 ml-1">{sortConfig.direction === 'ASC' ? '↑' : '↓'}</span>;
     };
 
     // --- Wrapper Handlers ---
@@ -245,11 +260,31 @@ const AdminPanel = ({ onClose }) => {
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="text-yellow-700 border-b border-yellow-900/30">
-                                <th className="p-2">ID</th>
-                                <th className="p-2">CODENAME</th>
+                                <th
+                                    className={`p-2 cursor-pointer select-none hover:text-yellow-400 ${sortConfig.key === 'id' ? 'text-yellow-500' : ''}`}
+                                    onClick={() => handleSort('id')}
+                                >
+                                    ID <SortIcon columnKey="id" />
+                                </th>
+                                <th
+                                    className={`p-2 cursor-pointer select-none hover:text-yellow-400 ${sortConfig.key === 'username' ? 'text-yellow-500' : ''}`}
+                                    onClick={() => handleSort('username')}
+                                >
+                                    CODENAME <SortIcon columnKey="username" />
+                                </th>
                                 <th className="p-2">ROLE</th>
-                                <th className="p-2 text-center">VERIFIED</th>
-                                <th className="p-2">HISTORY</th>
+                                <th
+                                    className={`p-2 text-center cursor-pointer select-none hover:text-yellow-400 ${sortConfig.key === 'is_verified' ? 'text-yellow-500' : ''}`}
+                                    onClick={() => handleSort('is_verified')}
+                                >
+                                    VERIFIED <SortIcon columnKey="is_verified" />
+                                </th>
+                                <th
+                                    className={`p-2 cursor-pointer select-none hover:text-yellow-400 ${sortConfig.key === 'last_login' ? 'text-yellow-500' : ''}`}
+                                    onClick={() => handleSort('last_login')}
+                                >
+                                    HISTORY <SortIcon columnKey="last_login" />
+                                </th>
                                 <th className="p-2 text-right">ACTIONS</th>
                             </tr>
                         </thead>
