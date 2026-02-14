@@ -51,6 +51,15 @@ const HelpModal = ({ onClose }) => {
                     </section>
 
                     <section>
+                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">// CATEGORY PROTOCOLS [Customization]</h3>
+                        <ul className="list-disc w-5/6 mx-auto space-y-1 text-gray-300">
+                            <li><strong>MANAGE PROTOCOLS:</strong> Access your <strong>PROFILE</strong> to initialize, rename, or delete custom categories.</li>
+                            <li><strong>DEFAULT OVERRIDE:</strong> Tag any protocol as <strong>STOCKED/DEFAULT</strong> (★) to prioritize it in the deployment terminal.</li>
+                            <li><strong>RE-INITIALIZATION:</strong> Renaming a protocol will retroactively patch all associated archived directives.</li>
+                        </ul>
+                    </section>
+
+                    <section>
                         <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">// PROGRESSION MATRIX [Gamification]</h3>
                         <ul className="list-disc w-5/6 mx-auto space-y-1 text-gray-300">
                             <li>Accumulate XP to increase your <strong>OPERATOR LEVEL</strong>.</li>
