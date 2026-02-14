@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Internal reusable component for password fields with toggle
 const PasswordInput = ({ value, onChange, placeholder, className, required = false }) => {
@@ -34,7 +34,7 @@ const PasswordInput = ({ value, onChange, placeholder, className, required = fal
     );
 };
 
-const ProfileModal = ({ user, onClose, onLogout, onUserUpdate }) => {
+const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate }) => {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [deleteConfirmation, setDeleteConfirmation] = useState('');
@@ -205,6 +205,92 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate }) => {
     };
 
 
+
+    // --- Category Management ---
+    const [categories, setCategories] = useState([]);
+    const [newCatName, setNewCatName] = useState('');
+    const [editingCatId, setEditingCatId] = useState(null);
+    const [editingCatName, setEditingCatName] = useState('');
+
+    useEffect(() => {
+        loadCategories();
+    }, []);
+
+    const loadCategories = async () => {
+        try {
+            const res = await fetch('api/categories.php');
+            const data = await res.json();
+            if (Array.isArray(data)) setCategories(data);
+        } catch (err) { console.error("Failed to load categories"); }
+    };
+
+    const handleAddCategory = async (e) => {
+        e.preventDefault();
+        if (!newCatName.trim()) return;
+        try {
+            const res = await fetch('api/categories.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: newCatName })
+            });
+            if (res.ok) {
+                setNewCatName('');
+                loadCategories();
+                if (onCategoryUpdate) onCategoryUpdate();
+            }
+        } catch (err) { setError('Failed to add category'); }
+    };
+
+    const handleStartEdit = (cat) => {
+        setEditingCatId(cat.id);
+        setEditingCatName(cat.name);
+    };
+
+    const handleSaveRename = async (id) => {
+        if (!editingCatName.trim()) return;
+        try {
+            const res = await fetch('api/categories.php', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, name: editingCatName })
+            });
+            if (res.ok) {
+                setEditingCatId(null);
+                loadCategories();
+                if (onCategoryUpdate) onCategoryUpdate();
+            }
+        } catch (err) { setError('Failed to rename category'); }
+    };
+
+    const handleDeleteCategory = async (id) => {
+        if (!confirm("Delete category? Information: Existing tasks will retain this category name, but it will no longer be selectable for new tasks.")) return;
+        try {
+            const res = await fetch(`api/categories.php?id=${id}`, {
+                method: 'DELETE'
+            });
+            if (res.ok) {
+                loadCategories();
+                if (onCategoryUpdate) onCategoryUpdate();
+            } else {
+                setError('Failed to delete category (Default one cannot be deleted if only one remains, check console)');
+            }
+        } catch (err) { setError('Failed to delete category'); }
+    };
+
+    const handleSetDefault = async (id) => {
+        try {
+            const res = await fetch(`api/categories.php?action=set_default`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id })
+            });
+            if (res.ok) {
+                loadCategories();
+                if (onCategoryUpdate) onCategoryUpdate();
+            }
+        } catch (err) { setError('Failed to set default category'); }
+    };
+
     return (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
             <div className="card-cyber w-full max-w-lg border-cyber-neonCyan shadow-[0_0_30px_rgba(0,255,255,0.3)] relative max-h-[90vh] overflow-y-auto">
@@ -223,6 +309,65 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate }) => {
                 {error && <div className="text-red-500 mb-4 font-mono">⚠ {error}</div>}
 
                 <div className="space-y-8">
+
+                    {/* Category Management */}
+                    <div className="border border-cyber-neonPurple/30 bg-cyber-neonPurple/5 p-4 rounded">
+                        <h3 className="text-cyber-neonPurple font-bold mb-3 flex items-center gap-2">
+                            <span>📂</span> CATEGORY PROTOCOLS
+                        </h3>
+
+                        <div className="space-y-2 mb-4 max-h-40 overflow-y-auto custom-scrollbar">
+                            {categories.map(cat => (
+                                <div key={cat.id} className="flex items-center justify-between bg-black/40 p-2 rounded border border-gray-700">
+                                    {editingCatId === cat.id ? (
+                                        <div className="flex gap-2 w-full">
+                                            <input
+                                                type="text"
+                                                value={editingCatName}
+                                                onChange={(e) => setEditingCatName(e.target.value)}
+                                                className="input-cyber text-xs p-1 flex-1"
+                                                autoFocus
+                                            />
+                                            <button onClick={() => handleSaveRename(cat.id)} className="text-green-500 hover:text-green-400">✓</button>
+                                            <button onClick={() => setEditingCatId(null)} className="text-red-500 hover:text-red-400">✕</button>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-gray-300 font-mono text-sm">{cat.name}</span>
+                                                {cat.is_default && (
+                                                    <span className="text-[10px] bg-cyber-neonCyan/20 text-cyber-neonCyan px-1 rounded border border-cyber-neonCyan/30 animate-pulse font-bold">
+                                                        DEFAULT
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <div className="flex gap-2">
+                                                {!cat.is_default && (
+                                                    <button onClick={() => handleSetDefault(cat.id)} className="text-gray-500 hover:text-yellow-500" title="Set as Default">★</button>
+                                                )}
+                                                <button onClick={() => handleStartEdit(cat)} className="text-gray-500 hover:text-cyber-neonCyan" title="Rename">✎</button>
+                                                <button onClick={() => handleDeleteCategory(cat.id)} className="text-gray-500 hover:text-red-500" title="Delete">🗑</button>
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+
+                        <form onSubmit={handleAddCategory} className="flex gap-2">
+                            <input
+                                type="text"
+                                placeholder="NEW PROTOCOL NAME"
+                                value={newCatName}
+                                onChange={(e) => setNewCatName(e.target.value)}
+                                className="input-cyber text-xs flex-1"
+                                maxLength={20}
+                            />
+                            <button type="submit" className="btn-cyber text-cyber-neonPurple border-cyber-neonPurple hover:bg-cyber-neonPurple hover:text-black text-xs px-3">
+                                ADD
+                            </button>
+                        </form>
+                    </div>
 
                     {/* 2FA Section */}
                     <div className="border border-cyber-neonGreen/30 bg-cyber-neonGreen/5 p-4 rounded">

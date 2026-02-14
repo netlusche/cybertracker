@@ -8,6 +8,7 @@ $dbType = defined('DB_TYPE') ? DB_TYPE : 'mysql';
 
 echo "Installing CyberTasker Database ($dbType)...<br>\n";
 
+
 /**
  * Check if a table exists
  */
@@ -103,6 +104,23 @@ try {
     )";
     $pdo->exec($sqlTasks);
     echo "Table 'tasks' check/create complete.<br>\n";
+
+    // --- USER CATEGORIES TABLE ---
+    $sqlCategories = "CREATE TABLE IF NOT EXISTS user_categories (
+        id $autoIncrement,
+        user_id INT NOT NULL,
+        name VARCHAR(50) NOT NULL,
+        is_default BOOLEAN DEFAULT 0,
+        UNIQUE(user_id, name),
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    )";
+    $pdo->exec($sqlCategories);
+    echo "Table 'user_categories' check/create complete.<br>\n";
+
+    if (!columnExists($pdo, 'user_categories', 'is_default')) {
+        $pdo->exec("ALTER TABLE user_categories ADD COLUMN is_default BOOLEAN DEFAULT 0");
+        echo "Column 'is_default' added to user_categories.<br>\n";
+    }
 
     if (!columnExists($pdo, 'tasks', 'user_id')) {
         $pdo->exec("ALTER TABLE tasks ADD COLUMN user_id INT");

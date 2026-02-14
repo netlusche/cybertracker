@@ -180,6 +180,16 @@ elseif ($action === 'register') {
 
         $pdo->exec("INSERT INTO user_stats (id, total_points, current_level, badges_json) VALUES ($userId, 0, 1, '[]')");
 
+        // [New] Seed Categories
+        $categoriesSql = "INSERT INTO user_categories (user_id, name, is_default) VALUES 
+            (?, 'Private', 1),
+            (?, 'Work', 0),
+            (?, 'Health', 0),
+            (?, 'Finance', 0),
+            (?, 'Hobby', 0)";
+        $stmtCats = $pdo->prepare($categoriesSql);
+        $stmtCats->execute([$userId, $userId, $userId, $userId, $userId]);
+
         // [New] Insert Onboarding Tasks
         $tasksSql = "INSERT INTO tasks (user_id, title, category, priority, points_value) VALUES 
             (?, 'Debug Neural Link Interface', 'Work', 2, 15),

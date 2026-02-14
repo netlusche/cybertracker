@@ -16,6 +16,9 @@ function App() {
   const [showProfile, setShowProfile] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
+  const [categoryRefreshTrigger, setCategoryRefreshTrigger] = useState(0);
+
+  const refreshCategories = () => setCategoryRefreshTrigger(prev => prev + 1);
 
   // ... (existing useEffect and fetch functions) ...
 
@@ -210,7 +213,7 @@ function App() {
               totalXPForLevel={100}
             />
 
-            <TaskForm onAddTask={handleAddTask} />
+            <TaskForm onAddTask={handleAddTask} categoryRefreshTrigger={categoryRefreshTrigger} />
 
             <div className="space-y-4">
               <h2 className="text-xl text-cyber-neonGreen border-l-4 border-cyber-neonGreen pl-3 mb-4 uppercase tracking-wider">
@@ -283,7 +286,8 @@ function App() {
           user={user}
           onClose={() => setShowProfile(false)}
           onLogout={handleLogout}
-          onUserUpdate={checkAuth}
+          onUserUpdate={() => fetchTasks(pagination.currentPage)}
+          onCategoryUpdate={refreshCategories} // [NEW]
         />
       )}
 
