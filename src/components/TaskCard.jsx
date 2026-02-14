@@ -125,7 +125,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete }) => {
                         </div>
                     )}
 
-                    <p className="text-xs text-cyber-neonPink font-mono">
+                    <p className="text-sm text-cyber-neonPink font-mono">
                         +{task.points_value} XP
                     </p>
                 </div>
@@ -141,7 +141,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete }) => {
 
                     <button
                         onClick={() => onDelete(task.id)}
-                        className="w-8 h-8 rounded-full border border-gray-600 text-gray-500 hover:border-red-500 hover:text-red-500 flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100"
+                        className={`w-8 h-8 rounded-full border border-gray-600 flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100 ${task.status == 1 ? 'text-gray-300 hover:text-white hover:border-gray-400' : 'text-gray-500 hover:border-red-500 hover:text-red-500'}`}
                         title="Delete Task"
                     >
                         ×

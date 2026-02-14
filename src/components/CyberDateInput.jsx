@@ -57,10 +57,18 @@ const CyberDateInput = ({ value, onChange, placeholder = "Select Date" }) => {
         setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1));
     };
 
+    const handleYearChange = (offset) => {
+        const newDate = new Date(viewDate);
+        newDate.setFullYear(newDate.getFullYear() + offset);
+        setViewDate(newDate);
+    };
+
     const handleDateClick = (day) => {
         // Construct ISO string YYYY-MM-DD
         const year = viewDate.getFullYear();
         const month = viewDate.getMonth(); // 0-indexed
+
+        // ... (rest of handleDateClick)
 
         // Note: Month in Date constructor is 0-indexed, but for ISO string we need 1-indexed
         const selectedDate = new Date(year, month, day, 12, 0, 0); // Noon to avoid timezone edge cases on pure dates
@@ -146,11 +154,17 @@ const CyberDateInput = ({ value, onChange, placeholder = "Select Date" }) => {
                 <div className="absolute top-full mt-2 right-0 z-[100] w-64 bg-black border border-cyber-neonCyan shadow-[0_0_20px_rgba(0,255,255,0.3)] p-2 animate-in fade-in zoom-in-95 duration-150">
                     {/* Header */}
                     <div className="flex justify-between items-center mb-2 pb-2 border-b border-gray-800">
-                        <button onClick={handlePrevMonth} className="text-cyber-neonCyan hover:text-white px-2">&lt;</button>
+                        <div className="flex gap-1">
+                            <button onClick={() => handleYearChange(-1)} className="text-cyber-neonCyan hover:text-white px-1 font-bold text-xs">{'<<'}</button>
+                            <button onClick={handlePrevMonth} className="text-cyber-neonCyan hover:text-white px-1">&lt;</button>
+                        </div>
                         <span className="text-cyber-neonPink font-bold uppercase tracking-wider text-sm">
                             {months[viewDate.getMonth()]} {viewDate.getFullYear()}
                         </span>
-                        <button onClick={handleNextMonth} className="text-cyber-neonCyan hover:text-white px-2">&gt;</button>
+                        <div className="flex gap-1">
+                            <button onClick={handleNextMonth} className="text-cyber-neonCyan hover:text-white px-1">&gt;</button>
+                            <button onClick={() => handleYearChange(1)} className="text-cyber-neonCyan hover:text-white px-1 font-bold text-xs">{'>>'}</button>
+                        </div>
                     </div>
 
                     {/* Weekday Headers */}
