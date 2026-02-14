@@ -44,8 +44,11 @@ if ($method === 'GET') {
         $totalUsers = (int)$totalStmt->fetchColumn();
         $totalPages = (int)ceil($totalUsers / $limit);
 
-        // Fetch users
-        $stmt = $pdo->prepare("SELECT id, username, role, is_verified, created_at, last_login FROM users ORDER BY id ASC LIMIT :limit OFFSET :offset");
+        // Fetch users (Admins first, then alphabetical)
+        $stmt = $pdo->prepare("SELECT id, username, role, is_verified, created_at, last_login 
+                               FROM users 
+                               ORDER BY (CASE WHEN role = 'admin' THEN 0 ELSE 1 END), username ASC 
+                               LIMIT :limit OFFSET :offset");
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();

@@ -309,23 +309,43 @@ const AdminPanel = ({ onClose }) => {
                     <div className="text-gray-500">
                         TOTAL RECRUITS: <span className="text-yellow-500">{pagination.totalUsers}</span>
                     </div>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2">
+                        <button
+                            disabled={pagination.currentPage <= 1}
+                            onClick={() => fetchUsers(1)}
+                            className="px-3 py-1 border border-yellow-900/50 text-yellow-700 hover:bg-yellow-900/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
+                            title="First Page"
+                        >
+                            &laquo;
+                        </button>
                         <button
                             disabled={pagination.currentPage <= 1}
                             onClick={() => fetchUsers(pagination.currentPage - 1)}
-                            className="px-2 py-1 border border-yellow-900/50 text-yellow-700 hover:bg-yellow-900/20 disabled:opacity-30 disabled:hover:bg-transparent"
+                            className="px-3 py-1 border border-yellow-900/50 text-yellow-700 hover:bg-yellow-900/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
+                            title="Previous Page"
                         >
-                            &lt; PREV
+                            &lsaquo;
                         </button>
-                        <span className="text-yellow-600">
-                            EXTRACT {pagination.currentPage} / {pagination.totalPages}
+
+                        <span className="text-yellow-600 px-2">
+                            {pagination.currentPage} / {pagination.totalPages}
                         </span>
+
                         <button
                             disabled={pagination.currentPage >= pagination.totalPages}
                             onClick={() => fetchUsers(pagination.currentPage + 1)}
-                            className="px-2 py-1 border border-yellow-900/50 text-yellow-700 hover:bg-yellow-900/20 disabled:opacity-30 disabled:hover:bg-transparent"
+                            className="px-3 py-1 border border-yellow-900/50 text-yellow-700 hover:bg-yellow-900/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
+                            title="Next Page"
                         >
-                            NEXT &gt;
+                            &rsaquo;
+                        </button>
+                        <button
+                            disabled={pagination.currentPage >= pagination.totalPages}
+                            onClick={() => fetchUsers(pagination.totalPages)}
+                            className="px-3 py-1 border border-yellow-900/50 text-yellow-700 hover:bg-yellow-900/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
+                            title="Last Page"
+                        >
+                            &raquo;
                         </button>
                     </div>
                 </div>
