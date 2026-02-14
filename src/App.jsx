@@ -170,30 +170,30 @@ function App() {
       <div className="fixed inset-0 pointer-events-none opacity-10 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 
       <div className="max-w-3xl mx-auto relative z-10">
-        <header className="mb-8 flex justify-between items-center border-b border-cyber-gray pb-4">
-          <div>
+        <header className="mb-8 flex flex-col md:flex-row justify-between items-center gap-4 border-b border-cyber-gray pb-4">
+          <div className="text-center md:text-left">
             <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyber-neonCyan to-cyber-neonPink drop-shadow-[0_0_5px_rgba(0,255,255,0.5)]">
               CYBER<span className="text-white">TASKER</span>
             </h1>
             <p className="text-xs text-gray-500 tracking-[0.3em] mt-1">
               OPERATIVE: <span className="text-cyber-neonGreen">{user ? user.username : 'UNKNOWN'}</span>
-              {user?.role === 'admin' && <span className="ml-2 text-yellow-500 font-bold">[ADMIN CLEARANCE]</span>}
+              {user?.role === 'admin' && <span className="block md:inline md:ml-2 text-yellow-500 font-bold mt-1 md:mt-0">[ADMIN CLEARANCE]</span>}
             </p>
           </div>
           {user && (
-            <div className="flex gap-2">
-              <button onClick={() => setShowHelp(true)} className="text-xs border border-gray-600 text-gray-400 hover:bg-gray-800 hover:text-white px-2 py-1 rounded transition-colors mr-2">
+            <div className="flex flex-wrap gap-2 justify-center">
+              <button onClick={() => setShowHelp(true)} className="text-xs border border-gray-600 text-gray-400 hover:bg-gray-800 hover:text-white px-3 py-2 md:px-2 md:py-1 rounded transition-colors">
                 SYSTEM HELP
               </button>
               {user.role === 'admin' && (
-                <button onClick={() => setShowAdmin(true)} className="text-xs border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black px-2 py-1 rounded transition-colors font-bold">
-                  ADMIN PANEL
+                <button onClick={() => setShowAdmin(true)} className="text-xs border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black px-3 py-2 md:px-2 md:py-1 rounded transition-colors font-bold">
+                  ADMIN
                 </button>
               )}
-              <button onClick={() => setShowProfile(true)} className="text-xs border border-cyber-neonCyan text-cyber-neonCyan hover:bg-cyber-neonCyan hover:text-black px-2 py-1 rounded transition-colors">
+              <button onClick={() => setShowProfile(true)} className="text-xs border border-cyber-neonCyan text-cyber-neonCyan hover:bg-cyber-neonCyan hover:text-black px-3 py-2 md:px-2 md:py-1 rounded transition-colors">
                 PROFILE
               </button>
-              <button onClick={handleLogout} className="text-xs border border-red-900 text-red-700 hover:bg-red-900 hover:text-white px-2 py-1 rounded transition-colors">
+              <button onClick={handleLogout} className="text-xs border border-red-900 text-red-700 hover:bg-red-900 hover:text-white px-3 py-2 md:px-2 md:py-1 rounded transition-colors">
                 LOGOUT
               </button>
             </div>
