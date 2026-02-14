@@ -213,7 +213,9 @@ function App() {
               totalXPForLevel={100}
             />
 
-            <TaskForm onAddTask={handleAddTask} categoryRefreshTrigger={categoryRefreshTrigger} />
+            <div className="relative z-20">
+              <TaskForm onAddTask={handleAddTask} categoryRefreshTrigger={categoryRefreshTrigger} />
+            </div>
 
             <div className="space-y-4">
               <h2 className="text-xl text-cyber-neonGreen border-l-4 border-cyber-neonGreen pl-3 mb-4 uppercase tracking-wider">
