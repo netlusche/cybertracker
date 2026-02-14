@@ -1,11 +1,11 @@
 # CyberTasker Server Update Instructions (v1.0.x → v1.1.0)
 
-These instructions guide you through updating your existing CyberTasker server installation from version **1.0.x** to **1.1.0**, which includes the Strict Password Policy and UI enhancements.
+These instructions guide you through updating your existing CyberTasker server installation from version **1.0.x** to **1.1.0**, which includes universal database support (MySQL, MariaDB, SQLite), the Strict Password Policy, and UI enhancements.
 
 ## 1. Backup
 
 Before proceeding, backup your current installation:
-- **Database**: Export your MariaDB database.
+- **Database**: Export your current SQL database (MySQL/MariaDB) or backup your `.sqlite` file.
 - **Files**: Backup your `api/config.php` (or `api/db.php` if you modified it directly).
 
 ## 2. Deploy Files
@@ -13,14 +13,22 @@ Before proceeding, backup your current installation:
 1.  Upload the contents of the `dist` folder to your server's public web directory (e.g., `public_html` or `/var/www/html`). Ensure the hidden file `.htaccess` is also uploaded.
 2.  **IMPORTANT**: Overwrite all files **EXCEPT** `api/config.php`.
     -   If you accidentally overwrite `api/config.php`, restore it from your backup.
-    -   Verify that your `api/config.php` still contains your MariaDB credentials:
-        ```php
-        define('DB_TYPE', 'mysql'); // Ensure this is 'mysql'
-        define('DB_HOST', 'localhost');
-        define('DB_NAME', 'your_db_name');
-        define('DB_USER', 'your_db_user');
-        define('DB_PASS', 'your_db_password');
-        ```
+    -   Verify your `api/config.php` credentials. You can now choose between SQL and SQLite:
+
+    **MySQL / MariaDB Example:**
+    ```php
+    define('DB_TYPE', 'mysql'); 
+    define('DB_HOST', 'localhost');
+    define('DB_NAME', 'your_db_name');
+    define('DB_USER', 'your_db_user');
+    define('DB_PASS', 'your_db_password');
+    ```
+
+    **SQLite Example:**
+    ```php
+    define('DB_TYPE', 'sqlite');
+    define('DB_NAME', './database.sqlite');
+    ```
 
 ## 3. Database Update
 

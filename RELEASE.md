@@ -10,9 +10,9 @@
 - **Responsive Fixes**: Adjusted the "New Directive" form for better layout on small mobile screens.
 
 ## ⚙️ Backend & Database
-- **Auto-Update**: `api/install.php` now automatically migrates existing databases to include the `system_settings` table.
+- **Universal DB Support**: Added native support for **MySQL, MariaDB, and SQLite**. Configuration is easily managed via `api/config.php`.
+- **Auto-Migration**: `api/install.php` now automatically migrates existing databases (regardless of type) to include the `system_settings` table.
 - **Improved Settings Engine**: Refactored the settings API to prevent caching issues and ensure toggle state consistency.
-- **Dual Database Support**: seamless support for MariaDB (production) and SQLite (development).
 
 ---
 *For update instructions, see [UPDATE_INSTRUCTIONS.md](./UPDATE_INSTRUCTIONS.md).*

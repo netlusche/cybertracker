@@ -1,6 +1,6 @@
 # CyberTasker
 
-**CyberTasker** is a gamified, cyberpunk-themed task management application built with **React (Vite)** and **PHP/MariaDB**. It features a robust role-based access control (RBAC) system, gamification mechanics (XP, Levels, Badges), and secure Two-Factor Authentication (2FA).
+**CyberTasker** is a gamified, cyberpunk-themed task management application built with **React (Vite)** and **PHP**. It supports **MySQL, MariaDB, and SQLite**, featuring a robust role-based access control (RBAC) system, gamification mechanics (XP, Levels, Badges), and secure Two-Factor Authentication (2FA).
 
 ## 🚀 Features
 
@@ -22,7 +22,7 @@
 
 *   **Frontend**: React 18, Vite, Tailwind CSS
 *   **Backend**: Vanilla PHP 8.x (No frameworks, dependency-free)
-*   **Database**: MariaDB / MySQL
+*   **Database**: MySQL, MariaDB, or SQLite (Hybrid Support)
 
 ---
 
@@ -67,12 +67,21 @@ npm run build && cp -r api dist/
 Upload the **contents** of the `dist` folder to your server directory (e.g., `/public_html/tasks`).
 
 #### 3. Configure Database
-Edit `api/config.php` on the server:
+Edit `api/config.php` on the server to match your database environment.
+
+**For MySQL / MariaDB:**
 ```php
-define('DB_HOST', 'rdbms.strato.de'); // Or your specific host
-define('DB_NAME', 'DB123456');
-define('DB_USER', 'U123456');
-define('DB_PASS', 'YourPassword');
+define('DB_TYPE', 'mysql'); 
+define('DB_HOST', 'localhost'); // your host
+define('DB_NAME', 'your_db');
+define('DB_USER', 'your_user');
+define('DB_PASS', 'your_password');
+```
+
+**For SQLite:**
+```php
+define('DB_TYPE', 'sqlite');
+define('DB_NAME', 'path/to/database.sqlite'); // usually inside the api folder or nearby
 ```
 
 #### 5. Install & Setup
