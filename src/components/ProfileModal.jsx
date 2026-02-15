@@ -71,6 +71,8 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
     const handleDeleteAccount = async () => {
         setConfirmModal({
             show: true,
+            title: "SECURITY ALERT",
+            variant: "pink",
             message: "WARNING: TERMINAL ACCOUNT TERMINATION DETECTED. ALL DATA WILL BE WIPED FROM THE GRID. PROCEED?",
             onConfirm: async () => {
                 setConfirmModal({ show: false, message: '', onConfirm: null });
