@@ -43,8 +43,10 @@
     *   **Mutual Exclusion**: Only one calendar can be active on the grid at a time.
     *   **Boundary Detection**: Calendar automatically adjusts positioning (up/down) based on grid edge proximity to prevent clipping.
     *   **Click-Outside Closing**: Instant collapse when operative's focus shifts.
+*   **Automated Admin Briefing**: New installations automatically provision the default `admin` account with critical security directives (Password Override, Installer Purge, Neural Encryption) using high-immersion jargon.
 
 ### ✨ Tactile Polish & UX
+*   **Enhanced Neural Progression Manual**: The "NEURAL PROGRESSION" section is now prioritized at the top of the System Help, completely rewritten for maximum cyberpunk immersion.
 *   **Optimized Terminal**: The "New Directive" box now pulses with a neon-cyan glow upon initialization.
 *   **Confetti Protocol**: System-wide neon confetti celebration upon successful task creation.
 *   **Standardized Controls**: Uniform pink `[X]` close buttons and custom `CyberSelect` dropdowns across all modals.

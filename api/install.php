@@ -176,6 +176,22 @@ try {
         $stmtStats->execute([$adminId]);
 
         echo "Default Admin user 'admin' created.<br>\n";
+
+        // --- INJECT SECURITY DIRECTIVES ---
+        $directives = [
+            ['OVERRIDE DEFAULT ACCESS: Update Access Key or initialize new Operative ID and terminate \'admin\' account.', 'Security', 1, 15],
+            ['PURGE INSTALLER CORE: Terminate \'install.php\' from the server grid immediately.', 'Security', 1, 10],
+            ['ACTIVATE NEURAL ENCRYPTION: Navigate to Admin Console and toggle \'STRICT_PASSWORD_POLICY\' to Level 1.', 'Security', 1, 10],
+            ['SCRUB RESIDUAL TRACES: Remove \'install_test_user.php\' and other leftover test nodes.', 'Security', 2, 5],
+            ['CALIBRATE NEURAL LINK: Perform a System Reset to optimize your ocular data stream.', 'System', 3, 5],
+            ['UPGRADE COFFEE PROTOCOL: Ensure Operative Fuel levels are at maximum stability.', 'System', 3, 5]
+        ];
+
+        $stmtTask = $pdo->prepare("INSERT INTO tasks (user_id, title, category, priority, points_value) VALUES (?, ?, ?, ?, ?)");
+        foreach ($directives as $d) {
+            $stmtTask->execute([$adminId, $d[0], $d[1], $d[2], $d[3]]);
+        }
+        echo "Initial Admin security directives deployed.<br>\n";
     }
     else {
         echo "Admin user already exists.<br>\n";
