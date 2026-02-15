@@ -1,3 +1,29 @@
+# CyberTasker Server Update Instructions (v1.3.0 → v1.4.0)
+
+These instructions guide you through updating your existing CyberTasker server installation to version **1.4.0**. This update introduces the "Deep Security" specialized alerts and comprehensive UI refinements.
+
+## 1. Backup
+
+- **Files**: Backup your `api/config.php` and your database file (if using SQLite).
+
+## 2. Deploy Files
+
+1.  Upload the contents of the `dist` folder to your server.
+2.  **Overwrite all files** EXCEPT `api/config.php` and your database file.
+
+## 3. Database Update
+
+**No database changes required for this version.**
+
+## 4. Verify Update
+
+1.  **Login** and verify that "New Directive" creations trigger a cyan pulse animation.
+2.  **Open Profile** and check that the codename/username wraps correctly to a new line.
+3.  **Toggle 2FA** and ensure the button state updates immediately.
+4.  **Confirm 2FA Disabling** and verify the new **Neon Pink "SECURITY ALERT"** themed modal.
+
+---
+
 # CyberTasker Server Update Instructions (v1.2.1 → v1.3.0)
 
 These instructions guide you through updating your existing CyberTasker server installation to version **1.3.0**. This major update introduces Custom Categories, the Cyber Calendar, Search/Filters, and important database schema changes.

@@ -1,3 +1,23 @@
+# CyberTasker v1.4.0 - Deep Security & Polish
+
+**Release Date:** 2026-02-15
+
+This update focuses on deepening the application's security posture through specialized alerts and comprehensive UI/UX refinements for a smoother, more tactile operative experience.
+
+## 🛡 Deep Security Refinements
+- **Specialized Security Alerts**: High-risk operations (such as disabling 2FA) now trigger a focused neon-pink "SECURITY ALERT" modal to ensure critical awareness.
+- **True-State Sync**: Fixed a synchronization issue where the 2FA status wouldn't update immediately. The grid now re-fetches the operative's authentication state after every profile change.
+- **CyberConfirm Integration**: Native browser confirmation alerts have been scrapped in favor of high-immersion, cyberpunk-themed `CyberConfirm` modals for all critical data manipulations.
+
+## ✨ Tactile Polish & UX
+- **Terminal Pulse**: The "New Directive" terminal now pulses with a neon-cyan glow and scales slightly upon successful initialization, providing immediate visual confirmation.
+- **Success Confetti**: Tactical success is celebrated with a system-wide neon confetti deployment upon creating new directives.
+- **Standardized Navigation**: All modals now feature a uniform, prominent neon-pink `[X]` close button, matching the style of the System Helper.
+- **Adaptive Headers**: The Profile header has been re-engineered to wrap the operative's codename, preventing UI overlap and enhancing readability on diverse display units.
+- **Optimized Controls**: High-performance `CyberSelect` and `CyberDateInput` components are now standard for all directive parameters.
+
+---
+
 # CyberTasker v1.3.0 - The "Neon" Update
 
 **Release Date:** 2026-02-15

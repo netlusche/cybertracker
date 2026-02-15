@@ -29,6 +29,19 @@
 ---
 ---
 
+## 🆕 New in Version 1.4.0 (Deep Security & Polish)
+
+### 🛡 Deep Security Refinements
+*   **Specialized Alerts**: Neon-pink themed "SECURITY ALERT" modals for high-risk operations like 2FA deactivation.
+*   **State Synchronization**: Real-time user context refresh ensures the UI always reflects precisely when 2FA is active.
+*   **CyberConfirm Integration**: All sensitive actions (deletions, terminations, 2FA) now use custom-themed cyberpunk confirmation modals instead of native alerts.
+
+### ✨ Tactile Polish & UX
+*   **Optimized Terminal**: The "New Directive" box now pulses with a neon-cyan glow upon initialization.
+*   **Confetti Protocol**: System-wide neon confetti celebration upon successful task creation.
+*   **Standardized Controls**: Uniform pink `[X]` close buttons and custom `CyberSelect` dropdowns across all modals.
+*   **Responsive Layouts**: Profile headers now wrap intelligently to prevent overlap on smaller viewports.
+
 ## 🆕 New in Version 1.3.0 (The "Neon" Update)
 
 ### 📂 Custom Categories & Due Dates
