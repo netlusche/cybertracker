@@ -212,7 +212,6 @@ function App() {
   };
 
   const handleDelete = async (id) => {
-    if (!confirm('Are you sure you want to delete this directive?')) return;
     try {
       const res = await fetch(`api/tasks.php?id=${id}`, { method: 'DELETE' });
       if (res.ok) {

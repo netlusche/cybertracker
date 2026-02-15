@@ -10,6 +10,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
     const [showPriorityConfirm, setShowPriorityConfirm] = React.useState(false);
     const [pendingPriority, setPendingPriority] = React.useState(null);
     const [showDateConfirm, setShowDateConfirm] = React.useState(false);
+    const [showDeleteConfirm, setShowDeleteConfirm] = React.useState(false);
     const [pendingDate, setPendingDate] = React.useState(null);
     const [openUpwards, setOpenUpwards] = React.useState(false);
     const cardRef = React.useRef(null);
@@ -127,6 +128,19 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
     const cancelDateUpdate = () => {
         setShowDateConfirm(false);
         setPendingDate(null);
+    };
+
+    const handleDeleteClick = () => {
+        setShowDeleteConfirm(true);
+    };
+
+    const confirmDelete = async () => {
+        setShowDeleteConfirm(false);
+        await onDelete(task.id);
+    };
+
+    const cancelDelete = () => {
+        setShowDeleteConfirm(false);
     };
 
     const handleSave = async () => {
@@ -258,7 +272,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
                         </button>
 
                         <button
-                            onClick={() => onDelete(task.id)}
+                            onClick={handleDeleteClick}
                             className={`w-8 h-8 rounded-full border border-gray-600 flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100 ${task.status == 1 ? 'text-gray-300 hover:text-white hover:border-gray-400' : 'text-gray-500 hover:border-red-500 hover:text-red-500'}`}
                             title="Delete Task"
                         >
@@ -281,6 +295,15 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
                     message="CHRONO-SYNC RE-ALIGNMENT WILL ALTER THE OPERATIONAL SEQUENCE OF YOUR DIRECTIVES. JACK IN?"
                     onConfirm={confirmDateUpdate}
                     onCancel={cancelDateUpdate}
+                />
+            )}
+
+            {showDeleteConfirm && (
+                <CyberConfirm
+                    message="DELETING THIS DIRECTIVE WILL PERMANENTLY WIPE IT FROM THE GRID. JACK IN?"
+                    onConfirm={confirmDelete}
+                    onCancel={cancelDelete}
+                    neonColor="pink"
                 />
             )}
         </>
