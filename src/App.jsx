@@ -18,7 +18,9 @@ function App() {
   const [showAdmin, setShowAdmin] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [categoryRefreshTrigger, setCategoryRefreshTrigger] = useState(0);
+  const [categories, setCategories] = useState([]); // [NEW] Synchronized categories state
   const [isLevelUp, setIsLevelUp] = useState(false); // New Level Up State
+  const [activeCalendarTaskId, setActiveCalendarTaskId] = useState(null); // [NEW] Mutual exclusion for calendars
 
   // Search & Filter State
   const [filters, setFilters] = useState({
@@ -34,12 +36,27 @@ function App() {
     checkAuth();
   }, []);
 
-  // Fetch tasks whenever filters change (debouncing handled in TaskFilters for search input)
+  // Fetch tasks and categories whenever filters or trigger change
   useEffect(() => {
     if (user) {
       fetchTasks(1);
+      fetchCategories();
     }
-  }, [filters, user]); // Refetch on filter change or user login
+  }, [filters, user, categoryRefreshTrigger]);
+
+  const fetchCategories = async () => {
+    try {
+      const res = await fetch('api/categories.php');
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          setCategories(data);
+        }
+      }
+    } catch (err) {
+      console.error("Failed to fetch categories", err);
+    }
+  };
 
   const checkAuth = async () => {
     try {
@@ -126,6 +143,7 @@ function App() {
         body: JSON.stringify(newTask),
       });
       if (res.ok) {
+        triggerNeonConfetti();
         fetchTasks();
       }
     } catch (err) {
@@ -184,14 +202,16 @@ function App() {
 
       if (res.ok) {
         await fetchTasks(pagination.currentPage);
+      } else {
+        const text = await res.text();
+        console.error(`Update failed: ${res.status} ${res.statusText}`, text);
       }
     } catch (err) {
-      console.error("Error updating task", err);
+      console.error("Update failed with exception:", err);
     }
   };
 
   const handleDelete = async (id) => {
-    if (!confirm('Are you sure you want to delete this directive?')) return;
     try {
       const res = await fetch(`api/tasks.php?id=${id}`, { method: 'DELETE' });
       if (res.ok) {
@@ -214,17 +234,20 @@ function App() {
       <div className="max-w-3xl mx-auto relative z-10">
         <header className="mb-8 flex flex-col md:flex-row justify-between items-center gap-4 border-b border-cyber-gray pb-4">
           <div className="text-center md:text-left">
-            <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyber-neonCyan to-cyber-neonPink drop-shadow-[0_0_5px_rgba(0,255,255,0.5)]">
-              CYBER<span className="text-white">TASKER</span>
+            <h1 className="text-4xl font-bold flex items-center justify-center md:justify-start gap-4">
+              <img src="/favicon.png" alt="Logo" className="h-10 w-10 drop-shadow-[0_0_8px_rgba(0,255,255,0.6)]" />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyber-neonCyan to-cyber-neonPink drop-shadow-[0_0_5px_rgba(0,255,255,0.5)]">
+                CYBER<span className="text-white">TASKER</span>
+              </span>
             </h1>
-            <p className="text-xs text-gray-500 tracking-[0.3em] mt-1">
-              OPERATIVE: <span className="text-cyber-neonGreen">{user ? user.username : 'UNKNOWN'}</span>
+            <p className="text-xs text-gray-300 font-bold tracking-[0.3em] mt-1">
+              OPERATIVE: <span className="text-green-300">{user ? user.username : 'UNKNOWN'}</span>
               {user?.role === 'admin' && <span className="block md:inline md:ml-2 text-yellow-500 font-bold mt-1 md:mt-0">[ADMIN CLEARANCE]</span>}
             </p>
           </div>
           {user && (
             <div className="flex flex-wrap gap-2 justify-center">
-              <button onClick={() => setShowHelp(true)} className="text-xs border border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white px-3 py-2 md:px-2 md:py-1 rounded transition-colors">
+              <button onClick={() => setShowHelp(true)} className="text-xs border border-gray-400 text-white hover:bg-gray-800 px-3 py-2 md:px-2 md:py-1 rounded transition-colors">
                 SYSTEM HELP
               </button>
               {user.role === 'admin' && (
@@ -235,7 +258,7 @@ function App() {
               <button onClick={() => setShowProfile(true)} className="text-xs border border-cyber-neonCyan text-cyber-neonCyan hover:bg-cyber-neonCyan hover:text-black px-3 py-2 md:px-2 md:py-1 rounded transition-colors">
                 PROFILE
               </button>
-              <button onClick={handleLogout} className="text-xs border border-red-900 text-red-700 hover:bg-red-900 hover:text-white px-3 py-2 md:px-2 md:py-1 rounded transition-colors">
+              <button onClick={handleLogout} className="text-xs border border-red-600 text-red-400 hover:bg-red-900 hover:text-white px-3 py-2 md:px-2 md:py-1 rounded transition-colors">
                 LOGOUT
               </button>
             </div>
@@ -253,14 +276,18 @@ function App() {
               isLevelUp={isLevelUp} // [NEW]
             />
 
-            <div className="relative z-20">
-              <TaskForm onAddTask={handleAddTask} categoryRefreshTrigger={categoryRefreshTrigger} />
+            <div className="relative z-30">
+              <TaskForm
+                onAddTask={handleAddTask}
+                categoryRefreshTrigger={categoryRefreshTrigger}
+                categories={categories} // [NEW] Pass categories
+              />
             </div>
 
             <TaskFilters
               filters={filters}
               onFilterChange={setFilters}
-              categories={['Work', 'Personal', 'Urgent', 'Health', 'Finance', 'Hobby']} // Ideally fetched from API, but hardcoded list or propagated prop is fine for now. 
+              categories={categories} // [NEW] Pass dynamic categories
             />
 
             <div className="space-y-4">
@@ -281,6 +308,8 @@ function App() {
                       onToggleStatus={handleToggleStatus}
                       onUpdateTask={handleUpdateTask}
                       onDelete={handleDelete}
+                      activeCalendarTaskId={activeCalendarTaskId}
+                      setActiveCalendarTaskId={setActiveCalendarTaskId}
                     />
                   ))}
                 </div>
@@ -334,7 +363,10 @@ function App() {
           user={user}
           onClose={() => setShowProfile(false)}
           onLogout={handleLogout}
-          onUserUpdate={() => fetchTasks(pagination.currentPage)}
+          onUserUpdate={() => {
+            fetchTasks(pagination.currentPage);
+            checkAuth();
+          }}
           onCategoryUpdate={refreshCategories} // [NEW]
         />
       )}

@@ -56,29 +56,42 @@ switch ($method) {
         $totalParam = $stmt->fetch()['total'];
 
         // Get Paginated Data
-        // Sorting: 
+        // Sorting [Cyber-Triage Protocol]: 
         // 1. Status (Active=0 first, Done=1 last)
-        // 2. Active: Due Date (ASC - Imminent first), Priority (ASC - High to Low), Created (DESC)
-        // 3. Done: Due Date (DESC - Newest first), Priority (ASC), Created (DESC)
+        // 2. Urgency Group (Active only): Overdue=0, Today=1, Future/None=2
+        // 3. Priority (ASC - High to Low)
+        // 4. Date (Active: ASC / Done: DESC)
+        // 5. Created (DESC)
+        $today = date('Y-m-d');
         $sql = "SELECT * FROM tasks WHERE $whereSql 
                 ORDER BY 
                 status ASC,
-                CASE WHEN status = 0 AND due_date IS NOT NULL THEN 0 ELSE 1 END ASC,
+                CASE 
+                    WHEN status = 0 AND due_date < ? THEN 0
+                    WHEN status = 0 AND due_date = ? THEN 1
+                    ELSE 2
+                END ASC,
+                priority ASC,
                 CASE WHEN status = 0 THEN due_date END ASC,
                 CASE WHEN status = 1 THEN due_date END DESC,
-                priority ASC,
                 created_at DESC
                 LIMIT ? OFFSET ?";
 
         $stmt = $pdo->prepare($sql);
 
         // Bind dynamic params
-        foreach ($params as $i => $val) {
-            $stmt->bindValue($i + 1, $val);
+        $paramIdx = 1;
+        foreach ($params as $val) {
+            $stmt->bindValue($paramIdx++, $val);
         }
-        // Bind limit/offset logic: params count + 1 and + 2
-        $stmt->bindValue(count($params) + 1, $limit, PDO::PARAM_INT);
-        $stmt->bindValue(count($params) + 2, $offset, PDO::PARAM_INT);
+
+        // Bind Triage Dates
+        $stmt->bindValue($paramIdx++, $today);
+        $stmt->bindValue($paramIdx++, $today);
+
+        // Bind limit/offset
+        $stmt->bindValue($paramIdx++, $limit, PDO::PARAM_INT);
+        $stmt->bindValue($paramIdx++, $offset, PDO::PARAM_INT);
 
         $stmt->execute();
         $tasks = $stmt->fetchAll();

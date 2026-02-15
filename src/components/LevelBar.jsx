@@ -9,14 +9,14 @@ const LevelBar = ({ level, currentXP, totalXPForLevel, isLevelUp }) => {
         <div className={`w-full mb-6 p-4 rounded-lg bg-cyber-dark border transition-all duration-500 ${isLevelUp ? 'border-cyber-neonPink shadow-[0_0_30px_#ff00ff] scale-105' : 'border-cyber-neonPink shadow-[0_0_15px_rgba(255,0,255,0.3)]'}`}>
             <div className="flex justify-between items-end mb-2">
                 <div>
-                    <span className="text-xs text-gray-400 uppercase tracking-widest">Operator Level</span>
+                    <span className="text-xs text-gray-300 uppercase tracking-widest">Operator Level</span>
                     <div className="text-3xl font-bold text-white font-mono leading-none animate-pulse">
                         {isLevelUp ? 'LEVEL UP!' : `LVL ${level}`}
                     </div>
                 </div>
                 <div className="text-right">
                     <span className="text-cyber-neonPink font-bold text-xl">{currentXP}</span>
-                    <span className="text-gray-500 text-sm"> XP Total</span>
+                    <span className="text-gray-300 text-sm"> XP Total</span>
                 </div>
             </div>
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import CyberSelect from './CyberSelect';
 
 const TaskFilters = ({ filters, onFilterChange, categories }) => {
     const [localSearch, setLocalSearch] = useState(filters.search || '');
@@ -23,7 +24,7 @@ const TaskFilters = ({ filters, onFilterChange, categories }) => {
     };
 
     return (
-        <div className="mb-6 p-4 border border-cyber-gray bg-black/40 rounded-lg backdrop-blur-sm">
+        <div className="mb-6 p-4 border border-cyber-gray bg-black/40 rounded-lg backdrop-blur-sm relative z-20">
             <div className="flex flex-col md:flex-row gap-4 items-center">
 
                 {/* Search Input */}
@@ -34,35 +35,35 @@ const TaskFilters = ({ filters, onFilterChange, categories }) => {
                         placeholder="Search Neural Database..."
                         value={localSearch}
                         onChange={(e) => setLocalSearch(e.target.value)}
-                        className="w-full bg-black border border-cyber-gray text-white pl-10 pr-4 py-2 rounded focus:border-cyber-neonCyan focus:shadow-[0_0_10px_#00ffff] outline-none transition-all placeholder-gray-600 font-mono"
+                        className="w-full bg-black border border-cyber-gray text-white pl-10 pr-4 py-2 rounded focus:border-cyber-neonCyan focus:shadow-[0_0_10px_#00ffff] outline-none transition-all placeholder-gray-200 font-mono"
                     />
                 </div>
 
                 {/* Priority Filter */}
-                <select
+                <CyberSelect
                     value={filters.priority || ''}
-                    onChange={(e) => handleChange('priority', e.target.value)}
-                    className="bg-black border border-cyber-gray text-white px-4 py-2 rounded focus:border-cyber-neonPink outline-none font-mono w-full md:w-auto"
-                >
-                    <option value="">ALL PRIORITIES</option>
-                    <option value="1">HIGH (1)</option>
-                    <option value="2">MED (2)</option>
-                    <option value="3">LOW (3)</option>
-                </select>
+                    onChange={(val) => handleChange('priority', val)}
+                    options={[
+                        { value: '', label: 'ALL PRIORITIES' },
+                        { value: '1', label: 'HIGH (1)' },
+                        { value: '2', label: 'MED (2)' },
+                        { value: '3', label: 'LOW (3)' }
+                    ]}
+                    className="w-full md:w-48"
+                    neonColor="pink"
+                />
 
                 {/* Category Filter */}
-                <select
+                <CyberSelect
                     value={filters.category || ''}
-                    onChange={(e) => handleChange('category', e.target.value)}
-                    className="bg-black border border-cyber-gray text-white px-4 py-2 rounded focus:border-cyber-neonGreen outline-none font-mono w-full md:w-auto"
-                >
-                    <option value="">ALL CATEGORIES</option>
-                    {categories.map((cat, idx) => (
-                        <option key={idx} value={cat.name || cat}>
-                            {cat.name || cat}
-                        </option>
-                    ))}
-                </select>
+                    onChange={(val) => handleChange('category', val)}
+                    options={[
+                        { value: '', label: 'ALL CATEGORIES' },
+                        ...categories.map(cat => ({ value: cat.name || cat, label: cat.name || cat }))
+                    ]}
+                    className="w-full md:w-56"
+                    neonColor="green"
+                />
 
                 {/* Overdue Toggle */}
                 <label className="flex items-center gap-2 cursor-pointer text-sm font-mono text-gray-300 hover:text-white transition-colors border border-cyber-gray px-3 py-2 rounded hover:border-red-500">

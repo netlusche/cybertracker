@@ -3,7 +3,7 @@
 require_once 'db.php';
 
 // Users to verify automatically
-$usersToVerify = ['Frank', 'Herbert'];
+$usersToVerify = ['Frank', 'Herbert', 'frank', 'tester', 'testuser'];
 
 echo "<h3>Manual User Verification</h3>";
 

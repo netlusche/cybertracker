@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import CyberConfirm from './CyberConfirm';
 
 // Internal reusable component for password fields with toggle
 const PasswordInput = ({ value, onChange, placeholder, className, required = false }) => {
@@ -40,6 +41,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
     const [deleteConfirmation, setDeleteConfirmation] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
+    const [confirmModal, setConfirmModal] = useState({ show: false, message: '', onConfirm: null });
 
     const handleChangePassword = async (e) => {
         e.preventDefault();
@@ -67,25 +69,32 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
     };
 
     const handleDeleteAccount = async () => {
-        if (!confirm("WARNING: TERMINAL ACTION. THIS CANNOT BE UNDONE. PROCEED?")) return;
+        setConfirmModal({
+            show: true,
+            title: "SECURITY ALERT",
+            variant: "pink",
+            message: "WARNING: TERMINAL ACCOUNT TERMINATION DETECTED. ALL DATA WILL BE WIPED FROM THE GRID. PROCEED?",
+            onConfirm: async () => {
+                setConfirmModal({ show: false, message: '', onConfirm: null });
+                try {
+                    const res = await fetch('api/auth.php?action=delete_account', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ password: deleteConfirmation }),
+                    });
+                    const data = await res.json();
 
-        try {
-            const res = await fetch('api/auth.php?action=delete_account', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ password: deleteConfirmation }),
-            });
-            const data = await res.json();
-
-            if (res.ok) {
-                alert('Identity Terminated.');
-                onLogout(); // Force logout/reset app
-            } else {
-                setError(data.error || 'Termination failed');
+                    if (res.ok) {
+                        setMessage('Identity Terminated.');
+                        onLogout(); // Force logout/reset app
+                    } else {
+                        setError(data.error || 'Termination failed');
+                    }
+                } catch (err) {
+                    setError('Connection refused.');
+                }
             }
-        } catch (err) {
-            setError('Connection refused.');
-        }
+        });
     };
 
     const [show2FA, setShow2FA] = useState(false);
@@ -141,33 +150,48 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
     };
 
     const handleDisable2FA = async () => {
-        if (!confirm("Disable Two-Factor Authentication? Security level will be reduced.")) return;
-        try {
-            const res = await fetch('api/auth.php?action=disable_2fa', { method: 'POST' });
-            if (res.ok) {
-                setMessage("2FA DISABLED. SECURITY REDUCED.");
-                if (onUserUpdate) onUserUpdate();
-            } else {
-                setError("Failed to disable 2FA");
+        setConfirmModal({
+            show: true,
+            title: "SECURITY ALERT",
+            variant: "pink",
+            message: "TERMINATING 2FA WILL REDUCE YOUR DEFENSIVE ENCRYPTION. PROCEED?",
+            onConfirm: async () => {
+                setConfirmModal({ show: false, message: '', onConfirm: null });
+                try {
+                    const res = await fetch('api/auth.php?action=disable_2fa', { method: 'POST' });
+                    if (res.ok) {
+                        setMessage("2FA DISABLED. SECURITY REDUCED.");
+                        if (onUserUpdate) onUserUpdate();
+                    } else {
+                        setError("Failed to disable 2FA");
+                    }
+                } catch (err) { setError("Network error"); }
             }
-        } catch (err) { setError("Network error"); }
+        });
     };
 
     const handleUpdateEmail = async (newEmail, password) => {
-        try {
-            const res = await fetch('api/auth.php?action=update_email', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: newEmail, password: password })
-            });
-            const data = await res.json();
-            if (res.ok) {
-                alert(data.message + " You will be logged out.");
-                onLogout();
-            } else {
-                setError(data.error || 'Update failed');
+        setConfirmModal({
+            show: true,
+            message: "IDENTITY FREQUENCY SHIFT DETECTED. RE-ROUTING WILL REQUIRE RE-AUTHENTICATION. JACK IN?",
+            onConfirm: async () => {
+                setConfirmModal({ show: false, message: '', onConfirm: null });
+                try {
+                    const res = await fetch('api/auth.php?action=update_email', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: newEmail, password: password })
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        setMessage(data.message + " SESSION RESTART REQUIRED.");
+                        setTimeout(() => onLogout(), 2000);
+                    } else {
+                        setError(data.error || 'Update failed');
+                    }
+                } catch (err) { setError("Network error"); }
             }
-        } catch (err) { setError("Network error"); }
+        });
     };
 
     const UpdateEmailForm = ({ currentEmail, onUpdate }) => {
@@ -263,18 +287,24 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
     };
 
     const handleDeleteCategory = async (id) => {
-        if (!confirm("Delete category? Information: Existing tasks will retain this category name, but it will no longer be selectable for new tasks.")) return;
-        try {
-            const res = await fetch(`api/categories.php?id=${id}`, {
-                method: 'DELETE'
-            });
-            if (res.ok) {
-                loadCategories();
-                if (onCategoryUpdate) onCategoryUpdate();
-            } else {
-                setError('Failed to delete category (Default one cannot be deleted if only one remains, check console)');
+        setConfirmModal({
+            show: true,
+            message: "CATEGORY PURGE WILL VOID ALL ASSOCIATED DIRECTIVE VECTORS. PROCEED WITH DELETION?",
+            onConfirm: async () => {
+                setConfirmModal({ show: false, message: '', onConfirm: null });
+                try {
+                    const res = await fetch(`api/categories.php?id=${id}`, {
+                        method: 'DELETE'
+                    });
+                    if (res.ok) {
+                        loadCategories();
+                        if (onCategoryUpdate) onCategoryUpdate();
+                    } else {
+                        setError('Failed to delete category (Default one cannot be deleted if only one remains)');
+                    }
+                } catch (err) { setError('Failed to delete category'); }
             }
-        } catch (err) { setError('Failed to delete category'); }
+        });
     };
 
     const handleSetDefault = async (id) => {
@@ -296,13 +326,14 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
             <div className="card-cyber w-full max-w-lg border-cyber-neonCyan shadow-[0_0_30px_rgba(0,255,255,0.3)] relative max-h-[90vh] overflow-y-auto">
                 <button
                     onClick={onClose}
-                    className="absolute top-2 right-4 text-gray-500 hover:text-white text-2xl"
+                    className="absolute top-4 right-4 text-cyber-neonPink hover:text-white font-bold text-xl"
                 >
-                    &times;
+                    [X]
                 </button>
 
-                <h2 className="text-2xl font-bold text-cyber-neonCyan mb-6 tracking-widest uppercase border-b border-cyber-gray pb-2">
-                    OPERATIVE PROFILE: {user.username}
+                <h2 className="text-2xl font-bold text-cyber-neonCyan mb-6 tracking-widest uppercase border-b border-cyber-gray pb-2 flex flex-col">
+                    <span>OPERATIVE PROFILE:</span>
+                    <span className="text-white text-3xl mt-1">{user.username}</span>
                 </h2>
 
                 {message && <div className="text-cyber-neonGreen mb-4 font-mono">✓ {message}</div>}
@@ -479,6 +510,16 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                     </div>
                 </div>
             </div>
+
+            {confirmModal.show && (
+                <CyberConfirm
+                    title={confirmModal.title}
+                    variant={confirmModal.variant}
+                    message={confirmModal.message}
+                    onConfirm={confirmModal.onConfirm}
+                    onCancel={() => setConfirmModal({ show: false, message: '', onConfirm: null })}
+                />
+            )}
         </div>
     );
 };

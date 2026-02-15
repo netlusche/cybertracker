@@ -1,9 +1,51 @@
 import React from 'react';
+import CyberSelect from './CyberSelect';
+import CyberConfirm from './CyberConfirm';
+import CyberCalendar from './CyberCalendar';
 
-const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete }) => {
+const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendarTaskId, setActiveCalendarTaskId }) => {
     const [isEditing, setIsEditing] = React.useState(false);
     const [editTitle, setEditTitle] = React.useState(task.title);
     const [isSaving, setIsSaving] = React.useState(false);
+    const [showPriorityConfirm, setShowPriorityConfirm] = React.useState(false);
+    const [pendingPriority, setPendingPriority] = React.useState(null);
+    const [showDateConfirm, setShowDateConfirm] = React.useState(false);
+    const [showDeleteConfirm, setShowDeleteConfirm] = React.useState(false);
+    const [pendingDate, setPendingDate] = React.useState(null);
+    const [openUpwards, setOpenUpwards] = React.useState(false);
+    const cardRef = React.useRef(null);
+    const isDatePickerOpen = activeCalendarTaskId === task.id;
+
+    // Mutual Exclusion & Positioning Logic
+    React.useEffect(() => {
+        if (!isDatePickerOpen) return;
+
+        const handleClickOutside = (event) => {
+            if (cardRef.current && !cardRef.current.contains(event.target)) {
+                setActiveCalendarTaskId(null);
+            }
+        };
+
+        const checkPosition = () => {
+            if (cardRef.current) {
+                const rect = cardRef.current.getBoundingClientRect();
+                const spaceBelow = window.innerHeight - rect.bottom;
+                // If less than 280px (approx calendar height) space below, flip it
+                setOpenUpwards(spaceBelow < 280);
+            }
+        };
+
+        checkPosition();
+        document.addEventListener('mousedown', handleClickOutside);
+        window.addEventListener('scroll', checkPosition);
+        window.addEventListener('resize', checkPosition);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            window.removeEventListener('scroll', checkPosition);
+            window.removeEventListener('resize', checkPosition);
+        };
+    }, [isDatePickerOpen, setActiveCalendarTaskId]);
 
     const priorityColors = {
         1: 'border-l-4 border-red-500',   // High
@@ -26,11 +68,79 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete }) => {
         await onUpdateTask(task, { category: nextCategory });
     };
 
-    const handleCyclePriority = async () => {
-        if (task.status == 1) return;
-        // Cycle 1 -> 2 -> 3 -> 1
-        const nextPriority = (task.priority % 3) + 1;
-        await onUpdateTask(task, { priority: nextPriority });
+    const isConfirming = React.useRef(false);
+
+    const handlePriorityChange = (newPriority) => {
+        const pNum = Number(newPriority);
+        const currentPNum = Number(task.priority);
+
+        if (task.status == 1 || pNum === currentPNum || isConfirming.current) return;
+
+        setPendingPriority(pNum);
+        setShowPriorityConfirm(true);
+    };
+
+    const confirmPriorityUpdate = async () => {
+        const pNum = pendingPriority;
+        setShowPriorityConfirm(false);
+        setPendingPriority(null);
+
+        if (!pNum || isConfirming.current) return;
+
+        try {
+            isConfirming.current = true;
+            await onUpdateTask(task, { priority: pNum });
+        } catch (err) {
+            console.error("Priority update error:", err);
+        } finally {
+            isConfirming.current = false;
+        }
+    };
+
+    const cancelPriorityUpdate = () => {
+        setShowPriorityConfirm(false);
+        setPendingPriority(null);
+    };
+
+    const handleDateSelect = (date) => {
+        setPendingDate(date);
+        setActiveCalendarTaskId(null);
+        setShowDateConfirm(true);
+    };
+
+    const confirmDateUpdate = async () => {
+        const dateStr = pendingDate;
+        setShowDateConfirm(false);
+        setPendingDate(null);
+
+        if (isConfirming.current) return;
+
+        try {
+            isConfirming.current = true;
+            await onUpdateTask(task, { due_date: dateStr });
+        } catch (err) {
+            console.error("Date update error:", err);
+        } finally {
+            isConfirming.current = false;
+        }
+    };
+
+    const cancelDateUpdate = () => {
+        setShowDateConfirm(false);
+        setPendingDate(null);
+    };
+
+    const handleDeleteClick = () => {
+        setShowDeleteConfirm(true);
+    };
+
+    const confirmDelete = async () => {
+        setShowDeleteConfirm(false);
+        await onDelete(task.id);
+    };
+
+    const cancelDelete = () => {
+        setShowDeleteConfirm(false);
     };
 
     const handleSave = async () => {
@@ -53,102 +163,150 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete }) => {
         }
     };
 
-    const priorityTextColors = {
-        1: 'text-red-500 border-red-500',     // High
-        2: 'text-yellow-500 border-yellow-500', // Med
-        3: 'text-green-500 border-green-500',  // Low
+    const priorityNeonColors = {
+        1: 'pink',
+        2: 'cyan',
+        3: 'green'
     };
 
     return (
-        <div className={`card-cyber relative group transition-all duration-300 ${task.status == 1 ? 'opacity-50 grayscale' : ''} ${priorityColors[task.priority] || ''}`}>
-            <div className="flex justify-between items-start">
-                <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                        <button
-                            onClick={handleCycleCategory}
-                            disabled={task.status == 1}
-                            className={`text-xs font-bold text-cyber-neonCyan tracking-wider uppercase border border-cyber-neonCyan px-2 py-0.5 rounded transition-all ${task.status != 1 ? 'hover:bg-cyber-neonCyan hover:text-black cursor-pointer active:scale-95' : 'cursor-default'}`}
-                            title={task.status != 1 ? "Click to cycle category" : ""}
-                        >
-                            {task.category}
-                        </button>
-                        <button
-                            onClick={handleCyclePriority}
-                            disabled={task.status == 1}
-                            className={`text-sm font-bold px-2 py-0.5 rounded border transition-all ${priorityTextColors[task.priority]} ${task.status != 1 ? 'hover:bg-white/10 cursor-pointer active:scale-95' : 'cursor-default'}`}
-                            title={task.status != 1 ? "Click to cycle priority" : ""}
-                        >
-                            {priorityLabels[task.priority]}
-                        </button>
+        <>
+            <div ref={cardRef} className={`card-cyber relative group transition-all duration-300 ${isDatePickerOpen ? 'z-[100]' : 'hover:z-50 focus-within:z-50'} ${task.status == 1 ? 'opacity-50 grayscale' : ''} ${priorityColors[task.priority] || ''}`}>
+                <div className="flex justify-between items-start">
+                    <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-3">
+                            <button
+                                onClick={handleCycleCategory}
+                                disabled={task.status == 1}
+                                className={`text-[10px] font-bold text-cyber-neonCyan tracking-wider uppercase border border-cyber-neonCyan px-2 py-1 rounded transition-all ${task.status != 1 ? 'hover:bg-cyber-neonCyan hover:text-black cursor-pointer active:scale-95' : 'cursor-default'}`}
+                                title={task.status != 1 ? "Click to cycle category" : ""}
+                            >
+                                {task.category}
+                            </button>
+
+                            <div className="w-24">
+                                <CyberSelect
+                                    value={String(task.priority)}
+                                    onChange={handlePriorityChange}
+                                    options={[
+                                        { value: '1', label: 'HIGH' },
+                                        { value: '2', label: 'MED' },
+                                        { value: '3', label: 'LOW' }
+                                    ]}
+                                    neonColor={priorityNeonColors[task.priority]}
+                                    className="text-[10px] font-bold h-7"
+                                    disabled={task.status == 1}
+                                />
+                            </div>
+                        </div>
+
+                        {isEditing ? (
+                            <div className="flex items-center gap-2 mb-1 mr-4">
+                                <input
+                                    type="text"
+                                    value={editTitle}
+                                    onChange={(e) => setEditTitle(e.target.value)}
+                                    onKeyDown={handleKeyDown}
+                                    onBlur={handleSave}
+                                    disabled={isSaving}
+                                    autoFocus
+                                    className={`bg-black/50 border text-white px-2 py-1 w-full text-lg font-bold focus:outline-none transition-all duration-300 ${isSaving ? 'border-cyber-neonGreen shadow-[0_0_15px_#0f0] text-cyber-neonGreen' : 'border-cyber-neonCyan shadow-[0_0_10px_#0ff] animate-pulse'}`}
+                                />
+                                <button
+                                    onClick={handleSave}
+                                    disabled={isSaving}
+                                    className={`hover:text-white transition-colors ${isSaving ? 'text-cyber-neonGreen animate-spin' : 'text-cyber-neonGreen'}`}
+                                >
+                                    {isSaving ? '⏳' : '✓'}
+                                </button>
+                            </div>
+                        ) : (
+                            <h3
+                                onClick={() => task.status != 1 && setIsEditing(true)}
+                                className={`text-lg font-bold text-white mb-1 cursor-pointer hover:text-cyber-neonCyan transition-colors ${task.status == 1 ? 'line-through text-gray-400 pointer-events-none' : ''}`}
+                                title={task.status != 1 ? "Click to edit" : ""}
+                            >
+                                {task.title}
+                            </h3>
+                        )}
+
+                        <div className="relative">
+                            <div
+                                onClick={() => task.status != 1 && setActiveCalendarTaskId(isDatePickerOpen ? null : task.id)}
+                                className={`flex items-center gap-2 mb-2 font-mono text-base ${task.status != 1 ? 'cursor-pointer hover:bg-white/5 transition-colors p-1 -ml-1 rounded' : ''}`}
+                                title={task.status != 1 ? "Click to change date" : ""}
+                            >
+                                <span className="text-cyber-neonPink">🕒</span>
+                                <span className={
+                                    task.due_date && new Date(task.due_date) < new Date() && task.status != 1
+                                        ? "text-red-500 font-bold"
+                                        : "text-gray-300"
+                                }>
+                                    {task.due_date ? new Date(task.due_date).toLocaleDateString() : "NO DATE"}
+                                </span>
+                            </div>
+
+                            {isDatePickerOpen && (
+                                <div className={`absolute left-0 z-[100] mt-1 ${openUpwards ? 'bottom-full mb-1' : 'top-full mt-1'}`}>
+                                    <CyberCalendar
+                                        value={task.due_date}
+                                        onChange={handleDateSelect}
+                                        onClose={() => setActiveCalendarTaskId(null)}
+                                    />
+                                </div>
+                            )}
+                        </div>
+
+                        <p className="text-sm text-cyber-neonPink font-mono">
+                            +{task.points_value} XP
+                        </p>
                     </div>
 
-                    {isEditing ? (
-                        <div className="flex items-center gap-2 mb-1 mr-4">
-                            <input
-                                type="text"
-                                value={editTitle}
-                                onChange={(e) => setEditTitle(e.target.value)}
-                                onKeyDown={handleKeyDown}
-                                onBlur={handleSave}
-                                disabled={isSaving}
-                                autoFocus
-                                className={`bg-black/50 border text-white px-2 py-1 w-full text-lg font-bold focus:outline-none transition-all duration-300 ${isSaving ? 'border-cyber-neonGreen shadow-[0_0_15px_#0f0] text-cyber-neonGreen' : 'border-cyber-neonCyan shadow-[0_0_10px_#0ff] animate-pulse'}`}
-                            />
-                            <button
-                                onClick={handleSave}
-                                disabled={isSaving}
-                                className={`hover:text-white transition-colors ${isSaving ? 'text-cyber-neonGreen animate-spin' : 'text-cyber-neonGreen'}`}
-                            >
-                                {isSaving ? '⏳' : '✓'}
-                            </button>
-                        </div>
-                    ) : (
-                        <h3
-                            onClick={() => task.status != 1 && setIsEditing(true)}
-                            className={`text-lg font-bold text-white mb-1 cursor-pointer hover:text-cyber-neonCyan transition-colors ${task.status == 1 ? 'line-through text-gray-400 pointer-events-none' : ''}`}
-                            title={task.status != 1 ? "Click to edit" : ""}
+                    <div className="flex flex-col gap-2">
+                        <button
+                            onClick={() => onToggleStatus(task)}
+                            className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${task.status == 1 ? 'bg-cyber-neonGreen text-black' : 'bg-transparent border border-gray-500 hover:border-cyber-neonGreen hover:text-cyber-neonGreen'}`}
+                            title={task.status == 1 ? "Mark as TODO" : "Mark as DONE"}
                         >
-                            {task.title}
-                        </h3>
-                    )}
+                            {task.status == 1 ? '✓' : '○'}
+                        </button>
 
-                    {task.due_date && (
-                        <div className="flex items-center gap-2 mb-2 font-mono text-base">
-                            <span className="text-cyber-neonPink">🕒</span>
-                            <span className={
-                                new Date(task.due_date) < new Date() && task.status != 1
-                                    ? "text-red-500 font-bold"
-                                    : "text-gray-300"
-                            }>
-                                {new Date(task.due_date).toLocaleDateString()}
-                            </span>
-                        </div>
-                    )}
-
-                    <p className="text-sm text-cyber-neonPink font-mono">
-                        +{task.points_value} XP
-                    </p>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                    <button
-                        onClick={() => onToggleStatus(task)}
-                        className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${task.status == 1 ? 'bg-cyber-neonGreen text-black' : 'bg-transparent border border-gray-500 hover:border-cyber-neonGreen hover:text-cyber-neonGreen'}`}
-                        title={task.status == 1 ? "Mark as TODO" : "Mark as DONE"}
-                    >
-                        {task.status == 1 ? '✓' : '○'}
-                    </button>
-
-                    <button
-                        onClick={() => onDelete(task.id)}
-                        className={`w-8 h-8 rounded-full border border-gray-600 flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100 ${task.status == 1 ? 'text-gray-300 hover:text-white hover:border-gray-400' : 'text-gray-500 hover:border-red-500 hover:text-red-500'}`}
-                        title="Delete Task"
-                    >
-                        ×
-                    </button>
+                        <button
+                            onClick={handleDeleteClick}
+                            className={`w-8 h-8 rounded-full border border-gray-600 flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100 ${task.status == 1 ? 'text-gray-300 hover:text-white hover:border-gray-400' : 'text-gray-500 hover:border-red-500 hover:text-red-500'}`}
+                            title="Delete Task"
+                        >
+                            ×
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            {showPriorityConfirm && (
+                <CyberConfirm
+                    message="PRIORITY RE-ALIGNMENT WILL ALTER THE OPERATIONAL SEQUENCE OF YOUR DIRECTIVES. JACK IN?"
+                    onConfirm={confirmPriorityUpdate}
+                    onCancel={cancelPriorityUpdate}
+                />
+            )}
+
+            {showDateConfirm && (
+                <CyberConfirm
+                    message="CHRONO-SYNC RE-ALIGNMENT WILL ALTER THE OPERATIONAL SEQUENCE OF YOUR DIRECTIVES. JACK IN?"
+                    onConfirm={confirmDateUpdate}
+                    onCancel={cancelDateUpdate}
+                />
+            )}
+
+            {showDeleteConfirm && (
+                <CyberConfirm
+                    message="DELETING THIS DIRECTIVE WILL PERMANENTLY WIPE IT FROM THE GRID. JACK IN?"
+                    onConfirm={confirmDelete}
+                    onCancel={cancelDelete}
+                    neonColor="pink"
+                />
+            )}
+        </>
     );
 };
 
