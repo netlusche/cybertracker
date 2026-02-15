@@ -14,6 +14,7 @@
     *   **Create**: Initialize directives with due dates and priority.
     *   **Edit**: Inline editing of task titles.
     *   **Search & Filter**: Real-time filtering by Title, Priority, Category, and Overdue status.
+    *   **Cyber-Triage Sorting**: Optimized task hierarchy: **Overdue (Signal Leak)** > **Due Today (Heat Spike)** > **Priority (Strategic)** > **Creation Date**.
     *   **Cycle**: Click Category/Priority badges to cycle through options (High/Med/Low).
     *   **Onboarding**: New operatives receive starter directives automatically.
 *   **Smart Scheduling**: Custom Cyberpunk Calendar with visual deadlines.
@@ -34,7 +35,14 @@
 ### 🛡 Deep Security Refinements
 *   **Specialized Alerts**: Neon-pink themed "SECURITY ALERT" modals for high-risk operations like 2FA deactivation.
 *   **State Synchronization**: Real-time user context refresh ensures the UI always reflects precisely when 2FA is active.
-*   **CyberConfirm Integration**: All sensitive actions (deletions, terminations, 2FA) now use custom-themed cyberpunk confirmation modals instead of native alerts.
+*   **CyberConfirm Integration**: All sensitive actions (deletions, terminations, 2FA, data sync) now use custom-themed cyberpunk confirmation modals instead of native alerts.
+
+### ⚙️ Operational Logic & Stability
+*   **Cyber-Triage Sorting Protocol**: Implemented high-immersion sorting hierarchy: Overdue > Today > Priority (High/Med/Low).
+*   **Neural Calendar Synchronization**: Resolved critical bugs with the primary calendar overlay:
+    *   **Mutual Exclusion**: Only one calendar can be active on the grid at a time.
+    *   **Boundary Detection**: Calendar automatically adjusts positioning (up/down) based on grid edge proximity to prevent clipping.
+    *   **Click-Outside Closing**: Instant collapse when operative's focus shifts.
 
 ### ✨ Tactile Polish & UX
 *   **Optimized Terminal**: The "New Directive" box now pulses with a neon-cyan glow upon initialization.

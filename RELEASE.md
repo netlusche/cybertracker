@@ -7,7 +7,14 @@ This update focuses on deepening the application's security posture through spec
 ## 🛡 Deep Security Refinements
 - **Specialized Security Alerts**: High-risk operations (such as disabling 2FA) now trigger a focused neon-pink "SECURITY ALERT" modal to ensure critical awareness.
 - **True-State Sync**: Fixed a synchronization issue where the 2FA status wouldn't update immediately. The grid now re-fetches the operative's authentication state after every profile change.
-- **CyberConfirm Integration**: Native browser confirmation alerts have been scrapped in favor of high-immersion, cyberpunk-themed `CyberConfirm` modals for all critical data manipulations.
+- **CyberConfirm Integration**: Native browser confirmation alerts have been scrapped in favor of high-immersion, cyberpunk-themed `CyberConfirm` modals for all critical data manipulations (Deletion, 2FA Toggle, Chrono-Sync).
+
+## ⚙️ Operational Logic & Stability
+- **Cyber-Triage Sorting Protocol**: A new backend sorting hierarchy ensures that critical failures (**SIGNAL LEAK / Overdue**) and immediate requirements (**HEAT SPIKE / Due Today**) are pinned to the top, followed by **STRATEGIC** base priority (HIGH > MED > LOW).
+- **Neural Calendar Stabilization**: The primary calendar overlay has been patched for maximum reliability:
+    - **Mutual Exclusion**: Prevents orphaned overlays by ensuring only one calendar is active.
+    - **Boundary Detection**: Dynamically flips positioning (`top-full` vs `bottom-full`) to prevent UI clipping at the grid edges.
+    - **Shadow-Close**: Integrated a click-outside listener for seamless interface navigation.
 
 ## ✨ Tactile Polish & UX
 - **Terminal Pulse**: The "New Directive" terminal now pulses with a neon-cyan glow and scales slightly upon successful initialization, providing immediate visual confirmation.
