@@ -21,10 +21,38 @@ switch ($method) {
         $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 50;
         $offset = ($page - 1) * $limit;
 
+        // Filters
+        $search = $_GET['search'] ?? '';
+        $priority = isset($_GET['priority']) && $_GET['priority'] !== '' ? (int)$_GET['priority'] : null;
+        $category = isset($_GET['category']) && $_GET['category'] !== '' ? $_GET['category'] : null;
+        $overdue = isset($_GET['overdue']) && $_GET['overdue'] === 'true';
+
+        // Build Where Clause
+        $where = ["user_id = ?"];
+        $params = [$userId];
+
+        if ($search) {
+            $where[] = "title LIKE ?";
+            $params[] = "%$search%";
+        }
+        if ($priority) {
+            $where[] = "priority = ?";
+            $params[] = $priority;
+        }
+        if ($category) {
+            $where[] = "category = ?";
+            $params[] = $category;
+        }
+        if ($overdue) {
+            $where[] = "status = 0 AND due_date < CURRENT_DATE() AND due_date IS NOT NULL";
+        }
+
+        $whereSql = implode(' AND ', $where);
+
         // Get Total Count
-        $countSql = "SELECT COUNT(*) as total FROM tasks WHERE user_id = ?";
+        $countSql = "SELECT COUNT(*) as total FROM tasks WHERE $whereSql";
         $stmt = $pdo->prepare($countSql);
-        $stmt->execute([$userId]);
+        $stmt->execute($params);
         $totalParam = $stmt->fetch()['total'];
 
         // Get Paginated Data
@@ -32,7 +60,7 @@ switch ($method) {
         // 1. Status (Active=0 first, Done=1 last)
         // 2. Active: Due Date (ASC - Imminent first), Priority (ASC - High to Low), Created (DESC)
         // 3. Done: Due Date (DESC - Newest first), Priority (ASC), Created (DESC)
-        $sql = "SELECT * FROM tasks WHERE user_id = ? 
+        $sql = "SELECT * FROM tasks WHERE $whereSql 
                 ORDER BY 
                 status ASC,
                 CASE WHEN status = 0 AND due_date IS NOT NULL THEN 0 ELSE 1 END ASC,
@@ -41,11 +69,17 @@ switch ($method) {
                 priority ASC,
                 created_at DESC
                 LIMIT ? OFFSET ?";
+
         $stmt = $pdo->prepare($sql);
-        // Bind params explicitly because LIMIT/OFFSET need integers, and execute array treats all as strings sometimes
-        $stmt->bindParam(1, $userId, PDO::PARAM_INT);
-        $stmt->bindParam(2, $limit, PDO::PARAM_INT);
-        $stmt->bindParam(3, $offset, PDO::PARAM_INT);
+
+        // Bind dynamic params
+        foreach ($params as $i => $val) {
+            $stmt->bindValue($i + 1, $val);
+        }
+        // Bind limit/offset logic: params count + 1 and + 2
+        $stmt->bindValue(count($params) + 1, $limit, PDO::PARAM_INT);
+        $stmt->bindValue(count($params) + 2, $offset, PDO::PARAM_INT);
+
         $stmt->execute();
         $tasks = $stmt->fetchAll();
 
@@ -55,7 +89,7 @@ switch ($method) {
                 'current_page' => $page,
                 'limit' => $limit,
                 'total_tasks' => $totalParam,
-                'total_pages' => ceil($totalParam / $limit)
+                'total_pages' => $limit > 0 ? ceil($totalParam / $limit) : 1
             ]
         ]);
         break;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TaskCard from './components/TaskCard';
 import TaskForm from './components/TaskForm';
+import TaskFilters from './components/TaskFilters';
 import LevelBar from './components/LevelBar';
 import AuthForm from './components/AuthForm';
 import ProfileModal from './components/ProfileModal';
@@ -19,11 +20,72 @@ function App() {
   const [categoryRefreshTrigger, setCategoryRefreshTrigger] = useState(0);
   const [isLevelUp, setIsLevelUp] = useState(false); // New Level Up State
 
-  // ... (refreshCategories) ...
+  // Search & Filter State
+  const [filters, setFilters] = useState({
+    search: '',
+    priority: '',
+    category: '',
+    overdue: false
+  });
 
-  // ... (checkAuth) ...
+  const refreshCategories = () => setCategoryRefreshTrigger(prev => prev + 1);
 
-  // ... (fetchTasks) ...
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
+  // Fetch tasks whenever filters change (debouncing handled in TaskFilters for search input)
+  useEffect(() => {
+    if (user) {
+      fetchTasks(1);
+    }
+  }, [filters, user]); // Refetch on filter change or user login
+
+  const checkAuth = async () => {
+    try {
+      const res = await fetch('api/auth.php'); // Default action checks session
+      const data = await res.json();
+      if (data.isAuthenticated) {
+        setUser(data.user);
+        // fetchTasks(1) called by useEffect above when user is set
+      }
+    } catch (err) {
+      console.error("Auth check failed", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchTasks = async (page = 1) => {
+    try {
+      // Build Query String
+      const params = new URLSearchParams({
+        page,
+        limit: 50,
+        ...filters
+      });
+
+      const res = await fetch(`api/tasks.php?${params.toString()}`);
+      if (res.status === 401) {
+        setUser(null);
+        return;
+      }
+      const responseData = await res.json();
+
+      if (responseData.data) {
+        setTasks(responseData.data);
+        setPagination({
+          currentPage: responseData.meta.current_page,
+          totalPages: responseData.meta.total_pages,
+          totalTasks: responseData.meta.total_tasks
+        });
+      } else if (Array.isArray(responseData)) {
+        setTasks(responseData);
+      }
+    } catch (err) {
+      console.error("Failed to fetch tasks", err);
+    }
+  };
 
   const fetchUserStats = async () => {
     try {
@@ -194,6 +256,12 @@ function App() {
             <div className="relative z-20">
               <TaskForm onAddTask={handleAddTask} categoryRefreshTrigger={categoryRefreshTrigger} />
             </div>
+
+            <TaskFilters
+              filters={filters}
+              onFilterChange={setFilters}
+              categories={['Work', 'Personal', 'Urgent', 'Health', 'Finance', 'Hobby']} // Ideally fetched from API, but hardcoded list or propagated prop is fine for now. 
+            />
 
             <div className="space-y-4">
               <h2 className="text-xl text-cyber-neonGreen border-l-4 border-cyber-neonGreen pl-3 mb-4 uppercase tracking-wider">
