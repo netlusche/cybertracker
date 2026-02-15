@@ -1,16 +1,33 @@
-# CyberTasker v1.3.0 - Release Notes
+# CyberTasker v1.3.0 - The "Neon" Update
+
+**Release Date:** 2026-02-15
+
+This major update introduces powerful task management features, a complete visual overhaul for scheduling, and robust filtering tools.
 
 ## 📂 Category Customization
 - **Personalized Protocols**: Operatives can now add, rename, and delete custom categories via their Profile.
 - **Default Priorities**: Tag any category as "DEFAULT" to have it automatically selected and prioritized in the "New Directive" terminal.
-- **Initial Load-out**: Every new operative starts with a standardized set of 5 protocols: *Private*, *Work*, *Finance*, *Health*, and *Hobby*.
-- **Direct Selection**: "Private" is the initial default for all new accounts.
-- **Real-time Sync**: Changes to categories reflect instantly across the dashboard without system reloads.
+- **Initial Load-out**: New operatives start with 5 standard protocols (Private, Work, Finance, Health, Hobby).
+- **Real-time Sync**: Category changes reflect instantly across the dashboard.
 
-## ✨ UI Polish & Visibility
-- **Contrast Improvements**: Lightened the "SYSTEM HELP" and authentication links for better visibility in dark environments.
-- **Handy Badges**: Added visible "DEFAULT" indicators in the Profile category list.
-- **Handbook Update**: The Operative Handbook now contains a new section on Category Protocols.
+## 📅 Smart Scheduling & Calendar
+- **Cyberpunk Calendar**: A custom, neon-styled date picker overlay replaces the default browser input.
+- **Year Navigation**: Quickly jump between years with new control buttons.
+- **Time Visuals**: Due dates are color-coded (Imminent, Future, Overdue) with clock icons.
+- **Intelligent Sorting**: Tasks are now sorted by Status > Due Date > Priority > Creation Time.
+
+## 🔍 Search & Filtering
+- **Real-time Search**: Instantly filter directives by title as you type.
+- **Advanced Filters**: Drill down by **Priority (High/Med/Low)**, **Category**, or **Overdue** status.
+- **System Reset**: A single button to clear all active filters and restore the full view.
+
+## ✨ Visual Polish & Gamification
+- **Level Up Celebration**: Confetti and neon pulse animations when you level up.
+- **Done Animation**: Completed tasks show a strikethrough effect before automatically moving to the bottom of the list.
+- **Validation**: "Neon Error" notifications for empty task submissions.
+
+## 🛠 Developer Tools
+- **Test User Installer**: A new script (`api/install_test_user.php`) to generate a test user ('Alicia') with 250 random tasks for performance testing.
 
 ---
 

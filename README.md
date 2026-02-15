@@ -11,10 +11,12 @@
     *   **Secure Auth**: Bcrypt password hashing, session-based authentication.
     *   **RBAC**: Admin and User roles. Admins can manage all users and data.
 *   **Task Management**:
-    *   **Create**: Initialize directive parameters and assign PRIORITY.
+    *   **Create**: Initialize directives with due dates and priority.
     *   **Edit**: Inline editing of task titles.
+    *   **Search & Filter**: Real-time filtering by Title, Priority, Category, and Overdue status.
     *   **Cycle**: Click Category/Priority badges to cycle through options (High/Med/Low).
-    *   **Onboarding**: New operatives receive 4 starter directives automatically.
+    *   **Onboarding**: New operatives receive starter directives automatically.
+*   **Smart Scheduling**: Custom Cyberpunk Calendar with visual deadlines.
 *   **Pagination**: Efficient handling of large task lists.
 *   **Admin Panel**: User management, system metrics, and safety controls.
 
@@ -23,6 +25,24 @@
 *   **Frontend**: React 18, Vite, Tailwind CSS
 *   **Backend**: Vanilla PHP 8.x (No frameworks, dependency-free)
 *   **Database**: MySQL, MariaDB, or SQLite (Hybrid Support)
+
+---
+---
+
+## 🆕 New in Version 1.3.0 (The "Neon" Update)
+
+### 📂 Custom Categories & Due Dates
+*   **Personal Protocols**: Create and manage your own task categories.
+*   **Smart Calendar**: Integrated date picker with neon visuals.
+*   **Visual Deadlines**: Clock icons and color-coded timestamps for imminent deadlines.
+
+### 🔍 Search & Filtering
+*   **Deep Search**: Locate specific tasks instantly.
+*   **Advanced Filters**: Filter by Priority, Category, and Overdue status.
+
+### ✨ Polish & Gamification
+*   **Level Up**: New animations when you gain a level.
+*   **Developer Tools**: Test user generator for load testing.
 
 ---
 
@@ -101,8 +121,14 @@ Run the installer via your browser:
     *   **Password**: `password`
     *   **Important**: Log in and change this password immediately!
 
-#### 6. Cleanup
-Delete `api/install.php` from the server after installation.
+#### 6. Optional: Install Test Data
+To create a test user 'Alicia' with 250 tasks for performance testing:
+1.  Run the test installer: `https://yourdomain.com/tasks/api/install_test_user.php` (or via CLI: `php api/install_test_user.php`).
+2.  **Login**: `Alicia` / `password`.
+3.  **Security Warning**: Delete `api/install_test_user.php` immediately after use.
+
+#### 7. Cleanup
+Delete `api/install.php` and `api/install_test_user.php` from the server after installation.
 
 ---
 
