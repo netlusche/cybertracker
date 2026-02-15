@@ -20,6 +20,7 @@ function App() {
   const [categoryRefreshTrigger, setCategoryRefreshTrigger] = useState(0);
   const [categories, setCategories] = useState([]); // [NEW] Synchronized categories state
   const [isLevelUp, setIsLevelUp] = useState(false); // New Level Up State
+  const [activeCalendarTaskId, setActiveCalendarTaskId] = useState(null); // [NEW] Mutual exclusion for calendars
 
   // Search & Filter State
   const [filters, setFilters] = useState({
@@ -308,6 +309,8 @@ function App() {
                       onToggleStatus={handleToggleStatus}
                       onUpdateTask={handleUpdateTask}
                       onDelete={handleDelete}
+                      activeCalendarTaskId={activeCalendarTaskId}
+                      setActiveCalendarTaskId={setActiveCalendarTaskId}
                     />
                   ))}
                 </div>

@@ -3,15 +3,48 @@ import CyberSelect from './CyberSelect';
 import CyberConfirm from './CyberConfirm';
 import CyberCalendar from './CyberCalendar';
 
-const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete }) => {
+const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendarTaskId, setActiveCalendarTaskId }) => {
     const [isEditing, setIsEditing] = React.useState(false);
     const [editTitle, setEditTitle] = React.useState(task.title);
     const [isSaving, setIsSaving] = React.useState(false);
     const [showPriorityConfirm, setShowPriorityConfirm] = React.useState(false);
     const [pendingPriority, setPendingPriority] = React.useState(null);
-    const [showDatePicker, setShowDatePicker] = React.useState(false);
     const [showDateConfirm, setShowDateConfirm] = React.useState(false);
     const [pendingDate, setPendingDate] = React.useState(null);
+    const [openUpwards, setOpenUpwards] = React.useState(false);
+    const cardRef = React.useRef(null);
+    const isDatePickerOpen = activeCalendarTaskId === task.id;
+
+    // Mutual Exclusion & Positioning Logic
+    React.useEffect(() => {
+        if (!isDatePickerOpen) return;
+
+        const handleClickOutside = (event) => {
+            if (cardRef.current && !cardRef.current.contains(event.target)) {
+                setActiveCalendarTaskId(null);
+            }
+        };
+
+        const checkPosition = () => {
+            if (cardRef.current) {
+                const rect = cardRef.current.getBoundingClientRect();
+                const spaceBelow = window.innerHeight - rect.bottom;
+                // If less than 280px (approx calendar height) space below, flip it
+                setOpenUpwards(spaceBelow < 280);
+            }
+        };
+
+        checkPosition();
+        document.addEventListener('mousedown', handleClickOutside);
+        window.addEventListener('scroll', checkPosition);
+        window.addEventListener('resize', checkPosition);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            window.removeEventListener('scroll', checkPosition);
+            window.removeEventListener('resize', checkPosition);
+        };
+    }, [isDatePickerOpen, setActiveCalendarTaskId]);
 
     const priorityColors = {
         1: 'border-l-4 border-red-500',   // High
@@ -70,7 +103,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete }) => {
 
     const handleDateSelect = (date) => {
         setPendingDate(date);
-        setShowDatePicker(false);
+        setActiveCalendarTaskId(null);
         setShowDateConfirm(true);
     };
 
@@ -124,7 +157,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete }) => {
 
     return (
         <>
-            <div className={`card-cyber relative group transition-all duration-300 hover:z-50 focus-within:z-50 ${task.status == 1 ? 'opacity-50 grayscale' : ''} ${priorityColors[task.priority] || ''}`}>
+            <div ref={cardRef} className={`card-cyber relative group transition-all duration-300 ${isDatePickerOpen ? 'z-[100]' : 'hover:z-50 focus-within:z-50'} ${task.status == 1 ? 'opacity-50 grayscale' : ''} ${priorityColors[task.priority] || ''}`}>
                 <div className="flex justify-between items-start">
                     <div className="flex-1">
                         <div className="flex items-center gap-3 mb-3">
@@ -185,7 +218,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete }) => {
 
                         <div className="relative">
                             <div
-                                onClick={() => task.status != 1 && setShowDatePicker(!showDatePicker)}
+                                onClick={() => task.status != 1 && setActiveCalendarTaskId(isDatePickerOpen ? null : task.id)}
                                 className={`flex items-center gap-2 mb-2 font-mono text-base ${task.status != 1 ? 'cursor-pointer hover:bg-white/5 transition-colors p-1 -ml-1 rounded' : ''}`}
                                 title={task.status != 1 ? "Click to change date" : ""}
                             >
@@ -199,12 +232,12 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete }) => {
                                 </span>
                             </div>
 
-                            {showDatePicker && (
-                                <div className="absolute top-full left-0 z-[100] mt-1">
+                            {isDatePickerOpen && (
+                                <div className={`absolute left-0 z-[100] mt-1 ${openUpwards ? 'bottom-full mb-1' : 'top-full mt-1'}`}>
                                     <CyberCalendar
                                         value={task.due_date}
                                         onChange={handleDateSelect}
-                                        onClose={() => setShowDatePicker(false)}
+                                        onClose={() => setActiveCalendarTaskId(null)}
                                     />
                                 </div>
                             )}
