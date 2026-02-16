@@ -6,11 +6,15 @@ import CyberCalendar from './CyberCalendar';
 const CyberDateInput = ({ value, onChange, placeholder = "Select Date" }) => {
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef(null);
+    const portalRef = useRef(null);
 
     // Close on click outside
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (containerRef.current && !containerRef.current.contains(event.target)) {
+            const isInsideContainer = containerRef.current && containerRef.current.contains(event.target);
+            const isInsidePortal = portalRef.current && portalRef.current.contains(event.target);
+
+            if (!isInsideContainer && !isInsidePortal) {
                 setIsOpen(false);
             }
         };
@@ -92,6 +96,7 @@ const CyberDateInput = ({ value, onChange, placeholder = "Select Date" }) => {
             {/* Calendar Overlay - Portaled to Body */}
             {isOpen && createPortal(
                 <div
+                    ref={portalRef}
                     className="fixed z-[10000]"
                     style={{
                         top: coords.top,

@@ -14,7 +14,8 @@ This update introduces administrative override capabilities for 2FA, a custom al
 
 ## 📱 Mobile Neural Link
 - **Calendar Portals**: The scheduling calendar now uses React Portals to render at the body level, bypassing all parent container clipping.
-- **Dynamic Orbital Logic**: Added intelligent coordinate calculation to ensure the calendar always remains within the operative's viewport, regardless of screen dimensions.
+- **Dynamic Orbital Logic**: Added intelligent coordinate calculation to ensure the calendar always remains within the operative's viewport.
+- **Hotfix: Interaction Protocol**: Patched the event listener system to allow date selection within the portaled calendar, which was previously blocked by the "click-outside" security logic.
 
 ---
 

@@ -40,8 +40,10 @@
 *   **CyberAlert System**: Replaced native browser alerts with high-immersion, neon-blue cyberpunk modals.
 *   **Dynamic Input Glow**: Enhanced readability for all terminal inputs with neon-cyan focus states.
 
-### 📱 Mobile Optimization
-*   **Neural Calendar Portals**: Resolved clipping issues on small viewports by migrating the calendar to a body-level React Portal with dynamic coordinate calculation.
+### 📱 Mobile Neural Link
+- **Calendar Portals**: The scheduling calendar now uses React Portals to render at the body level, bypassing all parent container clipping.
+- **Dynamic Orbital Logic**: Added intelligent coordinate calculation to ensure the calendar always remains within the operative's viewport.
+- **Hotfix: Interaction Protocol**: Patched the event listener system to allow date selection within the portaled calendar, which was previously blocked by the "click-outside" security logic.
 
 ## 🆕 New in Version 1.4.0 (Deep Security & Polish)
 
