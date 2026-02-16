@@ -261,6 +261,29 @@ const AdminPanel = ({ onClose }) => {
         } catch (err) { setError('Network Error'); }
     };
 
+    const handleDisable2FAClick = (user) => {
+        setConfirmAction({
+            message: `DISABLE 2FA FOR ${user.username}? This will remove secondary verification protocols.`,
+            onConfirm: () => performDisable2FA(user.id, user.username)
+        });
+    };
+
+    const performDisable2FA = async (id, username) => {
+        try {
+            const res = await fetch('api/admin.php?action=disable_2fa', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ target_id: id })
+            });
+            if (res.ok) {
+                setMessage(`2FA Disabled for ${username}.`);
+                fetchUsers(pagination.currentPage);
+            } else {
+                setError('Failed to disable 2FA');
+            }
+        } catch (err) { setError('Network Error'); }
+    };
+
     return (
         <div className="fixed inset-0 bg-black/90 backdrop-blur flex items-center justify-center z-[100] p-4 font-mono">
             {/* Modals */}
@@ -343,6 +366,9 @@ const AdminPanel = ({ onClose }) => {
                                         <span className={`text-xs px-2 py-1 rounded border ${u.role === 'admin' ? 'border-yellow-500 text-yellow-500' : 'border-gray-600 text-gray-400'}`}>
                                             {u.role.toUpperCase()}
                                         </span>
+                                        {u.two_factor_enabled == 1 && (
+                                            <span className="ml-2 text-[10px] bg-green-900/30 text-green-500 border border-green-900 px-1 font-bold">2FA</span>
+                                        )}
                                     </td>
                                     <td className="p-2 text-center">
                                         <button
@@ -353,31 +379,43 @@ const AdminPanel = ({ onClose }) => {
                                             {u.is_verified == 1 ? '✓ VERIFIED' : '✖ UNVERIFIED'}
                                         </button>
                                     </td>
-                                    <td className="p-2">
-                                        <div className="text-[10px] text-gray-500 uppercase tracking-tighter">Joined</div>
-                                        <div className="text-xs text-gray-400">{u.created_at}</div>
-                                        <div className="mt-1 text-[10px] text-gray-500 uppercase tracking-tighter border-t border-gray-800 pt-1">Last Login</div>
-                                        <div className="text-xs text-cyan-500">{u.last_login || 'NEVER'}</div>
+                                    <td className="p-2 align-top">
+                                        <div className="grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 text-[10px] leading-none">
+                                            <span className="text-gray-500 uppercase">Jo</span>
+                                            <span className="text-gray-400">{u.created_at?.split(' ')[0]}</span>
+                                            <span className="text-gray-500 uppercase">Lg</span>
+                                            <span className="text-cyan-500">{u.last_login ? u.last_login.split(' ')[0] : 'NEVER'}</span>
+                                        </div>
                                     </td>
-                                    <td className="p-2 text-right space-x-2">
-                                        <button
-                                            onClick={() => handleToggleRoleClick(u)}
-                                            className="text-xs px-2 py-1 border border-blue-900 text-blue-500 hover:bg-blue-900 hover:text-white transition-colors"
-                                        >
-                                            {u.role === 'admin' ? 'DOWNGRADE' : 'PROMOTE'}
-                                        </button>
-                                        <button
-                                            onClick={() => handleResetPasswordClick(u)}
-                                            className="text-xs px-2 py-1 border border-gray-600 text-gray-400 hover:border-white hover:text-white transition-colors"
-                                        >
-                                            RESET PWD
-                                        </button>
-                                        <button
-                                            onClick={() => handleDeleteUserClick(u)}
-                                            className="text-xs px-2 py-1 border border-red-900 text-red-700 hover:bg-red-900 hover:text-white transition-colors"
-                                        >
-                                            ERASE
-                                        </button>
+                                    <td className="p-2 text-right">
+                                        <div className="flex flex-wrap justify-end gap-1">
+                                            <button
+                                                onClick={() => handleToggleRoleClick(u)}
+                                                className="text-[10px] px-2 py-1 border border-blue-900 text-blue-500 hover:bg-blue-900 hover:text-white transition-colors min-w-[70px] uppercase"
+                                            >
+                                                {u.role === 'admin' ? 'DOWNGRADE' : 'PROMOTE'}
+                                            </button>
+                                            <button
+                                                onClick={() => handleResetPasswordClick(u)}
+                                                className="text-[10px] px-2 py-1 border border-gray-600 text-gray-400 hover:border-white hover:text-white transition-colors min-w-[70px] uppercase"
+                                            >
+                                                RESET PWD
+                                            </button>
+                                            {u.two_factor_enabled == 1 && (
+                                                <button
+                                                    onClick={() => handleDisable2FAClick(u)}
+                                                    className="text-[10px] px-2 py-1 border border-orange-900 text-orange-600 hover:bg-orange-900 hover:text-white transition-colors min-w-[70px] uppercase"
+                                                >
+                                                    2FA OFF
+                                                </button>
+                                            )}
+                                            <button
+                                                onClick={() => handleDeleteUserClick(u)}
+                                                className="text-[10px] px-2 py-1 border border-red-900 text-red-700 hover:bg-red-900 hover:text-white transition-colors min-w-[70px] uppercase"
+                                            >
+                                                ERASE
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}

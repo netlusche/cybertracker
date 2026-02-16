@@ -1,3 +1,23 @@
+# CyberTasker v1.4.1 - Admin Override & UI Polish
+
+**Release Date:** 2026-02-16
+
+This update introduces administrative override capabilities for 2FA, a custom alert system to replace native browser dialogs, and critical mobile layout fixes for the scheduling system.
+
+## 🕵️‍♂️ Admin Override Protocols
+- **2FA Admin Override**: Administrators can now deactivate 2FA for users who have lost access to their authenticator devices. A new "2FA OFF" button has been integrated into the Administration Console.
+- **Polished Admin Console**: The user management table has been re-engineered for higher data density, providing a clearer overview of the operative fleet.
+
+## 🛡 Security & Alerts
+- **CyberAlert System**: Native browser `alert()` dialogs have been decommissioned. High-immersion neon-blue `CyberAlert` modals now handle all system notifications (e.g., successful registration).
+- **Responsive Terminal Inputs**: All input fields now feature optimized contrast and a neon-cyan "active focus" glow for better visibility in high-intensity operations.
+
+## 📱 Mobile Neural Link
+- **Calendar Portals**: The scheduling calendar now uses React Portals to render at the body level, bypassing all parent container clipping.
+- **Dynamic Orbital Logic**: Added intelligent coordinate calculation to ensure the calendar always remains within the operative's viewport, regardless of screen dimensions.
+
+---
+
 # CyberTasker v1.4.0 - Deep Security & Polish
 
 **Release Date:** 2026-02-15

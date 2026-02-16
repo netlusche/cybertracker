@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { triggerNeonConfetti } from '../utils/confetti';
 import HelpModal from './HelpModal';
+import CyberAlert from './CyberAlert';
+
 
 const AuthForm = ({ onLogin }) => {
     const [isLogin, setIsLogin] = useState(true);
@@ -18,6 +20,10 @@ const AuthForm = ({ onLogin }) => {
     // Forgot Password State
     const [isForgot, setIsForgot] = useState(false);
     const [resetSent, setResetSent] = useState(false);
+
+    // Custom Alert State
+    const [alert, setAlert] = useState({ show: false, message: '', title: '', variant: 'cyan' });
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -61,8 +67,14 @@ const AuthForm = ({ onLogin }) => {
             } else {
                 setIsLogin(true);
                 setError('');
-                alert('Registration successful! Please check your email to verify account.');
+                setAlert({
+                    show: true,
+                    title: 'IDENTITY ESTABLISHED',
+                    message: 'NEW IDENTITY ESTABLISHED. UPLINK REQUIRED: CHECK COM-LINK FOR VERIFICATION SIGNAL.',
+                    variant: 'cyan'
+                });
             }
+
 
         } catch (err) {
             setError('System Error. Connection failed.');
@@ -240,8 +252,18 @@ const AuthForm = ({ onLogin }) => {
             </div>
 
             {showHelp && <HelpModal onClose={() => setShowHelp(false)} />}
+
+            {alert.show && (
+                <CyberAlert
+                    title={alert.title}
+                    message={alert.message}
+                    variant={alert.variant}
+                    onClose={() => setAlert({ ...alert, show: false })}
+                />
+            )}
         </div>
     );
 };
+
 
 export default AuthForm;

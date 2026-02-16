@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import CyberCalendar from './CyberCalendar';
+
 
 const CyberDateInput = ({ value, onChange, placeholder = "Select Date" }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -27,6 +29,36 @@ const CyberDateInput = ({ value, onChange, placeholder = "Select Date" }) => {
         onChange(date);
         setIsOpen(false);
     };
+
+    const [coords, setCoords] = useState({ top: 0, left: 0 });
+
+    useEffect(() => {
+        if (isOpen && containerRef.current) {
+            const rect = containerRef.current.getBoundingClientRect();
+            const spaceBelow = window.innerHeight - rect.bottom;
+            const spaceAbove = rect.top;
+            const calendarHeight = 320; // Estimated height
+            const calendarWidth = 260; // Estimated width
+
+            let top = rect.bottom + window.scrollY + 8;
+            let left = rect.left + window.scrollX;
+
+            // Adjust if cut off at the bottom
+            if (spaceBelow < calendarHeight && spaceAbove > calendarHeight) {
+                top = rect.top + window.scrollY - calendarHeight - 8;
+            }
+
+            // Adjust if cut off at the right
+            if (left + calendarWidth > window.innerWidth) {
+                left = window.innerWidth - calendarWidth - 20;
+            }
+
+            // Ensure not cut off at the left
+            if (left < 10) left = 10;
+
+            setCoords({ top, left });
+        }
+    }, [isOpen]);
 
     return (
         <div className="relative w-auto" ref={containerRef}>
@@ -57,16 +89,25 @@ const CyberDateInput = ({ value, onChange, placeholder = "Select Date" }) => {
                 <span className="text-cyber-neonCyan ml-2">📅</span>
             </div>
 
-            {/* Calendar Overlay */}
-            {isOpen && (
-                <div className="absolute top-full mt-2 right-0 z-[100]">
+            {/* Calendar Overlay - Portaled to Body */}
+            {isOpen && createPortal(
+                <div
+                    className="fixed z-[10000]"
+                    style={{
+                        top: coords.top,
+                        left: coords.left,
+                        position: 'absolute'
+                    }}
+                >
                     <CyberCalendar
                         value={value}
                         onChange={handleDateSelect}
                         onClose={() => setIsOpen(false)}
                     />
-                </div>
+                </div>,
+                document.body
             )}
+
         </div>
     );
 };

@@ -68,7 +68,7 @@ if ($method === 'GET') {
 
         // Fetch users (Admins first, then dynamic sort)
         // Note: We prioritize admins (role='admin' -> 0)
-        $sql = "SELECT id, username, role, is_verified, created_at, last_login 
+        $sql = "SELECT id, username, role, is_verified, created_at, last_login, two_factor_enabled 
                 FROM users 
                 $searchQuery
                 ORDER BY (CASE WHEN role = 'admin' THEN 0 ELSE 1 END), $sortBy $sortDir 
@@ -222,6 +222,21 @@ elseif ($method === 'POST') {
         $stmt->execute([$hash, $targetId]);
 
         echo json_encode(['success' => true, 'message' => 'Password reset']);
+    }
+
+    elseif ($action === 'disable_2fa') {
+        $targetId = $data['target_id'];
+
+        if (!$targetId) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Missing target ID']);
+            exit;
+        }
+
+        $stmt = $pdo->prepare("UPDATE users SET two_factor_enabled = 0, two_factor_secret = NULL WHERE id = ?");
+        $stmt->execute([$targetId]);
+
+        echo json_encode(['success' => true, 'message' => '2FA Disabled']);
     }
 
     elseif ($action === 'update_setting') {

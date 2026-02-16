@@ -30,6 +30,19 @@
 ---
 ---
 
+## 🆕 New in Version 1.4.1 (Admin Override & UI Polish)
+
+### 🕵️‍♂️ Admin Override Protocols
+*   **2FA Override**: Administrators can now deactivate 2FA for any operative via the Admin Panel ("2FA OFF" button).
+*   **Polished Administration Console**: Optimized table layout and higher data density for easier fleet management.
+
+### 🛡 Security & Alerts
+*   **CyberAlert System**: Replaced native browser alerts with high-immersion, neon-blue cyberpunk modals.
+*   **Dynamic Input Glow**: Enhanced readability for all terminal inputs with neon-cyan focus states.
+
+### 📱 Mobile Optimization
+*   **Neural Calendar Portals**: Resolved clipping issues on small viewports by migrating the calendar to a body-level React Portal with dynamic coordinate calculation.
+
 ## 🆕 New in Version 1.4.0 (Deep Security & Polish)
 
 ### 🛡 Deep Security Refinements

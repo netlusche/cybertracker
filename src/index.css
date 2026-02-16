@@ -44,6 +44,11 @@ body {
   }
 
   .input-cyber {
-    @apply bg-cyber-dark border border-cyber-gray p-2 text-white focus:outline-none focus:border-cyber-neonCyan transition-colors;
+    @apply bg-cyber-dark border border-cyber-gray p-2 text-[#e0e0e0] placeholder-gray-500 focus:outline-none focus:border-cyber-neonCyan transition-all duration-300;
   }
+
+  .input-cyber:focus {
+    @apply shadow-[0_0_10px_rgba(0,255,255,0.2)];
+  }
+
 }

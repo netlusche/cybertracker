@@ -1,3 +1,29 @@
+# CyberTasker Server Update Instructions (v1.4.0 → v1.4.1)
+
+These instructions guide you through updating your existing CyberTasker server installation to version **1.4.1**. This update adds the Admin 2FA Override and the the custom CyberAlert system.
+
+## 1. Backup
+
+- **Files**: Backup your `api/config.php` and your database file (if using SQLite).
+
+## 2. Deploy Files
+
+1.  Upload the contents of the `dist` folder to your server.
+2.  **Overwrite all files** EXCEPT `api/config.php` and your database file.
+
+## 3. Database Update
+
+**No database changes required for this version.**
+
+## 4. Verify Update
+
+1.  **Check Terminal Inputs**: Focus on any input field and verify the neon-cyan glow effect.
+2.  **Test Registration**: Create a new account and verify the neon-blue **CyberAlert** notification.
+3.  **Admin Check**: Log in as an administrator and verify the new **"2FA OFF"** button in the actions column for users with 2FA enabled.
+4.  **Mobile Calendar**: On a mobile viewport, verify that the calendar is fully visible and not clipped by the task container.
+
+---
+
 # CyberTasker Server Update Instructions (v1.3.0 → v1.4.0)
 
 These instructions guide you through updating your existing CyberTasker server installation to version **1.4.0**. This update introduces the "Deep Security" specialized alerts and comprehensive UI refinements.
