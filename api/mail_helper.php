@@ -48,4 +48,3 @@ function sendMail($to, $subject, $body)
 
     return mail($to, $subject, $htmlMessage, $headers);
 }
-?>

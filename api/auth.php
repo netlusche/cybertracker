@@ -389,14 +389,16 @@ elseif ($action === 'register') {
             $subject = "CyberTasker Identity Verification";
             $body = "Welcome Operative $username.<br><br>To access the system, you must verify your com-link:<br><a href='$verifyLink'>$verifyLink</a><br><br>This link expires in... never (for now).";
             $mailSuccess = sendMail($email, $subject, $body);
-        } catch (Throwable $e) {
+        }
+        catch (Throwable $e) {
             // Log error but don't crash registration
             error_log("Registration mail failed: " . $e->getMessage());
         }
 
         if ($mailSuccess) {
             echo json_encode(['success' => true, 'message' => 'User registered. Please check email to verify.']);
-        } else {
+        }
+        else {
             echo json_encode(['success' => true, 'message' => 'Identity established, but com-link signal failed. Contact Admin to verify your account manually.']);
         }
     }
@@ -716,4 +718,3 @@ else {
     }
     echo json_encode(['isAuthenticated' => false]);
 }
-?>

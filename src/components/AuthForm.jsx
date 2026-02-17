@@ -72,7 +72,7 @@ const AuthForm = ({ onLogin }) => {
                 setAlert({
                     show: true,
                     title: 'IDENTITY ESTABLISHED',
-                    message: 'NEW IDENTITY ESTABLISHED. UPLINK REQUIRED: CHECK COM-LINK FOR VERIFICATION SIGNAL.',
+                    message: data.message || 'NEW IDENTITY ESTABLISHED. UPLINK REQUIRED: CHECK COM-LINK FOR VERIFICATION SIGNAL.',
                     variant: 'cyan'
                 });
             }
