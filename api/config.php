@@ -9,7 +9,7 @@ if (file_exists(__DIR__ . '/config.local.php')) {
 
 // Database configuration defaults (used if not defined in config.local.php)
 if (!defined('DB_TYPE'))
-    define('DB_TYPE', 'mysql'); // 'mysql' (default) or 'sqlite'
+    define('DB_TYPE', 'sqlite'); // 'mysql' or 'sqlite' (default)
 if (!defined('DB_HOST'))
     define('DB_HOST', 'localhost');
 if (!defined('DB_NAME'))
