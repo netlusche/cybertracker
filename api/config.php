@@ -21,6 +21,13 @@ else {
         define('DB_PASS', 'Your_DB_Password');
 }
 
+// Global Configuration
+if (!defined('FRONTEND_URL')) {
+    // Determine base URL automatically or default to local Vite dev server
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+    define('FRONTEND_URL', $protocol . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost:5173'));
+}
+
 // CORS Configuration – Allow local development
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");

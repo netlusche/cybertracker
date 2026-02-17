@@ -86,6 +86,23 @@ class TOTP
     }
 
     /**
+     * Generate 8 random backup codes
+     */
+    public static function generateBackupCodes($count = 8, $length = 8)
+    {
+        $codes = [];
+        $chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        for ($i = 0; $i < $count; $i++) {
+            $code = '';
+            for ($j = 0; $j < $length; $j++) {
+                $code .= $chars[random_int(0, strlen($chars) - 1)];
+            }
+            $codes[] = $code;
+        }
+        return $codes;
+    }
+
+    /**
      * Generate otpauth URL for QR Code
      */
     public static function getProvisioningUri($username, $secret, $issuer = 'CyberTasker')

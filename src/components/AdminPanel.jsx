@@ -156,8 +156,8 @@ const AdminPanel = ({ onClose }) => {
     };
 
     const SortIcon = ({ columnKey }) => {
-        if (sortConfig.key !== columnKey) return <span className="text-gray-600 ml-1">↕</span>;
-        return <span className="text-yellow-500 ml-1">{sortConfig.direction === 'ASC' ? '↑' : '↓'}</span>;
+        if (sortConfig.key !== columnKey) return <span className="text-gray-500">↕</span>;
+        return <span className="text-yellow-500">{sortConfig.direction === 'ASC' ? '↑' : '↓'}</span>;
     };
 
     // --- Wrapper Handlers ---
@@ -303,7 +303,7 @@ const AdminPanel = ({ onClose }) => {
             )}
 
             <div className="card-cyber w-full max-w-4xl h-[80vh] flex flex-col border-yellow-500 shadow-[0_0_30px_rgba(255,200,0,0.3)]">
-                <div className="flex justify-between items-center border-b border-yellow-900/50 pb-4 mb-4">
+                <div className="flex justify-between items-center border-b border-yellow-700/50 pb-4 mb-4">
                     <h2 className="text-2xl font-bold text-yellow-500 tracking-widest uppercase">
                         ADMINISTRATION CONSOLE
                     </h2>
@@ -317,9 +317,9 @@ const AdminPanel = ({ onClose }) => {
                         placeholder="SEARCH RECRUITS..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="bg-black/50 border border-yellow-900/50 text-yellow-400 px-3 py-1 pr-8 text-sm focus:outline-none focus:border-yellow-500 w-64 rounded-sm tracking-widest placeholder-yellow-900"
+                        className="bg-black/50 border border-yellow-700/50 text-yellow-400 px-3 py-1 pr-8 text-sm focus:outline-none focus:border-yellow-500 w-64 rounded-sm tracking-widest placeholder-yellow-700"
                     />
-                    <span className="absolute right-2 top-1 text-yellow-700 pointer-events-none">🔍</span>
+                    <span className="absolute right-2 top-1 text-yellow-600 pointer-events-none">🔍</span>
                 </div>
 
                 {error && <div className="bg-red-900/20 text-red-500 p-2 border border-red-900 mb-4">⚠ {error}</div>}
@@ -328,31 +328,39 @@ const AdminPanel = ({ onClose }) => {
                 <div className="overflow-auto flex-1">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="text-yellow-700 border-b border-yellow-900/30">
+                            <tr className="text-yellow-600 border-b border-yellow-700/30">
                                 <th
                                     className={`p-2 cursor-pointer select-none hover:text-yellow-400 ${sortConfig.key === 'id' ? 'text-yellow-500' : ''}`}
                                     onClick={() => handleSort('id')}
                                 >
-                                    ID <SortIcon columnKey="id" />
+                                    <div className="flex items-center gap-1">
+                                        ID <SortIcon columnKey="id" />
+                                    </div>
                                 </th>
                                 <th
                                     className={`p-2 cursor-pointer select-none hover:text-yellow-400 ${sortConfig.key === 'username' ? 'text-yellow-500' : ''}`}
                                     onClick={() => handleSort('username')}
                                 >
-                                    CODENAME <SortIcon columnKey="username" />
+                                    <div className="flex items-center gap-1">
+                                        CODENAME <SortIcon columnKey="username" />
+                                    </div>
                                 </th>
                                 <th className="p-2">ROLE</th>
                                 <th
-                                    className={`p-2 text-center cursor-pointer select-none hover:text-yellow-400 ${sortConfig.key === 'is_verified' ? 'text-yellow-500' : ''}`}
+                                    className={`p-2 cursor-pointer select-none hover:text-yellow-400 ${sortConfig.key === 'is_verified' ? 'text-yellow-500' : ''}`}
                                     onClick={() => handleSort('is_verified')}
                                 >
-                                    VERIFIED <SortIcon columnKey="is_verified" />
+                                    <div className="flex items-center justify-center gap-1">
+                                        VERIFIED <SortIcon columnKey="is_verified" />
+                                    </div>
                                 </th>
                                 <th
                                     className={`p-2 cursor-pointer select-none hover:text-yellow-400 ${sortConfig.key === 'last_login' ? 'text-yellow-500' : ''}`}
                                     onClick={() => handleSort('last_login')}
                                 >
-                                    HISTORY <SortIcon columnKey="last_login" />
+                                    <div className="flex items-center gap-1">
+                                        HISTORY <SortIcon columnKey="last_login" />
+                                    </div>
                                 </th>
                                 <th className="p-2 text-right">ACTIONS</th>
                             </tr>
@@ -360,10 +368,10 @@ const AdminPanel = ({ onClose }) => {
                         <tbody>
                             {users.map(u => (
                                 <tr key={u.id} className="border-b border-gray-800 hover:bg-white/5 transition-colors">
-                                    <td className="p-2 text-gray-500">#{u.id}</td>
+                                    <td className="p-2 text-gray-400">#{u.id}</td>
                                     <td className="p-2 text-white font-bold">{u.username}</td>
                                     <td className="p-2">
-                                        <span className={`text-xs px-2 py-1 rounded border ${u.role === 'admin' ? 'border-yellow-500 text-yellow-500' : 'border-gray-600 text-gray-400'}`}>
+                                        <span className={`text-xs px-2 py-1 rounded border ${u.role === 'admin' ? 'border-yellow-500 text-yellow-500' : 'border-gray-500 text-gray-300'}`}>
                                             {u.role.toUpperCase()}
                                         </span>
                                         {u.two_factor_enabled == 1 && (
@@ -381,9 +389,9 @@ const AdminPanel = ({ onClose }) => {
                                     </td>
                                     <td className="p-2 align-top">
                                         <div className="grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 text-[10px] leading-none">
-                                            <span className="text-gray-500 uppercase">Jo</span>
-                                            <span className="text-gray-400">{u.created_at?.split(' ')[0]}</span>
-                                            <span className="text-gray-500 uppercase">Lg</span>
+                                            <span className="text-gray-400 uppercase">Jo</span>
+                                            <span className="text-gray-300">{u.created_at?.split(' ')[0]}</span>
+                                            <span className="text-gray-400 uppercase">Lg</span>
                                             <span className="text-cyan-500">{u.last_login ? u.last_login.split(' ')[0] : 'NEVER'}</span>
                                         </div>
                                     </td>
@@ -397,7 +405,7 @@ const AdminPanel = ({ onClose }) => {
                                             </button>
                                             <button
                                                 onClick={() => handleResetPasswordClick(u)}
-                                                className="text-[10px] px-2 py-1 border border-gray-600 text-gray-400 hover:border-white hover:text-white transition-colors min-w-[70px] uppercase"
+                                                className="text-[10px] px-2 py-1 border border-gray-500 text-gray-300 hover:border-white hover:text-white transition-colors min-w-[70px] uppercase"
                                             >
                                                 RESET PWD
                                             </button>
@@ -424,15 +432,15 @@ const AdminPanel = ({ onClose }) => {
                 </div>
 
                 {/* Pagination Controls */}
-                <div className="flex items-center justify-between border-t border-yellow-900/30 pt-4 mb-4 text-xs font-mono">
-                    <div className="text-gray-500">
+                <div className="flex items-center justify-between border-t border-yellow-700/30 pt-4 mb-4 text-xs font-mono">
+                    <div className="text-gray-400">
                         TOTAL RECRUITS: <span className="text-yellow-500">{pagination.totalUsers}</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <button
                             disabled={pagination.currentPage <= 1}
                             onClick={() => fetchUsers(1)}
-                            className="px-3 py-1 border border-yellow-900/50 text-yellow-700 hover:bg-yellow-900/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
+                            className="px-3 py-1 border border-yellow-700/50 text-yellow-600 hover:bg-yellow-700/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
                             title="First Page"
                         >
                             &laquo;
@@ -440,7 +448,7 @@ const AdminPanel = ({ onClose }) => {
                         <button
                             disabled={pagination.currentPage <= 1}
                             onClick={() => fetchUsers(pagination.currentPage - 1)}
-                            className="px-3 py-1 border border-yellow-900/50 text-yellow-700 hover:bg-yellow-900/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
+                            className="px-3 py-1 border border-yellow-700/50 text-yellow-600 hover:bg-yellow-700/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
                             title="Previous Page"
                         >
                             &lsaquo;
@@ -453,7 +461,7 @@ const AdminPanel = ({ onClose }) => {
                         <button
                             disabled={pagination.currentPage >= pagination.totalPages}
                             onClick={() => fetchUsers(pagination.currentPage + 1)}
-                            className="px-3 py-1 border border-yellow-900/50 text-yellow-700 hover:bg-yellow-900/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
+                            className="px-3 py-1 border border-yellow-700/50 text-yellow-600 hover:bg-yellow-700/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
                             title="Next Page"
                         >
                             &rsaquo;
@@ -461,7 +469,7 @@ const AdminPanel = ({ onClose }) => {
                         <button
                             disabled={pagination.currentPage >= pagination.totalPages}
                             onClick={() => fetchUsers(pagination.totalPages)}
-                            className="px-3 py-1 border border-yellow-900/50 text-yellow-700 hover:bg-yellow-900/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
+                            className="px-3 py-1 border border-yellow-700/50 text-yellow-600 hover:bg-yellow-700/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
                             title="Last Page"
                         >
                             &raquo;
@@ -470,14 +478,14 @@ const AdminPanel = ({ onClose }) => {
                 </div>
 
                 {/* System Policies Section */}
-                <div className="border-t border-yellow-900/50 pt-4 mt-4">
+                <div className="border-t border-yellow-700/50 pt-4 mt-4">
                     <h3 className="text-yellow-500 font-bold mb-3 flex items-center gap-2">
                         <span>⚙</span> SYSTEM POLICIES
                     </h3>
-                    <div className="flex items-center gap-4 bg-yellow-900/10 p-3 rounded border border-yellow-900/30">
+                    <div className="flex items-center gap-4 bg-yellow-700/10 p-3 rounded border border-yellow-700/30">
                         <div className="flex-1">
                             <h4 className="text-white font-bold text-sm">Strict Password Policy</h4>
-                            <p className="text-xs text-gray-400">
+                            <p className="text-xs text-gray-300">
                                 Enforce heavy encryption protocols (Min 12 chars, Upper, Number, Special).
                             </p>
                         </div>

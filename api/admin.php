@@ -201,6 +201,7 @@ elseif ($method === 'POST') {
 
         // Proceed with deletion (Cascade manually)
         $pdo->prepare("DELETE FROM tasks WHERE user_id = ?")->execute([$targetId]);
+        $pdo->prepare("DELETE FROM user_categories WHERE user_id = ?")->execute([$targetId]);
         $pdo->prepare("DELETE FROM user_stats WHERE id = ?")->execute([$targetId]);
         $pdo->prepare("DELETE FROM users WHERE id = ?")->execute([$targetId]);
 
@@ -233,7 +234,7 @@ elseif ($method === 'POST') {
             exit;
         }
 
-        $stmt = $pdo->prepare("UPDATE users SET two_factor_enabled = 0, two_factor_secret = NULL WHERE id = ?");
+        $stmt = $pdo->prepare("UPDATE users SET two_factor_enabled = 0, two_factor_secret = NULL, two_factor_method = NULL, two_factor_backup_codes = NULL WHERE id = ?");
         $stmt->execute([$targetId]);
 
         echo json_encode(['success' => true, 'message' => '2FA Disabled']);

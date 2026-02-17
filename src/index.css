@@ -7,12 +7,14 @@
   --color-cyber-neonPink: #ff00ff;
   --color-cyber-neonCyan: #00ffff;
   --color-cyber-neonGreen: #00ff00;
+  --color-cyber-neonPurple: #bc13fe;
   --color-cyber-card: rgba(30, 30, 30, 0.8);
 
   --font-mono: 'Courier New', Courier, monospace;
 
   --shadow-neon-pink: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
   --shadow-neon-cyan: 0 0 10px #00ffff, 0 0 20px #00ffff;
+  --shadow-neon-purple: 0 0 10px #bc13fe, 0 0 20px #bc13fe;
 }
 
 :root {
@@ -37,6 +39,10 @@ body {
 
   .btn-neon-cyan {
     @apply bg-cyber-neonCyan shadow-neon-cyan hover:scale-105 hover:bg-white;
+  }
+
+  .btn-neon-purple {
+    @apply bg-cyber-neonPurple shadow-neon-purple hover:scale-105 hover:bg-white;
   }
 
   .card-cyber {

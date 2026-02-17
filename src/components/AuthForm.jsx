@@ -15,6 +15,7 @@ const AuthForm = ({ onLogin }) => {
 
     // 2FA State
     const [requires2FA, setRequires2FA] = useState(false);
+    const [twoFactorMethod, setTwoFactorMethod] = useState('totp');
     const [twoFaCode, setTwoFaCode] = useState('');
 
     // Forgot Password State
@@ -59,6 +60,7 @@ const AuthForm = ({ onLogin }) => {
             if (isLogin) {
                 if (data.requires_2fa) {
                     setRequires2FA(true);
+                    setTwoFactorMethod(data.two_factor_method || 'totp');
                     setError('');
                 } else {
                     triggerNeonConfetti();
@@ -109,9 +111,29 @@ const AuthForm = ({ onLogin }) => {
                 triggerNeonConfetti();
                 onLogin(data.user);
             } else {
-                setError('Invalid 2FA Code');
+                const data = await res.json();
+                setError(data.error || 'Invalid or expired access code.');
             }
-        } catch (err) { setError('Validation Error'); }
+        } catch (err) { setError('Validation Error. Neural link unstable.'); }
+    };
+
+    const handleResendEmail2FA = async () => {
+        setError('');
+        try {
+            const res = await fetch('api/auth.php?action=resend_email_2fa', { method: 'POST' });
+            const data = await res.json();
+            if (res.ok) {
+                // We'll use a temporary message or alert
+                setAlert({
+                    show: true,
+                    title: 'SIGNAL RE-DISPATCHED',
+                    message: 'A NEW EMERGENCY OVERRIDE CODE HAS BEEN SENT TO YOUR COM-LINK.',
+                    variant: 'cyan'
+                });
+            } else {
+                setError(data.error || "Uplink failed.");
+            }
+        } catch (err) { setError("Network failure."); }
     };
 
     return (
@@ -202,17 +224,30 @@ const AuthForm = ({ onLogin }) => {
                         )}
 
                         {requires2FA && (
-                            <div className="text-center">
-                                <p className="text-xs text-gray-400 mb-2">ENTER AUTHENTICATOR CODE</p>
+                            <div className="text-center space-y-4">
+                                <p className="text-xs text-gray-400 font-mono">
+                                    {twoFactorMethod === 'totp'
+                                        ? "BIO-LOCK ACTIVE. ENTER AUTHENTICATOR CODE OR BACKUP FRAGMENT."
+                                        : "EMERGENCY OVERRIDE REQUIRED. CHECK COM-LINK FREQUENCY."}
+                                </p>
                                 <input
                                     type="text"
-                                    placeholder="000 000"
+                                    placeholder="ACCESS CODE"
                                     value={twoFaCode}
                                     onChange={(e) => setTwoFaCode(e.target.value)}
-                                    className="input-cyber text-center tracking-[0.5em] text-xl font-bold text-cyber-neonGreen"
-                                    maxLength={6}
+                                    className="input-cyber text-center tracking-[0.3em] text-xl font-bold text-cyber-neonGreen w-full"
+                                    maxLength={16}
                                     autoFocus
                                 />
+                                {twoFactorMethod === 'email' && (
+                                    <button
+                                        type="button"
+                                        onClick={handleResendEmail2FA}
+                                        className="text-[10px] text-cyber-neonCyan hover:underline block mx-auto uppercase animate-pulse"
+                                    >
+                                        [ RESYNC UPLINK ]
+                                    </button>
+                                )}
                             </div>
                         )}
 

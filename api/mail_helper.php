@@ -8,8 +8,8 @@ function sendMail($to, $subject, $body)
 
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-    $headers .= "From: CyberTasker <no-reply@deppenmeier.net>" . "\r\n";
-    $headers .= "Reply-To: no-reply@deppenmeier.net" . "\r\n";
+    $headers .= "From: CyberTasker <no-reply@" . ($_SERVER['HTTP_HOST'] ?? 'localhost') . ">" . "\r\n";
+    $headers .= "Reply-To: no-reply@" . ($_SERVER['HTTP_HOST'] ?? 'localhost') . ">" . "\r\n";
     $headers .= "X-Mailer: PHP/" . phpversion();
 
     // Wrap body in a simple HTML template
@@ -38,6 +38,11 @@ function sendMail($to, $subject, $body)
     </body>
     </html>
     ";
+
+    // For local development, log the mail to a file and system log
+    $logEntry = "\n--- EMAIL TRANSMISSION ---\nTo: $to\nSubject: $subject\nBody: " . strip_tags($body) . "\n-------------------------\n";
+    file_put_contents(__DIR__ . '/mail_log.txt', $logEntry, FILE_APPEND);
+    error_log($logEntry);
 
     return mail($to, $subject, $htmlMessage, $headers);
 }

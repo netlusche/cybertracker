@@ -69,13 +69,94 @@ elseif ($action === 'enable_2fa') {
     $code = $data['code'] ?? '';
 
     if (TOTP::verifyCode($secret, $code)) {
-        $stmt = $pdo->prepare("UPDATE users SET two_factor_secret = ?, two_factor_enabled = 1 WHERE id = ?");
-        $stmt->execute([$secret, $_SESSION['user_id']]);
-        echo json_encode(['success' => true, 'message' => '2FA Enabled']);
+        // Generate backup codes
+        $backupCodes = TOTP::generateBackupCodes();
+        $hashedBackupCodes = array_map(function ($c) {
+            return password_hash($c, PASSWORD_DEFAULT);
+        }, $backupCodes);
+        $backupCodesJson = json_encode($hashedBackupCodes);
+
+        $stmt = $pdo->prepare("UPDATE users SET two_factor_secret = ?, two_factor_enabled = 1, two_factor_method = 'totp', two_factor_backup_codes = ? WHERE id = ?");
+        $stmt->execute([$secret, $backupCodesJson, $_SESSION['user_id']]);
+
+        echo json_encode(['success' => true, 'message' => '2FA Enabled', 'backup_codes' => $backupCodes]);
     }
     else {
         http_response_code(400);
         echo json_encode(['error' => 'Invalid Code']);
+    }
+}
+
+elseif ($action === 'setup_email_2fa') {
+    if (!isset($_SESSION['user_id'])) {
+        http_response_code(401);
+        echo json_encode(['error' => 'Unauthorized']);
+        exit;
+    }
+
+    $stmt = $pdo->prepare("SELECT email, username FROM users WHERE id = ?");
+    $stmt->execute([$_SESSION['user_id']]);
+    $user = $stmt->fetch();
+
+    if (!$user || !$user['email']) {
+        http_response_code(400);
+        echo json_encode(['error' => 'No email frequency found for this operative.']);
+        exit;
+    }
+
+    $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+    $_SESSION['email_2fa_code'] = $code;
+    $_SESSION['email_2fa_time'] = time();
+
+    require_once 'mail_helper.php';
+    $subject = "CYBER_TASKER // EMERGENCY OVERRIDE CODE";
+    $body = "Operative " . $user['username'] . ",<br><br>An emergency override signal has been requested.<br>Use this restricted access code to bridge the neural link:<br><br><b style='font-size: 24px; letter-spacing: 5px; color: #00ffff;'>" . $code . "</b><br><br>SIGNAL DECAY DETECTED. Code self-destructs in 10 minutes.";
+
+    if (sendMail($user['email'], $subject, $body)) {
+        echo json_encode(['success' => true, 'message' => 'Transmission sent. Check your secure comm-link.']);
+    }
+    else {
+        http_response_code(500);
+        echo json_encode(['error' => 'Transmission failed. Uplink error.']);
+    }
+}
+
+elseif ($action === 'enable_email_2fa') {
+    if (!isset($_SESSION['user_id'])) {
+        http_response_code(401);
+        echo json_encode(['error' => 'Unauthorized']);
+        exit;
+    }
+
+    $code = $data['code'] ?? '';
+    $sessCode = $_SESSION['email_2fa_code'] ?? '';
+    $sessTime = $_SESSION['email_2fa_time'] ?? 0;
+
+    if (!$sessCode || (time() - $sessTime > 600)) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Signal expired or not found. Resend transmission.']);
+        exit;
+    }
+
+    if ($code === $sessCode) {
+        unset($_SESSION['email_2fa_code']);
+        unset($_SESSION['email_2fa_time']);
+
+        // Generate backup codes
+        $backupCodes = TOTP::generateBackupCodes();
+        $hashedBackupCodes = array_map(function ($c) {
+            return password_hash($c, PASSWORD_DEFAULT);
+        }, $backupCodes);
+        $backupCodesJson = json_encode($hashedBackupCodes);
+
+        $stmt = $pdo->prepare("UPDATE users SET two_factor_enabled = 1, two_factor_method = 'email', two_factor_secret = NULL, two_factor_backup_codes = ? WHERE id = ?");
+        $stmt->execute([$backupCodesJson, $_SESSION['user_id']]);
+
+        echo json_encode(['success' => true, 'message' => 'Email 2FA Activated', 'backup_codes' => $backupCodes]);
+    }
+    else {
+        http_response_code(400);
+        echo json_encode(['error' => 'Invalid signal code. Verification failed.']);
     }
 }
 
@@ -88,7 +169,7 @@ elseif ($action === 'disable_2fa') {
 
     // Optional: Verify password before disabling (Skipping for now as per "simple button" request, but can be added if needed)
 
-    $stmt = $pdo->prepare("UPDATE users SET two_factor_enabled = 0, two_factor_secret = NULL WHERE id = ?");
+    $stmt = $pdo->prepare("UPDATE users SET two_factor_enabled = 0, two_factor_secret = NULL, two_factor_method = NULL, two_factor_backup_codes = NULL WHERE id = ?");
     $stmt->execute([$_SESSION['user_id']]);
     echo json_encode(['success' => true, 'message' => '2FA Disabled']);
 }
@@ -103,11 +184,51 @@ elseif ($action === 'verify_2fa') {
     $code = $data['code'] ?? '';
     $userId = $_SESSION['partial_id'];
 
-    $stmt = $pdo->prepare("SELECT two_factor_secret FROM users WHERE id = ?");
+    $stmt = $pdo->prepare("SELECT two_factor_secret, two_factor_method, two_factor_backup_codes FROM users WHERE id = ?");
     $stmt->execute([$userId]);
-    $secret = $stmt->fetchColumn();
+    $user = $stmt->fetch();
 
-    if (TOTP::verifyCode($secret, $code)) {
+    $verified = false;
+
+    // 1. Check Backup Codes
+    if ($user['two_factor_backup_codes']) {
+        $backupCodes = json_decode($user['two_factor_backup_codes'], true);
+        if (is_array($backupCodes)) {
+            foreach ($backupCodes as $index => $hashedCode) {
+                if (password_verify(strtoupper($code), $hashedCode)) {
+                    $verified = true;
+                    // Consume the code
+                    unset($backupCodes[$index]);
+                    $newBackupCodesJson = json_encode(array_values($backupCodes));
+                    $pdo->prepare("UPDATE users SET two_factor_backup_codes = ? WHERE id = ?")->execute([$newBackupCodesJson, $userId]);
+                    break;
+                }
+            }
+        }
+    }
+
+    // 2. Check Method-specific code
+    if (!$verified) {
+        if ($user['two_factor_method'] === 'totp') {
+            if ($user['two_factor_secret'] && TOTP::verifyCode($user['two_factor_secret'], $code)) {
+                $verified = true;
+            }
+        }
+        elseif ($user['two_factor_method'] === 'email') {
+            $sessCode = $_SESSION['email_2fa_code'] ?? '';
+            $sessTime = $_SESSION['email_2fa_time'] ?? 0;
+            $sessUserId = $_SESSION['email_2fa_user_id'] ?? 0;
+
+            if ($sessCode && $sessCode === $code && $sessUserId == $userId && (time() - $sessTime <= 600)) {
+                $verified = true;
+                unset($_SESSION['email_2fa_code']);
+                unset($_SESSION['email_2fa_time']);
+                unset($_SESSION['email_2fa_user_id']);
+            }
+        }
+    }
+
+    if ($verified) {
         // Promote to full session
         $_SESSION['user_id'] = $userId;
         unset($_SESSION['partial_id']);
@@ -132,13 +253,51 @@ elseif ($action === 'verify_2fa') {
                 'email' => $user['email'],
                 'role' => $user['role'],
                 'two_factor_enabled' => (bool)$user['two_factor_enabled'],
+                'two_factor_method' => $user['two_factor_method'],
                 'stats' => $stats
             ]
         ]);
     }
     else {
         http_response_code(401);
-        echo json_encode(['error' => 'Invalid Code']);
+        echo json_encode(['error' => 'Invalid or expired access code. Verification failed.']);
+    }
+}
+
+elseif ($action === 'resend_email_2fa') {
+    if (!isset($_SESSION['partial_id']) && !isset($_SESSION['user_id'])) {
+        http_response_code(401);
+        echo json_encode(['error' => 'Unauthorized']);
+        exit;
+    }
+
+    $userId = $_SESSION['partial_id'] ?? $_SESSION['user_id'];
+
+    $stmt = $pdo->prepare("SELECT email, username, two_factor_method FROM users WHERE id = ?");
+    $stmt->execute([$userId]);
+    $user = $stmt->fetch();
+
+    if (!$user || $user['two_factor_method'] !== 'email') {
+        http_response_code(400);
+        echo json_encode(['error' => 'Email security not active for this operative.']);
+        exit;
+    }
+
+    $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+    $_SESSION['email_2fa_code'] = $code;
+    $_SESSION['email_2fa_time'] = time();
+    $_SESSION['email_2fa_user_id'] = $userId;
+
+    require_once 'mail_helper.php';
+    $subject = "CYBER_TASKER // EMERGENCY OVERRIDE CODE";
+    $body = "Operative " . $user['username'] . ",<br><br>A new emergency override signal has been requested.<br>Use this restricted access code to bridge the neural link:<br><br><b style='font-size: 24px; letter-spacing: 5px; color: #00ffff;'>" . $code . "</b><br><br>SIGNAL DECAY DETECTED. Code self-destructs in 10 minutes.";
+
+    if (sendMail($user['email'], $subject, $body)) {
+        echo json_encode(['success' => true, 'message' => 'Transmission re-sent. Check your secure comm-link.']);
+    }
+    else {
+        http_response_code(500);
+        echo json_encode(['error' => 'Transmission failed. Uplink error.']);
     }
 }
 
@@ -201,7 +360,7 @@ elseif ($action === 'register') {
 
         // Send Verification Email
         require_once 'mail_helper.php';
-        $verifyLink = "https://deppenmeier.net/tasks/verify.html?token=" . $verificationToken;
+        $verifyLink = FRONTEND_URL . "/verify.html?token=" . $verificationToken;
         $subject = "CyberTasker Identity Verification";
         $body = "Welcome Operative $username.<br><br>To access the system, you must verify your com-link:<br><a href='$verifyLink'>$verifyLink</a><br><br>This link expires in... never (for now).";
 
@@ -258,7 +417,7 @@ elseif ($action === 'update_email') {
         $update->execute([$newEmail, $token, $userId]);
 
         require_once 'mail_helper.php';
-        $verifyLink = "https://deppenmeier.net/tasks/verify.html?token=" . $token;
+        $verifyLink = FRONTEND_URL . "/verify.html?token=" . $token;
         $subject = "CyberTasker Email Update Verification";
         $body = "Operative,<br><br>Your communication channel is being re-routed to: $newEmail.<br>Confirm this frequency change:<br><a href='$verifyLink'>$verifyLink</a><br><br>Access is restricted until confirmed.";
 
@@ -316,7 +475,21 @@ elseif ($action === 'login') {
         // Check 2FA
         if ($user['two_factor_enabled']) {
             $_SESSION['partial_id'] = $user['id'];
-            echo json_encode(['success' => true, 'requires_2fa' => true]);
+
+            if ($user['two_factor_method'] === 'email') {
+                // Trigger email code
+                $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+                $_SESSION['email_2fa_code'] = $code;
+                $_SESSION['email_2fa_time'] = time();
+                $_SESSION['email_2fa_user_id'] = $user['id'];
+
+                require_once 'mail_helper.php';
+                $subject = "CYBER_TASKER // EMERGENCY OVERRIDE CODE";
+                $body = "Operative " . $user['username'] . ",<br><br>A restricted access signal is required for neural link establishment.<br>Use this code to verify your identity:<br><br><b style='font-size: 24px; letter-spacing: 5px; color: #00ffff;'>" . $code . "</b><br><br>SIGNAL DECAY DETECTED. Code self-destructs in 10 minutes.";
+                sendMail($user['email'], $subject, $body);
+            }
+
+            echo json_encode(['success' => true, 'requires_2fa' => true, 'two_factor_method' => $user['two_factor_method']]);
             exit;
         }
 
@@ -403,6 +576,7 @@ elseif ($action === 'delete_account') {
 
     if ($user && password_verify($password, $user['password'])) {
         $pdo->prepare("DELETE FROM tasks WHERE user_id = ?")->execute([$userId]);
+        $pdo->prepare("DELETE FROM user_categories WHERE user_id = ?")->execute([$userId]);
         $pdo->prepare("DELETE FROM user_stats WHERE id = ?")->execute([$userId]);
         $pdo->prepare("DELETE FROM users WHERE id = ?")->execute([$userId]);
 
@@ -435,7 +609,7 @@ elseif ($action === 'request_password_reset') {
         $update->execute([$token, $user['id']]);
 
         require_once 'mail_helper.php';
-        $resetLink = "https://deppenmeier.net/tasks/reset-password.html?token=" . $token;
+        $resetLink = FRONTEND_URL . "/reset-password.html?token=" . $token;
         $subject = "CyberTasker Password Reset";
         $body = "Operative " . $user['username'] . ",<br><br>A request to reset your access key was received.<br>If this was you, proceed here:<br><a href='$resetLink'>$resetLink</a><br><br>This link self-destructs in 60 minutes.";
 
@@ -483,7 +657,7 @@ elseif ($action === 'reset_password') {
 else {
     // Check Status
     if (isset($_SESSION['user_id'])) {
-        $stmt = $pdo->prepare("SELECT id, username, email, role, two_factor_enabled FROM users WHERE id = ?");
+        $stmt = $pdo->prepare("SELECT id, username, email, role, two_factor_enabled, two_factor_method FROM users WHERE id = ?");
         $stmt->execute([$_SESSION['user_id']]);
         $user = $stmt->fetch();
 
@@ -500,6 +674,7 @@ else {
                     'email' => $user['email'], // [NEW]
                     'role' => $user['role'],
                     'two_factor_enabled' => (bool)$user['two_factor_enabled'],
+                    'two_factor_method' => $user['two_factor_method'],
                     'stats' => $stats
                 ]
             ]);
