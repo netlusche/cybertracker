@@ -22,12 +22,14 @@ const AuthForm = ({ onLogin }) => {
     const [isForgot, setIsForgot] = useState(false);
     const [resetSent, setResetSent] = useState(false);
 
-    // Custom Alert State
     const [alert, setAlert] = useState({ show: false, message: '', title: '', variant: 'cyan' });
+    const [loading, setLoading] = useState(false);
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (loading) return;
+        setLoading(true);
         setError('');
 
         if (requires2FA) {
@@ -80,10 +82,13 @@ const AuthForm = ({ onLogin }) => {
 
         } catch (err) {
             setError('System Error. Connection failed.');
+        } finally {
+            setLoading(false);
         }
     };
 
     const handleForgotSubmit = async () => {
+        setLoading(true);
         try {
             const res = await fetch('api/auth.php?action=request_password_reset', {
                 method: 'POST',
@@ -95,10 +100,13 @@ const AuthForm = ({ onLogin }) => {
             setError('');
         } catch (err) {
             setError('Request failed.');
+        } finally {
+            setLoading(false);
         }
     };
 
     const handle2FAVerify = async () => {
+        setLoading(true);
         try {
             const res = await fetch('api/auth.php?action=verify_2fa', {
                 method: 'POST',
@@ -114,10 +122,12 @@ const AuthForm = ({ onLogin }) => {
                 setError(data.error || 'Invalid or expired access code.');
             }
         } catch (err) { setError('Validation Error. Neural link unstable.'); }
+        finally { setLoading(false); }
     };
 
     const handleResendEmail2FA = async () => {
         setError('');
+        setLoading(true);
         try {
             const res = await fetch('api/auth.php?action=resend_email_2fa', { method: 'POST' });
             const data = await res.json();
@@ -133,6 +143,7 @@ const AuthForm = ({ onLogin }) => {
                 setError(data.error || "Uplink failed.");
             }
         } catch (err) { setError("Network failure."); }
+        finally { setLoading(false); }
     };
 
     return (
@@ -242,16 +253,21 @@ const AuthForm = ({ onLogin }) => {
                                     <button
                                         type="button"
                                         onClick={handleResendEmail2FA}
-                                        className="text-[10px] text-cyber-neonCyan hover:underline block mx-auto uppercase animate-pulse"
+                                        disabled={loading}
+                                        className={`text-[10px] text-cyber-neonCyan hover:underline block mx-auto uppercase animate-pulse ${loading ? 'opacity-50 cursor-wait' : ''}`}
                                     >
-                                        [ RESYNC UPLINK ]
+                                        {loading ? '[ RESYNCING... ]' : '[ RESYNC UPLINK ]'}
                                     </button>
                                 )}
                             </div>
                         )}
 
-                        <button type="submit" className="btn-cyber btn-neon-pink mt-4">
-                            {requires2FA ? 'VERIFY IDENTITY' : (isForgot ? 'SEND RESET SIGNAL' : (isLogin ? 'JACK IN' : 'ESTABLISH LINK'))}
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className={`btn-cyber btn-neon-pink mt-4 ${loading ? 'opacity-70 cursor-wait' : ''}`}
+                        >
+                            {loading ? 'WORKING...' : (requires2FA ? 'VERIFY IDENTITY' : (isForgot ? 'SEND RESET SIGNAL' : (isLogin ? 'JACK IN' : 'ESTABLISH LINK')))}
                         </button>
                     </form>
                 )}

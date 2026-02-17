@@ -1,9 +1,7 @@
 <?php
 // auth.php
-require_once 'db.php';
-require_once 'TOTP.php';
-
 header("Content-Type: application/json");
+require_once 'mail_helper.php';
 session_start();
 
 $pdo = getDBConnection();
@@ -135,7 +133,7 @@ elseif ($action === 'enable_email_2fa') {
         exit;
     }
 
-    $code = $data['code'] ?? '';
+    $code = trim($data['code'] ?? '');
     $sessCode = $_SESSION['email_2fa_code'] ?? '';
     $sessTime = $_SESSION['email_2fa_time'] ?? 0;
     $sessUserId = $_SESSION['email_2fa_user_id'] ?? 0;
@@ -203,7 +201,7 @@ elseif ($action === 'verify_2fa') {
         exit;
     }
 
-    $code = $data['code'] ?? '';
+    $code = trim($data['code'] ?? '');
     $userId = $_SESSION['partial_id'];
 
     $stmt = $pdo->prepare("SELECT two_factor_secret, two_factor_method, two_factor_backup_codes FROM users WHERE id = ?");
@@ -326,9 +324,9 @@ elseif ($action === 'resend_email_2fa') {
 // --- STANDARD AUTH ACTIONS ---
 
 elseif ($action === 'register') {
-    $username = $data['username'] ?? '';
+    $username = trim($data['username'] ?? '');
     $password = $data['password'] ?? '';
-    $email = $data['email'] ?? '';
+    $email = trim($data['email'] ?? '');
 
     if (!$username || !$password || !$email) {
         http_response_code(400);
@@ -382,13 +380,12 @@ elseif ($action === 'register') {
         $stmtTasks = $pdo->prepare($tasksSql);
         $stmtTasks->execute([$userId, $userId, $userId, $userId]);
 
-        // Send Verification Email
+        // Send Verification Email (Matches successful 2FA style)
         $mailSuccess = false;
         try {
-            require_once 'mail_helper.php';
             $verifyLink = FRONTEND_URL . "/verify.html?token=" . $verificationToken;
-            $subject = "CyberTasker Identity Verification";
-            $body = "Welcome Operative $username.<br><br>To access the system, you must verify your com-link:<br><a href='$verifyLink'>$verifyLink</a><br><br>This link expires in... never (for now).";
+            $subject = "CYBER_TASKER // IDENTITY VERIFICATION";
+            $body = "Welcome Operative $username.<br><br>Your identity parameters have been established.<br>Confirm your com-link frequency to bridge the gap:<br><br><a href='$verifyLink' style='color: #00ffff; text-decoration: none;'>$verifyLink</a><br><br>SIGNAL DECAY DETECTED. Access is restricted until confirmed.";
             $mailSuccess = sendMail($email, $subject, $body);
         }
         catch (Throwable $e) {
@@ -404,9 +401,10 @@ elseif ($action === 'register') {
         }
     }
 
-    catch (PDOException $e) {
+    catch (Throwable $e) {
         http_response_code(409);
-        echo json_encode(['error' => 'Username or Email already exists']);
+        $msg = (strpos($e->getMessage(), 'UNIQUE') !== false) ? 'Username or Email already exists' : 'Registration Error: ' . $e->getMessage();
+        echo json_encode(['error' => $msg]);
     }
 }
 
