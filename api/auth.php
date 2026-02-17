@@ -73,7 +73,7 @@ elseif ($action === 'enable_2fa') {
             // Generate backup codes
             $backupCodes = TOTP::generateBackupCodes();
             $hashedBackupCodes = array_map(function ($c) {
-                return password_hash($c, PASSWORD_DEFAULT);
+                return password_hash(strtoupper($c), PASSWORD_DEFAULT);
             }, $backupCodes);
             $backupCodesJson = json_encode($hashedBackupCodes);
 
@@ -113,6 +113,7 @@ elseif ($action === 'setup_email_2fa') {
     $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
     $_SESSION['email_2fa_code'] = $code;
     $_SESSION['email_2fa_time'] = time();
+    $_SESSION['email_2fa_user_id'] = $_SESSION['user_id'];
 
     require_once 'mail_helper.php';
     $subject = "CYBER_TASKER // EMERGENCY OVERRIDE CODE";
@@ -155,7 +156,7 @@ elseif ($action === 'enable_email_2fa') {
                 // Generate backup codes
                 $backupCodes = TOTP::generateBackupCodes();
                 $hashedBackupCodes = array_map(function ($c) {
-                    return strtoupper(password_hash($c, PASSWORD_DEFAULT));
+                    return password_hash(strtoupper($c), PASSWORD_DEFAULT);
                 }, $backupCodes);
                 $backupCodesJson = json_encode($hashedBackupCodes);
 
@@ -357,9 +358,11 @@ elseif ($action === 'register') {
         $stmt->execute([$username, $hash, $email, $verificationToken]);
         $userId = $pdo->lastInsertId();
 
-        $pdo->exec("INSERT INTO user_stats (id, total_points, current_level, badges_json) VALUES ($userId, 0, 1, '[]')");
+        // Initialize Stats (Use prepared statement)
+        $stmtStats = $pdo->prepare("INSERT INTO user_stats (id, total_points, current_level, badges_json) VALUES (?, 0, 1, '[]')");
+        $stmtStats->execute([$userId]);
 
-        // [New] Seed Categories
+        // [New] Seed Categories (Use prepared statement)
         $categoriesSql = "INSERT INTO user_categories (user_id, name, is_default) VALUES 
             (?, 'Private', 1),
             (?, 'Work', 0),
@@ -369,7 +372,7 @@ elseif ($action === 'register') {
         $stmtCats = $pdo->prepare($categoriesSql);
         $stmtCats->execute([$userId, $userId, $userId, $userId, $userId]);
 
-        // [New] Insert Onboarding Tasks
+        // [New] Insert Onboarding Tasks (Use prepared statement)
         $tasksSql = "INSERT INTO tasks (user_id, title, category, priority, points_value) VALUES 
             (?, 'Debug Neural Link Interface', 'Work', 2, 15),
             (?, 'Hack Coffee Machine Subnet', 'Work', 2, 15),
@@ -379,14 +382,23 @@ elseif ($action === 'register') {
         $stmtTasks->execute([$userId, $userId, $userId, $userId]);
 
         // Send Verification Email
-        require_once 'mail_helper.php';
-        $verifyLink = FRONTEND_URL . "/verify.html?token=" . $verificationToken;
-        $subject = "CyberTasker Identity Verification";
-        $body = "Welcome Operative $username.<br><br>To access the system, you must verify your com-link:<br><a href='$verifyLink'>$verifyLink</a><br><br>This link expires in... never (for now).";
+        $mailSuccess = false;
+        try {
+            require_once 'mail_helper.php';
+            $verifyLink = FRONTEND_URL . "/verify.html?token=" . $verificationToken;
+            $subject = "CyberTasker Identity Verification";
+            $body = "Welcome Operative $username.<br><br>To access the system, you must verify your com-link:<br><a href='$verifyLink'>$verifyLink</a><br><br>This link expires in... never (for now).";
+            $mailSuccess = sendMail($email, $subject, $body);
+        } catch (Throwable $e) {
+            // Log error but don't crash registration
+            error_log("Registration mail failed: " . $e->getMessage());
+        }
 
-        sendMail($email, $subject, $body);
-
-        echo json_encode(['success' => true, 'message' => 'User registered. Please check email to verify.']);
+        if ($mailSuccess) {
+            echo json_encode(['success' => true, 'message' => 'User registered. Please check email to verify.']);
+        } else {
+            echo json_encode(['success' => true, 'message' => 'Identity established, but com-link signal failed. Contact Admin to verify your account manually.']);
+        }
     }
 
     catch (PDOException $e) {
