@@ -1,8 +1,25 @@
+# CyberTasker v1.5.0 - Residue-Free Security & UI Optimization
+
+**Release Date:** 2026-02-17
+
+This update introduces "residue-free" user deletion, enhanced 2FA deactivation logic, and significant readability optimizations for the Administration Console.
+
+## 🛡 Deep Purge Protocols
+- **Exhaustive User Deletion**: Both administrative and self-led account terminations now explicitly clear all tasks, user-specific categories, and 2FA artifacts.
+- **2FA Residual Protection**: Improved the "Disable 2FA" action to ensure all four 2FA-related columns (enabled, secret, method, backup_codes) are fully reset to NULL/0.
+
+## 🕵️‍♂️ Administration Console Optimization
+- **High-Contrast Readability**: Re-tuned secondary data (IDs, History labels, Metrics) from low-visibility grays to higher-contrast tones (`gray-300/400`).
+- **Flex-Grid Layout**: Implemented flexbox alignment for table headers, ensuring sorting icons stay horizontally pinned to the header text.
+- **Structural Contrast**: Brightened structural elements like borders, search input glow, and pagination controls for better navigation.
+
+## ✨ Neural Link Readability
+- **Optimized Typography**: Enlarged key instruction sequences in the 2FA setup flow ("Sync Neural Link", "Signal Decay", etc.).
+- **Improved Contrast**: Lightened background tones and brightened text for 2FA secret keys and backup fragments to ensure high legibility against the dark theme.
+
+---
+
 # CyberTasker v1.4.1 - Admin Override & UI Polish
-
-**Release Date:** 2026-02-16
-
-This update introduces administrative override capabilities for 2FA, a custom alert system to replace native browser dialogs, and critical mobile layout fixes for the scheduling system.
 
 ## 🕵️‍♂️ Admin Override Protocols
 - **2FA Admin Override**: Administrators can now deactivate 2FA for users who have lost access to their authenticator devices. A new "2FA OFF" button has been integrated into the Administration Console.

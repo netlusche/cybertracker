@@ -1,6 +1,34 @@
-# CyberTasker Server Update Instructions (v1.4.0 → v1.4.1)
+# CyberTasker Server Update Instructions (v1.4.1 → v1.5.0)
 
-These instructions guide you through updating your existing CyberTasker server installation to version **1.4.1**. This update adds the Admin 2FA Override and the the custom CyberAlert system.
+These instructions guide you through updating your existing CyberTasker server installation to version **1.5.0**. This update ensures residue-free user deletion and optimizes Admin Console readability.
+
+## 1. Backup
+
+- **Files**: Backup your `api/config.php` and your database file (if using SQLite).
+
+## 2. Deploy Files
+
+1.  Upload the contents of the `dist` folder to your server.
+2.  **Overwrite all files** EXCEPT `api/config.php` and your database file.
+
+## 3. Database Update
+
+This version ensures the `user_categories` table is correctly initialized for deletion protocols.
+
+1.  Navigate to your installer URL: `https://yourdomain.com/tasks/api/install.php`
+2.  The script will ensure all schema evolutions (including `user_categories`) are applied.
+3.  **Security Note**: Delete `api/install.php` after verification.
+
+## 4. Verify Update
+
+1.  **Admin Contrast Check**: Open the Administration Console and verify that ID markers (`#1`) and History labels (`Jo`/`Lg`) are clearly legible.
+2.  **Header Alignment**: Check that the sorting arrows next to "CODENAME" and "HISTORY" are horizontally aligned and not wrapped.
+3.  **2FA Setup Readability**: Open your Profile, initialize 2FA setup, and verify that the instruction text and secret keys have high contrast and clear typography.
+4.  **Residue-Free Deletion**: Create a test user, add custom categories and tasks, then delete the user and verify that all associated data is removed from the database.
+
+---
+
+# CyberTasker Server Update Instructions (v1.4.0 → v1.4.1)
 
 ## 1. Backup
 

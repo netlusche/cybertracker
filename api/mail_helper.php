@@ -40,9 +40,11 @@ function sendMail($to, $subject, $body)
     ";
 
     // For local development, log the mail to a file and system log
-    $logEntry = "\n--- EMAIL TRANSMISSION ---\nTo: $to\nSubject: $subject\nBody: " . strip_tags($body) . "\n-------------------------\n";
-    file_put_contents(__DIR__ . '/mail_log.txt', $logEntry, FILE_APPEND);
-    error_log($logEntry);
+    /*
+     $logEntry = "\n--- EMAIL TRANSMISSION ---\nTo: $to\nSubject: $subject\nBody: " . strip_tags($body) . "\n-------------------------\n";
+     file_put_contents(__DIR__ . '/mail_log.txt', $logEntry, FILE_APPEND);
+     error_log($logEntry);
+     */
 
     return mail($to, $subject, $htmlMessage, $headers);
 }

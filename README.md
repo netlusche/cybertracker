@@ -30,6 +30,21 @@
 ---
 ---
 
+## 🆕 New in Version 1.5.0 (Residue-Free Security & UI Optimization)
+
+### 🛡 Deep Purge Protocols
+*   **Exhaustive User Deletion**: Account termination (both Admin-led and Self-led) now performs a "residue-free" purge, explicitly clearing all tasks, user-specific categories, and 2FA artifacts.
+*   **2FA Cleanup**: Confirmed that deactivation logic (and deletion) fully terminates all TOTP secrets and Email-2FA artifacts.
+
+### 🕵️‍♂️ Administration Console Optimization
+*   **High-Contrast Scan-ability**: Re-tuned secondary information (IDs, History, Metrics) from dull grays to high-contrast colors (`gray-300/400`).
+*   **Flex-Grid Alignment**: Optimized table headers with flexbox to ensure sorting icons remain pinned and horizontally aligned with the text.
+*   **Structural Visibility**: Brightened structural boundaries (borders, search inputs, dividers) for faster navigation.
+
+### ✨ Neural Link Readability
+*   **Enlarged Typography**: Increased instruction font sizes for "Signal Decay", "Sync Neural Link", and "Emergency Override" sequences.
+*   **Secret-Key Contrast**: Lightened background and brightened text for 2FA Secret Keys and Backup Fragments.
+
 ## 🆕 New in Version 1.4.1 (Admin Override & UI Polish)
 
 ### 🕵️‍♂️ Admin Override Protocols
@@ -166,7 +181,10 @@ To create a test user 'Alicia' with 250 tasks for performance testing:
 3.  **Security Warning**: Delete `api/install_test_user.php` immediately after use.
 
 #### 7. Cleanup
-Delete `api/install.php` and `api/install_test_user.php` from the server after installation.
+Delete ALL installation and diagnostic scripts from the server after the grid is stable:
+- `api/install.php`
+- `api/install_test_user.php` (if used)
+- `api/migrate_2fa.php` / `api/migrate_2fa_v2.php` (if used)
 
 ---
 
