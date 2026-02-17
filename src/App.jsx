@@ -235,11 +235,13 @@ function App() {
       <div className="max-w-3xl mx-auto relative z-10">
         <header className="mb-8 flex flex-col md:flex-row justify-between items-center gap-4 border-b border-cyber-gray pb-4">
           <div className="text-center md:text-left">
-            <h1 className="text-4xl font-bold flex items-center justify-center md:justify-start gap-4">
-              <img src={logo} alt="Logo" className="h-10 w-10 drop-shadow-[0_0_8px_rgba(0,255,255,0.6)]" />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyber-neonCyan to-cyber-neonPink drop-shadow-[0_0_5px_rgba(0,255,255,0.5)]">
-                CYBER<span className="text-white">TASKER</span>
-              </span>
+            <h1 className="text-4xl font-bold">
+              <a href="./" className="flex items-center justify-center md:justify-start gap-4 hover:opacity-80 transition-opacity no-underline text-inherit">
+                <img src={logo} alt="Logo" className="h-10 w-10 drop-shadow-[0_0_8px_rgba(0,255,255,0.6)]" />
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyber-neonCyan to-cyber-neonPink drop-shadow-[0_0_5px_rgba(0,255,255,0.5)]">
+                  CYBER<span className="text-white">TASKER</span>
+                </span>
+              </a>
             </h1>
             <p className="text-xs text-gray-300 font-bold tracking-[0.3em] mt-1">
               OPERATIVE: <span className="text-green-300">{user ? user.username : 'UNKNOWN'}</span>
