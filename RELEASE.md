@@ -1,3 +1,15 @@
+# CyberTasker v1.5.1 - Patch: SQLite Default & Stability
+
+**Release Date:** 2026-02-17
+
+This patch release improves the "out-of-the-box" experience for new installations.
+
+## ⚙️ Core Configuration & Stability
+- **SQLite Default Protocol**: Updated `api/config.php` to use SQLite as the default database type. This ensures that fresh installations work immediately without requiring manual configuration of `config.local.php` for MySQL.
+- **Dependency Locking**: Synchronized `package-lock.json` with the updated package version.
+
+---
+
 # CyberTasker v1.5.0 - Residue-Free Security & UI Optimization
 
 **Release Date:** 2026-02-17
