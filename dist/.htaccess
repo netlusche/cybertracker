@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  
+  # API Requests - let them pass through to the api folder
+  RewriteRule ^api/ - [L]
+
+  # Block access to sensitive files
+  RewriteRule \.(db|log|git|env|ini|sh|sql)$ - [F]
+
+  # All other requests -> index.html (SPA)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . index.html [L]
+</IfModule>
