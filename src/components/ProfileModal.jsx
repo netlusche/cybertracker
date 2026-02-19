@@ -413,7 +413,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                         placeholder={t('profile.contact.new_placeholder')}
                         value={email}
                         onChange={(e) => handleInputChange('email', e.target.value, setEmail)}
-                        onFocus={clearEmailValidation}
+                        onFocus={(e) => { e.target.select(); clearEmailValidation(); }}
                         onInvalid={(e) => handleInvalid(e, 'email')}
                         className={`input-cyber text-sm w-full ${validationErrors.email ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
                         required
@@ -634,6 +634,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                                     type="text"
                                                     value={editingCatName}
                                                     onChange={(e) => handleInputChange(`edit_cat_${cat.id}`, e.target.value, setEditingCatName)}
+                                                    onFocus={(e) => e.target.select()}
                                                     onInvalid={(e) => handleInvalid(e, `edit_cat_${cat.id}`)}
                                                     className={`input-cyber text-xs p-1 w-full ${validationErrors[`edit_cat_${cat.id}`] ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
                                                     autoFocus
@@ -678,6 +679,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                     placeholder={t('profile.categories.new_protocol_placeholder')}
                                     value={newCatName}
                                     onChange={(e) => handleInputChange('new_cat', e.target.value, setNewCatName)}
+                                    onFocus={(e) => { e.target.select(); clearValidation(); }}
                                     onInvalid={(e) => handleInvalid(e, 'new_cat')}
                                     className={`input-cyber text-xs w-full ${validationErrors.new_cat ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
                                     maxLength={20}
@@ -754,7 +756,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                             placeholder={t('profile.security.verify_code')}
                                             value={twoFaCode}
                                             onChange={e => handleInputChange('two_fa_code', e.target.value, setTwoFaCode)}
-                                            onFocus={clearValidation}
+                                            onFocus={(e) => { e.target.select(); clearValidation(); }}
                                             onInvalid={e => handleInvalid(e, 'two_fa_code')}
                                             className={`input-cyber text-center w-full text-sm h-10 tracking-[0.3em] font-bold ${validationErrors.two_fa_code ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : 'border-cyber-neonGreen/40'}`}
                                             maxLength={6}

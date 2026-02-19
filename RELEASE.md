@@ -1,3 +1,23 @@
+# CyberTasker v1.8.1 - Stress Tested & Secure
+
+**Release Date:** 2026-02-19
+
+This update marks the completion of the Phase 2 Automated Test Plan, introducing strict security policies and verifying system scalability under stress.
+
+## 🛡 Enhanced Security & Stress Testing
+- **Strict Password Policy**: New administrative toggle allows enforcement of complexity rules. Verified rejection of weak keys and successful handling of secure pins.
+- **Scalability Protocols**: Successfully stress-tested the neural interface with **250+ simultaneous directives** and **40+ active recruits**, ensuring zero performance degradation in pagination.
+- **Neural Progression Integrity**: Verified that XP gains correctly trigger rank advancement across multiple levels, including visual leveling feedback and animations.
+
+## 🌐 Localization & UX Polish
+- **Linguistic Correction**: Updated the German (DE) localization; "LOGOUT" is now correctly identified as "ABMELDEN".
+- **Tactile Inputs**: Implemented "Select-All on Focus" across all terminal inputs, allowing operatives to overwrite or modify entries with a single click.
+
+## ⚙️ Maintenance
+- **Purge Protocol**: Removed debug mail logging artifacts and deleted temporary installation/backup residues.
+
+---
+
 # CyberTasker v1.8.0 - Uplink Stability & Validation Polish
 
 **Release Date:** 2026-02-18

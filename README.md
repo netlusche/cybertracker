@@ -30,6 +30,18 @@
 ---
 ---
 
+## 🆕 New in Version 1.8.1 (Stress Tested & Secure)
+
+### 🛡 Enhanced Security & Stress Testing
+*   **Strict Password Policy**: Administrators can now enforce complexity requirements via the Admin Console. Rejects weak passwords (min 12 chars, Case/Num/Special required).
+*   **Stress-Tested Pagination**: Verified seamless handling of **250+ directives** in the Operative Dashboard and **40+ recruits** in the Administration Console.
+*   **Neural Progression Integrity**: Validated XP-to-Rank calculation and level-up animations across multiple tier boundaries.
+*   **Maintenance Protocol**: Decommissioned debug mail logging and purged diagnostic residues for a cleaner deployment.
+
+### 🌐 Localization & UX Polish
+*   **German Neural Link**: Corrected "LOGOUT" translation to "ABMELDEN" for linguistic accuracy.
+*   **Select-All on Focus**: Standardized input behavior across the grid; clicking any field now automatically selects its content for efficient modification.
+
 ## 🆕 New in Version 1.8.0 (Uplink Stability & Validation Polish)
 
 ### 🛡 Core Stability & Database Agnosticism

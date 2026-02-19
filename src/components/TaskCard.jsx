@@ -212,6 +212,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
                                     onBlur={handleSave}
                                     disabled={isSaving}
                                     autoFocus
+                                    onFocus={(e) => e.target.select()}
                                     className={`bg-black/50 border text-white px-2 py-1 w-full text-lg font-bold focus:outline-none transition-all duration-300 ${isSaving ? 'border-cyber-neonGreen shadow-[0_0_15px_#0f0] text-cyber-neonGreen' : 'border-cyber-neonCyan shadow-[0_0_10px_#0ff] animate-pulse'}`}
                                 />
                                 <button

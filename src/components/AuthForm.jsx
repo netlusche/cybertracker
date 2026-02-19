@@ -241,7 +241,7 @@ const AuthForm = ({ onLogin }) => {
                                     placeholder={!isLogin ? t('auth.codename_only') : t('auth.codename')}
                                     value={username}
                                     onChange={(e) => handleInputChange('username', e.target.value, setUsername)}
-                                    onFocus={clearValidation}
+                                    onFocus={(e) => { e.target.select(); clearValidation(); }}
                                     onInvalid={(e) => handleInvalid(e, 'username')}
                                     className={`input-cyber text-center tracking-widest w-full ${validationErrors.username ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
                                     required={!isForgot}
@@ -261,7 +261,7 @@ const AuthForm = ({ onLogin }) => {
                                         placeholder={t('auth.comlink_only')}
                                         value={email}
                                         onChange={(e) => handleInputChange('email', e.target.value, setEmail)}
-                                        onFocus={clearValidation}
+                                        onFocus={(e) => { e.target.select(); clearValidation(); }}
                                         onInvalid={(e) => handleInvalid(e, 'email')}
                                         className={`input-cyber text-center tracking-widest w-full ${validationErrors.email ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
                                         required
@@ -279,7 +279,7 @@ const AuthForm = ({ onLogin }) => {
                                     placeholder={t('auth.access_key')}
                                     value={password}
                                     onChange={(e) => handleInputChange('password', e.target.value, setPassword)}
-                                    onFocus={clearValidation}
+                                    onFocus={(e) => { e.target.select(); clearValidation(); }}
                                     onInvalid={(e) => handleInvalid(e, 'password')}
                                     className={`input-cyber text-center tracking-widest w-full pr-10 ${validationErrors.password ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
                                     required={!isForgot}
@@ -317,7 +317,7 @@ const AuthForm = ({ onLogin }) => {
                                 placeholder={t('auth.placeholders.recovery_email')}
                                 value={email}
                                 onChange={(e) => handleInputChange('email', e.target.value, setEmail)}
-                                onFocus={clearValidation}
+                                onFocus={(e) => { e.target.select(); clearValidation(); }}
                                 onInvalid={(e) => handleInvalid(e, 'email')}
                                 className={`input-cyber text-center tracking-widest w-full ${validationErrors.email ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
                                 required
@@ -344,7 +344,7 @@ const AuthForm = ({ onLogin }) => {
                                     placeholder={t('auth.placeholders.access_code')}
                                     value={twoFaCode}
                                     onChange={(e) => handleInputChange('twoFaCode', e.target.value, setTwoFaCode)}
-                                    onFocus={clearValidation}
+                                    onFocus={(e) => { e.target.select(); clearValidation(); }}
                                     onInvalid={(e) => handleInvalid(e, 'twoFaCode')}
                                     className={`input-cyber text-center tracking-[0.3em] text-xl font-bold text-cyber-neonGreen w-full ${validationErrors.twoFaCode ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
                                     maxLength={16}

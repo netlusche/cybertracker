@@ -45,9 +45,6 @@ function sendMail($to, $subject, $body)
     </html>
     ";
 
-    // Log transmission for development/testing
-    $logEntry = "[" . date('Y-m-d H:i:s') . "] TO: $to | SUBJECT: $subject | BODY: " . strip_tags($body) . "\n";
-    file_put_contents(__DIR__ . '/mail.log', $logEntry, FILE_APPEND);
-
-    return @mail($to, $subject, $htmlMessage, $headers);
-}
+    // Send mail and log result
+    $success = @mail($to, $subject, $htmlMessage, $headers);
+    return $success;}

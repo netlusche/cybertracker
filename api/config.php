@@ -3,8 +3,8 @@
 // Database configuration
 
 // Check for local configuration override (for development)
-if (file_exists('config.local.php')) {
-    require_once 'config.local.php';
+if (file_exists(__DIR__ . '/config.local.php')) {
+    require_once __DIR__ . '/config.local.php';
 }
 
 // Database configuration defaults (used if not defined in config.local.php)
@@ -13,7 +13,7 @@ if (!defined('DB_TYPE'))
 if (!defined('DB_HOST'))
     define('DB_HOST', 'localhost');
 if (!defined('DB_NAME'))
-    define('DB_NAME', 'cybertracker');
+    define('DB_NAME', __DIR__ . '/cybertracker.db');
 if (!defined('DB_USER'))
     define('DB_USER', 'Your_DB_Username');
 if (!defined('DB_PASS'))

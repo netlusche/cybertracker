@@ -8,7 +8,7 @@
         "system_help": "SYSTEM HILFE",
         "admin": "ADMIN",
         "profile": "PROFIL",
-        "logout": "LOGOUT"
+        "logout": "ABMELDEN"
     },
     "auth": {
         "title": "NETRUNNER LOGIN",

@@ -38,6 +38,7 @@ const PromptModal = ({ message, onConfirm, onCancel }) => {
                     <input
                         type={showPassword ? "text" : "password"}
                         autoFocus
+                        onFocus={(e) => e.target.select()}
                         value={value}
                         onChange={(e) => setValue(e.target.value)}
                         className="w-full bg-black/50 border border-gray-600 text-white p-2 pr-10 focus:border-cyber-neonCyan outline-none font-mono"
@@ -323,6 +324,7 @@ const AdminPanel = ({ onClose }) => {
                         placeholder={t('admin.search_placeholder')}
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
+                        onFocus={(e) => e.target.select()}
                         className="bg-black/50 border border-yellow-700/50 text-yellow-400 px-3 py-1 pr-8 text-sm focus:outline-none focus:border-yellow-500 w-64 rounded-sm tracking-widest placeholder-yellow-700"
                     />
                     <span className="absolute right-2 top-1 text-yellow-600 pointer-events-none">🔍</span>
