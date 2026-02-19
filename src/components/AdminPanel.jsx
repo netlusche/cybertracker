@@ -1,38 +1,44 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 // --- Sub-components for Modals ---
 
-const ConfirmModal = ({ message, onConfirm, onCancel }) => (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[150]">
-        <div className="bg-gray-900 border border-yellow-500 p-6 max-w-sm w-full shadow-[0_0_20px_rgba(255,200,0,0.5)]">
-            <h3 className="text-yellow-500 font-bold text-xl mb-4">CONFIRMATION REQUIRED</h3>
-            <p className="text-gray-300 mb-6 font-mono">{message}</p>
-            <div className="flex justify-end gap-2">
-                <button onClick={onCancel} className="px-4 py-2 border border-gray-600 text-gray-400 hover:bg-white/10">
-                    CANCEL
-                </button>
-                <button onClick={onConfirm} className="px-4 py-2 bg-yellow-600/20 border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black font-bold">
-                    CONFIRM
-                </button>
+const ConfirmModal = ({ message, onConfirm, onCancel }) => {
+    const { t } = useTranslation();
+    return (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[150]">
+            <div className="bg-gray-900 border border-yellow-500 p-6 max-w-sm w-full shadow-[0_0_20px_rgba(255,200,0,0.5)]">
+                <h3 className="text-yellow-500 font-bold text-xl mb-4">{t('admin.confirm_title')}</h3>
+                <p className="text-gray-300 mb-6 font-mono">{message}</p>
+                <div className="flex justify-end gap-2">
+                    <button onClick={onCancel} className="px-4 py-2 border border-gray-600 text-gray-400 hover:bg-white/10">
+                        {t('common.cancel')}
+                    </button>
+                    <button onClick={onConfirm} className="px-4 py-2 bg-yellow-600/20 border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black font-bold">
+                        {t('common.confirm')}
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-);
+    );
+};
 
 const PromptModal = ({ message, onConfirm, onCancel }) => {
+    const { t } = useTranslation();
     const [value, setValue] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
     return (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[150]">
             <div className="bg-gray-900 border border-cyber-neonCyan p-6 max-w-sm w-full shadow-[0_0_20px_rgba(0,255,255,0.5)]">
-                <h3 className="text-cyber-neonCyan font-bold text-xl mb-4">INPUT REQUIRED</h3>
+                <h3 className="text-cyber-neonCyan font-bold text-xl mb-4">{t('admin.input_required')}</h3>
                 <p className="text-gray-300 mb-2 font-mono">{message}</p>
 
                 <div className="relative mb-6">
                     <input
                         type={showPassword ? "text" : "password"}
                         autoFocus
+                        onFocus={(e) => e.target.select()}
                         value={value}
                         onChange={(e) => setValue(e.target.value)}
                         className="w-full bg-black/50 border border-gray-600 text-white p-2 pr-10 focus:border-cyber-neonCyan outline-none font-mono"
@@ -57,10 +63,10 @@ const PromptModal = ({ message, onConfirm, onCancel }) => {
 
                 <div className="flex justify-end gap-2">
                     <button onClick={onCancel} className="px-4 py-2 border border-gray-600 text-gray-400 hover:bg-white/10">
-                        CANCEL
+                        {t('common.cancel')}
                     </button>
                     <button onClick={() => onConfirm(value)} className="px-4 py-2 bg-cyan-900/20 border border-cyber-neonCyan text-cyber-neonCyan hover:bg-cyber-neonCyan hover:text-black font-bold">
-                        SUBMIT
+                        {t('common.submit')}
                     </button>
                 </div>
             </div>
@@ -70,6 +76,7 @@ const PromptModal = ({ message, onConfirm, onCancel }) => {
 
 
 const AdminPanel = ({ onClose }) => {
+    const { t } = useTranslation();
     const [users, setUsers] = useState([]);
     const [pagination, setPagination] = useState({ totalUsers: 0, totalPages: 1, currentPage: 1 });
     const [sortConfig, setSortConfig] = useState({ key: 'id', direction: 'ASC' });
@@ -118,11 +125,11 @@ const AdminPanel = ({ onClose }) => {
             });
             if (res.ok) {
                 setSettings(prev => ({ ...prev, [key]: newValue }));
-                setMessage(`System Policy Updated: ${key}`);
+                setMessage(t('admin.policy_updated_msg', { key }));
             } else {
-                setError('Failed to update setting');
+                setError(t('admin.update_setting_failed'));
             }
-        } catch (err) { setError('Connection Error'); }
+        } catch (err) { setError(t('common.net_error')); }
     };
 
     const fetchUsers = async (page = 1, sortKey = sortConfig.key, sortDir = sortConfig.direction, search = debouncedSearch) => {
@@ -137,10 +144,10 @@ const AdminPanel = ({ onClose }) => {
                     currentPage: data.currentPage
                 });
             } else {
-                setError('Unauthorized Access');
+                setError(t('admin.unauthorized'));
             }
         } catch (err) {
-            setError('Connection refused');
+            setError(t('profile.messages.connection_refused'));
         } finally {
             setLoading(false);
         }
@@ -167,11 +174,11 @@ const AdminPanel = ({ onClose }) => {
         if (user.role === 'admin') {
             const remainingAdmins = users.filter(u => u.role === 'admin').length;
             if (remainingAdmins <= 1) {
-                setError("Cannot downgrade the last Admin!");
+                setError(t('admin.last_admin_error'));
                 return;
             }
             setConfirmAction({
-                message: "Downgrade this Admin? They will lose access to this panel.",
+                message: t('admin.downgrade_confirm'),
                 onConfirm: () => performToggleRole(user, newRole)
             });
         } else {
@@ -191,17 +198,17 @@ const AdminPanel = ({ onClose }) => {
             const data = await res.json();
 
             if (res.ok) {
-                setMessage(`Role updated for ${user.username}`);
+                setMessage(t('admin.role_updated_msg', { username: user.username }));
                 fetchUsers(pagination.currentPage);
             } else {
-                setError(data.error || 'Failed to update role');
+                setError(data.error ? t(`auth.messages.${data.error.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.error) : t('admin.update_role_failed'));
             }
-        } catch (err) { setError('Network Error'); }
+        } catch (err) { setError(t('common.net_error')); }
     };
 
     const handleDeleteUserClick = (user) => {
         setConfirmAction({
-            message: `ERASE USER ${user.username} PERMANENTLY? This cannot be undone.`,
+            message: t('admin.erase_confirm', { username: user.username }),
             onConfirm: () => performDeleteUser(user.id, user.username)
         });
     };
@@ -215,12 +222,12 @@ const AdminPanel = ({ onClose }) => {
             });
             const data = await res.json();
             if (res.ok) {
-                setMessage(`User ${username} terminated.`);
+                setMessage(t('admin.user_terminated_msg', { username }));
                 fetchUsers(pagination.currentPage);
             } else {
-                setError(data.error || 'Failed to delete user');
+                setError(data.error ? t(`auth.messages.${data.error.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.error) : t('admin.delete_user_failed'));
             }
-        } catch (err) { setError('Network Error'); }
+        } catch (err) { setError(t('common.net_error')); }
     };
 
     const handleToggleVerified = async (user) => {
@@ -234,15 +241,15 @@ const AdminPanel = ({ onClose }) => {
             if (res.ok) {
                 fetchUsers(pagination.currentPage); // Refresh list to show new status
             } else {
-                setError(data.error || 'Failed to toggle verification');
+                setError(data.error ? t(`auth.messages.${data.error.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.error) : t('admin.toggle_verified_failed'));
             }
-        } catch (err) { setError('Network Error'); }
+        } catch (err) { setError(t('common.net_error')); }
     };
 
 
     const handleResetPasswordClick = (user) => {
         setPromptAction({
-            message: `Enter new password for ${user.username}:`,
+            message: t('admin.new_password_prompt', { username: user.username }),
             onConfirm: (val) => performResetPassword(user.id, user.username, val)
         });
     };
@@ -256,14 +263,14 @@ const AdminPanel = ({ onClose }) => {
                 body: JSON.stringify({ target_id: id, new_password: newPass })
             });
             if (res.ok) {
-                setMessage(`Password reset for ${username}.`);
+                setMessage(t('admin.password_reset_msg', { username }));
             }
-        } catch (err) { setError('Network Error'); }
+        } catch (err) { setError(t('common.net_error')); }
     };
 
     const handleDisable2FAClick = (user) => {
         setConfirmAction({
-            message: `DISABLE 2FA FOR ${user.username}? This will remove secondary verification protocols.`,
+            message: t('admin.disable_2fa_confirm', { username: user.username }),
             onConfirm: () => performDisable2FA(user.id, user.username)
         });
     };
@@ -276,12 +283,12 @@ const AdminPanel = ({ onClose }) => {
                 body: JSON.stringify({ target_id: id })
             });
             if (res.ok) {
-                setMessage(`2FA Disabled for ${username}.`);
+                setMessage(t('admin.2fa_disabled_msg', { username }));
                 fetchUsers(pagination.currentPage);
             } else {
-                setError('Failed to disable 2FA');
+                setError(t('admin.disable_2fa_failed'));
             }
-        } catch (err) { setError('Network Error'); }
+        } catch (err) { setError(t('common.net_error')); }
     };
 
     return (
@@ -305,7 +312,7 @@ const AdminPanel = ({ onClose }) => {
             <div className="card-cyber w-full max-w-4xl h-[80vh] flex flex-col border-yellow-500 shadow-[0_0_30px_rgba(255,200,0,0.3)]">
                 <div className="flex justify-between items-center border-b border-yellow-700/50 pb-4 mb-4">
                     <h2 className="text-2xl font-bold text-yellow-500 tracking-widest uppercase">
-                        ADMINISTRATION CONSOLE
+                        {t('admin.console_title')}
                     </h2>
                     <button onClick={onClose} className="text-yellow-500 hover:text-white text-xl">✖</button>
                 </div>
@@ -314,9 +321,10 @@ const AdminPanel = ({ onClose }) => {
                 <div className="flex justify-end mb-4 relative">
                     <input
                         type="text"
-                        placeholder="SEARCH RECRUITS..."
+                        placeholder={t('admin.search_placeholder')}
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
+                        onFocus={(e) => e.target.select()}
                         className="bg-black/50 border border-yellow-700/50 text-yellow-400 px-3 py-1 pr-8 text-sm focus:outline-none focus:border-yellow-500 w-64 rounded-sm tracking-widest placeholder-yellow-700"
                     />
                     <span className="absolute right-2 top-1 text-yellow-600 pointer-events-none">🔍</span>
@@ -342,16 +350,16 @@ const AdminPanel = ({ onClose }) => {
                                     onClick={() => handleSort('username')}
                                 >
                                     <div className="flex items-center gap-1">
-                                        CODENAME <SortIcon columnKey="username" />
+                                        {t('admin.col_codename')} <SortIcon columnKey="username" />
                                     </div>
                                 </th>
-                                <th className="p-2">ROLE</th>
+                                <th className="p-2">{t('admin.col_role')}</th>
                                 <th
                                     className={`p-2 cursor-pointer select-none hover:text-yellow-400 ${sortConfig.key === 'is_verified' ? 'text-yellow-500' : ''}`}
                                     onClick={() => handleSort('is_verified')}
                                 >
                                     <div className="flex items-center justify-center gap-1">
-                                        VERIFIED <SortIcon columnKey="is_verified" />
+                                        {t('admin.col_verified')} <SortIcon columnKey="is_verified" />
                                     </div>
                                 </th>
                                 <th
@@ -359,10 +367,10 @@ const AdminPanel = ({ onClose }) => {
                                     onClick={() => handleSort('last_login')}
                                 >
                                     <div className="flex items-center gap-1">
-                                        HISTORY <SortIcon columnKey="last_login" />
+                                        {t('admin.col_history')} <SortIcon columnKey="last_login" />
                                     </div>
                                 </th>
-                                <th className="p-2 text-right">ACTIONS</th>
+                                <th className="p-2 text-right">{t('admin.col_actions')}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -384,15 +392,15 @@ const AdminPanel = ({ onClose }) => {
                                             className={`text-xs font-bold ${u.is_verified == 1 ? 'text-green-500 hover:text-green-400' : 'text-red-500 hover:text-red-400'}`}
                                             title="Toggle Verification"
                                         >
-                                            {u.is_verified == 1 ? '✓ VERIFIED' : '✖ UNVERIFIED'}
+                                            {u.is_verified == 1 ? `✓ ${t('admin.verified')}` : `✖ ${t('admin.unverified')}`}
                                         </button>
                                     </td>
                                     <td className="p-2 align-top">
                                         <div className="grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 text-[10px] leading-none">
-                                            <span className="text-gray-400 uppercase">Jo</span>
+                                            <span className="text-gray-400 uppercase">{t('admin.joined_label')}</span>
                                             <span className="text-gray-300">{u.created_at?.split(' ')[0]}</span>
-                                            <span className="text-gray-400 uppercase">Lg</span>
-                                            <span className="text-cyan-500">{u.last_login ? u.last_login.split(' ')[0] : 'NEVER'}</span>
+                                            <span className="text-gray-400 uppercase">{t('admin.login_label')}</span>
+                                            <span className="text-cyan-500">{u.last_login ? u.last_login.split(' ')[0] : t('admin.never')}</span>
                                         </div>
                                     </td>
                                     <td className="p-2 text-right">
@@ -401,27 +409,27 @@ const AdminPanel = ({ onClose }) => {
                                                 onClick={() => handleToggleRoleClick(u)}
                                                 className="text-[10px] px-2 py-1 border border-blue-900 text-blue-500 hover:bg-blue-900 hover:text-white transition-colors min-w-[70px] uppercase"
                                             >
-                                                {u.role === 'admin' ? 'DOWNGRADE' : 'PROMOTE'}
+                                                {u.role === 'admin' ? t('admin.downgrade') : t('admin.promote')}
                                             </button>
                                             <button
                                                 onClick={() => handleResetPasswordClick(u)}
                                                 className="text-[10px] px-2 py-1 border border-gray-500 text-gray-300 hover:border-white hover:text-white transition-colors min-w-[70px] uppercase"
                                             >
-                                                RESET PWD
+                                                {t('admin.reset_pwd')}
                                             </button>
                                             {u.two_factor_enabled == 1 && (
                                                 <button
                                                     onClick={() => handleDisable2FAClick(u)}
                                                     className="text-[10px] px-2 py-1 border border-orange-900 text-orange-600 hover:bg-orange-900 hover:text-white transition-colors min-w-[70px] uppercase"
                                                 >
-                                                    2FA OFF
+                                                    {t('admin.2fa_off')}
                                                 </button>
                                             )}
                                             <button
                                                 onClick={() => handleDeleteUserClick(u)}
                                                 className="text-[10px] px-2 py-1 border border-red-900 text-red-700 hover:bg-red-900 hover:text-white transition-colors min-w-[70px] uppercase"
                                             >
-                                                ERASE
+                                                {t('admin.erase')}
                                             </button>
                                         </div>
                                     </td>
@@ -434,7 +442,7 @@ const AdminPanel = ({ onClose }) => {
                 {/* Pagination Controls */}
                 <div className="flex items-center justify-between border-t border-yellow-700/30 pt-4 mb-4 text-xs font-mono">
                     <div className="text-gray-400">
-                        TOTAL RECRUITS: <span className="text-yellow-500">{pagination.totalUsers}</span>
+                        {t('admin.total_recruits')}: <span className="text-yellow-500">{pagination.totalUsers}</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <button
@@ -480,13 +488,13 @@ const AdminPanel = ({ onClose }) => {
                 {/* System Policies Section */}
                 <div className="border-t border-yellow-700/50 pt-4 mt-4">
                     <h3 className="text-yellow-500 font-bold mb-3 flex items-center gap-2">
-                        <span>⚙</span> SYSTEM POLICIES
+                        <span>⚙</span> {t('admin.policies_title')}
                     </h3>
                     <div className="flex items-center gap-4 bg-yellow-700/10 p-3 rounded border border-yellow-700/30">
                         <div className="flex-1">
-                            <h4 className="text-white font-bold text-sm">Strict Password Policy</h4>
+                            <h4 className="text-white font-bold text-sm">{t('admin.policy_strict_pwd_title')}</h4>
                             <p className="text-xs text-gray-300">
-                                Enforce heavy encryption protocols (Min 12 chars, Upper, Number, Special).
+                                {t('admin.policy_strict_pwd_desc')}
                             </p>
                         </div>
                         <label className="relative inline-flex items-center cursor-pointer">

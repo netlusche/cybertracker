@@ -1,7 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { triggerNeonConfetti } from '../utils/confetti';
 
 const HelpModal = ({ onClose }) => {
+    const { t } = useTranslation();
     const handleAcknowledge = () => {
         triggerNeonConfetti();
         onClose();
@@ -18,99 +20,108 @@ const HelpModal = ({ onClose }) => {
                 </button>
 
                 <h2 className="text-2xl font-bold mb-6 text-cyber-neonCyan border-b border-cyber-gray pb-2 uppercase tracking-widest">
-                    CYBER_TASKER OPERATIVE HANDBOOK [VER. 1.5]
+                    {t('help.title')}
                 </h2>
 
                 <div className="space-y-6 font-mono text-sm">
                     <section>
-                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">// NEURAL PROGRESSION [XP & Ranks]</h3>
+                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">{t('help.sections.neural_progression.title')}</h3>
                         <ul className="list-disc w-5/6 mx-auto space-y-1 text-gray-300">
-                            <li><strong>XP HARVESTING:</strong> Successful directive execution injects raw Experience Data into your neural core. Higher complexity yields greater rewards.</li>
-                            <li><strong>OPERATIVE RANKING:</strong> Accumulate data packets to advance your <strong>OPERATOR LEVEL</strong>. Tracking bar visualizes your sync status with the next rank.</li>
-                            <li><strong>RANK CELEBRATION:</strong> Leveling up triggers a system-wide high-spectrum neon feedback loop and atmospheric celebration.</li>
+                            <li><strong>{t('help.sections.neural_progression.item1_label')}:</strong> {t('help.sections.neural_progression.item1_text')}</li>
+                            <li><strong>{t('help.sections.neural_progression.item2_label')}:</strong> {t('help.sections.neural_progression.item2_text')}</li>
+                            <li><strong>{t('help.sections.neural_progression.item3_label')}:</strong> {t('help.sections.neural_progression.item3_text')}</li>
                         </ul>
                     </section>
 
                     <section>
-                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">// SYSTEM ACCESS [Auth Protocol]</h3>
+                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">{t('help.sections.system_access.title')}</h3>
                         <ul className="list-disc w-5/6 mx-auto space-y-1 text-gray-300">
-                            <li><strong>INITIATE NEW IDENTITY:</strong> Execute <span className="text-white">NEW IDENTITY</span> to register. Input <strong>CODENAME</strong> (username), <strong>COM-LINK</strong> (email), and <strong>ACCESS KEY</strong> (password). <span className="text-yellow-500">⚠ Verification required via email.</span></li>
-                            <li><strong>JACK IN:</strong> Access the grid via <strong>CODENAME</strong> or <strong>COM-LINK</strong> and your <strong>ACCESS KEY</strong>.</li>
+                            <li><strong>{t('help.sections.system_access.item1_label')}:</strong> {t('help.sections.system_access.item1_text1')} <span className="text-yellow-500">{t('help.sections.system_access.item1_warn')}</span></li>
+                            <li><strong>{t('help.sections.system_access.item2_label')}:</strong> {t('help.sections.system_access.item2_text')}</li>
                         </ul>
                     </section>
 
                     <section>
-                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">// BIO-LOCK SECURITY [2FA]</h3>
+                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">{t('help.sections.bio_lock.title')}</h3>
                         <ul className="list-disc w-5/6 mx-auto space-y-1 text-gray-300">
-                            <li>Navigate to <strong>PROFILE</strong> &gt; <strong>ENABLE 2FA SECURITY</strong>.</li>
-                            <li>Scan the <strong>QR MATRIX</strong> with your authenticator.</li>
-                            <li>Input code to activate. Future logins will require this sync code.</li>
-                            <li><span className="text-cyber-neonPink">⚠ SECURITY ALERT:</span> Terminating 2FA triggers a high-priority defensive warning.</li>
+                            <li>{t('help.sections.bio_lock.item1')}</li>
+                            <li>{t('help.sections.bio_lock.item2')}</li>
+                            <li>{t('help.sections.bio_lock.item3')}</li>
+                            <li><span className="text-cyber-neonPink">{t('help.sections.bio_lock.item4_warn')}</span> {t('help.sections.bio_lock.item4_text')}</li>
                         </ul>
                     </section>
 
                     <section>
-                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">// DIRECTIVE EXECUTION [Task Management]</h3>
+                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">{t('help.sections.directive_execution.title')}</h3>
                         <ul className="list-disc w-5/6 mx-auto space-y-1 text-gray-300">
-                            <li><strong>INITIALIZE:</strong> Input directive parameters and assign PRIORITY. Use <span className="text-white">ENTER</span> for rapid deployment.</li>
-                            <li><strong>TERMINAL PULSE:</strong> Successful initialization triggers a <span className="text-cyber-neonCyan">CYAN FEEDBACK PULSE</span> and celebration.</li>
-                            <li><strong>EDIT:</strong> Click task title to rename. efficient workflow.</li>
-                            <li><strong>MODIFY:</strong> Click <span className="text-cyber-neonCyan">CATEGORY</span> or <span className="text-white">PRIORITY</span> badges for themed selection.</li>
-                            <li><strong>EXECUTE:</strong> Mark directives as <strong>DONE</strong>. System provides <span className="text-cyber-neonPink">NEON FEEDBACK</span> upon completion.</li>
+                            <li><strong>{t('help.sections.directive_execution.item1_label')}:</strong> {t('help.sections.directive_execution.item1_text')}</li>
+                            <li><strong>{t('help.sections.directive_execution.item2_label')}:</strong> {t('help.sections.directive_execution.item2_text')}</li>
+                            <li><strong>{t('help.sections.directive_execution.item3_label')}:</strong> {t('help.sections.directive_execution.item3_text')}</li>
+                            <li><strong>{t('help.sections.directive_execution.item4_label')}:</strong> {t('help.sections.directive_execution.item4_text')}</li>
+                            <li><strong>{t('help.sections.directive_execution.item5_label')}:</strong> {t('help.sections.directive_execution.item5_text')}</li>
                         </ul>
                     </section>
 
                     <section>
-                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">// SORT ORDER PROTOCOL [Task Management]</h3>
+                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">{t('help.sections.sort_order.title')}</h3>
                         <ul className="list-disc w-5/6 mx-auto space-y-1 text-gray-300">
-                            <li><strong>SIGNAL LEAK (Overdue):</strong> Critical priority. Any directive past its deadline is pinned to the top of the data stream.</li>
-                            <li><strong>HEAT SPIKE (Due Today):</strong> Immediate priority. Directives fated for today follow the Signal Leaks.</li>
-                            <li><strong>STRATEGIC (Priority):</strong> Remaining active directives are sorted by base <span className="text-white">HIGH</span> &gt; <span className="text-gray-300">MED</span> &gt; <span className="text-gray-500">LOW</span> level.</li>
-                            <li><strong>ARCHIVE SORT:</strong> Completed directives are sorted by the latest completion timestamp (DESC).</li>
+                            <li><strong>{t('help.sections.sort_order.item1_label')}:</strong> {t('help.sections.sort_order.item1_text')}</li>
+                            <li><strong>{t('help.sections.sort_order.item2_label')}:</strong> {t('help.sections.sort_order.item2_text')}</li>
+                            <li><strong>{t('help.sections.sort_order.item3_label')}:</strong> {t('help.sections.sort_order.item3_text')}</li>
+                            <li><strong>{t('help.sections.sort_order.item4_label')}:</strong> {t('help.sections.sort_order.item4_text')}</li>
                         </ul>
                     </section>
 
                     <section>
-                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">// CATEGORY PROTOCOLS [Customization]</h3>
+                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">{t('help.sections.category_protocols.title')}</h3>
                         <ul className="list-disc w-5/6 mx-auto space-y-1 text-gray-300">
-                            <li><strong>MANAGE PROTOCOLS:</strong> Access your <strong>PROFILE</strong> to initialize, rename, or delete custom categories.</li>
-                            <li><strong>DEFAULT OVERRIDE:</strong> Tag any protocol as <strong>STOCKED/DEFAULT</strong> (★) to prioritize it in the deployment terminal.</li>
-                            <li><strong>RE-INITIALIZATION:</strong> Renaming a protocol will retroactively patch all associated archived directives.</li>
+                            <li><strong>{t('help.sections.category_protocols.item1_label')}:</strong> {t('help.sections.category_protocols.item1_text')}</li>
+                            <li><strong>{t('help.sections.category_protocols.item2_label')}:</strong> {t('help.sections.category_protocols.item2_text')}</li>
+                            <li><strong>{t('help.sections.category_protocols.item3_label')}:</strong> {t('help.sections.category_protocols.item3_text')}</li>
                         </ul>
                     </section>
 
                     <section>
-                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">// NEURAL SEARCH & FILTER [Data Retrieval]</h3>
+                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">{t('help.sections.neural_search.title')}</h3>
                         <ul className="list-disc w-5/6 mx-auto space-y-1 text-gray-300">
-                            <li><strong>QUERY:</strong> Input keywords into the neural search bar to instantly isolate directives.</li>
-                            <li><strong>VECTORS:</strong> Filter grid by <span className="text-white">PRIORITY</span>, <span className="text-cyber-neonCyan">CATEGORY</span>, or <span className="text-cyber-neonPink">OVERDUE</span> status.</li>
-                            <li><strong>SYSTEM RESET:</strong> Execute <span className="text-cyber-neonCyan">RESET</span> to clear active filters and restore full data stream.</li>
+                            <li><strong>{t('help.sections.neural_search.item1_label')}:</strong> {t('help.sections.neural_search.item1_text')}</li>
+                            <li><strong>{t('help.sections.neural_search.item2_label')}:</strong> {t('help.sections.neural_search.item2_text')}</li>
+                            <li><strong>{t('help.sections.neural_search.item3_label')}:</strong> {t('help.sections.neural_search.item3_text')}</li>
                         </ul>
                     </section>
 
                     <section>
-                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">// CHRONO-SYNC [Scheduling]</h3>
+                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">{t('help.sections.chrono_sync.title')}</h3>
                         <ul className="list-disc w-5/6 mx-auto space-y-1 text-gray-300">
-                            <li><strong>DEADLINES:</strong> Assign execution dates via the <span className="text-cyber-neonPurple">CYBER CALENDAR</span> overlay.</li>
-                            <li><strong>TIME JUMPS:</strong> Use year navigation controls for long-range planning.</li>
-                            <li><strong>INTERACTIVE SYNC:</strong> Modify dates directly on active cards via <span className="text-white">CYBER CONFIRM</span> protocols.</li>
+                            <li><strong>{t('help.sections.chrono_sync.item1_label')}:</strong> {t('help.sections.chrono_sync.item1_text')}</li>
+                            <li><strong>{t('help.sections.chrono_sync.item2_label')}:</strong> {t('help.sections.chrono_sync.item2_text')}</li>
+                            <li><strong>{t('help.sections.chrono_sync.item3_label')}:</strong> {t('help.sections.chrono_sync.item3_text')}</li>
                         </ul>
                     </section>
 
                     <section>
-                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">// SYSTEM RESILIENCY [Stability]</h3>
+                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">{t('help.sections.system_resiliency.title')}</h3>
                         <ul className="list-disc w-5/6 mx-auto space-y-1 text-gray-300">
-                            <li><strong>ROBUST CONFIG:</strong> The system now utilizes a resilient configuration fallback logic. If `config.local.php` is incomplete, the core grid provides missing parameters (like `DB_HOST`) automatically.</li>
-                            <li><strong>DIAGNOSTIC INSTALLER:</strong> The `install.php` utility now features high-immersion diagnostics, tracking neural link stability and database row counts for immediate verification.</li>
+                            <li><strong>{t('help.sections.system_resiliency.item1_label')}:</strong> {t('help.sections.system_resiliency.item1_text')}</li>
+                            <li><strong>{t('help.sections.system_resiliency.item2_label')}:</strong> {t('help.sections.system_resiliency.item2_text')}</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">{t('help.sections.multilingual_sync.title')}</h3>
+                        <ul className="list-disc w-5/6 mx-auto space-y-1 text-gray-300">
+                            <li><strong>{t('help.sections.multilingual_sync.item1_label')}:</strong> {t('help.sections.multilingual_sync.item1_text')}</li>
+                            <li><strong>{t('help.sections.multilingual_sync.item2_label')}:</strong> {t('help.sections.multilingual_sync.item2_text')}</li>
+                            <li><strong>{t('help.sections.multilingual_sync.item3_label')}:</strong> {t('help.sections.multilingual_sync.item3_text')}</li>
                         </ul>
                     </section>
 
 
                     <section className="border-t border-cyber-gray pt-4 mt-8">
-                        <h3 className="text-cyber-neonPink font-bold text-lg mb-2">// DANGER ZONE PROTOCOLS</h3>
+                        <h3 className="text-cyber-neonPink font-bold text-lg mb-2">{t('help.sections.danger_zone.title')}</h3>
                         <ul className="list-disc w-5/6 mx-auto space-y-1 text-gray-300">
-                            <li><span className="text-cyber-neonPink">⚠ IDENTITY TERMINATION:</span> Confirming account deletion triggers the **TERMINAL SECURITY ALERT**. This action is irreversible.</li>
-                            <li><strong>ESCAPE PROTOCOL:</strong> Use <span className="text-cyber-neonCyan italic">ABORT</span> to immediately rescue yourself from final termination.</li>
+                            <li><span className="text-cyber-neonPink">{t('help.sections.danger_zone.item1_warn')}</span> {t('help.sections.danger_zone.item1_text')}</li>
+                            <li><strong>{t('help.sections.danger_zone.item2_label')}:</strong> {t('help.sections.danger_zone.item2_text')}</li>
                         </ul>
                     </section>
                 </div>
@@ -120,7 +131,7 @@ const HelpModal = ({ onClose }) => {
                         onClick={handleAcknowledge}
                         className="border border-cyber-neonCyan text-cyber-neonCyan hover:bg-cyber-neonCyan hover:text-black px-6 py-2 rounded transition-all duration-300 uppercase tracking-widest font-bold"
                     >
-                        ACKNOWLEDGE
+                        {t('help.acknowledge')}
                     </button>
                 </div>
             </div>

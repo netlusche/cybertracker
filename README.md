@@ -30,19 +30,55 @@
 ---
 ---
 
+## 🆕 New in Version 1.8.1 (Stress Tested & Secure)
+
+### 🛡 Enhanced Security & Stress Testing
+*   **Strict Password Policy**: Administrators can now enforce complexity requirements via the Admin Console. Rejects weak passwords (min 12 chars, Case/Num/Special required).
+*   **Stress-Tested Pagination**: Verified seamless handling of **250+ directives** in the Operative Dashboard and **40+ recruits** in the Administration Console.
+*   **Neural Progression Integrity**: Validated XP-to-Rank calculation and level-up animations across multiple tier boundaries.
+*   **Maintenance Protocol**: Decommissioned debug mail logging and purged diagnostic residues for a cleaner deployment.
+
+### 🌐 Localization & UX Polish
+*   **German Neural Link**: Corrected "LOGOUT" translation to "ABMELDEN" for linguistic accuracy.
+*   **Select-All on Focus**: Standardized input behavior across the grid; clicking any field now automatically selects its content for efficient modification.
+
+## 🆕 New in Version 1.8.0 (Uplink Stability & Validation Polish)
+
+### 🛡 Core Stability & Database Agnosticism
+*   **Universal SQL Protocol**: Refactored backend logic to handle system dates and expires via PHP. Fully compatible with **SQLite, MySQL, and MariaDB** without database-specific syntax errors.
+*   **Enhanced Recovery Flow**: Successfully streamlined the password reset handshake. Acknowledging the transmission alert now redirects the operative directly to the Login terminal.
+
+### ✨ Validation UX & Alert Standardization
+*   **Global Tooltip Wipe**: Implemented "Clear-on-Focus" logic. Clicking or tabbing into any input field instantly clears all active validation tooltips across the entire form for a cleaner workspace.
+*   **Standardized Alert System**: Migrated all authentication feedback (Registration, 2FA, Recovery) to the `CyberAlert` overlay system, decommissioning legacy inline alerts.
+*   **Secure Enumeration Protection**: Updated recovery success messaging to follow "If this email exists..." patterns, protecting operative identities from scanning.
+
+### 🌐 Multilingual Neural Link
+*   **Global Expansion**: CyberTasker now supports 6 major languages: **English, German (Deutsch), Dutch (Nederlands), Spanish (Español), French (Français), and Italian (Italiano)**.
+*   **Dynamic Switcher**: Integrated a high-immersion language selection overlay.
+*   **Unified Localization**: Every system alert, directive, and help handbook is fully localized for localized operations.
+
+## 🆕 New in Version 1.5.1 (Patch: SQLite Default & Stability)
+
+### ⚙️ Core Configuration & Stability
+*   **SQLite Default Protocol**: Updated `api/config.php` to use SQLite as the default database type.
+*   **Dependency Locking**: Synchronized `package-lock.json` with the updated package version.
+
+## 🆕 New in Version 1.5.0 (Residue-Free Security & UI Optimization)
+
 ### 🛡 Deep Purge Protocols & Stability
 *   **Exhaustive User Deletion**: Account termination (both Admin-led and Self-led) now performs a "residue-free" purge, explicitly clearing all tasks, user-specific categories, and 2FA artifacts.
 *   **2FA Cleanup**: Confirmed that deactivation logic (and deletion) fully terminates all TOTP secrets and Email-2FA artifacts.
-*   **Resilient Configuration**: Refactored `api/config.php` to utilize robust fallback logic. Required database constants (like `DB_HOST`) now default to safe values even if `config.local.php` is incomplete.
-*   **Diagnostic Installer**: The `api/install.php` utility now includes high-immersion diagnostics, tracking neural link stability, PHP environment details, and real-time database row counts for post-installation verification.
+*   **Resilient Configuration**: Refactored `api/config.php` to utilize robust fallback logic.
+*   **Diagnostic Installer**: The `api/install.php` utility now includes high-immersion diagnostics.
 
 ### 🕵️‍♂️ Administration Console Optimization
 *   **High-Contrast Scan-ability**: Re-tuned secondary information (IDs, History, Metrics) from dull grays to high-contrast colors (`gray-300/400`).
-*   **Flex-Grid Alignment**: Optimized table headers with flexbox to ensure sorting icons remain pinned and horizontally aligned with the text.
-*   **Structural Visibility**: Brightened structural boundaries (borders, search inputs, dividers) for faster navigation.
+*   **Flex-Grid Alignment**: Optimized table headers for better alignment.
+*   **Structural Visibility**: Brightened structural boundaries for faster navigation.
 
 ### ✨ Neural Link Readability
-*   **Enlarged Typography**: Increased instruction font sizes for "Signal Decay", "Sync Neural Link", and "Emergency Override" sequences.
+*   **Enlarged Typography**: Increased instruction font sizes for 2FA sequences.
 *   **Secret-Key Contrast**: Lightened background and brightened text for 2FA Secret Keys and Backup Fragments.
 
 ## 🆕 New in Version 1.4.1 (Admin Override & UI Polish)

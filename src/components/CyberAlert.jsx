@@ -1,6 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-const CyberAlert = ({ message, onClose, variant = 'cyan', title = 'SYSTEM MESSAGE' }) => {
+const CyberAlert = ({ message, onClose, variant = 'cyan', title }) => {
+    const { t } = useTranslation();
+    const displayTitle = title || t('common.system_message');
     const isPink = variant === 'pink';
     const accentClass = isPink ? 'border-cyber-neonPink' : 'border-cyber-neonCyan';
     const textClass = isPink ? 'text-cyber-neonPink' : 'text-cyber-neonCyan';
@@ -22,7 +25,7 @@ const CyberAlert = ({ message, onClose, variant = 'cyan', title = 'SYSTEM MESSAG
                     </div>
 
                     <h2 className={`text-xl font-black ${textClass} uppercase tracking-[0.2em]`}>
-                        {title}
+                        {displayTitle}
                     </h2>
 
                     <div className={`font-mono text-gray-300 text-sm leading-relaxed border-l-2 ${accentClass} pl-4 py-2 bg-white/5 uppercase text-left w-full`}>
@@ -34,7 +37,7 @@ const CyberAlert = ({ message, onClose, variant = 'cyan', title = 'SYSTEM MESSAG
                             onClick={onClose}
                             className={`w-full py-3 ${buttonClass} text-black font-black uppercase text-xs tracking-[0.2em] transform transition-all duration-300 hover:scale-[1.02] active:scale-95 active:brightness-75`}
                         >
-                            ACKNOWLEDGE
+                            {t('common.acknowledge')}
                         </button>
                     </div>
                 </div>

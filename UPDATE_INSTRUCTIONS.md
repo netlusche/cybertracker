@@ -1,3 +1,31 @@
+# CyberTasker Server Update Instructions (v1.5.1 → v1.8.0)
+
+These instructions guide you through updating to version **1.8.0**. This update focuses on database stability and UX polish.
+
+## 1. Backup
+
+- **Files**: Backup your `api/config.php` and your database file (if using SQLite).
+
+## 2. Deploy Files
+
+1.  Upload the contents of the `dist` folder to your server.
+2.  **Overwrite all files** EXCEPT `api/config.php` and your database file.
+
+## 3. Database Update
+
+**No database schema changes are required.** 
+However, because this version migrates critical date handling from SQL to PHP, it is highly recommended to run the installer once to verify neural link stability:
+1.  Navigate to: `https://yourdomain.com/tasks/api/install.php`
+2.  Review the **Diagnostic Scan** for any environment warnings.
+
+## 4. Verify Update
+
+1.  **Validation Check**: Open the Login or Registration form. Enter invalid data to trigger a tooltip, then click/tab into another field. Verify the tooltip clears globally.
+2.  **Recovery Flow**: Test the "Forgot Access Key" flow. Acknowledging the transmission success should now redirect you directly back to the Login terminal.
+3.  **Database Stability**: If you are running on MySQL, perform a manual task rotation to ensure the new PHP-based date handling is correctly processing due dates.
+
+---
+
 # CyberTasker Server Update Instructions (v1.4.1 → v1.5.0)
 
 These instructions guide you through updating your existing CyberTasker server installation to version **1.5.0**. This update ensures residue-free user deletion and optimizes Admin Console readability.

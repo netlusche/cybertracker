@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const CyberSelect = ({ value, onChange, options, label, className = "", neonColor = "cyan" }) => {
+    const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef(null);
-
+    // ... existing state mapping logic skipped for brevity if possible, but replace_file_content needs full block
     const neonClass = {
         cyan: 'border-cyber-neonCyan shadow-[0_0_10px_rgba(0,255,255,0.3)] focus:shadow-[0_0_15px_#00ffff]',
         pink: 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)] focus:shadow-[0_0_15px_#ff00ff]',
@@ -29,7 +31,7 @@ const CyberSelect = ({ value, onChange, options, label, className = "", neonColo
     }, []);
 
     const selectedOption = options.find(opt => (opt.value || opt) === value);
-    const displayValue = selectedOption ? (selectedOption.label || selectedOption.name || selectedOption) : label || "Select...";
+    const displayValue = selectedOption ? (selectedOption.label || selectedOption.name || selectedOption) : label || t('common.select');
 
     return (
         <div className={`relative ${className}`} ref={containerRef}>
@@ -79,7 +81,7 @@ const CyberSelect = ({ value, onChange, options, label, className = "", neonColo
                                 }}
                                 className={`px-4 py-2 cursor-pointer font-mono text-sm uppercase tracking-widest transition-colors hover:bg-cyber-neonCyan hover:text-black ${isSelected ? 'bg-cyber-neonCyan/20 text-cyber-neonCyan' : 'text-gray-300'}`}
                             >
-                                {optLabel} {opt.is_default ? '(Default)' : ''}
+                                {optLabel} {opt.is_default ? t('tasks.default_suffix') : ''}
                             </li>
                         );
                     })}

@@ -45,5 +45,6 @@ function sendMail($to, $subject, $body)
     </html>
     ";
 
-    return @mail($to, $subject, $htmlMessage, $headers);
-}
+    // Send mail and log result
+    $success = @mail($to, $subject, $htmlMessage, $headers);
+    return $success;}

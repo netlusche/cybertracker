@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import CyberSelect from './CyberSelect';
 
 const TaskFilters = ({ filters, onFilterChange, categories }) => {
+    const { t } = useTranslation();
     const [localSearch, setLocalSearch] = useState(filters.search || '');
 
     // Sync local search with prop (for reset functionality)
@@ -32,37 +34,38 @@ const TaskFilters = ({ filters, onFilterChange, categories }) => {
                     <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-cyber-neonCyan">🔍</span>
                     <input
                         type="text"
-                        placeholder="Search Neural Database..."
+                        placeholder={t('tasks.search_placeholder')}
                         value={localSearch}
                         onChange={(e) => setLocalSearch(e.target.value)}
+                        onFocus={(e) => e.target.select()}
                         className="w-full bg-black border border-cyber-gray text-white pl-10 pr-4 py-2 rounded focus:border-cyber-neonCyan focus:shadow-[0_0_10px_#00ffff] outline-none transition-all placeholder-gray-200 font-mono"
                     />
                 </div>
-
-                {/* Priority Filter */}
-                <CyberSelect
-                    value={filters.priority || ''}
-                    onChange={(val) => handleChange('priority', val)}
-                    options={[
-                        { value: '', label: 'ALL PRIORITIES' },
-                        { value: '1', label: 'HIGH (1)' },
-                        { value: '2', label: 'MED (2)' },
-                        { value: '3', label: 'LOW (3)' }
-                    ]}
-                    className="w-full md:w-48"
-                    neonColor="pink"
-                />
 
                 {/* Category Filter */}
                 <CyberSelect
                     value={filters.category || ''}
                     onChange={(val) => handleChange('category', val)}
                     options={[
-                        { value: '', label: 'ALL CATEGORIES' },
+                        { value: '', label: t('tasks.all_categories') },
                         ...categories.map(cat => ({ value: cat.name || cat, label: cat.name || cat }))
                     ]}
                     className="w-full md:w-56"
                     neonColor="green"
+                />
+
+                {/* Priority Filter */}
+                <CyberSelect
+                    value={filters.priority || ''}
+                    onChange={(val) => handleChange('priority', val)}
+                    options={[
+                        { value: '', label: t('tasks.all_priorities') },
+                        { value: '1', label: `${t('common.high')} (1)` },
+                        { value: '2', label: `${t('common.med')} (2)` },
+                        { value: '3', label: `${t('common.low')} (3)` }
+                    ]}
+                    className="w-full md:w-48"
+                    neonColor="pink"
                 />
 
                 {/* Overdue Toggle */}
@@ -74,7 +77,7 @@ const TaskFilters = ({ filters, onFilterChange, categories }) => {
                         className="hidden" // Custom checkbox style can be added here or just use simple toggle visual
                     />
                     <span className={`w-3 h-3 rounded-full ${filters.overdue ? 'bg-red-500 shadow-[0_0_8px_#ff0000]' : 'bg-gray-600'}`}></span>
-                    OVERDUE ONLY
+                    {t('tasks.overdue_only')}
                 </label>
 
                 {/* Reset Button */}
@@ -82,7 +85,7 @@ const TaskFilters = ({ filters, onFilterChange, categories }) => {
                     onClick={() => onFilterChange({ search: '', priority: '', category: '', overdue: false })}
                     className="text-xs text-cyber-neonCyan border border-cyber-neonCyan px-3 py-2 rounded hover:bg-cyber-neonCyan hover:text-black transition-all font-bold ml-auto"
                 >
-                    RESET
+                    {t('common.reset')}
                 </button>
             </div>
         </div>

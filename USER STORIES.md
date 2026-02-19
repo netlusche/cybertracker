@@ -9,6 +9,9 @@ This document provides a categorized overview of the user stories implemented in
 *   **Dual-Link Protection (2FA)**: As an operative, I want to enable Multi-Factor Authentication (MFA) via TOTP apps (Google/Microsoft Authenticator) or email to protect my neural data from unauthorized hacks.
 *   **Profile Customization**: As an operative, I want to manage my personal protocols (categories) in my profile to mirror my individual workflow.
 *   **Neural Purge**: As an operative, I want to be able to delete my account and ensure all associated directives and security artifacts are completely erased.
+*   **Standardized Alerts**: As an operative, I want all authentication feedback (Login, Registration, 2FA) to use the high-immersion `CyberAlert` overlay system for a unified experience.
+*   **Streamlined Recovery**: As an operative, I want to be automatically redirected to the login terminal after acknowledging a password reset request to minimize operational friction.
+*   **Identity Cloaking**: As an operative, I want the recovery system to use generic messaging ("If this email exists...") to prevent unauthorized scanning of the operative database.
 
 ## 📋 2. Directive Management (Task Control)
 *   **Initialize Directive**: As an operative, I want to create new directives with specified titles, priorities, and categories.
@@ -27,13 +30,16 @@ This document provides a categorized overview of the user stories implemented in
 *   **Urgency Sorting**: As an operative, I want my dashboard to automatically sort directives by urgency (**Overdue > Due Today > Priority**) to focus on imminent threats.
 *   **Visual Deadlines**: As an operative, I want color-coded timestamps and clock icons to identify directives nearing "Signal Decay."
 
-## 🕵️‍♂️ 5. Fleet Administration (Admin Panel)
+## 🕵️‍♂️ 5. Fleet Administration & Stability
 *   **Operative Overview**: As an administrator, I want to see a paginated list of all operatives, including their verification status and last login history.
 *   **Neural Override**: As an administrator, I want to deactivate 2FA for operatives who have lost their authentication links.
 *   **Credential Reset**: As an administrator, I want to securely reset operative passwords to restore system access.
 *   **System Diagnostics**: As an administrator, I want to view real-time metrics on user counts and database health to ensure grid stability.
+*   **Agnostic Uplink**: As an administrator, I want the system core to be database-agnostic (SQLite, MySQL, MariaDB) so that it can be deployed on any server environment without code changes.
 
-## ✨ 6. Immersive Interface (UX)
+## ✨ 6. Immersive Interface & Multilingual Support
 *   **Terminal Aesthetics**: As an operative, I want to interact with a high-contrast, neon-themed interface that maintains immersion in the cyberpunk universe.
 *   **Neural Manual**: As an operative, I want access to a "System Help" manual that explains level progression and system terminology in a thematic way.
 *   **Responsive Link**: As an operative, I want the system to be fully functional on both workstation monitors and mobile neural links.
+*   **Multilingual Neural Link**: As an operative, I want to choose my preferred localized language (DE, EN, NL, ES, FR, IT) to ensure maximum operational clarity.
+*   **Smart Validation Cleaning**: As an operative, I want all validation error tooltips to disappear globally as soon as I focus on any field to keep my terminal clear while correcting my input.

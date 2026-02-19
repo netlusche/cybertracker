@@ -637,16 +637,23 @@ elseif ($action === 'request_password_reset') {
     $user = $stmt->fetch();
 
     if ($user) {
-        $token = bin2hex(random_bytes(32));
+        try {
+            $token = bin2hex(random_bytes(32));
+            $expires = date('Y-m-d H:i:s', strtotime('+1 hour'));
 
-        $update = $pdo->prepare("UPDATE users SET reset_token = ?, reset_expires = DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE id = ?");
-        $update->execute([$token, $user['id']]);
+            $update = $pdo->prepare("UPDATE users SET reset_token = ?, reset_expires = ? WHERE id = ?");
+            $update->execute([$token, $expires, $user['id']]);
 
-        $resetLink = FRONTEND_URL . "/reset-password.html?token=" . $token;
-        $subject = "CyberTasker Password Reset";
-        $body = "Operative " . $user['username'] . ",<br><br>A request to reset your access key was received.<br>If this was you, proceed here:<br><a href='$resetLink'>$resetLink</a><br><br>This link self-destructs in 60 minutes.";
+            $resetLink = FRONTEND_URL . "/reset-password.html?token=" . $token;
+            $subject = "CyberTasker Password Reset";
+            $body = "Operative " . $user['username'] . ",<br><br>A request to reset your access key was received.<br>If this was you, proceed here:<br><a href='$resetLink'>$resetLink</a><br><br>This link self-destructs in 60 minutes.";
 
-        sendMail($email, $subject, $body);
+            sendMail($email, $subject, $body);
+        }
+        catch (Exception $e) {
+            error_log("Password reset database update failed: " . $e->getMessage());
+        // We still return success below to prevent enumeration, but log the error
+        }
     }
 
     // Always return success to prevent email enumeration
@@ -663,8 +670,9 @@ elseif ($action === 'reset_password') {
         exit;
     }
 
-    $stmt = $pdo->prepare("SELECT id FROM users WHERE reset_token = ? AND reset_expires > NOW()");
-    $stmt->execute([$token]);
+    $now = date('Y-m-d H:i:s');
+    $stmt = $pdo->prepare("SELECT id FROM users WHERE reset_token = ? AND reset_expires > ?");
+    $stmt->execute([$token, $now]);
     $user = $stmt->fetch();
 
     if ($user) {

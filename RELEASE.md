@@ -1,3 +1,42 @@
+# CyberTasker v1.8.1 - Stress Tested & Secure
+
+**Release Date:** 2026-02-19
+
+This update marks the completion of the Phase 2 Automated Test Plan, introducing strict security policies and verifying system scalability under stress.
+
+## 🛡 Enhanced Security & Stress Testing
+- **Strict Password Policy**: New administrative toggle allows enforcement of complexity rules. Verified rejection of weak keys and successful handling of secure pins.
+- **Scalability Protocols**: Successfully stress-tested the neural interface with **250+ simultaneous directives** and **40+ active recruits**, ensuring zero performance degradation in pagination.
+- **Neural Progression Integrity**: Verified that XP gains correctly trigger rank advancement across multiple levels, including visual leveling feedback and animations.
+
+## 🌐 Localization & UX Polish
+- **Linguistic Correction**: Updated the German (DE) localization; "LOGOUT" is now correctly identified as "ABMELDEN".
+- **Tactile Inputs**: Implemented "Select-All on Focus" across all terminal inputs, allowing operatives to overwrite or modify entries with a single click.
+
+## ⚙️ Maintenance
+- **Purge Protocol**: Removed debug mail logging artifacts and deleted temporary installation/backup residues.
+
+---
+
+# CyberTasker v1.8.0 - Uplink Stability & Validation Polish
+
+**Release Date:** 2026-02-18
+
+This major stability update focuses on core database transitions, streamlined recovery flows, and significant UX polish for the validation system.
+
+## 🛡 Core Stability & Database Agnosticism
+- **Universal SQL Protocol**: Re-engineered the session and user management logic to handle date calculations via PHP (`date()`, `strtotime()`) instead of database-specific SQL functions (`DATE_ADD`). This ensures seamless operation across **SQLite, MySQL, and MariaDB** installations.
+- **Enhanced Recovery flow**: Refactored the password reset handshake to be more proactive. Successfully acknowledging the "Transmission Sent" alert now redirects the operative directly to the Login Terminal, removing redundant manual steps.
+- **Secure Enumeration Protection**: Updated recovery success messaging to follow "If this email exists..." patterns (Option B), preventing unauthorized scanning of operative databases.
+
+## ✨ Validation UX & Alert Standardization
+- **Global Tooltip Wipe**: Implemented a "Clear-on-Focus" strategy. Clicking or tabbing into any input field now instantly clears all active validation tooltips across the form, providing a cleaner workspace for corrections.
+- **Unified Alert System**: Migrated the remaining registration and recovery feedback prompts to the `CyberAlert` system, ensuring all high-priority comms utilize the immersion-themed overlay.
+- **Multilingual Neural Link**: CyberTasker has officially gone global. Version 1.8.0 introduces full localization support for **DE, EN, NL, ES, FR, and IT**. 
+- **Dynamic Language Selection**: Replaces legacy static text with a centralized `i18n` protocol and a sleek, cyberpunk selector overlay.
+
+---
+
 # CyberTasker v1.5.1 - Patch: SQLite Default & Stability
 
 **Release Date:** 2026-02-17

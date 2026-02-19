@@ -1,9 +1,11 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import CyberSelect from './CyberSelect';
 import CyberConfirm from './CyberConfirm';
 import CyberCalendar from './CyberCalendar';
 
 const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendarTaskId, setActiveCalendarTaskId }) => {
+    const { t } = useTranslation();
     const [isEditing, setIsEditing] = React.useState(false);
     const [editTitle, setEditTitle] = React.useState(task.title);
     const [isSaving, setIsSaving] = React.useState(false);
@@ -179,7 +181,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
                                 onClick={handleCycleCategory}
                                 disabled={task.status == 1}
                                 className={`text-[10px] font-bold text-cyber-neonCyan tracking-wider uppercase border border-cyber-neonCyan px-2 py-1 rounded transition-all ${task.status != 1 ? 'hover:bg-cyber-neonCyan hover:text-black cursor-pointer active:scale-95' : 'cursor-default'}`}
-                                title={task.status != 1 ? "Click to cycle category" : ""}
+                                title={task.status != 1 ? t('tasks.cycle_category') : ""}
                             >
                                 {task.category}
                             </button>
@@ -189,9 +191,9 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
                                     value={String(task.priority)}
                                     onChange={handlePriorityChange}
                                     options={[
-                                        { value: '1', label: 'HIGH' },
-                                        { value: '2', label: 'MED' },
-                                        { value: '3', label: 'LOW' }
+                                        { value: '1', label: t('common.high') },
+                                        { value: '2', label: t('common.med') },
+                                        { value: '3', label: t('common.low') }
                                     ]}
                                     neonColor={priorityNeonColors[task.priority]}
                                     className="text-[10px] font-bold h-7"
@@ -210,6 +212,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
                                     onBlur={handleSave}
                                     disabled={isSaving}
                                     autoFocus
+                                    onFocus={(e) => e.target.select()}
                                     className={`bg-black/50 border text-white px-2 py-1 w-full text-lg font-bold focus:outline-none transition-all duration-300 ${isSaving ? 'border-cyber-neonGreen shadow-[0_0_15px_#0f0] text-cyber-neonGreen' : 'border-cyber-neonCyan shadow-[0_0_10px_#0ff] animate-pulse'}`}
                                 />
                                 <button
@@ -224,7 +227,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
                             <h3
                                 onClick={() => task.status != 1 && setIsEditing(true)}
                                 className={`text-lg font-bold text-white mb-1 cursor-pointer hover:text-cyber-neonCyan transition-colors ${task.status == 1 ? 'line-through text-gray-400 pointer-events-none' : ''}`}
-                                title={task.status != 1 ? "Click to edit" : ""}
+                                title={task.status != 1 ? t('tasks.edit_directive') : ""}
                             >
                                 {task.title}
                             </h3>
@@ -234,7 +237,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
                             <div
                                 onClick={() => task.status != 1 && setActiveCalendarTaskId(isDatePickerOpen ? null : task.id)}
                                 className={`flex items-center gap-2 mb-2 font-mono text-base ${task.status != 1 ? 'cursor-pointer hover:bg-white/5 transition-colors p-1 -ml-1 rounded' : ''}`}
-                                title={task.status != 1 ? "Click to change date" : ""}
+                                title={task.status != 1 ? t('tasks.change_date') : ""}
                             >
                                 <span className="text-cyber-neonPink">🕒</span>
                                 <span className={
@@ -242,7 +245,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
                                         ? "text-red-500 font-bold"
                                         : "text-gray-300"
                                 }>
-                                    {task.due_date ? new Date(task.due_date).toLocaleDateString() : "NO DATE"}
+                                    {task.due_date ? new Date(task.due_date).toLocaleDateString() : t('tasks.no_date')}
                                 </span>
                             </div>
 
@@ -266,7 +269,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
                         <button
                             onClick={() => onToggleStatus(task)}
                             className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${task.status == 1 ? 'bg-cyber-neonGreen text-black' : 'bg-transparent border border-gray-500 hover:border-cyber-neonGreen hover:text-cyber-neonGreen'}`}
-                            title={task.status == 1 ? "Mark as TODO" : "Mark as DONE"}
+                            title={task.status == 1 ? t('tasks.mark_todo') : t('tasks.mark_done')}
                         >
                             {task.status == 1 ? '✓' : '○'}
                         </button>
@@ -274,7 +277,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
                         <button
                             onClick={handleDeleteClick}
                             className={`w-8 h-8 rounded-full border border-gray-600 flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100 ${task.status == 1 ? 'text-gray-300 hover:text-white hover:border-gray-400' : 'text-gray-500 hover:border-red-500 hover:text-red-500'}`}
-                            title="Delete Task"
+                            title={t('tasks.delete_task')}
                         >
                             ×
                         </button>
@@ -284,7 +287,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
 
             {showPriorityConfirm && (
                 <CyberConfirm
-                    message="PRIORITY RE-ALIGNMENT WILL ALTER THE OPERATIONAL SEQUENCE OF YOUR DIRECTIVES. JACK IN?"
+                    message={t('tasks.priority_confirm')}
                     onConfirm={confirmPriorityUpdate}
                     onCancel={cancelPriorityUpdate}
                 />
@@ -292,7 +295,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
 
             {showDateConfirm && (
                 <CyberConfirm
-                    message="CHRONO-SYNC RE-ALIGNMENT WILL ALTER THE OPERATIONAL SEQUENCE OF YOUR DIRECTIVES. JACK IN?"
+                    message={t('tasks.date_confirm')}
                     onConfirm={confirmDateUpdate}
                     onCancel={cancelDateUpdate}
                 />
@@ -300,7 +303,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
 
             {showDeleteConfirm && (
                 <CyberConfirm
-                    message="DELETING THIS DIRECTIVE WILL PERMANENTLY WIPE IT FROM THE GRID. JACK IN?"
+                    message={t('tasks.delete_confirm')}
                     onConfirm={confirmDelete}
                     onCancel={cancelDelete}
                     neonColor="pink"

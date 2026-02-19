@@ -15,6 +15,10 @@
   --shadow-neon-pink: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
   --shadow-neon-cyan: 0 0 10px #00ffff, 0 0 20px #00ffff;
   --shadow-neon-purple: 0 0 10px #bc13fe, 0 0 20px #bc13fe;
+
+  /* Custom UI shadows */
+  --shadow-cyber-focus: 0 0 10px rgba(0, 255, 255, 0.2);
+  --shadow-cyber-validation: 0 0 15px rgba(255, 0, 255, 0.8);
 }
 
 :root {
@@ -54,7 +58,12 @@ body {
   }
 
   .input-cyber:focus {
-    @apply shadow-[0_0_10px_rgba(0,255,255,0.2)];
+    @apply shadow-cyber-focus;
+  }
+
+  .cyber-validation-bubble {
+    @apply absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-3 py-1 bg-cyber-neonPink text-black text-[12px] font-bold uppercase tracking-tighter whitespace-nowrap z-50 shadow-cyber-validation pointer-events-none animate-bounce;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 88%, 58% 88%, 50% 100%, 42% 88%, 0% 88%);
   }
 
 }

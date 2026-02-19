@@ -13,7 +13,7 @@ if (!defined('DB_TYPE'))
 if (!defined('DB_HOST'))
     define('DB_HOST', 'localhost');
 if (!defined('DB_NAME'))
-    define('DB_NAME', 'cybertracker');
+    define('DB_NAME', __DIR__ . '/cybertracker.db');
 if (!defined('DB_USER'))
     define('DB_USER', 'Your_DB_Username');
 if (!defined('DB_PASS'))

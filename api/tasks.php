@@ -44,7 +44,8 @@ switch ($method) {
             $params[] = $category;
         }
         if ($overdue) {
-            $where[] = "status = 0 AND due_date < CURRENT_DATE() AND due_date IS NOT NULL";
+            $where[] = "status = 0 AND due_date < ? AND due_date IS NOT NULL";
+            $params[] = date('Y-m-d');
         }
 
         $whereSql = implode(' AND ', $where);

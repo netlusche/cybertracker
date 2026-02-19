@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import CyberSelect from './CyberSelect';
 import CyberDateInput from './CyberDateInput';
 
 const TaskForm = ({ onAddTask, categoryRefreshTrigger, categories = [] }) => {
+    const { t } = useTranslation();
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('');
     const [priority, setPriority] = useState('2');
@@ -26,7 +28,7 @@ const TaskForm = ({ onAddTask, categoryRefreshTrigger, categories = [] }) => {
         e.preventDefault();
 
         if (!title.trim()) {
-            setError('DIRECTIVE DESCRIPTION REQUIRED');
+            setError(t('tasks.placeholder')); // Using placeholder as error for now or add specific key
             return;
         }
 
@@ -60,7 +62,7 @@ const TaskForm = ({ onAddTask, categoryRefreshTrigger, categories = [] }) => {
             onSubmit={handleSubmit}
             className={`card-cyber mb-8 relative border-cyber-neonCyan transition-all duration-300 ${successFlash ? 'shadow-[0_0_30px_#00ffff] border-white scale-[1.01]' : 'shadow-[0_0_15px_rgba(0,255,255,0.3)]'}`}
         >
-            <h3 className="text-cyber-neonCyan font-bold mb-4 uppercase tracking-wider">New Directive</h3>
+            <h3 className="text-cyber-neonCyan font-bold mb-4 uppercase tracking-wider">{t('tasks.new_directive')}</h3>
 
             {error && (
                 <div className="absolute top-2 right-4 text-xs font-bold text-cyber-neonPink animate-pulse bg-black px-2 border border-cyber-neonPink shadow-[0_0_10px_#ff00ff]">
@@ -77,8 +79,9 @@ const TaskForm = ({ onAddTask, categoryRefreshTrigger, categories = [] }) => {
                             setTitle(e.target.value);
                             if (error) setError('');
                         }}
-                        placeholder="Enter task description..."
+                        placeholder={t('tasks.placeholder')}
                         className={`input-cyber w-full placeholder-gray-200 border-gray-400 focus:border-cyber-neonCyan focus:shadow-[0_0_10px_#00ffff] ${error ? 'border-cyber-neonPink shadow-[0_0_10px_#ff00ff]' : ''}`}
+                        onFocus={(e) => e.target.select()}
                         maxLength={60}
                     />
                 </div>
@@ -89,7 +92,7 @@ const TaskForm = ({ onAddTask, categoryRefreshTrigger, categories = [] }) => {
                         onChange={setCategory}
                         options={categories.map(cat => ({
                             value: cat.name,
-                            label: `${cat.name} ${cat.is_default ? '(Default)' : ''}`
+                            label: `${cat.name} ${cat.is_default ? t('tasks.default_suffix') : ''}`
                         }))}
                         className="flex-1 min-w-[150px]"
                         neonColor="cyan"
@@ -99,9 +102,9 @@ const TaskForm = ({ onAddTask, categoryRefreshTrigger, categories = [] }) => {
                         value={priority}
                         onChange={setPriority}
                         options={[
-                            { value: '1', label: 'HIGH (1)' },
-                            { value: '2', label: 'MED (2)' },
-                            { value: '3', label: 'LOW (3)' }
+                            { value: '1', label: `${t('common.high')} (1)` },
+                            { value: '2', label: `${t('common.med')} (2)` },
+                            { value: '3', label: `${t('common.low')} (3)` }
                         ]}
                         className="w-36 flex-none"
                         neonColor="cyan"
@@ -110,11 +113,11 @@ const TaskForm = ({ onAddTask, categoryRefreshTrigger, categories = [] }) => {
                     <CyberDateInput
                         value={dueDate}
                         onChange={setDueDate}
-                        placeholder="Due Date"
+                        placeholder={t('tasks.due_date')}
                     />
 
                     <button type="submit" className="btn-cyber btn-neon-cyan flex-none w-full sm:w-auto ml-auto">
-                        INITIALIZE
+                        {t('tasks.add')}
                     </button>
                 </div>
             </div>

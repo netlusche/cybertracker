@@ -1,6 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-const CyberConfirm = ({ message, onConfirm, onCancel, variant = 'cyan', title = 'ATTENTION' }) => {
+const CyberConfirm = ({ message, onConfirm, onCancel, variant = 'cyan', title }) => {
+    const { t } = useTranslation();
+    const displayTitle = title || t('common.attention');
     const isPink = variant === 'pink';
     const accentClass = isPink ? 'border-cyber-neonPink' : 'border-cyber-neonCyan';
     const textClass = isPink ? 'text-cyber-neonPink' : 'text-cyber-neonCyan';
@@ -22,11 +25,11 @@ const CyberConfirm = ({ message, onConfirm, onCancel, variant = 'cyan', title = 
                     </div>
 
                     <h2 className={`text-xl font-black ${textClass} uppercase tracking-[0.2em]`}>
-                        {title}
+                        {displayTitle}
                     </h2>
 
                     <p className={`font-mono text-gray-300 text-sm leading-relaxed border-l-2 ${accentClass} pl-4 py-2 bg-white/5 uppercase`}>
-                        {message || "PRIORITY RE-ALIGNMENT WILL ALTER THE OPERATIONAL SEQUENCE OF YOUR DIRECTIVES. JACK IN?"}
+                        {message || t('tasks.priority_confirm')}
                     </p>
 
                     <div className="flex gap-4 w-full pt-4">
@@ -34,13 +37,13 @@ const CyberConfirm = ({ message, onConfirm, onCancel, variant = 'cyan', title = 
                             onClick={onCancel}
                             className="flex-1 py-3 border border-gray-600 text-gray-400 hover:text-white hover:border-white transition-all duration-300 uppercase font-black text-xs tracking-widest active:scale-95"
                         >
-                            [ ABORT ]
+                            [ {t('common.abort')} ]
                         </button>
                         <button
                             onClick={onConfirm}
                             className={`flex-1 py-3 ${buttonClass} text-black font-black uppercase text-xs tracking-[0.2em] transform transition-all duration-300 hover:scale-105 active:scale-95 active:brightness-75`}
                         >
-                            JACK IN
+                            {t('common.jack_in')}
                         </button>
                     </div>
                 </div>

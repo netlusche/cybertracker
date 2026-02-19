@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { triggerNeonConfetti } from '../utils/confetti';
 import HelpModal from './HelpModal';
 import CyberAlert from './CyberAlert';
 
 
 const AuthForm = ({ onLogin }) => {
+    const { t } = useTranslation();
     const [isLogin, setIsLogin] = useState(true);
     const [showHelp, setShowHelp] = useState(false);
     const [username, setUsername] = useState('');
@@ -22,12 +24,14 @@ const AuthForm = ({ onLogin }) => {
     const [isForgot, setIsForgot] = useState(false);
     const [resetSent, setResetSent] = useState(false);
 
-    const [alert, setAlert] = useState({ show: false, message: '', title: '', variant: 'cyan' });
+    const [alert, setAlert] = useState({ show: false, message: '', title: '', variant: 'cyan', onClose: null });
     const [loading, setLoading] = useState(false);
+    const [validationErrors, setValidationErrors] = useState({});
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setValidationErrors({});
         if (loading) return;
         setLoading(true);
         setError('');
@@ -55,7 +59,13 @@ const AuthForm = ({ onLogin }) => {
             const data = await res.json();
 
             if (!res.ok) {
-                setError(data.error || 'Authentication failed');
+                const errorMsg = data.error ? t(`auth.messages.${data.error.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.error) : t('auth.messages.fail_auth');
+                setAlert({
+                    show: true,
+                    title: t('auth.security_check'),
+                    message: errorMsg,
+                    variant: 'pink'
+                });
                 return;
             }
 
@@ -63,27 +73,46 @@ const AuthForm = ({ onLogin }) => {
                 if (data.requires_2fa) {
                     setRequires2FA(true);
                     setTwoFactorMethod(data.two_factor_method || 'totp');
-                    setError('');
                 } else {
                     triggerNeonConfetti();
                     onLogin(data.user);
                 }
             } else {
                 setIsLogin(true);
-                setError('');
                 setAlert({
                     show: true,
-                    title: 'IDENTITY ESTABLISHED',
-                    message: data.message || 'NEW IDENTITY ESTABLISHED. UPLINK REQUIRED: CHECK COM-LINK FOR VERIFICATION SIGNAL.',
+                    title: t('auth.alerts.id_established'),
+                    message: data.message ? t(`auth.messages.${data.message.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.message) : t('auth.alerts.uplink_required'),
                     variant: 'cyan'
                 });
             }
 
 
         } catch (err) {
-            setError('System Error. Connection failed.');
+            setAlert({
+                show: true,
+                title: t('auth.messages.system_error'),
+                message: t('auth.messages.network_failure'),
+                variant: 'pink'
+            });
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleInvalid = (e, field) => {
+        e.preventDefault();
+        setValidationErrors(prev => ({ ...prev, [field]: true }));
+    };
+
+    const handleInputChange = (field, value, setter) => {
+        setter(value);
+        clearValidation();
+    };
+
+    const clearValidation = () => {
+        if (Object.keys(validationErrors).length > 0) {
+            setValidationErrors({});
         }
     };
 
@@ -96,10 +125,34 @@ const AuthForm = ({ onLogin }) => {
                 body: JSON.stringify({ email }),
             });
             const data = await res.json();
-            setResetSent(true);
-            setError('');
+            if (res.ok) {
+                const successMsg = data.message ? t(`auth.messages.${data.message.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.message) : t('auth.messages.transmission_sent');
+                setAlert({
+                    show: true,
+                    title: t('auth.alerts.transmission_sent'),
+                    message: successMsg,
+                    variant: 'pink',
+                    onClose: () => {
+                        setIsForgot(false);
+                        setAlert(prev => ({ ...prev, show: false }));
+                    }
+                });
+            } else {
+                const errorMsg = data.error ? t(`auth.messages.${data.error.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.error) : t('auth.messages.request_failed');
+                setAlert({
+                    show: true,
+                    title: t('auth.recover_entry'),
+                    message: errorMsg,
+                    variant: 'pink'
+                });
+            }
         } catch (err) {
-            setError('Request failed.');
+            setAlert({
+                show: true,
+                title: t('auth.recover_entry'),
+                message: t('auth.messages.request_failed'),
+                variant: 'pink'
+            });
         } finally {
             setLoading(false);
         }
@@ -119,9 +172,22 @@ const AuthForm = ({ onLogin }) => {
                 triggerNeonConfetti();
                 onLogin(data.user);
             } else {
-                setError(data.error || 'Invalid or expired access code.');
+                const errorMsg = data.error ? t(`auth.messages.${data.error.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.error) : t('auth.messages.invalid_access_code');
+                setAlert({
+                    show: true,
+                    title: t('auth.security_check'),
+                    message: errorMsg,
+                    variant: 'pink'
+                });
             }
-        } catch (err) { setError('Validation Error. Neural link unstable.'); }
+        } catch (err) {
+            setAlert({
+                show: true,
+                title: t('auth.security_check'),
+                message: t('auth.messages.validation_error'),
+                variant: 'pink'
+            });
+        }
         finally { setLoading(false); }
     };
 
@@ -132,17 +198,29 @@ const AuthForm = ({ onLogin }) => {
             const res = await fetch('api/auth.php?action=resend_email_2fa', { method: 'POST' });
             const data = await res.json();
             if (res.ok) {
-                // We'll use a temporary message or alert
                 setAlert({
                     show: true,
-                    title: 'SIGNAL RE-DISPATCHED',
-                    message: 'A NEW EMERGENCY OVERRIDE CODE HAS BEEN SENT TO YOUR COM-LINK.',
+                    title: t('auth.alerts.signal_redispatched'),
+                    message: t('auth.alerts.emergency_code_sent'),
                     variant: 'cyan'
                 });
             } else {
-                setError(data.error || "Uplink failed.");
+                const errorMsg = data.error ? t(`auth.messages.${data.error.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.error) : t('auth.messages.uplink_failed');
+                setAlert({
+                    show: true,
+                    title: t('auth.security_check'),
+                    message: errorMsg,
+                    variant: 'pink'
+                });
             }
-        } catch (err) { setError("Network failure."); }
+        } catch (err) {
+            setAlert({
+                show: true,
+                title: t('auth.security_check'),
+                message: t('auth.messages.network_failure'),
+                variant: 'pink'
+            });
+        }
         finally { setLoading(false); }
     };
 
@@ -151,142 +229,171 @@ const AuthForm = ({ onLogin }) => {
             <div className="card-cyber w-full max-w-md p-8 border-cyber-neonPink shadow-[0_0_20px_rgba(255,0,255,0.2)]">
                 {/* ... (existing form content) ... */}
                 <h2 className="text-2xl font-bold text-center mb-6 text-cyber-neonCyan tracking-widest uppercase">
-                    {requires2FA ? 'SECURITY CHECK' : (isForgot ? 'RECOVER ENTRY' : (isLogin ? 'Netrunner Login' : 'New Identity'))}
+                    {requires2FA ? t('auth.security_check') : (isForgot ? t('auth.recover_entry') : (isLogin ? t('auth.title') : t('auth.new_identity')))}
                 </h2>
 
-                {error && (
-                    <div className="bg-red-900/50 border border-red-500 text-red-200 p-2 mb-4 text-center text-sm font-mono">
-                        ⚠ {error}
-                    </div>
-                )}
-
-                {isForgot && resetSent ? (
-                    <div className="text-center text-cyber-neonGreen">
-                        <p>TRANSMISSION SENT.</p>
-                        <p className="text-sm mt-2">Check your com-link (email) for reset instructions.</p>
-                        <button onClick={() => { setIsForgot(false); setResetSent(false); }} className="btn-cyber btn-neon-blue mt-4">
-                            RETURN TO LOGIN
-                        </button>
-                    </div>
-                ) : (
-                    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                        {!requires2FA && !isForgot && (
-                            <>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                    {!requires2FA && !isForgot && (
+                        <>
+                            <div className="relative">
                                 <input
                                     type="text"
-                                    placeholder={!isLogin ? "CODENAME (USERNAME)" : "CODENAME / COM-LINK"}
+                                    placeholder={!isLogin ? t('auth.codename_only') : t('auth.codename')}
                                     value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
-                                    className="input-cyber text-center tracking-widest"
+                                    onChange={(e) => handleInputChange('username', e.target.value, setUsername)}
+                                    onFocus={(e) => { e.target.select(); clearValidation(); }}
+                                    onInvalid={(e) => handleInvalid(e, 'username')}
+                                    className={`input-cyber text-center tracking-widest w-full ${validationErrors.username ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
                                     required={!isForgot}
                                     autoFocus
                                 />
-                                {!isLogin && (
-                                    <input
-                                        type="email"
-                                        placeholder="COM-LINK (EMAIL)"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        className="input-cyber text-center tracking-widest"
-                                        required
-                                    />
+                                {validationErrors.username && (
+                                    <div className="cyber-validation-bubble">
+                                        {t('auth.messages.input_required')}
+                                    </div>
                                 )}
+                            </div>
+
+                            {!isLogin && (
                                 <div className="relative">
                                     <input
-                                        type={showPassword ? "text" : "password"}
-                                        placeholder="ACCESS KEY"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        className="input-cyber text-center tracking-widest w-full pr-10"
-                                        required={!isForgot}
+                                        type="email"
+                                        placeholder={t('auth.comlink_only')}
+                                        value={email}
+                                        onChange={(e) => handleInputChange('email', e.target.value, setEmail)}
+                                        onFocus={(e) => { e.target.select(); clearValidation(); }}
+                                        onInvalid={(e) => handleInvalid(e, 'email')}
+                                        className={`input-cyber text-center tracking-widest w-full ${validationErrors.email ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
+                                        required
                                     />
-                                    <button
-                                        type="button"
-                                        onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-cyber-neonCyan hover:text-white transition-colors p-1"
-                                        tabIndex="-1"
-                                    >
-                                        {showPassword ? (
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
-                                            </svg>
-                                        ) : (
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                            </svg>
-                                        )}
-                                    </button>
+                                    {validationErrors.email && (
+                                        <div className="cyber-validation-bubble">
+                                            {t('auth.messages.input_required')}
+                                        </div>
+                                    )}
                                 </div>
-                            </>
-                        )}
+                            )}
+                            <div className="relative">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder={t('auth.access_key')}
+                                    value={password}
+                                    onChange={(e) => handleInputChange('password', e.target.value, setPassword)}
+                                    onFocus={(e) => { e.target.select(); clearValidation(); }}
+                                    onInvalid={(e) => handleInvalid(e, 'password')}
+                                    className={`input-cyber text-center tracking-widest w-full pr-10 ${validationErrors.password ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
+                                    required={!isForgot}
+                                />
+                                {validationErrors.password && (
+                                    <div className="cyber-validation-bubble">
+                                        {t('auth.messages.input_required')}
+                                    </div>
+                                )}
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-cyber-neonCyan hover:text-white transition-colors p-1"
+                                    tabIndex="-1"
+                                >
+                                    {showPassword ? (
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
+                                        </svg>
+                                    ) : (
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                        </svg>
+                                    )}
+                                </button>
+                            </div>
+                        </>
+                    )}
 
-                        {isForgot && (
+                    {isForgot && (
+                        <div className="relative">
                             <input
                                 type="email"
-                                placeholder="COM-LINK (EMAIL) FOR RECOVERY"
+                                placeholder={t('auth.placeholders.recovery_email')}
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className="input-cyber text-center tracking-widest"
+                                onChange={(e) => handleInputChange('email', e.target.value, setEmail)}
+                                onFocus={(e) => { e.target.select(); clearValidation(); }}
+                                onInvalid={(e) => handleInvalid(e, 'email')}
+                                className={`input-cyber text-center tracking-widest w-full ${validationErrors.email ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
                                 required
                                 autoFocus
                             />
-                        )}
+                            {validationErrors.email && (
+                                <div className="cyber-validation-bubble">
+                                    {t('auth.messages.input_required')}
+                                </div>
+                            )}
+                        </div>
+                    )}
 
-                        {requires2FA && (
-                            <div className="text-center space-y-4">
-                                <p className="text-xs text-gray-400 font-mono">
-                                    {twoFactorMethod === 'totp'
-                                        ? "BIO-LOCK ACTIVE. ENTER AUTHENTICATOR CODE OR BACKUP FRAGMENT."
-                                        : "EMERGENCY OVERRIDE REQUIRED. CHECK COM-LINK FREQUENCY."}
-                                </p>
+                    {requires2FA && (
+                        <div className="text-center space-y-4">
+                            <p className="text-xs text-gray-400 font-mono">
+                                {twoFactorMethod === 'totp'
+                                    ? t('auth.messages.bio_lock_active')
+                                    : t('auth.messages.override_required')}
+                            </p>
+                            <div className="relative">
                                 <input
                                     type="text"
-                                    placeholder="ACCESS CODE"
+                                    placeholder={t('auth.placeholders.access_code')}
                                     value={twoFaCode}
-                                    onChange={(e) => setTwoFaCode(e.target.value)}
-                                    className="input-cyber text-center tracking-[0.3em] text-xl font-bold text-cyber-neonGreen w-full"
+                                    onChange={(e) => handleInputChange('twoFaCode', e.target.value, setTwoFaCode)}
+                                    onFocus={(e) => { e.target.select(); clearValidation(); }}
+                                    onInvalid={(e) => handleInvalid(e, 'twoFaCode')}
+                                    className={`input-cyber text-center tracking-[0.3em] text-xl font-bold text-cyber-neonGreen w-full ${validationErrors.twoFaCode ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
                                     maxLength={16}
+                                    required
                                     autoFocus
                                 />
-                                {twoFactorMethod === 'email' && (
-                                    <button
-                                        type="button"
-                                        onClick={handleResendEmail2FA}
-                                        disabled={loading}
-                                        className={`text-[10px] text-cyber-neonCyan hover:underline block mx-auto uppercase animate-pulse ${loading ? 'opacity-50 cursor-wait' : ''}`}
-                                    >
-                                        {loading ? '[ RESYNCING... ]' : '[ RESYNC UPLINK ]'}
-                                    </button>
+                                {validationErrors.twoFaCode && (
+                                    <div className="cyber-validation-bubble">
+                                        {t('auth.messages.input_required')}
+                                    </div>
                                 )}
                             </div>
-                        )}
+                            {twoFactorMethod === 'email' && (
+                                <button
+                                    type="button"
+                                    onClick={handleResendEmail2FA}
+                                    disabled={loading}
+                                    className={`text-[10px] text-cyber-neonCyan hover:underline block mx-auto uppercase animate-pulse ${loading ? 'opacity-50 cursor-wait' : ''}`}
+                                >
+                                    {loading ? t('auth.status.resyncing') : t('auth.status.resync_uplink')}
+                                </button>
+                            )}
+                        </div>
+                    )}
 
-                        <button
-                            type="submit"
-                            disabled={loading}
-                            className={`btn-cyber btn-neon-pink mt-4 ${loading ? 'opacity-70 cursor-wait' : ''}`}
-                        >
-                            {loading ? 'WORKING...' : (requires2FA ? 'VERIFY IDENTITY' : (isForgot ? 'SEND RESET SIGNAL' : (isLogin ? 'JACK IN' : 'ESTABLISH LINK')))}
-                        </button>
-                    </form>
-                )}
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className={`btn-cyber btn-neon-pink mt-4 ${loading ? 'opacity-70 cursor-wait' : ''}`}
+                    >
+                        {loading ? t('auth.working') : (requires2FA ? t('auth.verify_identity') : (isForgot ? t('auth.send_reset') : (isLogin ? t('auth.jack_in') : t('auth.establish_link'))))}
+                    </button>
+                </form>
 
-                {!requires2FA && !resetSent && (
+                {!requires2FA && (
                     <div className="mt-6 text-center flex flex-col gap-2">
                         {!isForgot && isLogin && (
                             <button
                                 onClick={() => setIsForgot(true)}
                                 className="text-sm text-gray-300 hover:text-cyber-neonPink underline decoration-dotted underline-offset-4"
                             >
-                                FORGOT ACCESS KEY?
+                                {t('auth.forgot_key')}
                             </button>
                         )}
                         <button
-                            onClick={() => { setIsLogin(!isLogin); setIsForgot(false); setError(''); }}
+                            onClick={() => { setIsLogin(!isLogin); setIsForgot(false); setError(''); setValidationErrors({}); }}
                             className="text-sm text-gray-300 hover:text-cyber-neonGreen underline decoration-dotted underline-offset-4"
                         >
-                            {isForgot ? 'REMEMBERED? // RETURN TO LOGIN' : (isLogin ? 'NO IDENTITY? // CREATE NEW' : 'HAS IDENTITY? // LOGIN')}
+                            {isForgot ? t('auth.remembered') : (isLogin ? t('auth.no_identity') : t('auth.has_identity'))}
                         </button>
                     </div>
                 )}
@@ -296,7 +403,7 @@ const AuthForm = ({ onLogin }) => {
                         onClick={() => setShowHelp(true)}
                         className="text-xs text-cyber-neonCyan hover:text-white transition-colors tracking-widest"
                     >
-                        [ SYSTEM HELP ]
+                        {t('header.system_help')}
                     </button>
                 </div>
             </div>
@@ -308,7 +415,10 @@ const AuthForm = ({ onLogin }) => {
                     title={alert.title}
                     message={alert.message}
                     variant={alert.variant}
-                    onClose={() => setAlert({ ...alert, show: false })}
+                    onClose={() => {
+                        if (alert.onClose) alert.onClose();
+                        else setAlert({ ...alert, show: false });
+                    }}
                 />
             )}
         </div>

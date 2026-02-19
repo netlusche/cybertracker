@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import CyberConfirm from './CyberConfirm';
+import CyberAlert from './CyberAlert';
 
 // Internal reusable component for password fields with toggle
-const PasswordInput = ({ value, onChange, placeholder, className, required = false }) => {
+const PasswordInput = ({ value, onChange, placeholder, className, required = false, onInvalid, error, t, onFocus }) => {
     const [show, setShow] = useState(false);
     return (
         <div className="relative">
@@ -10,10 +12,17 @@ const PasswordInput = ({ value, onChange, placeholder, className, required = fal
                 type={show ? "text" : "password"}
                 value={value}
                 onChange={onChange}
+                onFocus={onFocus}
+                onInvalid={onInvalid}
                 placeholder={placeholder}
-                className={`${className} pr-10`}
+                className={`${className} pr-10 ${error ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
                 required={required}
             />
+            {error && (
+                <div className="cyber-validation-bubble">
+                    {t('auth.messages.input_required')}
+                </div>
+            )}
             <button
                 type="button"
                 onClick={() => setShow(!show)}
@@ -36,44 +45,86 @@ const PasswordInput = ({ value, onChange, placeholder, className, required = fal
 };
 
 const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate }) => {
+    const { t, i18n } = useTranslation();
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [deleteConfirmation, setDeleteConfirmation] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const [confirmModal, setConfirmModal] = useState({ show: false, message: '', onConfirm: null, title: '', variant: '' });
+    const [alertModal, setAlertModal] = useState({ show: false, message: '', title: '', variant: 'cyan' });
+    const [validationErrors, setValidationErrors] = useState({});
 
-    const handleChangePassword = async (e) => {
+    const handleInvalid = (e, field) => {
         e.preventDefault();
-        setMessage('');
-        setError('');
+        setValidationErrors(prev => ({ ...prev, [field]: true }));
+    };
 
-        try {
-            const res = await fetch('api/auth.php?action=change_password', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ current_password: currentPassword, new_password: newPassword }),
-            });
-            const data = await res.json();
+    const handleInputChange = (field, value, setter) => {
+        setter(value);
+        clearValidation();
+    };
 
-            if (res.ok) {
-                setMessage('Cypher updated successfully.');
-                setCurrentPassword('');
-                setNewPassword('');
-            } else {
-                setError(data.error || 'Update failed');
-            }
-        } catch (err) {
-            setError('Connection refused.');
+    const clearValidation = () => {
+        if (Object.keys(validationErrors).length > 0) {
+            setValidationErrors({});
         }
+    };
+
+    const handleChangePassword = (e) => {
+        e.preventDefault();
+        if (!currentPassword || !newPassword) return;
+
+        setConfirmModal({
+            show: true,
+            title: t('profile.alerts.cypher_confirm'),
+            variant: "pink",
+            message: t('profile.alerts.cypher_confirm_msg'),
+            onConfirm: async () => {
+                setConfirmModal({ show: false, message: '', onConfirm: null, title: '', variant: '' });
+                try {
+                    const res = await fetch('api/auth.php?action=change_password', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ current_password: currentPassword, new_password: newPassword })
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        setAlertModal({
+                            show: true,
+                            title: t('profile.alerts.cypher_success'),
+                            message: t('auth.messages.password_updated'),
+                            variant: 'pink'
+                        });
+                        setCurrentPassword('');
+                        setNewPassword('');
+                    } else {
+                        const errorMsg = data.error ? t(`auth.messages.${data.error.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.error) : t('profile.messages.update_failed');
+                        setAlertModal({
+                            show: true,
+                            title: t('profile.alerts.security_alert'),
+                            message: errorMsg,
+                            variant: 'pink'
+                        });
+                    }
+                } catch (err) {
+                    setAlertModal({
+                        show: true,
+                        title: t('common.net_error'),
+                        message: t('profile.messages.net_error'),
+                        variant: 'pink'
+                    });
+                }
+            }
+        });
     };
 
     const handleDeleteAccount = async () => {
         setConfirmModal({
             show: true,
-            title: "SECURITY ALERT",
+            title: t('profile.alerts.security_alert'),
             variant: "pink",
-            message: "WARNING: TERMINAL ACCOUNT TERMINATION DETECTED. ALL DATA WILL BE WIPED FROM THE GRID. PROCEED?",
+            message: t('profile.alerts.termination_confirm'),
             onConfirm: async () => {
                 setConfirmModal({ show: false, message: '', onConfirm: null, title: '', variant: '' });
                 try {
@@ -85,13 +136,24 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                     const data = await res.json();
 
                     if (res.ok) {
-                        setMessage('Identity Terminated.');
+                        setMessage(data.message ? t(`auth.messages.${data.message.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.message) : t('profile.messages.identity_terminated'));
                         onLogout(); // Force logout/reset app
                     } else {
-                        setError(data.error || 'Termination failed');
+                        const errorMsg = data.error ? t(`auth.messages.${data.error.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.error) : t('profile.messages.termination_failed');
+                        setAlertModal({
+                            show: true,
+                            title: t('profile.alerts.security_alert'),
+                            message: errorMsg,
+                            variant: 'pink'
+                        });
                     }
                 } catch (err) {
-                    setError('Connection refused.');
+                    setAlertModal({
+                        show: true,
+                        title: t('profile.alerts.security_alert'),
+                        message: t('profile.messages.connection_refused'),
+                        variant: 'pink'
+                    });
                 }
             }
         });
@@ -103,7 +165,6 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
     const [twoFaCode, setTwoFaCode] = useState('');
     const [backupCodes, setBackupCodes] = useState(null);
     const [setupMethod, setSetupMethod] = useState('totp'); // 'totp' or 'email'
-    const [emailSetupStep, setEmailSetupStep] = useState(1); // 1: choose, 2: verify
 
     const clearSetupState = () => {
         setShow2FA(false);
@@ -128,7 +189,14 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                 setSetupMethod('totp');
                 setBackupCodes(null);
             }
-        } catch (err) { setError("Failed to init 2FA"); }
+        } catch (err) {
+            setAlertModal({
+                show: true,
+                title: t('profile.alerts.security_alert'),
+                message: t('profile.messages.fail_init_2fa'),
+                variant: 'pink'
+            });
+        }
     };
 
     const handleSetupEmail2FA = async () => {
@@ -140,12 +208,25 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
             if (res.ok) {
                 setShow2FA(true);
                 setSetupMethod('email');
-                setEmailSetupStep(2);
                 setBackupCodes(null);
+                if (data.message) setMessage(t(`auth.messages.${data.message.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.message));
             } else {
-                setError(data.error || "Failed to init Email 2FA");
+                const errorMsg = data.error ? t(`auth.messages.${data.error.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.error) : t('profile.messages.fail_init_email_2fa');
+                setAlertModal({
+                    show: true,
+                    title: t('profile.alerts.security_alert'),
+                    message: errorMsg,
+                    variant: 'pink'
+                });
             }
-        } catch (err) { setError("Network error during uplink"); }
+        } catch (err) {
+            setAlertModal({
+                show: true,
+                title: t('profile.alerts.security_alert'),
+                message: t('profile.messages.fail_uplink'),
+                variant: 'pink'
+            });
+        }
     };
 
     React.useEffect(() => {
@@ -172,7 +253,12 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
         try {
             const cleanedCode = twoFaCode.replace(/\s/g, '');
             if (cleanedCode.length !== 6) {
-                setError("Access code must be 6 digits.");
+                setAlertModal({
+                    show: true,
+                    title: t('profile.alerts.security_alert'),
+                    message: t('profile.messages.verify_digits'),
+                    variant: 'pink'
+                });
                 return;
             }
 
@@ -190,34 +276,59 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
             const data = await res.json();
             if (res.ok) {
                 setBackupCodes(Array.isArray(data.backup_codes) ? data.backup_codes : []);
-                setMessage(setupMethod === 'totp' ? "NEURAL LINK ESTABLISHED. SECURITY MAXIMA." : "EMAIL UPLINK SECURED.");
+                setMessage(data.message ? t(`auth.messages.${data.message.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.message) : (setupMethod === 'totp' ? t('profile.messages.2fa_active') : t('profile.messages.email_2fa_active')));
                 if (onUserUpdate) onUserUpdate();
             } else {
-                setError(data.error || "Invalid Access Code.");
+                const errorMsg = data.error ? t(`auth.messages.${data.error.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.error) : t('profile.messages.invalid_code');
+                setAlertModal({
+                    show: true,
+                    title: t('profile.alerts.security_alert'),
+                    message: errorMsg,
+                    variant: 'pink'
+                });
             }
         } catch (err) {
             console.error("2FA Error:", err);
-            setError("Network error during verification");
+            setAlertModal({
+                show: true,
+                title: t('profile.alerts.security_alert'),
+                message: t('profile.messages.verify_net_error'),
+                variant: 'pink'
+            });
         }
     };
 
     const handleDisable2FA = async () => {
         setConfirmModal({
             show: true,
-            title: "SECURITY ALERT",
+            title: t('profile.alerts.security_alert'),
             variant: "pink",
-            message: "TERMINATING 2FA WILL REDUCE YOUR DEFENSIVE ENCRYPTION. PROCEED?",
+            message: t('profile.alerts.disable_2fa_confirm'),
             onConfirm: async () => {
                 setConfirmModal({ show: false, message: '', onConfirm: null, title: '', variant: '' });
                 try {
                     const res = await fetch('api/auth.php?action=disable_2fa', { method: 'POST' });
+                    const data = await res.json();
                     if (res.ok) {
-                        setMessage("2FA DISABLED. SECURITY REDUCED.");
+                        setMessage(data.message ? t(`auth.messages.${data.message.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.message) : t('profile.messages.2fa_disabled'));
                         if (onUserUpdate) onUserUpdate();
                     } else {
-                        setError("Failed to disable 2FA");
+                        const errorMsg = data.error ? t(`auth.messages.${data.error.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.error) : t('profile.messages.fail_disable_2fa');
+                        setAlertModal({
+                            show: true,
+                            title: t('profile.alerts.security_alert'),
+                            message: errorMsg,
+                            variant: 'pink'
+                        });
                     }
-                } catch (err) { setError("Network error"); }
+                } catch (err) {
+                    setAlertModal({
+                        show: true,
+                        title: t('profile.alerts.security_alert'),
+                        message: t('profile.messages.net_error'),
+                        variant: 'pink'
+                    });
+                }
             }
         });
     };
@@ -225,9 +336,9 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
     const handleUpdateEmail = async (newEmail, password) => {
         setConfirmModal({
             show: true,
-            title: "SECURITY ALERT",
+            title: t('profile.alerts.security_alert'),
             variant: "purple",
-            message: "IDENTITY FREQUENCY SHIFT DETECTED. RE-ROUTING WILL REQUIRE RE-AUTHENTICATION. JACK IN?",
+            message: t('profile.alerts.identity_shift'),
             onConfirm: async () => {
                 setConfirmModal({ show: false, message: '', onConfirm: null, title: '', variant: '' });
                 try {
@@ -238,19 +349,55 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                     });
                     const data = await res.json();
                     if (res.ok) {
-                        setMessage(data.message + " SESSION RESTART REQUIRED.");
-                        setTimeout(() => onLogout(), 2000);
+                        const successMsg = data.message ? t(`auth.messages.${data.message.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.message) : t('profile.messages.update_failed');
+                        setAlertModal({
+                            show: true,
+                            title: t('profile.alerts.cypher_success'),
+                            message: successMsg + " " + t('profile.messages.session_restart'),
+                            variant: 'pink'
+                        });
+                        setTimeout(() => onLogout(), 2500);
                     } else {
-                        setError(data.error || 'Update failed');
+                        const errorMsg = data.error ? t(`auth.messages.${data.error.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.error) : t('profile.messages.update_failed');
+                        setAlertModal({
+                            show: true,
+                            title: t('profile.alerts.security_alert'),
+                            message: errorMsg,
+                            variant: 'pink'
+                        });
                     }
-                } catch (err) { setError("Network error"); }
+                } catch (err) {
+                    setAlertModal({
+                        show: true,
+                        title: t('common.net_error'),
+                        message: t('profile.messages.net_error'),
+                        variant: 'pink'
+                    });
+                }
             }
         });
     };
 
-    const UpdateEmailForm = ({ currentEmail, onUpdate }) => {
+    const UpdateEmailForm = ({ currentEmail, onUpdate, t }) => {
         const [email, setEmail] = useState(currentEmail || '');
         const [password, setPassword] = useState('');
+        const [validationErrors, setValidationErrors] = useState({});
+
+        const handleInvalid = (e, field) => {
+            e.preventDefault();
+            setValidationErrors(prev => ({ ...prev, [field]: true }));
+        };
+
+        const handleInputChange = (field, value, setter) => {
+            setter(value);
+            clearEmailValidation();
+        };
+
+        const clearEmailValidation = () => {
+            if (Object.keys(validationErrors).length > 0) {
+                setValidationErrors({});
+            }
+        };
 
         const handleSubmit = (e) => {
             e.preventDefault();
@@ -260,23 +407,36 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
 
         return (
             <form onSubmit={handleSubmit} className="flex flex-col gap-3 p-3 border border-gray-800 bg-black/20 rounded">
-                <input
-                    type="email"
-                    placeholder="New Email Frequency"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="input-cyber text-sm"
-                    required
-                />
+                <div className="relative">
+                    <input
+                        type="email"
+                        placeholder={t('profile.contact.new_placeholder')}
+                        value={email}
+                        onChange={(e) => handleInputChange('email', e.target.value, setEmail)}
+                        onFocus={(e) => { e.target.select(); clearEmailValidation(); }}
+                        onInvalid={(e) => handleInvalid(e, 'email')}
+                        className={`input-cyber text-sm w-full ${validationErrors.email ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
+                        required
+                    />
+                    {validationErrors.email && (
+                        <div className="cyber-validation-bubble">
+                            {t('auth.messages.input_required')}
+                        </div>
+                    )}
+                </div>
                 <PasswordInput
-                    placeholder="Confirm Password"
+                    placeholder={t('profile.contact.confirm_password')}
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => handleInputChange('password', e.target.value, setPassword)}
+                    onFocus={clearEmailValidation}
+                    onInvalid={(e) => handleInvalid(e, 'password')}
+                    error={validationErrors.password}
+                    t={t}
                     className="input-cyber text-sm w-full"
                     required
                 />
                 <button type="submit" className="btn-cyber text-cyber-neonCyan border-cyber-neonCyan hover:bg-cyber-neonCyan hover:text-black text-xs self-end">
-                    RE-ROUTE FREQUENCY
+                    {t('profile.contact.reroute')}
                 </button>
             </form>
         );
@@ -314,7 +474,14 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                 loadCategories();
                 if (onCategoryUpdate) onCategoryUpdate();
             }
-        } catch (err) { setError('Failed to add category'); }
+        } catch (err) {
+            setAlertModal({
+                show: true,
+                title: t('profile.messages.fail_add_cat'),
+                message: t('profile.messages.net_error'),
+                variant: 'purple'
+            });
+        }
     };
 
     const handleStartEdit = (cat) => {
@@ -335,15 +502,22 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                 loadCategories();
                 if (onCategoryUpdate) onCategoryUpdate();
             }
-        } catch (err) { setError('Failed to rename category'); }
+        } catch (err) {
+            setAlertModal({
+                show: true,
+                title: t('profile.messages.fail_rename_cat'),
+                message: t('profile.messages.net_error'),
+                variant: 'purple'
+            });
+        }
     };
 
     const handleDeleteCategory = async (id) => {
         setConfirmModal({
             show: true,
-            title: "CATEGORY PURGE",
+            title: t('profile.alerts.category_purge'),
             variant: "purple",
-            message: "CATEGORY PURGE WILL VOID ALL ASSOCIATED DIRECTIVE VECTORS. PROCEED WITH DELETION?",
+            message: t('profile.alerts.category_purge_confirm'),
             onConfirm: async () => {
                 setConfirmModal({ show: false, message: '', onConfirm: null, title: '', variant: '' });
                 try {
@@ -354,9 +528,21 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                         loadCategories();
                         if (onCategoryUpdate) onCategoryUpdate();
                     } else {
-                        setError('Failed to delete category (Default one cannot be deleted if only one remains)');
+                        setAlertModal({
+                            show: true,
+                            title: t('profile.alerts.category_purge'),
+                            message: t('profile.messages.fail_delete_cat'),
+                            variant: 'pink'
+                        });
                     }
-                } catch (err) { setError('Failed to delete category'); }
+                } catch (err) {
+                    setAlertModal({
+                        show: true,
+                        title: t('common.net_error'),
+                        message: t('profile.messages.net_error'),
+                        variant: 'pink'
+                    });
+                }
             }
         });
     };
@@ -372,7 +558,14 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                 loadCategories();
                 if (onCategoryUpdate) onCategoryUpdate();
             }
-        } catch (err) { setError('Failed to set default category'); }
+        } catch (err) {
+            setAlertModal({
+                show: true,
+                title: t('profile.messages.fail_set_default'),
+                message: t('profile.messages.net_error'),
+                variant: 'purple'
+            });
+        }
     };
 
     return (
@@ -386,7 +579,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                 </button>
 
                 <h2 className="text-2xl font-bold text-cyber-neonCyan mb-6 tracking-widest uppercase border-b border-cyber-gray pb-2 flex flex-col">
-                    <span>OPERATIVE PROFILE:</span>
+                    <span>{t('profile.title')}:</span>
                     <span className="text-white text-3xl mt-1">{user.username}</span>
                 </h2>
 
@@ -395,43 +588,83 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
 
                 <div className="space-y-8">
 
+                    {/* Visual Interface / Language */}
+                    <div className="border border-cyber-neonCyan/30 bg-cyber-neonCyan/5 p-4 rounded">
+                        <h3 className="text-cyber-neonCyan font-bold mb-3 flex items-center gap-2">
+                            <span>👁</span> {t('profile.visual_interface')}
+                        </h3>
+                        <div className="flex items-center justify-between">
+                            <span className="text-sm text-gray-300">{t('profile.language')}</span>
+                            <div className="flex border border-cyber-gray overflow-hidden rounded">
+                                <button
+                                    onClick={() => i18n.changeLanguage('de')}
+                                    className={`text-xs px-3 py-1 transition-colors ${i18n.language === 'de' ? 'bg-cyber-neonCyan text-black font-bold' : 'text-gray-400 hover:bg-white/5'}`}
+                                >
+                                    DEUTSCH
+                                </button>
+                                <button
+                                    onClick={() => i18n.changeLanguage('en')}
+                                    className={`text-xs px-3 py-1 transition-colors ${i18n.language === 'en' ? 'bg-cyber-neonCyan text-black font-bold' : 'text-gray-400 hover:bg-white/5'}`}
+                                >
+                                    ENGLISH
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Category Management */}
                     <div className="border border-cyber-neonPurple/30 bg-cyber-neonPurple/5 p-4 rounded">
                         <h3 className="text-cyber-neonPurple font-bold mb-3 flex items-center gap-2">
-                            <span>📂</span> CATEGORY PROTOCOLS
+                            <span>📂</span> {t('profile.categories.protocols')}
                         </h3>
 
                         <div className="space-y-2 mb-4 max-h-40 overflow-y-auto custom-scrollbar">
                             {categories.map(cat => (
                                 <div key={cat.id} className="flex items-center justify-between bg-black/40 p-2 rounded border border-gray-700">
                                     {editingCatId === cat.id ? (
-                                        <div className="flex gap-2 w-full">
-                                            <input
-                                                type="text"
-                                                value={editingCatName}
-                                                onChange={(e) => setEditingCatName(e.target.value)}
-                                                className="input-cyber text-xs p-1 flex-1"
-                                                autoFocus
-                                            />
-                                            <button onClick={() => handleSaveRename(cat.id)} className="text-green-500 hover:text-green-400">✓</button>
-                                            <button onClick={() => setEditingCatId(null)} className="text-red-500 hover:text-red-400">✕</button>
-                                        </div>
+                                        <form
+                                            onSubmit={(e) => {
+                                                e.preventDefault();
+                                                handleSaveRename(cat.id);
+                                            }}
+                                            className="flex gap-2 w-full"
+                                        >
+                                            <div className="relative flex-1">
+                                                <input
+                                                    type="text"
+                                                    value={editingCatName}
+                                                    onChange={(e) => handleInputChange(`edit_cat_${cat.id}`, e.target.value, setEditingCatName)}
+                                                    onFocus={(e) => e.target.select()}
+                                                    onInvalid={(e) => handleInvalid(e, `edit_cat_${cat.id}`)}
+                                                    className={`input-cyber text-xs p-1 w-full ${validationErrors[`edit_cat_${cat.id}`] ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
+                                                    autoFocus
+                                                    required
+                                                />
+                                                {validationErrors[`edit_cat_${cat.id}`] && (
+                                                    <div className="cyber-validation-bubble">
+                                                        {t('auth.messages.input_required')}
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <button type="submit" className="text-green-500 hover:text-green-400">✓</button>
+                                            <button type="button" onClick={() => setEditingCatId(null)} className="text-red-500 hover:text-red-400">✕</button>
+                                        </form>
                                     ) : (
                                         <>
                                             <div className="flex items-center gap-2">
                                                 <span className="text-gray-300 font-mono text-sm">{cat.name}</span>
                                                 {cat.is_default && (
                                                     <span className="text-[10px] bg-cyber-neonCyan/20 text-cyber-neonCyan px-1 rounded border border-cyber-neonCyan/30 animate-pulse font-bold">
-                                                        DEFAULT
+                                                        {t('profile.categories.default')}
                                                     </span>
                                                 )}
                                             </div>
                                             <div className="flex gap-2">
                                                 {!cat.is_default && (
-                                                    <button onClick={() => handleSetDefault(cat.id)} className="text-gray-500 hover:text-yellow-500" title="Set as Default">★</button>
+                                                    <button onClick={() => handleSetDefault(cat.id)} className="text-gray-500 hover:text-yellow-500" title={t('profile.categories.set_default')}>★</button>
                                                 )}
-                                                <button onClick={() => handleStartEdit(cat)} className="text-gray-500 hover:text-cyber-neonCyan" title="Rename">✎</button>
-                                                <button onClick={() => handleDeleteCategory(cat.id)} className="text-gray-500 hover:text-red-500" title="Delete">🗑</button>
+                                                <button onClick={() => handleStartEdit(cat)} className="text-gray-500 hover:text-cyber-neonCyan" title={t('profile.categories.rename')}>✎</button>
+                                                <button onClick={() => handleDeleteCategory(cat.id)} className="text-gray-500 hover:text-red-500" title={t('profile.categories.delete')}>🗑</button>
                                             </div>
                                         </>
                                     )}
@@ -440,16 +673,26 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                         </div>
 
                         <form onSubmit={handleAddCategory} className="flex gap-2">
-                            <input
-                                type="text"
-                                placeholder="NEW PROTOCOL NAME"
-                                value={newCatName}
-                                onChange={(e) => setNewCatName(e.target.value)}
-                                className="input-cyber text-xs flex-1"
-                                maxLength={20}
-                            />
+                            <div className="relative flex-1">
+                                <input
+                                    type="text"
+                                    placeholder={t('profile.categories.new_protocol_placeholder')}
+                                    value={newCatName}
+                                    onChange={(e) => handleInputChange('new_cat', e.target.value, setNewCatName)}
+                                    onFocus={(e) => { e.target.select(); clearValidation(); }}
+                                    onInvalid={(e) => handleInvalid(e, 'new_cat')}
+                                    className={`input-cyber text-xs w-full ${validationErrors.new_cat ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
+                                    maxLength={20}
+                                    required
+                                />
+                                {validationErrors.new_cat && (
+                                    <div className="cyber-validation-bubble">
+                                        {t('auth.messages.input_required')}
+                                    </div>
+                                )}
+                            </div>
                             <button type="submit" className="btn-cyber text-cyber-neonPurple border-cyber-neonPurple hover:bg-cyber-neonPurple hover:text-black text-xs px-3">
-                                ADD
+                                {t('profile.categories.add')}
                             </button>
                         </form>
                     </div>
@@ -457,17 +700,17 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                     {/* 2FA Section */}
                     <div className="border border-cyber-neonGreen/30 bg-cyber-neonGreen/5 p-4 rounded shadow-[inset_0_0_15px_rgba(0,255,0,0.05)]">
                         <h3 className="text-cyber-neonGreen font-bold mb-4 flex items-center gap-2 tracking-widest text-sm">
-                            <span className="animate-pulse">🛡</span> BIO-LOCK SECURITY [2FA]
+                            <span className="animate-pulse">🛡</span> {t('profile.security.bio_lock')}
                         </h3>
 
                         {/* PHASE 0: ACTIVE STATUS */}
                         {user.two_factor_enabled && !show2FA && !backupCodes && (
                             <div className="text-center space-y-4 py-2">
                                 <p className="text-cyber-neonGreen font-mono text-xs uppercase tracking-[0.2em] border-y border-cyber-neonGreen/20 py-2">
-                                    ✓ PROTOCOLS ACTIVE: {user.two_factor_method === 'totp' ? 'NEURAL AUTHENTICATOR' : 'EMAIL UPLINK'}
+                                    ✓ {t('profile.security.protocols_active')} {user.two_factor_method === 'totp' ? t('profile.security.neural_auth') : t('profile.security.email_uplink')}
                                 </p>
                                 <button onClick={handleDisable2FA} className="btn-cyber border-red-500 text-red-500 hover:bg-red-500 hover:text-white text-[10px] w-full py-2 transition-all">
-                                    TERMINATE SECURITY PROTOCOLS
+                                    {t('profile.security.terminate_protocols')}
                                 </button>
                             </div>
                         )}
@@ -476,52 +719,67 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                         {!user.two_factor_enabled && !show2FA && !backupCodes && (
                             <div className="grid grid-cols-2 gap-3">
                                 <button onClick={handleSetup2FA} className="btn-cyber btn-neon-cyan text-[10px] py-3 uppercase font-bold tracking-tighter">
-                                    AUTHENTICATOR APP
+                                    {t('profile.security.auth_app')}
                                 </button>
                                 <button onClick={handleSetupEmail2FA} className="btn-cyber btn-neon-purple text-[10px] py-3 uppercase font-bold tracking-tighter">
-                                    EMAIL SECURITY
+                                    {t('profile.security.email_security')}
                                 </button>
                             </div>
                         )}
 
                         {/* PHASE 2: SETUP/VERIFICATION */}
                         {show2FA && !backupCodes && (
-                            <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                            <form
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    handleEnable2FA();
+                                }}
+                                className="flex flex-col gap-4 animate-in fade-in slide-in-from-top-2 duration-300"
+                            >
                                 {setupMethod === 'totp' ? (
                                     <div className="flex flex-col items-center gap-3 bg-black/40 p-3 border border-cyber-neonCyan/20 rounded">
-                                        <p className="text-[11px] text-gray-300 uppercase tracking-widest text-center">Sync Neural Link (Authenticator App):</p>
+                                        <p className="text-[11px] text-gray-300 uppercase tracking-widest text-center">{t('profile.security.sync_link')}</p>
                                         <div id="qrcode" className="border-2 border-white p-1 bg-white shadow-[0_0_20px_rgba(255,255,255,0.1)]"></div>
                                         <p className="text-[11px] text-cyber-neonCyan font-mono break-all text-center px-4 py-1 bg-black/60 rounded border border-gray-800">{qrSecret}</p>
                                     </div>
                                 ) : (
                                     <div className="text-center space-y-2 py-4 border-y border-cyber-neonPurple/20 bg-cyber-neonPurple/5">
-                                        <p className="text-xs text-cyber-neonPurple uppercase font-bold tracking-[0.1em]">Transmission sent to your comm-link.</p>
-                                        <p className="text-[11px] text-gray-400 font-mono italic">SIGNAL DECAY: 10 MINUTES</p>
+                                        <p className="text-xs text-cyber-neonPurple uppercase font-bold tracking-[0.1em]">{t('profile.security.transmission_sent')}</p>
+                                        <p className="text-[11px] text-gray-400 font-mono italic">{t('profile.security.signal_decay')}</p>
                                     </div>
                                 )}
 
                                 <div className="flex gap-2 w-full">
-                                    <input
-                                        type="text"
-                                        placeholder="VERIFY ACCESS CODE"
-                                        value={twoFaCode}
-                                        onChange={e => setTwoFaCode(e.target.value)}
-                                        className="input-cyber text-center flex-1 text-sm h-10 tracking-[0.3em] font-bold border-cyber-neonGreen/40"
-                                        maxLength={6}
-                                        autoFocus
-                                    />
+                                    <div className="relative flex-1">
+                                        <input
+                                            type="text"
+                                            placeholder={t('profile.security.verify_code')}
+                                            value={twoFaCode}
+                                            onChange={e => handleInputChange('two_fa_code', e.target.value, setTwoFaCode)}
+                                            onFocus={(e) => { e.target.select(); clearValidation(); }}
+                                            onInvalid={e => handleInvalid(e, 'two_fa_code')}
+                                            className={`input-cyber text-center w-full text-sm h-10 tracking-[0.3em] font-bold ${validationErrors.two_fa_code ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : 'border-cyber-neonGreen/40'}`}
+                                            maxLength={6}
+                                            required
+                                            autoFocus
+                                        />
+                                        {validationErrors.two_fa_code && (
+                                            <div className="cyber-validation-bubble">
+                                                {t('auth.messages.input_required')}
+                                            </div>
+                                        )}
+                                    </div>
                                     <button
-                                        type="button"
-                                        onClick={handleEnable2FA}
+                                        type="submit"
                                         className="btn-cyber bg-cyber-neonGreen text-black font-bold text-xs px-6 h-10 shadow-[0_0_10px_rgba(57,255,20,0.3)] hover:brightness-110 active:scale-95 transition-all"
                                     >
-                                        BRIDGE
+                                        {t('profile.security.bridge')}
                                     </button>
                                 </div>
                                 <button type="button" onClick={clearSetupState} className="text-[11px] text-gray-400 hover:text-white uppercase tracking-widest text-center transition-colors">
-                                    [ ABORT UPLINK ]
+                                    {t('profile.security.abort_uplink')}
                                 </button>
-                            </div>
+                            </form>
                         )}
 
                         {/* PHASE 3: BACKUP FRAGMENTS */}
@@ -529,9 +787,9 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                             <div className="bg-black/60 p-4 border border-cyber-neonCyan rounded-lg space-y-4 animate-in zoom-in-95 duration-300 shadow-[0_0_20px_rgba(0,255,255,0.1)]">
                                 <div className="text-center border-b border-cyber-neonCyan/30 pb-3">
                                     <p className="text-cyber-neonPink text-xs font-bold uppercase tracking-[0.2em] animate-pulse">
-                                        ⚠ CRITICAL: SECURE BACKUP FRAGMENTS ⚠
+                                        {t('profile.security.critical_backup')}
                                     </p>
-                                    <p className="text-[11px] text-gray-400 mt-1 uppercase tracking-tighter">Emergency Override only. Store in Analog format.</p>
+                                    <p className="text-[11px] text-gray-400 mt-1 uppercase tracking-tighter">{t('profile.security.emergency_override')}</p>
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-2 font-mono">
@@ -541,12 +799,12 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                             <div
                                                 onClick={() => {
                                                     navigator.clipboard.writeText(code);
-                                                    setMessage("FRAGMENT COPIED");
+                                                    setMessage(t('profile.messages.fragment_copied'));
                                                     setTimeout(() => setMessage(""), 2000);
                                                 }}
                                                 className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-cyber-neonCyan/20 backdrop-blur-[1px] transition-opacity cursor-pointer border border-cyber-neonCyan scale-105"
                                             >
-                                                <span className="bg-cyber-neonCyan text-black text-[9px] px-2 font-bold uppercase shadow-lg">COPY FRAGMENT</span>
+                                                <span className="bg-cyber-neonCyan text-black text-[9px] px-2 font-bold uppercase shadow-lg">{t('profile.security.copy_fragment')}</span>
                                             </div>
                                         </div>
                                     ))}
@@ -557,7 +815,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                     onClick={clearSetupState}
                                     className="btn-cyber btn-neon-cyan text-black font-bold text-xs w-full py-3 uppercase shadow-[0_0_20px_rgba(0,255,255,0.3)] hover:scale-[1.02] transition-transform"
                                 >
-                                    UPLINK SECURED & COMPLETE
+                                    {t('profile.security.uplink_complete')}
                                 </button>
                             </div>
                         )}
@@ -566,15 +824,16 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                     {/* Email Update Section */}
                     <div>
                         <h3 className="text-white font-bold mb-3 flex items-center gap-2">
-                            <span className="text-cyber-neonCyan">@</span> CONTACT CHANNEL
+                            <span className="text-cyber-neonCyan">@</span> {t('profile.contact.channel')}
                         </h3>
                         <div className="flex flex-col gap-3">
                             <div className="text-xs text-gray-400 mb-1">
-                                Current: <span className="text-white font-mono">{user.email || 'N/A'}</span>
+                                {t('profile.contact.current')} <span className="text-white font-mono">{user.email || 'N/A'}</span>
                             </div>
                             <UpdateEmailForm
                                 currentEmail={user.email}
                                 onUpdate={(email, pass) => handleUpdateEmail(email, pass)}
+                                t={t}
                             />
                         </div>
                     </div>
@@ -582,25 +841,33 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                     {/* Change Password Section */}
                     <div>
                         <h3 className="text-white font-bold mb-3 flex items-center gap-2">
-                            <span className="text-cyber-neonPink">»</span> UPDATE CYPHER
+                            <span className="text-cyber-neonPink">»</span> {t('profile.cypher.update_title')}
                         </h3>
                         <form onSubmit={handleChangePassword} className="flex flex-col gap-3">
                             <PasswordInput
-                                placeholder="Current Password"
+                                placeholder={t('profile.cypher.current_placeholder')}
                                 value={currentPassword}
-                                onChange={(e) => setCurrentPassword(e.target.value)}
+                                onChange={(e) => handleInputChange('current_pass', e.target.value, setCurrentPassword)}
+                                onFocus={clearValidation}
+                                onInvalid={(e) => handleInvalid(e, 'current_pass')}
+                                error={validationErrors.current_pass}
+                                t={t}
                                 className="input-cyber text-sm w-full"
                                 required
                             />
                             <PasswordInput
-                                placeholder="New Password"
+                                placeholder={t('profile.cypher.new_placeholder')}
                                 value={newPassword}
-                                onChange={(e) => setNewPassword(e.target.value)}
+                                onChange={(e) => handleInputChange('new_pass', e.target.value, setNewPassword)}
+                                onFocus={clearValidation}
+                                onInvalid={(e) => handleInvalid(e, 'new_pass')}
+                                error={validationErrors.new_pass}
+                                t={t}
                                 className="input-cyber text-sm w-full"
                                 required
                             />
                             <button type="submit" className="btn-cyber btn-neon-cyan text-xs self-end">
-                                EXECUTE UPDATE
+                                {t('profile.cypher.execute')}
                             </button>
                         </form>
                     </div>
@@ -608,25 +875,36 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                     {/* Delete Account Section */}
                     <div className="border border-red-900/50 bg-red-900/10 p-4 rounded">
                         <h3 className="text-red-500 font-bold mb-3 flex items-center gap-2">
-                            <span className="text-red-500">⚠</span> DANGER ZONE
+                            <span className="text-red-500">⚠</span> {t('profile.danger.title')}
                         </h3>
                         <p className="text-xs text-gray-400 mb-3">
-                            To terminate this identity and wipe all associated directives, enter your current password below.
+                            {t('profile.danger.warning')}
                         </p>
-                        <div className="flex gap-2">
+                        <form
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                handleDeleteAccount();
+                            }}
+                            className="flex gap-2"
+                        >
                             <PasswordInput
-                                placeholder="Confirm Password"
+                                placeholder={t('profile.danger.confirm_placeholder')}
                                 value={deleteConfirmation}
-                                onChange={(e) => setDeleteConfirmation(e.target.value)}
+                                onChange={(e) => handleInputChange('delete_confirm', e.target.value, setDeleteConfirmation)}
+                                onFocus={clearValidation}
+                                onInvalid={(e) => handleInvalid(e, 'delete_confirm')}
+                                error={validationErrors.delete_confirm}
+                                t={t}
                                 className="input-cyber text-sm flex-1 border-red-900 focus:border-red-500 w-full"
+                                required
                             />
                             <button
-                                onClick={handleDeleteAccount}
+                                type="submit"
                                 className="px-4 py-2 bg-red-900 text-white hover:bg-red-700 font-bold text-xs transition-colors border border-red-500"
                             >
-                                TERMINATE
+                                {t('profile.danger.terminate_btn')}
                             </button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -638,6 +916,14 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                     message={confirmModal.message}
                     onConfirm={confirmModal.onConfirm}
                     onCancel={() => setConfirmModal({ show: false, message: '', onConfirm: null, title: '', variant: '' })}
+                />
+            )}
+            {alertModal.show && (
+                <CyberAlert
+                    title={alertModal.title}
+                    message={alertModal.message}
+                    variant={alertModal.variant}
+                    onClose={() => setAlertModal({ ...alertModal, show: false })}
                 />
             )}
         </div>
