@@ -9,234 +9,62 @@ import ProfileModal from './components/ProfileModal';
 import AdminPanel from './components/AdminPanel';
 import HelpModal from './components/HelpModal';
 import LanguageSwitcher from './components/LanguageSwitcher';
-import { triggerNeonConfetti } from './utils/confetti';
 import { useTheme } from './utils/ThemeContext';
-import { apiFetch, setCsrfToken } from './utils/api';
+import { useAuth } from './hooks/useAuth';
+import { useTasks } from './hooks/useTasks';
 import logo from './assets/logo.png';
 
 function App() {
-  const { t, i18n } = useTranslation();
-  const [tasks, setTasks] = useState([]);
-  const [pagination, setPagination] = useState({ currentPage: 1, totalPages: 1, totalTasks: 0 });
-  const [user, setUser] = useState(null); // Auth State
-  const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
+  const { theme } = useTheme();
+
+  const {
+    user,
+    loading,
+    isLevelUp,
+    checkAuth,
+    handleLogin,
+    handleLogout,
+    fetchUserStats
+  } = useAuth();
+
+  const {
+    tasks,
+    pagination,
+    filters,
+    setFilters,
+    categories,
+    categoryRefreshTrigger,
+    refreshCategories,
+    fetchCategories,
+    fetchTasks,
+    handleAddTask,
+    handleToggleStatus,
+    handleUpdateTask,
+    handleDelete
+  } = useTasks(user, fetchUserStats, handleLogout);
+
   const [showProfile, setShowProfile] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
-  const [categoryRefreshTrigger, setCategoryRefreshTrigger] = useState(0);
-  const [categories, setCategories] = useState([]); // [NEW] Synchronized categories state
-  const [isLevelUp, setIsLevelUp] = useState(false); // New Level Up State
-  const [activeCalendarTaskId, setActiveCalendarTaskId] = useState(null); // [NEW] Mutual exclusion for calendars
-  const { theme, setThemeState } = useTheme();
-
-  // Search & Filter State
-  const [filters, setFilters] = useState({
-    search: '',
-    priority: '',
-    category: '',
-    overdue: false
-  });
-
-  const refreshCategories = () => setCategoryRefreshTrigger(prev => prev + 1);
+  const [activeCalendarTaskId, setActiveCalendarTaskId] = useState(null);
 
   useEffect(() => {
     checkAuth();
-  }, []);
+  }, [checkAuth]);
 
-  // Fetch tasks and categories whenever filters or trigger change
   useEffect(() => {
     if (user) {
       fetchTasks(1);
       fetchCategories();
     }
-  }, [filters, user, categoryRefreshTrigger]);
+  }, [user, filters, categoryRefreshTrigger, fetchTasks, fetchCategories]);
 
-  const fetchCategories = async () => {
-    try {
-      const res = await apiFetch('api/categories.php');
-      if (res.ok) {
-        const data = await res.json();
-        if (Array.isArray(data)) {
-          setCategories(data);
-        }
-      }
-    } catch (err) {
-      console.error("Failed to fetch categories", err);
-    }
-  };
-
-  const checkAuth = async () => {
-    try {
-      const res = await apiFetch('api/auth.php'); // Default action checks session
-      const data = await res.json();
-      if (data.isAuthenticated) {
-        if (data.csrf_token) {
-          setCsrfToken(data.csrf_token);
-        }
-        setUser(data.user);
-        if (data.user.theme) {
-          setThemeState(data.user.theme);
-        }
-        // fetchTasks(1) called by useEffect above when user is set
-      }
-    } catch (err) {
-      console.error("Auth check failed", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchTasks = async (page = 1) => {
-    try {
-      // Build Query String
-      const params = new URLSearchParams({
-        page,
-        limit: 50,
-        ...filters
-      });
-
-      const res = await apiFetch(`api/tasks.php?${params.toString()}`);
-      if (res.status === 401) {
-        setUser(null);
-        return;
-      }
-      const responseData = await res.json();
-
-      if (responseData.data) {
-        setTasks(responseData.data);
-        setPagination({
-          currentPage: responseData.meta.current_page,
-          totalPages: responseData.meta.total_pages,
-          totalTasks: responseData.meta.total_tasks
-        });
-      } else if (Array.isArray(responseData)) {
-        setTasks(responseData);
-      }
-    } catch (err) {
-      console.error("Failed to fetch tasks", err);
-    }
-  };
-
-  const fetchUserStats = async () => {
-    try {
-      const res = await apiFetch('api/user.php');
-      if (res.ok) {
-        const data = await res.json();
-        setUser(prev => ({ ...prev, ...data }));
-
-        // Detect Level Up from Backend Flag
-        if (data.leveled_up) {
-          triggerNeonConfetti(theme); // Trigger Confetti - user.theme or current state
-          setIsLevelUp(true);    // Trigger Border Animation
-          setTimeout(() => setIsLevelUp(false), 5000); // Reset after 5s
-        }
-      }
-    } catch (err) { }
-  };
-
-  const handleLogin = (userData) => {
-    setUser(userData);
-    if (userData.theme) {
-      setThemeState(userData.theme);
-    }
-    fetchTasks(1);
-  };
-
-  const handleLogout = async () => {
-    await apiFetch('api/auth.php?action=logout', { method: 'POST' });
-    setCsrfToken(null);
-    setUser(null);
-    setTasks([]);
+  const handleFullLogout = () => {
+    handleLogout();
     setShowProfile(false);
     setShowAdmin(false);
     setShowHelp(false);
-  };
-
-  const handleAddTask = async (newTask) => {
-    try {
-      const res = await apiFetch('api/tasks.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newTask),
-      });
-      if (res.ok) {
-        triggerNeonConfetti(theme);
-        fetchTasks();
-      }
-    } catch (err) {
-      console.error("Error adding task", err);
-    }
-  };
-
-  const handleToggleStatus = async (task) => {
-    try {
-      const newStatus = task.status == 1 ? 0 : 1;
-
-      // Optimistic Update for UI responsiveness
-      setTasks(prev => prev.map(t =>
-        t.id === task.id ? { ...t, status: newStatus } : t
-      ));
-
-      const res = await apiFetch('api/tasks.php', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: task.id, status: newStatus }),
-      });
-
-      if (res.ok) {
-        // Delayed fetch to allow animation before sorting kicks in
-        setTimeout(() => {
-          fetchTasks(pagination.currentPage);
-        }, 2000);
-
-        // If completing, refresh user stats to check for level up
-        if (newStatus === 1) {
-          triggerNeonConfetti(theme);
-          await fetchUserStats();
-        }
-      } else {
-        // Revert on failure
-        fetchTasks(pagination.currentPage);
-      }
-    } catch (err) {
-      console.error("Error updating task", err);
-      fetchTasks(pagination.currentPage); // Revert
-    }
-  };
-
-  const handleUpdateTask = async (task, updates) => {
-    try {
-      // Allow legacy call with just string title or new object
-      const body = typeof updates === 'string'
-        ? { id: task.id, title: updates }
-        : { id: task.id, ...updates };
-
-      const res = await apiFetch('api/tasks.php', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
-
-      if (res.ok) {
-        await fetchTasks(pagination.currentPage);
-      } else {
-        const text = await res.text();
-        console.error(`Update failed: ${res.status} ${res.statusText}`, text);
-      }
-    } catch (err) {
-      console.error("Update failed with exception:", err);
-    }
-  };
-
-  const handleDelete = async (id) => {
-    try {
-      const res = await apiFetch(`api/tasks.php?id=${id}`, { method: 'DELETE' });
-      if (res.ok) {
-        fetchTasks();
-      }
-    } catch (err) {
-      console.error("Error deleting task", err);
-    }
   };
 
   if (loading) {
@@ -277,11 +105,11 @@ function App() {
                   {t('header.profile')}
                 </button>
                 {user.role === 'admin' && (
-                  <button onClick={() => setShowAdmin(true)} className={`text-[10px] md:text-xs transition-colors font-bold whitespace-nowrap ${theme === 'lcars' ? 'bg-cyber-primary text-black uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-cyber-warning/50 text-yellow-500 hover:bg-yellow-500 hover:text-black px-2 py-1 rounded'}`}>
+                  <button onClick={() => setShowAdmin(true)} className={`text-[10px] md:text-xs transition-colors font-bold whitespace-nowrap ${theme === 'lcars' ? 'bg-cyber-primary text-black uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-cyber-primary/50 text-cyber-primary hover:bg-cyber-primary hover:text-black px-2 py-1 rounded'}`}>
                     {t('header.admin')}
                   </button>
                 )}
-                <button onClick={handleLogout} className={`text-[10px] md:text-xs transition-colors whitespace-nowrap ${theme === 'lcars' ? 'bg-[#ffaa00] text-black font-bold uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-cyber-danger/50 text-cyber-danger hover:bg-cyber-danger hover:text-white px-2 py-1 rounded btn-cyber-danger'}`}>
+                <button onClick={handleFullLogout} className={`text-[10px] md:text-xs transition-colors whitespace-nowrap ${theme === 'lcars' ? 'bg-[#ffaa00] text-black font-bold uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-cyber-danger/50 text-cyber-danger hover:bg-cyber-danger hover:text-white px-2 py-1 rounded'}`}>
                   {t('header.logout')}
                 </button>
               </div>
@@ -299,21 +127,21 @@ function App() {
               level={user.current_level || user.stats?.current_level || 1}
               currentXP={user.total_points || user.stats?.total_points || 0}
               totalXPForLevel={100}
-              isLevelUp={isLevelUp} // [NEW]
+              isLevelUp={isLevelUp}
             />
 
             <div className="relative z-30">
               <TaskForm
                 onAddTask={handleAddTask}
                 categoryRefreshTrigger={categoryRefreshTrigger}
-                categories={categories} // [NEW] Pass categories
+                categories={categories}
               />
             </div>
 
             <TaskFilters
               filters={filters}
               onFilterChange={setFilters}
-              categories={categories} // [NEW] Pass dynamic categories
+              categories={categories}
             />
 
             <div className="space-y-4">
@@ -388,12 +216,12 @@ function App() {
         <ProfileModal
           user={user}
           onClose={() => setShowProfile(false)}
-          onLogout={handleLogout}
+          onLogout={handleFullLogout}
           onUserUpdate={() => {
             fetchTasks(pagination.currentPage);
             checkAuth();
           }}
-          onCategoryUpdate={refreshCategories} // [NEW]
+          onCategoryUpdate={refreshCategories}
         />
       )}
 

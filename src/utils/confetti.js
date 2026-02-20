@@ -8,7 +8,11 @@ export const triggerNeonConfetti = (theme = 'cyberpunk') => {
 
     const colors = theme === 'lcars'
         ? ['#33cc99', '#ffcc33', '#dd4444', '#ff7700']
-        : ['#00ffff', '#ff00ff', '#39ff14'];
+        : theme === 'matrix'
+            ? ['#00ff41', '#008f11', '#003b00', '#ffffff']
+            : theme === 'weyland'
+                ? ['#ffb000', '#cc8400', '#885500', '#ffcc00']
+                : ['#00ffff', '#ff00ff', '#39ff14'];
 
     function fire(particleRatio, opts) {
         confetti({

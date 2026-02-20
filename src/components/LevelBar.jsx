@@ -22,7 +22,7 @@ const LevelBar = ({ level, currentXP, totalXPForLevel, isLevelUp }) => {
 
             <div className="relative h-4 bg-gray-800 rounded-full overflow-hidden border border-gray-700">
                 <div
-                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-cyber-secondary to-purple-600 transition-all duration-1000 ease-out xp-progress-bar"
+                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-cyber-secondary to-cyber-primary transition-all duration-1000 ease-out xp-progress-bar"
                     style={{ width: `${progress}%` }}
                 ></div>
                 {/* Striped overlay for cyberpunk effect */}

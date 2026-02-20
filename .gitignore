@@ -25,3 +25,6 @@ dist-ssr
 cybertracker.db
 api/config.local.php
 api/database.sqlite
+database.sqlite
+api/sessions/
+

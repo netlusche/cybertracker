@@ -49,7 +49,7 @@ const AuthForm = ({ onLogin }) => {
             return;
         }
 
-        const endpoint = isLogin ? 'api/auth.php?action=login' : 'api/auth.php?action=register';
+        const endpoint = isLogin ? 'api/index.php?route=auth/login' : 'api/index.php?route=auth/register';
         const body = isLogin ? { username, password } : { username, password, email };
 
         try {
@@ -123,7 +123,7 @@ const AuthForm = ({ onLogin }) => {
     const handleForgotSubmit = async () => {
         setLoading(true);
         try {
-            const res = await apiFetch('api/auth.php?action=request_password_reset', {
+            const res = await apiFetch('api/index.php?route=auth/request_password_reset', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email }),
@@ -165,7 +165,7 @@ const AuthForm = ({ onLogin }) => {
     const handle2FAVerify = async () => {
         setLoading(true);
         try {
-            const res = await apiFetch('api/auth.php?action=verify_2fa', {
+            const res = await apiFetch('api/index.php?route=auth/verify_2fa', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ code: twoFaCode })
@@ -200,7 +200,7 @@ const AuthForm = ({ onLogin }) => {
         setError('');
         setLoading(true);
         try {
-            const res = await apiFetch('api/auth.php?action=resend_email_2fa', { method: 'POST' });
+            const res = await apiFetch('api/index.php?route=auth/resend_email_2fa', { method: 'POST' });
             const data = await res.json();
             if (res.ok) {
                 setAlert({
