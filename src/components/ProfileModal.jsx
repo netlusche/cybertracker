@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import CyberConfirm from './CyberConfirm';
 import CyberAlert from './CyberAlert';
+import { useTheme } from '../utils/ThemeContext';
 
 // Internal reusable component for password fields with toggle
 const PasswordInput = ({ value, onChange, placeholder, className, required = false, onInvalid, error, t, onFocus }) => {
@@ -15,7 +16,7 @@ const PasswordInput = ({ value, onChange, placeholder, className, required = fal
                 onFocus={onFocus}
                 onInvalid={onInvalid}
                 placeholder={placeholder}
-                className={`${className} pr-10 ${error ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
+                className={`${className} pr-10 input-normal-case ${error ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
                 required={required}
             />
             {error && (
@@ -44,8 +45,11 @@ const PasswordInput = ({ value, onChange, placeholder, className, required = fal
     );
 };
 
+
+
 const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate }) => {
     const { t, i18n } = useTranslation();
+    const { theme, setTheme } = useTheme();
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [deleteConfirmation, setDeleteConfirmation] = useState('');
@@ -415,7 +419,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                         onChange={(e) => handleInputChange('email', e.target.value, setEmail)}
                         onFocus={(e) => { e.target.select(); clearEmailValidation(); }}
                         onInvalid={(e) => handleInvalid(e, 'email')}
-                        className={`input-cyber text-sm w-full ${validationErrors.email ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
+                        className={`input-cyber text-sm w-full input-normal-case ${validationErrors.email ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
                         required
                     />
                     {validationErrors.email && (
@@ -435,7 +439,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                     className="input-cyber text-sm w-full"
                     required
                 />
-                <button type="submit" className="btn-cyber text-cyber-neonCyan border-cyber-neonCyan hover:bg-cyber-neonCyan hover:text-black text-xs self-end">
+                <button type="submit" className="btn-cyber btn-auth-orange text-cyber-neonCyan border-cyber-neonCyan hover:bg-cyber-neonCyan hover:text-black text-xs self-end">
                     {t('profile.contact.reroute')}
                 </button>
             </form>
@@ -588,29 +592,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
 
                 <div className="space-y-8">
 
-                    {/* Visual Interface / Language */}
-                    <div className="border border-cyber-neonCyan/30 bg-cyber-neonCyan/5 p-4 rounded">
-                        <h3 className="text-cyber-neonCyan font-bold mb-3 flex items-center gap-2">
-                            <span>👁</span> {t('profile.visual_interface')}
-                        </h3>
-                        <div className="flex items-center justify-between">
-                            <span className="text-sm text-gray-300">{t('profile.language')}</span>
-                            <div className="flex border border-cyber-gray overflow-hidden rounded">
-                                <button
-                                    onClick={() => i18n.changeLanguage('de')}
-                                    className={`text-xs px-3 py-1 transition-colors ${i18n.language === 'de' ? 'bg-cyber-neonCyan text-black font-bold' : 'text-gray-400 hover:bg-white/5'}`}
-                                >
-                                    DEUTSCH
-                                </button>
-                                <button
-                                    onClick={() => i18n.changeLanguage('en')}
-                                    className={`text-xs px-3 py-1 transition-colors ${i18n.language === 'en' ? 'bg-cyber-neonCyan text-black font-bold' : 'text-gray-400 hover:bg-white/5'}`}
-                                >
-                                    ENGLISH
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+
 
                     {/* Category Management */}
                     <div className="border border-cyber-neonPurple/30 bg-cyber-neonPurple/5 p-4 rounded">
@@ -636,7 +618,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                                     onChange={(e) => handleInputChange(`edit_cat_${cat.id}`, e.target.value, setEditingCatName)}
                                                     onFocus={(e) => e.target.select()}
                                                     onInvalid={(e) => handleInvalid(e, `edit_cat_${cat.id}`)}
-                                                    className={`input-cyber text-xs p-1 w-full ${validationErrors[`edit_cat_${cat.id}`] ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
+                                                    className={`input-cyber text-xs p-1 w-full input-normal-case ${validationErrors[`edit_cat_${cat.id}`] ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
                                                     autoFocus
                                                     required
                                                 />
@@ -664,7 +646,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                                     <button onClick={() => handleSetDefault(cat.id)} className="text-gray-500 hover:text-yellow-500" title={t('profile.categories.set_default')}>★</button>
                                                 )}
                                                 <button onClick={() => handleStartEdit(cat)} className="text-gray-500 hover:text-cyber-neonCyan" title={t('profile.categories.rename')}>✎</button>
-                                                <button onClick={() => handleDeleteCategory(cat.id)} className="text-gray-500 hover:text-red-500" title={t('profile.categories.delete')}>🗑</button>
+                                                <button onClick={() => handleDeleteCategory(cat.id)} className="text-gray-500 hover:text-red-500 btn-cat-delete" title={t('profile.categories.delete')}>🗑</button>
                                             </div>
                                         </>
                                     )}
@@ -681,7 +663,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                     onChange={(e) => handleInputChange('new_cat', e.target.value, setNewCatName)}
                                     onFocus={(e) => { e.target.select(); clearValidation(); }}
                                     onInvalid={(e) => handleInvalid(e, 'new_cat')}
-                                    className={`input-cyber text-xs w-full ${validationErrors.new_cat ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
+                                    className={`input-cyber text-xs w-full input-normal-case ${validationErrors.new_cat ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
                                     maxLength={20}
                                     required
                                 />
@@ -709,7 +691,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                 <p className="text-cyber-neonGreen font-mono text-xs uppercase tracking-[0.2em] border-y border-cyber-neonGreen/20 py-2">
                                     ✓ {t('profile.security.protocols_active')} {user.two_factor_method === 'totp' ? t('profile.security.neural_auth') : t('profile.security.email_uplink')}
                                 </p>
-                                <button onClick={handleDisable2FA} className="btn-cyber border-red-500 text-red-500 hover:bg-red-500 hover:text-white text-[10px] w-full py-2 transition-all">
+                                <button onClick={handleDisable2FA} className="btn-cyber border-red-500 text-red-500 hover:bg-red-500 hover:text-white text-[10px] w-full py-2 transition-all btn-auth-orange">
                                     {t('profile.security.terminate_protocols')}
                                 </button>
                             </div>
@@ -718,7 +700,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                         {/* PHASE 1: SELECTION */}
                         {!user.two_factor_enabled && !show2FA && !backupCodes && (
                             <div className="grid grid-cols-2 gap-3">
-                                <button onClick={handleSetup2FA} className="btn-cyber btn-neon-cyan text-[10px] py-3 uppercase font-bold tracking-tighter">
+                                <button onClick={handleSetup2FA} className="btn-cyber btn-neon-cyan btn-auth-orange text-[10px] py-3 uppercase font-bold tracking-tighter">
                                     {t('profile.security.auth_app')}
                                 </button>
                                 <button onClick={handleSetupEmail2FA} className="btn-cyber btn-neon-purple text-[10px] py-3 uppercase font-bold tracking-tighter">
@@ -758,7 +740,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                             onChange={e => handleInputChange('two_fa_code', e.target.value, setTwoFaCode)}
                                             onFocus={(e) => { e.target.select(); clearValidation(); }}
                                             onInvalid={e => handleInvalid(e, 'two_fa_code')}
-                                            className={`input-cyber text-center w-full text-sm h-10 tracking-[0.3em] font-bold ${validationErrors.two_fa_code ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : 'border-cyber-neonGreen/40'}`}
+                                            className={`input-cyber text-center w-full text-sm h-10 tracking-[0.3em] font-bold input-normal-case ${validationErrors.two_fa_code ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : 'border-cyber-neonGreen/40'}`}
                                             maxLength={6}
                                             required
                                             autoFocus
@@ -838,6 +820,52 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                         </div>
                     </div>
 
+                    {/* Theme Selection Overlay */}
+                    <div className="border border-cyber-neonCyan/30 bg-cyber-neonCyan/5 p-4 rounded">
+                        <h3 className="text-cyber-neonCyan font-bold mb-4 flex items-center gap-2">
+                            <span>👁</span> {t('profile.theme_selection')}
+                        </h3>
+                        <div className="grid grid-cols-2 gap-4">
+                            <button
+                                onClick={() => setTheme('cyberpunk')}
+                                className={`theme-preview-card transition-all duration-300 overflow-hidden ${theme === 'cyberpunk' ? 'border border-cyber-neonCyan bg-cyber-neonCyan/20 shadow-[0_0_20px_rgba(0,255,255,0.4)] scale-[1.02]' : 'border-gray-700 bg-black/40 hover:border-gray-500 scale-100'}`}
+                            >
+                                <div className="flex flex-col items-center gap-2 relative z-10">
+                                    <div className="w-12 h-6 bg-[#00FFFF]/20 border border-[#00FFFF] relative overflow-hidden">
+                                        <div className="absolute top-0 left-0 w-full h-[2px] bg-[#FF00FF] animate-pulse shadow-[0_0_10px_#FF00FF]"></div>
+                                    </div>
+                                    <span className={`text-[10px] font-bold tracking-widest font-preview-cyberpunk ${theme === 'cyberpunk' ? 'text-[#00FFFF]' : 'text-gray-400'}`}>
+                                        {t('profile.themes.cyberpunk')}
+                                    </span>
+                                </div>
+                                {theme === 'cyberpunk' && (
+                                    <div className="absolute top-0 right-0 bg-[#00FFFF] text-black font-bold text-[8px] px-2 py-0.5 transform rotate-45 translate-x-3 translate-y-[-2px] z-20">
+                                        ACTIVE
+                                    </div>
+                                )}
+                            </button>
+
+                            <button
+                                onClick={() => setTheme('lcars')}
+                                className={`theme-preview-card transition-all duration-300 overflow-hidden ${theme === 'lcars' ? 'border border-[#ffcc33] bg-[#8888aa] scale-[1.02]' : 'border-gray-700 bg-black/40 hover:border-gray-500 scale-100'}`}
+                            >
+                                <div className="flex flex-col items-center gap-2 relative z-10">
+                                    <div className="w-12 h-6 bg-[#ffcc33] rounded-full flex items-center px-1">
+                                        <div className="w-3 h-3 bg-black rounded-full"></div>
+                                    </div>
+                                    <span className={`text-[10px] font-bold tracking-widest font-preview-lcars ${theme === 'lcars' ? 'text-white' : 'text-gray-400'}`}>
+                                        {t('profile.themes.lcars')}
+                                    </span>
+                                </div>
+                                {theme === 'lcars' && (
+                                    <div className="absolute top-0 right-0 bg-[#ffcc33] text-black font-bold text-[8px] px-2 py-0.5 transform rotate-45 translate-x-3 translate-y-[-2px] z-20">
+                                        ACTIVE
+                                    </div>
+                                )}
+                            </button>
+                        </div>
+                    </div>
+
                     {/* Change Password Section */}
                     <div>
                         <h3 className="text-white font-bold mb-3 flex items-center gap-2">
@@ -866,7 +894,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                 className="input-cyber text-sm w-full"
                                 required
                             />
-                            <button type="submit" className="btn-cyber btn-neon-cyan text-xs self-end">
+                            <button type="submit" className="btn-cyber btn-neon-cyan btn-auth-orange text-xs self-end">
                                 {t('profile.cypher.execute')}
                             </button>
                         </form>
@@ -885,48 +913,54 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                 e.preventDefault();
                                 handleDeleteAccount();
                             }}
-                            className="flex gap-2"
+                            className="flex flex-col md:flex-row gap-2 items-stretch md:items-center"
                         >
-                            <PasswordInput
-                                placeholder={t('profile.danger.confirm_placeholder')}
-                                value={deleteConfirmation}
-                                onChange={(e) => handleInputChange('delete_confirm', e.target.value, setDeleteConfirmation)}
-                                onFocus={clearValidation}
-                                onInvalid={(e) => handleInvalid(e, 'delete_confirm')}
-                                error={validationErrors.delete_confirm}
-                                t={t}
-                                className="input-cyber text-sm flex-1 border-red-900 focus:border-red-500 w-full"
-                                required
-                            />
+                            <div className="flex-grow">
+                                <PasswordInput
+                                    placeholder={t('profile.danger.confirm_placeholder')}
+                                    value={deleteConfirmation}
+                                    onChange={(e) => handleInputChange('delete_confirm', e.target.value, setDeleteConfirmation)}
+                                    onFocus={clearValidation}
+                                    onInvalid={(e) => handleInvalid(e, 'delete_confirm')}
+                                    error={validationErrors.delete_confirm}
+                                    t={t}
+                                    className="input-cyber text-sm w-full border-red-900 focus:border-red-500"
+                                    required
+                                />
+                            </div>
                             <button
                                 type="submit"
-                                className="px-4 py-2 bg-red-900 text-white hover:bg-red-700 font-bold text-xs transition-colors border border-red-500"
+                                className="px-6 py-2 bg-red-900 text-white font-bold text-xs transition-colors border border-red-500 whitespace-nowrap btn-terminate"
                             >
                                 {t('profile.danger.terminate_btn')}
                             </button>
                         </form>
                     </div>
                 </div>
-            </div>
+            </div >
 
-            {confirmModal.show && (
-                <CyberConfirm
-                    title={confirmModal.title}
-                    variant={confirmModal.variant}
-                    message={confirmModal.message}
-                    onConfirm={confirmModal.onConfirm}
-                    onCancel={() => setConfirmModal({ show: false, message: '', onConfirm: null, title: '', variant: '' })}
-                />
-            )}
-            {alertModal.show && (
-                <CyberAlert
-                    title={alertModal.title}
-                    message={alertModal.message}
-                    variant={alertModal.variant}
-                    onClose={() => setAlertModal({ ...alertModal, show: false })}
-                />
-            )}
-        </div>
+            {
+                confirmModal.show && (
+                    <CyberConfirm
+                        title={confirmModal.title}
+                        variant={confirmModal.variant}
+                        message={confirmModal.message}
+                        onConfirm={confirmModal.onConfirm}
+                        onCancel={() => setConfirmModal({ show: false, message: '', onConfirm: null, title: '', variant: '' })}
+                    />
+                )
+            }
+            {
+                alertModal.show && (
+                    <CyberAlert
+                        title={alertModal.title}
+                        message={alertModal.message}
+                        variant={alertModal.variant}
+                        onClose={() => setAlertModal({ ...alertModal, show: false })}
+                    />
+                )
+            }
+        </div >
     );
 };
 

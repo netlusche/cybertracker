@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { triggerNeonConfetti } from '../utils/confetti';
+import { useTheme } from '../utils/ThemeContext';
 import HelpModal from './HelpModal';
 import CyberAlert from './CyberAlert';
 
 
 const AuthForm = ({ onLogin }) => {
     const { t } = useTranslation();
+    const { theme } = useTheme();
     const [isLogin, setIsLogin] = useState(true);
     const [showHelp, setShowHelp] = useState(false);
     const [username, setUsername] = useState('');
@@ -74,7 +76,7 @@ const AuthForm = ({ onLogin }) => {
                     setRequires2FA(true);
                     setTwoFactorMethod(data.two_factor_method || 'totp');
                 } else {
-                    triggerNeonConfetti();
+                    triggerNeonConfetti(theme);
                     onLogin(data.user);
                 }
             } else {
@@ -169,7 +171,7 @@ const AuthForm = ({ onLogin }) => {
             const data = await res.json();
 
             if (res.ok) {
-                triggerNeonConfetti();
+                triggerNeonConfetti(theme);
                 onLogin(data.user);
             } else {
                 const errorMsg = data.error ? t(`auth.messages.${data.error.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.error) : t('auth.messages.invalid_access_code');
@@ -226,8 +228,7 @@ const AuthForm = ({ onLogin }) => {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-[50vh]">
-            <div className="card-cyber w-full max-w-md p-8 border-cyber-neonPink shadow-[0_0_20px_rgba(255,0,255,0.2)]">
-                {/* ... (existing form content) ... */}
+            <div className="card-cyber w-full max-w-md p-8 relative overflow-hidden">
                 <h2 className="text-2xl font-bold text-center mb-6 text-cyber-neonCyan tracking-widest uppercase">
                     {requires2FA ? t('auth.security_check') : (isForgot ? t('auth.recover_entry') : (isLogin ? t('auth.title') : t('auth.new_identity')))}
                 </h2>
@@ -243,7 +244,7 @@ const AuthForm = ({ onLogin }) => {
                                     onChange={(e) => handleInputChange('username', e.target.value, setUsername)}
                                     onFocus={(e) => { e.target.select(); clearValidation(); }}
                                     onInvalid={(e) => handleInvalid(e, 'username')}
-                                    className={`input-cyber text-center tracking-widest w-full ${validationErrors.username ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
+                                    className={`input-cyber text-center tracking-widest w-full input-normal-case ${validationErrors.username ? 'border-cyber-neonPink' : ''}`}
                                     required={!isForgot}
                                     autoFocus
                                 />
@@ -263,7 +264,7 @@ const AuthForm = ({ onLogin }) => {
                                         onChange={(e) => handleInputChange('email', e.target.value, setEmail)}
                                         onFocus={(e) => { e.target.select(); clearValidation(); }}
                                         onInvalid={(e) => handleInvalid(e, 'email')}
-                                        className={`input-cyber text-center tracking-widest w-full ${validationErrors.email ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
+                                        className={`input-cyber text-center tracking-widest w-full input-normal-case ${validationErrors.email ? 'border-cyber-neonPink' : ''}`}
                                         required
                                     />
                                     {validationErrors.email && (
@@ -281,7 +282,7 @@ const AuthForm = ({ onLogin }) => {
                                     onChange={(e) => handleInputChange('password', e.target.value, setPassword)}
                                     onFocus={(e) => { e.target.select(); clearValidation(); }}
                                     onInvalid={(e) => handleInvalid(e, 'password')}
-                                    className={`input-cyber text-center tracking-widest w-full pr-10 ${validationErrors.password ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
+                                    className={`input-cyber text-center tracking-widest w-full pr-10 input-normal-case ${validationErrors.password ? 'border-cyber-neonPink' : ''}`}
                                     required={!isForgot}
                                 />
                                 {validationErrors.password && (
@@ -319,7 +320,7 @@ const AuthForm = ({ onLogin }) => {
                                 onChange={(e) => handleInputChange('email', e.target.value, setEmail)}
                                 onFocus={(e) => { e.target.select(); clearValidation(); }}
                                 onInvalid={(e) => handleInvalid(e, 'email')}
-                                className={`input-cyber text-center tracking-widest w-full ${validationErrors.email ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
+                                className={`input-cyber text-center tracking-widest w-full input-normal-case ${validationErrors.email ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
                                 required
                                 autoFocus
                             />
@@ -373,7 +374,7 @@ const AuthForm = ({ onLogin }) => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className={`btn-cyber btn-neon-pink mt-4 ${loading ? 'opacity-70 cursor-wait' : ''}`}
+                        className={`btn-cyber btn-neon-pink btn-auth-submit mt-4 ${loading ? 'opacity-70 cursor-wait' : ''}`}
                     >
                         {loading ? t('auth.working') : (requires2FA ? t('auth.verify_identity') : (isForgot ? t('auth.send_reset') : (isLogin ? t('auth.jack_in') : t('auth.establish_link'))))}
                     </button>

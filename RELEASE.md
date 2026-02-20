@@ -1,3 +1,27 @@
+# CyberTasker v1.9.0 - Visual Paradigm Shift
+
+**Release Date:** 2026-02-19
+
+This major update introduces the first phase of the Multi-Theme Visual Architecture, featuring the LCARS-inspired interface alongside the classic Cyberpunk neon look.
+
+## 🎨 Multi-Theme Visual Architecture
+- **Theme Selection Protocol**: Integrated a new theme switcher into the Profile Modal. Operatives can now toggle between "Cyberpunk" and "LCARS".
+- **Aesthetic Persistence**: Verified end-to-end persistence. Theme preferences are locked to the user's neural ID via the backend database.
+- **LCARS Aesthetic Refinement**: 
+    - **Palette Mapped**: Every neon-cyan/pink element has been mapped to authentic LCARS colors (Gold, Orange, Red, Blue, Lavender).
+    - **Antonio Font Link**: Universally applied the Antonio font for the LCARS theme for maximum immersion.
+    - **Solid Level Bar**: Updated the progression bar to a solid "Info-Blue" in LCARS mode.
+    - **Pill-Shaped Controls**: Standardized buttons and close actions with authentic rounded-pill designs.
+    - **Adaptive Header**: Language selection and logout modules repositioned to handle the unique LCARS geometry without title overlap.
+- **Theme-Specific Effects**: Updated the "Tactile Success" (Confetti) sequence to use theme-appropriate color palettes.
+
+## ⚙️ UX & Stability Polish
+- **Case Enforcement Revert**: Globally disabled forced-lowercase logic. Operatives can now utilize mixed-case Codenames (e.g., "DaDa") and Passwords without system intervention.
+- **Localized Visual Help**: Added a new "Visual Interface" section to the System Help manual, fully translated into all 6 supported languages.
+- **Clean Grid Boundaries**: Subdued/removed the Cyberpunk background grid when LCARS is active for a cleaner look.
+
+---
+
 # CyberTasker v1.8.2 - Mobile Polish & Test Strategy
 
 **Release Date:** 2026-02-19

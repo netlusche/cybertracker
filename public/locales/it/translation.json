@@ -286,13 +286,22 @@
                 "item2_text": "L'utility `install.php` ha ora una diagnostica ad alta immersione per la stabilità del link neurale."
             },
             "multilingual_sync": {
-                "title": "// MULTILINGUAL SYNC [Protocollo Lingua]",
+                "title": "// MULTILINGUAL SYNC [Protocolo Lingua]",
                 "item1_label": "SELEZIONE LINGUA",
                 "item1_text": "Usa i moduli dell'header per cambiare l'interfaccia neurale tra le lingue disponibili.",
                 "item2_label": "ADATTAMENTO REAL-TIME",
                 "item2_text": "La rete traduce tutti i sistemi istantaneamente dopo il cambio.",
                 "item3_label": "LINK PERSISTENTE",
                 "item3_text": "La tua preferenza è memorizzata nello storage locale e caricata ad ogni jack-in."
+            },
+            "visual_interface": {
+                "title": "// INTERFACCIA VISUALE [Cambio Tema]",
+                "item1_label": "SELEZIONE TEMA",
+                "item1_text": "Accedi al tuo PROFILO per passare tra i preset visuali disponibili. Ogni tema riconfigura l'estetica della rete mantenendo l'integrità delle direttive centrali.",
+                "item2_label": "SYNC PERSISTENTE",
+                "item2_text": "La tua preferenza visuale è bloccata sul tuo ID neurale per tutte le sessioni fino a quando non viene avviato un override manuale.",
+                "item3_label": "ESTENSIONI FUTURE",
+                "item3_text": "La rete è architettata per l'espansione. Nuovi moduli visuali saranno distribuiti nel selettore di temi man mano che saranno certificati per l'uso operativo."
             },
             "danger_zone": {
                 "title": "// PROTOCOLLI ZONA DI PERICOLO",

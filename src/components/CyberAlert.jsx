@@ -5,12 +5,14 @@ const CyberAlert = ({ message, onClose, variant = 'cyan', title }) => {
     const { t } = useTranslation();
     const displayTitle = title || t('common.system_message');
     const isPink = variant === 'pink';
+
+    // Theme-compatible classes (using our defined CSS variables in index.css)
     const accentClass = isPink ? 'border-cyber-neonPink' : 'border-cyber-neonCyan';
     const textClass = isPink ? 'text-cyber-neonPink' : 'text-cyber-neonCyan';
-    const glowClass = isPink ? 'shadow-[0_0_30px_rgba(255,0,255,0.2)]' : 'shadow-[0_0_30px_rgba(0,255,255,0.2)]';
+    const glowClass = isPink ? 'shadow-neon-pink' : 'shadow-neon-cyan';
     const decorationClass = isPink ? 'bg-cyber-neonPink/50' : 'bg-cyber-neonCyan/50';
-    const iconGlow = isPink ? 'shadow-[0_0_10px_#f0f]' : 'shadow-[0_0_10px_#0ff]';
-    const buttonClass = isPink ? 'bg-cyber-neonPink shadow-[0_0_20px_#f0f]' : 'bg-cyber-neonCyan shadow-[0_0_20px_#0ff]';
+    const iconGlow = isPink ? 'shadow-neon-pink' : 'shadow-neon-cyan';
+    const buttonClass = isPink ? 'btn-neon-pink' : 'btn-neon-cyan';
 
     return (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-[9999] backdrop-blur-md animate-in fade-in duration-300">

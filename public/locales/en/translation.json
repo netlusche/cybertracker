@@ -87,6 +87,11 @@
     "profile": {
         "title": "OPERATIVE PROFILE",
         "visual_interface": "VISUAL INTERFACE",
+        "theme_selection": "Theme Selection",
+        "themes": {
+            "cyberpunk": "Cyberpunk",
+            "lcars": "LCARS (Star Trek)"
+        },
         "language": "LANGUAGE",
         "messages": {
             "cypher_updated": "Cypher updated successfully.",
@@ -293,6 +298,15 @@
                 "item2_text": "The grid translates all system directives and parameters instantly after switching.",
                 "item3_label": "PERSISTENT LINK",
                 "item3_text": "Your language preference is locked into your deck's local storage and auto-loaded upon every jack-in."
+            },
+            "visual_interface": {
+                "title": "// VISUAL INTERFACE [Theme Switching]",
+                "item1_label": "THEME SELECTION",
+                "item1_text": "Access your PROFILE to toggle between available visual presets. Each theme reconfigures the grid's aesthetic while maintaining core directive integrity.",
+                "item2_label": "PERSISTENT SYNC",
+                "item2_text": "Your visual preference is locked to your neural ID across all sessions until a manual override is initiated.",
+                "item3_label": "FUTURE EXTENSIONS",
+                "item3_text": "The grid is architected for expansion. New visual modules will be deployed to the theme selector as they are certified for operative use."
             },
             "danger_zone": {
                 "title": "// DANGER ZONE PROTOCOLS",

@@ -294,6 +294,15 @@
                 "item3_label": "LIEN PERSISTANT",
                 "item3_text": "Votre préférence est stockée localement et chargée à chaque jack-in."
             },
+            "visual_interface": {
+                "title": "// INTERFACE VISUELLE [Commutation thématique]",
+                "item1_label": "SÉLECTION DU THÈME",
+                "item1_text": "Accédez à votre PROFIL pour basculer entre les préréglages visuels disponibles. Chaque thème reconfigure l'esthétique de la grille tout en maintenant l'intégrité des directives de base.",
+                "item2_label": "SYNC PERSISTANTE",
+                "item2_text": "Votre préférence visuelle est verrouillée sur votre identifiant neural sur toutes les sessions jusqu'à ce qu'un override manuel soit initié.",
+                "item3_label": "EXTENSIONS FUTURES",
+                "item3_text": "La grille est architecturée pour l'expansion. De nouveaux modules visuels seront déployés dans le sélecteur de thèmes dès qu'ils seront certifiés pour une utilisation opérationnelle."
+            },
             "danger_zone": {
                 "title": "// PROTOCOLES ZONE DE DANGER",
                 "item1_warn": "⚠ TERMINAISON IDENTITÉ :",

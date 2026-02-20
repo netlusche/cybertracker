@@ -10,6 +10,7 @@ const CyberSelect = ({ value, onChange, options, label, className = "", neonColo
         cyan: 'border-cyber-neonCyan shadow-[0_0_10px_rgba(0,255,255,0.3)] focus:shadow-[0_0_15px_#00ffff]',
         pink: 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)] focus:shadow-[0_0_15px_#ff00ff]',
         green: 'border-cyber-neonGreen shadow-[0_0_10px_rgba(0,255,0,0.3)] focus:shadow-[0_0_15px_#00ff00]',
+        info: 'border-[#4455ff] shadow-[0_0_10px_rgba(68,85,255,0.3)] focus:shadow-[0_0_15px_#4455ff]',
         gray: 'border-cyber-gray shadow-none focus:border-cyber-neonCyan focus:shadow-[0_0_10px_#00ffff]'
     }[neonColor] || 'border-cyber-neonCyan shadow-[0_0_10px_rgba(0,255,255,0.3)]';
 
@@ -17,6 +18,7 @@ const CyberSelect = ({ value, onChange, options, label, className = "", neonColo
         cyan: 'border-cyber-neonCyan shadow-[0_0_15px_#00ffff]',
         pink: 'border-cyber-neonPink shadow-[0_0_15px_#ff00ff]',
         green: 'border-cyber-neonGreen shadow-[0_0_15px_#00ff00]',
+        info: 'border-[#4455ff] shadow-[0_0_15px_#4455ff]',
         gray: 'border-cyber-neonCyan shadow-[0_0_15px_#00ffff]'
     }[neonColor] || 'border-cyber-neonCyan shadow-[0_0_15px_#00ffff]';
 

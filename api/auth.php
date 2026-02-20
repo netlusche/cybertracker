@@ -276,6 +276,7 @@ elseif ($action === 'verify_2fa') {
                 'role' => $user['role'],
                 'two_factor_enabled' => (bool)$user['two_factor_enabled'],
                 'two_factor_method' => $user['two_factor_method'],
+                'theme' => $user['theme'],
                 'stats' => $stats
             ]
         ]);
@@ -545,6 +546,7 @@ elseif ($action === 'login') {
                 'email' => $user['email'],
                 'role' => $user['role'],
                 'two_factor_enabled' => (bool)$user['two_factor_enabled'],
+                'theme' => $user['theme'],
                 'stats' => $stats
             ]
         ]);
@@ -623,6 +625,32 @@ elseif ($action === 'delete_account') {
     }
 
 }
+elseif ($action === 'update_theme') {
+    if (!isset($_SESSION['user_id'])) {
+        http_response_code(401);
+        echo json_encode(['error' => 'Unauthorized']);
+        exit;
+    }
+
+    $theme = $data['theme'] ?? 'cyberpunk';
+    // Validate theme name to prevent any funny business
+    $allowedThemes = ['cyberpunk', 'lcars'];
+    if (!in_array($theme, $allowedThemes)) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Invalid theme selection']);
+        exit;
+    }
+
+    try {
+        $stmt = $pdo->prepare("UPDATE users SET theme = ? WHERE id = ?");
+        $stmt->execute([$theme, $_SESSION['user_id']]);
+        echo json_encode(['success' => true, 'theme' => $theme]);
+    }
+    catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Failed to update theme']);
+    }
+}
 elseif ($action === 'request_password_reset') {
     $email = $data['email'] ?? '';
 
@@ -698,7 +726,7 @@ elseif ($action === 'reset_password') {
 else {
     // Check Status
     if (isset($_SESSION['user_id'])) {
-        $stmt = $pdo->prepare("SELECT id, username, email, role, two_factor_enabled, two_factor_method FROM users WHERE id = ?");
+        $stmt = $pdo->prepare("SELECT id, username, email, role, two_factor_enabled, two_factor_method, theme FROM users WHERE id = ?");
         $stmt->execute([$_SESSION['user_id']]);
         $user = $stmt->fetch();
 
@@ -716,6 +744,7 @@ else {
                     'role' => $user['role'],
                     'two_factor_enabled' => (bool)$user['two_factor_enabled'],
                     'two_factor_method' => $user['two_factor_method'],
+                    'theme' => $user['theme'],
                     'stats' => $stats
                 ]
             ]);

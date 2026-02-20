@@ -1,25 +1,27 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { triggerNeonConfetti } from '../utils/confetti';
+import { useTheme } from '../utils/ThemeContext';
 
 const HelpModal = ({ onClose }) => {
     const { t } = useTranslation();
+    const { theme } = useTheme();
     const handleAcknowledge = () => {
-        triggerNeonConfetti();
+        triggerNeonConfetti(theme);
         onClose();
     };
 
     return (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-            <div className="bg-cyber-black text-white p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto border-2 border-cyber-neonCyan shadow-[0_0_20px_rgba(0,255,255,0.3)] relative">
+            <div className="card-cyber text-white p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-cyber-neonPink hover:text-white font-bold text-xl"
+                    className="absolute top-4 right-4 text-cyber-neonPink hover:text-white font-bold text-xl transition-colors"
                 >
                     [X]
                 </button>
 
-                <h2 className="text-2xl font-bold mb-6 text-cyber-neonCyan border-b border-cyber-gray pb-2 uppercase tracking-widest">
+                <h2 className="text-2xl font-bold mb-6 text-cyber-neonCyan border-b border-gray-700 pb-2 uppercase tracking-widest">
                     {t('help.title')}
                 </h2>
 
@@ -113,6 +115,15 @@ const HelpModal = ({ onClose }) => {
                             <li><strong>{t('help.sections.multilingual_sync.item1_label')}:</strong> {t('help.sections.multilingual_sync.item1_text')}</li>
                             <li><strong>{t('help.sections.multilingual_sync.item2_label')}:</strong> {t('help.sections.multilingual_sync.item2_text')}</li>
                             <li><strong>{t('help.sections.multilingual_sync.item3_label')}:</strong> {t('help.sections.multilingual_sync.item3_text')}</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3 className="text-cyber-neonGreen font-bold text-lg mb-2">{t('help.sections.visual_interface.title')}</h3>
+                        <ul className="list-disc w-5/6 mx-auto space-y-1 text-gray-300">
+                            <li><strong>{t('help.sections.visual_interface.item1_label')}:</strong> {t('help.sections.visual_interface.item1_text')}</li>
+                            <li><strong>{t('help.sections.visual_interface.item2_label')}:</strong> {t('help.sections.visual_interface.item2_text')}</li>
+                            <li><strong>{t('help.sections.visual_interface.item3_label')}:</strong> {t('help.sections.visual_interface.item3_text')}</li>
                         </ul>
                     </section>
 

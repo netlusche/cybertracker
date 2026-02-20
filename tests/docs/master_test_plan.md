@@ -128,6 +128,42 @@ This plan outlines the end-to-end testing strategy for CyberTasker v1.8.0. The g
 
 ---
 
+## 🎨 test-suite-07: Visual Architecture & Themes
+
+### TS-07.1: Theme Switching & Application
+- **Scenario**: Switch visual interfaces in the profile.
+- **Steps**:
+    1. Open Profile Modal.
+    2. Select "LCARS" theme.
+    3. Observe immediate transition of colors, borders, and fonts.
+    4. Close Modal.
+- **Validation**: UI elements (Header, Cards, Buttons) adopt the LCARS palette (#ffcc33, #ffaa00, #4455ff).
+
+### TS-07.2: Theme Persistence & Jack-In
+- **Scenario**: Verify theme preference is stored.
+- **Steps**:
+    1. Set theme to "LCARS".
+    2. Reload page. Verify LCARS stays active.
+    3. Logout. Verify login screen uses LCARS aesthetics (Orange "Jack In" button).
+    4. Log in. Verify dashboard is still in LCARS mode.
+- **Validation**: User preference is persisted in the database and local storage.
+
+### TS-07.3: Adaptive Layout (LCARS Header)
+- **Scenario**: Verify layout optimization for LCARS.
+- **Steps**:
+    1. Activate LCARS theme.
+    2. Inspect header navigation.
+- **Validation**: Language Switcher is stacked below the action buttons (Help, Profile, Logout) to prevent overlapping the title.
+
+### TS-07.4: Theme-Authentic Typography
+- **Scenario**: Verify font switching protocol.
+- **Steps**:
+    1. Activate LCARS: Verify use of "Antonio" font on all grid elements.
+    2. Activate Cyberpunk: Verify use of "Courier New" on all grid elements.
+- **Validation**: Fonts are correctly limited to their respective theme scopes.
+
+---
+
 ## 📁 test-suite-06: Protocol & Category Management
 
 ### TS-06.1: Neural Protocol Initialization (Add Category)

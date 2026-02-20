@@ -43,3 +43,10 @@ This document provides a categorized overview of the user stories implemented in
 *   **Responsive Link**: As an operative, I want the system to be fully functional on both workstation monitors and mobile neural links.
 *   **Multilingual Neural Link**: As an operative, I want to choose my preferred localized language (DE, EN, NL, ES, FR, IT) to ensure maximum operational clarity.
 *   **Smart Validation Cleaning**: As an operative, I want all validation error tooltips to disappear globally as soon as I focus on any field to keep my terminal clear while correcting my input.
+
+## 🎨 7. Multi-Theme Visual Architecture
+*   **Visual Identity Shift**: As an operative, I want to choose between different visual interfaces (e.g., Cyberpunk, LCARS) in my profile to match my preferred aesthetic.
+*   **Persistent Aesthetics**: As an operative, I want my theme selection to be preserved across sessions and devices so that my neural environment remains consistent.
+*   **Theme-Specific Typography**: As an operative, I want the system to utilize theme-authentic fonts (like Antonio for LCARS) to enhance immersion and readability.
+*   **Harmonized Color Palettes**: As an operative, I want every system element (buttons, borders, icons) to automatically adapt to the active theme's color scheme for a unified UX.
+*   **Adaptive Layouts**: As an operative, I want the system layout to optimize itself for the active theme (e.g., repositioning header modules in LCARS) to ensure a clean, non-overlapping interface.

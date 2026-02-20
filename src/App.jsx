@@ -10,6 +10,7 @@ import AdminPanel from './components/AdminPanel';
 import HelpModal from './components/HelpModal';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import { triggerNeonConfetti } from './utils/confetti';
+import { useTheme } from './utils/ThemeContext';
 import logo from './assets/logo.png';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
   const [categories, setCategories] = useState([]); // [NEW] Synchronized categories state
   const [isLevelUp, setIsLevelUp] = useState(false); // New Level Up State
   const [activeCalendarTaskId, setActiveCalendarTaskId] = useState(null); // [NEW] Mutual exclusion for calendars
+  const { theme, setThemeState } = useTheme();
 
   // Search & Filter State
   const [filters, setFilters] = useState({
@@ -68,6 +70,9 @@ function App() {
       const data = await res.json();
       if (data.isAuthenticated) {
         setUser(data.user);
+        if (data.user.theme) {
+          setThemeState(data.user.theme);
+        }
         // fetchTasks(1) called by useEffect above when user is set
       }
     } catch (err) {
@@ -117,7 +122,7 @@ function App() {
 
         // Detect Level Up from Backend Flag
         if (data.leveled_up) {
-          triggerNeonConfetti(); // Trigger Confetti
+          triggerNeonConfetti(user?.theme || 'lcars'); // Trigger Confetti - user.theme or current state
           setIsLevelUp(true);    // Trigger Border Animation
           setTimeout(() => setIsLevelUp(false), 5000); // Reset after 5s
         }
@@ -127,6 +132,9 @@ function App() {
 
   const handleLogin = (userData) => {
     setUser(userData);
+    if (userData.theme) {
+      setThemeState(userData.theme);
+    }
     fetchTasks(1);
   };
 
@@ -147,7 +155,7 @@ function App() {
         body: JSON.stringify(newTask),
       });
       if (res.ok) {
-        triggerNeonConfetti();
+        triggerNeonConfetti(user?.theme || 'lcars');
         fetchTasks();
       }
     } catch (err) {
@@ -178,7 +186,7 @@ function App() {
 
         // If completing, refresh user stats to check for level up
         if (newStatus === 1) {
-          triggerNeonConfetti();
+          triggerNeonConfetti(user?.theme || 'lcars');
           await fetchUserStats();
         }
       } else {
@@ -233,7 +241,7 @@ function App() {
   return (
     <div className="min-h-screen bg-cyber-black text-white p-4 md:p-8 font-mono relative overflow-hidden">
       {/* Background Grid */}
-      <div className="fixed inset-0 pointer-events-none opacity-10 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+      <div className="fixed inset-0 pointer-events-none opacity-10 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] cyber-grid"></div>
 
       <div className="max-w-3xl mx-auto relative z-10">
         <header className="mb-8 flex flex-col lg:flex-row justify-between items-start gap-4 border-b border-cyber-gray pb-4">
@@ -252,8 +260,8 @@ function App() {
             </div>
           </div>
 
-          <div className="flex flex-wrap lg:flex-nowrap items-center gap-2 w-full lg:w-auto justify-start lg:justify-end">
-            <LanguageSwitcher />
+          <div className={`flex w-full lg:w-auto justify-start lg:justify-end ${theme === 'lcars' ? 'flex-col items-end gap-1' : 'flex-wrap lg:flex-nowrap items-center gap-2'}`}>
+            {theme !== 'lcars' && <LanguageSwitcher />}
 
             {user && (
               <div className="flex flex-wrap lg:flex-nowrap gap-2">
@@ -268,11 +276,13 @@ function App() {
                 <button onClick={() => setShowProfile(true)} className="text-[10px] md:text-xs border border-cyber-neonCyan/50 text-cyber-neonCyan hover:bg-cyber-neonCyan hover:text-black px-2 py-1 rounded transition-colors whitespace-nowrap">
                   {t('header.profile')}
                 </button>
-                <button onClick={handleLogout} className="text-[10px] md:text-xs border border-red-900/50 text-red-500 hover:bg-red-900 hover:text-white px-2 py-1 rounded transition-colors whitespace-nowrap">
+                <button onClick={handleLogout} className="text-[10px] md:text-xs border border-red-900/50 text-red-500 hover:bg-red-900 hover:text-white px-2 py-1 rounded transition-colors whitespace-nowrap btn-logout-orange">
                   {t('header.logout')}
                 </button>
               </div>
             )}
+
+            {theme === 'lcars' && <LanguageSwitcher />}
           </div>
         </header>
 

@@ -1,3 +1,29 @@
+# CyberTasker Server Update Instructions (v1.8.2 → v1.9.0)
+
+These instructions guide you through updating to version **1.9.0**. This major update introduces Multi-Theme support.
+
+## 1. Backup
+- **Files**: Backup your `api/config.php` and your database file (if using SQLite).
+
+## 2. Deploy Files
+1.  Upload the contents of the `dist` folder to your server.
+2.  **Overwrite all files** EXCEPT `api/config.php` and your database file.
+
+## 3. Database Update (CRITICAL)
+This version adds a `theme` column to the `users` table to persist visual preferences.
+1.  Navigate to: `https://yourdomain.com/tasks/api/install.php`
+2.  The script will automatically detect and add the missing `theme` column.
+3.  **Verification**: Ensure the "Database Schema Updated: theme column added" message appears.
+4.  **Security**: Delete `api/install.php` after verification.
+
+## 4. Verify Update
+1.  **Theme Selection**: Log in, open your **Profile**, and switch to **LCARS**. Verify the entire UI (fonts, colors, borders) transforms immediately.
+2.  **Persistence**: Reload the page; verify the theme remains active.
+3.  **Case Sensitivity**: Create or log in with a mixed-case Codename (e.g., `AlphaOne`). Verify that the exact casing is displayed in the header.
+4.  **System Help**: Open Help and verify the new "Visual Interface" section is present in your chosen language.
+
+---
+
 # CyberTasker Server Update Instructions (v1.5.1 → v1.8.0)
 
 These instructions guide you through updating to version **1.8.0**. This update focuses on database stability and UX polish.

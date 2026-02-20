@@ -74,11 +74,12 @@ try {
     echo "<h4>Attempting database connection...</h4>\n";
     $pdo = getDBConnection();
     echo "Database connection successful.<br>\n";
-    
+
     if ($dbType === 'sqlite') {
         echo "SQLite DB File: " . DB_NAME . "<br>\n";
         echo "Writable: " . (is_writable(DB_NAME) ? 'YES' : 'NO') . "<br>\n";
-    } else {
+    }
+    else {
         echo "MySQL Host: " . DB_HOST . "<br>\n";
         echo "MySQL DB Name: " . DB_NAME . "<br>\n";
     }
@@ -100,6 +101,7 @@ try {
         reset_token VARCHAR(64) DEFAULT NULL,
         reset_expires DATETIME DEFAULT NULL,
         last_login TIMESTAMP NULL DEFAULT NULL,
+        theme VARCHAR(20) DEFAULT 'cyberpunk',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )";
     $pdo->exec($sqlUsers);
@@ -117,7 +119,8 @@ try {
         'verification_token' => "VARCHAR(64) DEFAULT NULL",
         'reset_token' => "VARCHAR(64) DEFAULT NULL",
         'reset_expires' => "DATETIME DEFAULT NULL",
-        'last_login' => "TIMESTAMP NULL DEFAULT NULL"
+        'last_login' => "TIMESTAMP NULL DEFAULT NULL",
+        'theme' => "VARCHAR(20) DEFAULT 'cyberpunk'"
     ];
 
     foreach ($newColumns as $col => $def) {

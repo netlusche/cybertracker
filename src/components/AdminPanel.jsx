@@ -41,7 +41,7 @@ const PromptModal = ({ message, onConfirm, onCancel }) => {
                         onFocus={(e) => e.target.select()}
                         value={value}
                         onChange={(e) => setValue(e.target.value)}
-                        className="w-full bg-black/50 border border-gray-600 text-white p-2 pr-10 focus:border-cyber-neonCyan outline-none font-mono"
+                        className="w-full bg-black/50 border border-gray-600 text-white p-2 pr-10 focus:border-cyber-neonCyan outline-none font-mono input-normal-case"
                     />
                     <button
                         type="button"
@@ -314,7 +314,7 @@ const AdminPanel = ({ onClose }) => {
                     <h2 className="text-2xl font-bold text-yellow-500 tracking-widest uppercase">
                         {t('admin.console_title')}
                     </h2>
-                    <button onClick={onClose} className="text-yellow-500 hover:text-white text-xl">✖</button>
+                    <button onClick={onClose} className="text-yellow-500 hover:text-white text-xl font-bold">[X]</button>
                 </div>
 
                 {/* Search Input */}
@@ -325,7 +325,7 @@ const AdminPanel = ({ onClose }) => {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         onFocus={(e) => e.target.select()}
-                        className="bg-black/50 border border-yellow-700/50 text-yellow-400 px-3 py-1 pr-8 text-sm focus:outline-none focus:border-yellow-500 w-64 rounded-sm tracking-widest placeholder-yellow-700"
+                        className="bg-black/50 border border-yellow-700/50 text-yellow-400 px-3 py-1 pr-8 text-sm focus:outline-none focus:border-yellow-500 w-64 rounded-sm tracking-widest placeholder-yellow-700 input-normal-case"
                     />
                     <span className="absolute right-2 top-1 text-yellow-600 pointer-events-none">🔍</span>
                 </div>
@@ -389,7 +389,7 @@ const AdminPanel = ({ onClose }) => {
                                     <td className="p-2 text-center">
                                         <button
                                             onClick={() => handleToggleVerified(u)}
-                                            className={`text-xs font-bold ${u.is_verified == 1 ? 'text-green-500 hover:text-green-400' : 'text-red-500 hover:text-red-400'}`}
+                                            className={`text-xs font-bold btn-admin-status ${u.is_verified == 1 ? 'verified text-green-500 hover:text-green-400' : 'unverified text-red-500 hover:text-red-400'}`}
                                             title="Toggle Verification"
                                         >
                                             {u.is_verified == 1 ? `✓ ${t('admin.verified')}` : `✖ ${t('admin.unverified')}`}
@@ -407,13 +407,13 @@ const AdminPanel = ({ onClose }) => {
                                         <div className="flex flex-wrap justify-end gap-1">
                                             <button
                                                 onClick={() => handleToggleRoleClick(u)}
-                                                className="text-[10px] px-2 py-1 border border-blue-900 text-blue-500 hover:bg-blue-900 hover:text-white transition-colors min-w-[70px] uppercase"
+                                                className="text-[10px] px-2 py-1 border border-blue-900 text-blue-500 hover:bg-blue-900 hover:text-white transition-colors min-w-[70px] uppercase btn-admin-blue"
                                             >
                                                 {u.role === 'admin' ? t('admin.downgrade') : t('admin.promote')}
                                             </button>
                                             <button
                                                 onClick={() => handleResetPasswordClick(u)}
-                                                className="text-[10px] px-2 py-1 border border-gray-500 text-gray-300 hover:border-white hover:text-white transition-colors min-w-[70px] uppercase"
+                                                className="text-[10px] px-2 py-1 border border-gray-500 text-gray-300 hover:border-white hover:text-white transition-colors min-w-[70px] uppercase btn-admin-grey"
                                             >
                                                 {t('admin.reset_pwd')}
                                             </button>
@@ -427,7 +427,7 @@ const AdminPanel = ({ onClose }) => {
                                             )}
                                             <button
                                                 onClick={() => handleDeleteUserClick(u)}
-                                                className="text-[10px] px-2 py-1 border border-red-900 text-red-700 hover:bg-red-900 hover:text-white transition-colors min-w-[70px] uppercase"
+                                                className="text-[10px] px-2 py-1 border border-red-900 text-red-700 hover:bg-red-900 hover:text-white transition-colors min-w-[70px] uppercase btn-admin-erase"
                                             >
                                                 {t('admin.erase')}
                                             </button>

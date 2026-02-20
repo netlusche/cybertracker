@@ -30,6 +30,20 @@
 ---
 ---
 
+## 🆕 New in Version 1.9.0 (Visual Paradigm Shift)
+
+### 🎨 Multi-Theme Visual Architecture
+*   **Aesthetic Toggle**: Operatives can now switch between the classic **Cyberpunk** neon look and the new **LCARS (Library Computer Access and Retrieval System)** interface.
+*   **LCARS Authentication**: Re-engineered the "Jack In" terminal with authentic Starfleet aesthetics, including a theme-specific yellow/orange palette.
+*   **Theme-Authentic Typography**: Integrated the **Antonio** Google Font for the LCARS theme to ensure high-immersion readability.
+*   **Persistent Aesthetics**: Theme selection is stored in the neural database and synchronized across sessions.
+*   **System-Wide Adaption**: All system components (Cards, Modals, Buttons, Confetti, and Alerts) automatically reconfigure their color schemes to match the active theme.
+
+### ⚙️ UX & Grid Stability
+*   **Global Case-Enforcement Revert**: Restored freedom of identity. The grid no longer forces lower-case inputs for Codenames, Emails, or Passwords—mixed-case inputs are strictly preserved.
+*   **LCARS Header Optimization**: Re-architected the navigation modules to prevent overlap on mission-critical displays.
+*   **Dynamic Visual Help**: Updated the "System Help" handbook with a dedicated section on Multi-Theme protocols, localized across all 6 languages.
+
 ## 🆕 New in Version 1.8.2 (Mobile Polish & Test Strategy)
 
 ### 📱 Mobile UX Polish

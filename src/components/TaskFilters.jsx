@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../utils/ThemeContext';
 import CyberSelect from './CyberSelect';
 
 const TaskFilters = ({ filters, onFilterChange, categories }) => {
     const { t } = useTranslation();
+    const { theme } = useTheme();
     const [localSearch, setLocalSearch] = useState(filters.search || '');
+    const isLcars = theme === 'lcars';
 
     // Sync local search with prop (for reset functionality)
     useEffect(() => {
@@ -38,7 +41,7 @@ const TaskFilters = ({ filters, onFilterChange, categories }) => {
                         value={localSearch}
                         onChange={(e) => setLocalSearch(e.target.value)}
                         onFocus={(e) => e.target.select()}
-                        className="w-full bg-black border border-cyber-gray text-white pl-10 pr-4 py-2 rounded focus:border-cyber-neonCyan focus:shadow-[0_0_10px_#00ffff] outline-none transition-all placeholder-gray-200 font-mono"
+                        className="w-full bg-black border border-cyber-gray text-white pl-10 pr-4 py-2 rounded focus:border-cyber-neonCyan focus:shadow-[0_0_10px_#00ffff] outline-none transition-all placeholder-gray-200 font-mono input-normal-case"
                     />
                 </div>
 
@@ -65,7 +68,7 @@ const TaskFilters = ({ filters, onFilterChange, categories }) => {
                         { value: '3', label: `${t('common.low')} (3)` }
                     ]}
                     className="w-full md:w-48"
-                    neonColor="pink"
+                    neonColor={isLcars ? "info" : "pink"}
                 />
 
                 {/* Overdue Toggle */}
@@ -83,7 +86,7 @@ const TaskFilters = ({ filters, onFilterChange, categories }) => {
                 {/* Reset Button */}
                 <button
                     onClick={() => onFilterChange({ search: '', priority: '', category: '', overdue: false })}
-                    className="text-xs text-cyber-neonCyan border border-cyber-neonCyan px-3 py-2 rounded hover:bg-cyber-neonCyan hover:text-black transition-all font-bold ml-auto"
+                    className="text-xs text-cyber-neonCyan border border-cyber-neonCyan px-3 py-2 rounded hover:bg-cyber-neonCyan hover:text-black transition-all font-bold ml-auto btn-filter-reset"
                 >
                     {t('common.reset')}
                 </button>

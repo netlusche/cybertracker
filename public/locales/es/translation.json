@@ -294,6 +294,15 @@
                 "item3_label": "ENLACE PERSISTENTE",
                 "item3_text": "Tu preferencia se guarda en el storage local y se carga en cada jack-in."
             },
+            "visual_interface": {
+                "title": "// INTERFAZ VISUAL [Cambio de tema]",
+                "item1_label": "SELECCIÓN DE TEMA",
+                "item1_text": "Accede a tu PERFIL para alternar entre los ajustes visuales disponibles. Cada tema reconfigura la estética de la red manteniendo la integridad de las directivas principales.",
+                "item2_label": "SYNC PERSISTENTE",
+                "item2_text": "Tu preferencia visual se vincula a tu ID neural en todas las sesiones hasta que se inicie una desactivación manual.",
+                "item3_label": "FUTURAS EXTENSIONES",
+                "item3_text": "La red está diseñada para la expansión. Se añadirán nuevos módulos visuales al selector de temas a medida que se certifiquen para su uso operativo."
+            },
             "danger_zone": {
                 "title": "// PROTOCOLOS DE ZONA DE PELIGRO",
                 "item1_warn": "⚠ TERMINACIÓN DE IDENTIDAD:",

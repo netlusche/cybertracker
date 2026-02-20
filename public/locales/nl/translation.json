@@ -294,6 +294,15 @@
                 "item3_label": "PERSISTENTE LINK",
                 "item3_text": "Je taalvoorkeur wordt opgeslagen in je lokale storage en auto-geladen bij elke jack-in."
             },
+            "visual_interface": {
+                "title": "// VISUELE INTERFACE [Theme Switching]",
+                "item1_label": "THEME SELECTIE",
+                "item1_text": "Ga naar je PROFIEL om te schakelen tussen beschikbare visuele voorinstellingen. Elk thema herconfigureert de esthetiek van het grid met behoud van de integriteit van de kerndirectiven.",
+                "item2_label": "PERSISTENTE SYNC",
+                "item2_text": "Je visuele voorkeur wordt voor je neurale ID vastgezet voor alle sessies totdat een handmatige override wordt gestart.",
+                "item3_label": "TOEKOMSTIGE UITBREIDINGEN",
+                "item3_text": "Het grid is ontworpen voor uitbreiding. Nieuwe visuele modules worden toegevoegd aan de theme selector zodra ze zijn gecertificeerd voor operationeel gebruik."
+            },
             "danger_zone": {
                 "title": "// DANGER ZONE PROTOCOLLEN",
                 "item1_warn": "⚠ IDENTITEITS-BEËINDIGING:",

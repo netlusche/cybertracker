@@ -67,8 +67,8 @@ const LanguageSwitcher = () => {
                 onClick={() => setIsOpen(!isOpen)}
                 aria-haspopup="listbox"
                 aria-expanded={isOpen}
-                className={`text-[10px] md:text-xs px-2 py-1 transition-all font-bold border rounded uppercase tracking-widest flex items-center gap-2 group ${isOpen
-                    ? 'bg-cyber-neonPink border-cyber-neonPink text-black shadow-[0_0_10px_#ff00ff]'
+                className={`text-[10px] md:text-xs px-2 py-1 transition-all font-bold border rounded uppercase tracking-widest flex items-center gap-2 group btn-lang-yellow ${isOpen
+                    ? 'bg-cyber-neonPink border-cyber-neonPink text-black shadow-[0_0_10px_#ff00ff] language-active'
                     : 'border-cyber-gray text-cyber-neonCyan hover:border-cyber-neonCyan hover:shadow-[0_0_5px_#00ffff]'
                     }`}
             >
@@ -81,7 +81,7 @@ const LanguageSwitcher = () => {
                 <div
                     ref={portalRef}
                     style={{ top: coords.top, left: coords.left }}
-                    className="fixed z-[10000] w-32 bg-cyber-black/90 border border-cyber-neonCyan p-1 backdrop-blur-md shadow-[0_0_20px_rgba(0,255,255,0.2)] animate-in fade-in zoom-in-95 duration-200"
+                    className="fixed z-[10000] w-32 bg-cyber-black/90 border border-cyber-neonCyan p-1 backdrop-blur-md shadow-[0_0_20px_rgba(0,255,255,0.2)] animate-in fade-in zoom-in-95 duration-200 lang-dropdown-layer"
                 >
                     <div className="flex flex-col gap-1">
                         {languages.map(lang => (
@@ -91,7 +91,7 @@ const LanguageSwitcher = () => {
                                     i18n.changeLanguage(lang.code);
                                     setIsOpen(false);
                                 }}
-                                className={`relative text-[10px] md:text-xs px-3 py-2 text-left transition-all font-bold uppercase tracking-widest hover:bg-cyber-neonCyan hover:text-black flex items-center justify-between group/item ${i18n.language === lang.code ? 'text-cyber-neonCyan' : 'text-gray-400'
+                                className={`relative text-[10px] md:text-xs px-3 py-2 text-left transition-all font-bold uppercase tracking-widest hover:bg-cyber-neonCyan hover:text-black flex items-center justify-between group/item ${i18n.language === lang.code ? 'text-cyber-neonCyan active-lang' : 'text-gray-400'
                                     }`}
                             >
                                 <span className="relative z-10">{lang.fullName}</span>
@@ -101,8 +101,8 @@ const LanguageSwitcher = () => {
                         ))}
                     </div>
                     {/* Decorative bits */}
-                    <div className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t border-l border-cyber-neonCyan"></div>
-                    <div className="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-b border-r border-cyber-neonCyan"></div>
+                    <div className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t border-l border-cyber-neonCyan decorative-corner"></div>
+                    <div className="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-b border-r border-cyber-neonCyan decorative-corner"></div>
                 </div>,
                 document.body
             )}

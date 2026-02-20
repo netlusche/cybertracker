@@ -87,6 +87,11 @@
     "profile": {
         "title": "OPERATIVE PROFIL",
         "visual_interface": "VISUELLE SCHNITTSTELLE",
+        "theme_selection": "Theme-Auswahl",
+        "themes": {
+            "cyberpunk": "Cyberpunk",
+            "lcars": "LCARS (Star Trek)"
+        },
         "language": "SPRACHE",
         "messages": {
             "cypher_updated": "Cypher erfolgreich aktualisiert.",
@@ -293,6 +298,15 @@
                 "item2_text": "Das Grid übersetzt alle System-Direktiven und Parameter verzögerungsfrei nach der Umschaltung.",
                 "item3_label": "PERSISTENTER LINK",
                 "item3_text": "Deine Sprachpräferenz wird im lokalen Speicher deines Decks fixiert und bei jedem Jack-In automatisch geladen."
+            },
+            "visual_interface": {
+                "title": "// VISUELLE SCHNITTSTELLE [Theme-Umschaltung]",
+                "item1_label": "THEME-AUSWAHL",
+                "item1_text": "Greife auf dein PROFIL zu, um zwischen verfügbaren visuellen Presets zu toggeln. Jedes Theme rekonfiguriert die Ästhetik des Grids, während die Integrität der Kerndirektiven erhalten bleibt.",
+                "item2_label": "PERSISTENTER SYNC",
+                "item2_text": "Deine visuelle Präferenz wird für deine neurale ID über alle Sitzungen hinweg fixiert, bis ein manueller Override initiiert wird.",
+                "item3_label": "ZUKÜNFTIGE ERWEITERUNGEN",
+                "item3_text": "Das Grid ist für Expansion architekuriert. Neue visuelle Module werden in den Theme-Selector integriert, sobald sie für den operativen Einsatz zertifiziert sind."
             },
             "danger_zone": {
                 "title": "// GEFAHRENZONE-PROTOKOLLE",

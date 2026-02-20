@@ -1,17 +1,21 @@
 import confetti from 'canvas-confetti';
 
-export const triggerNeonConfetti = () => {
+export const triggerNeonConfetti = (theme = 'cyberpunk') => {
     const count = 200;
     const defaults = {
         origin: { y: 0.7 },
     };
+
+    const colors = theme === 'lcars'
+        ? ['#33cc99', '#ffcc33', '#dd4444', '#ff7700']
+        : ['#00ffff', '#ff00ff', '#39ff14'];
 
     function fire(particleRatio, opts) {
         confetti({
             ...defaults,
             ...opts,
             particleCount: Math.floor(count * particleRatio),
-            colors: ['#00ffff', '#ff00ff', '#39ff14'], // Neon Cyan, Neon Pink, Neon Green
+            colors: colors,
         });
     }
 

@@ -102,7 +102,7 @@ const CyberCalendar = ({ value, onChange, onClose }) => {
     };
 
     return (
-        <div className="w-64 bg-cyber-black border border-cyber-neonCyan shadow-[0_0_20px_rgba(0,255,255,0.3)] p-2 animate-in fade-in zoom-in-95 duration-150 relative">
+        <div className="w-64 calendar-container bg-cyber-black border border-cyber-neonCyan shadow-[0_0_20px_rgba(0,255,255,0.3)] p-2 animate-in fade-in zoom-in-95 duration-150 relative">
 
             {/* Header */}
             <div className="flex justify-between items-center mb-2 pb-2 border-b border-gray-800">
