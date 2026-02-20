@@ -388,7 +388,7 @@ const AdminPanel = ({ onClose }) => {
             title={t('admin.console_title')}
             variant="primary"
             maxWidth="max-w-4xl"
-            closeBtnClassName={theme === 'lcars' ? 'bg-[#ffaa00] text-black px-3 py-1 rounded-tr-xl hover:brightness-110 mr-[-1.5rem] mt-[-1.5rem] h-12 flex items-center' : ''}
+            closeBtnClassName={theme === 'lcars' ? 'bg-[#ffaa00] text-black px-4 py-1 rounded-tr-[1.5rem] hover:brightness-110 text-xl' : ''}
         >
             {/* Modals */}
             {confirmAction && (

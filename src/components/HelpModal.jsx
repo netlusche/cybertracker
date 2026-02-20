@@ -16,7 +16,7 @@ const HelpModal = ({ onClose }) => {
             <div className="card-cyber text-white max-w-2xl w-full max-h-[90vh] flex flex-col p-1 overflow-hidden border-cyber-primary shadow-cyber-primary relative">
                 <button
                     onClick={onClose}
-                    className={`absolute top-1 font-bold text-xl transition-colors z-50 ${(theme === 'matrix' || theme === 'weyland' || theme === 'cyberpunk') ? 'right-6' : 'right-1'} ${theme === 'lcars' ? 'bg-[#ffaa00] text-black px-3 py-1 rounded-tr-xl hover:brightness-110' : 'text-cyber-secondary hover:text-white'}`}
+                    className={`absolute font-bold text-xl transition-colors z-50 ${theme === 'lcars' ? 'top-0 right-0 bg-[#ffaa00] text-black px-3 py-1 rounded-tr-[1.5rem] hover:brightness-110' : `top-1 ${(theme === 'matrix' || theme === 'weyland' || theme === 'cyberpunk') ? 'right-6' : 'right-1'} text-cyber-secondary hover:text-white`}`}
                 >
                     [X]
                 </button>

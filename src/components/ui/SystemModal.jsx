@@ -25,19 +25,20 @@ const SystemModal = ({
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[150] p-4 font-mono animate-in fade-in duration-300">
             <div className={`bg-cyber-black p-6 ${maxWidth} w-full border-2 ${accentClass.split(' ')[0]} ${accentClass.split(' ')[1]} relative overflow-hidden flex flex-col max-h-[90vh] ${className}`}>
 
+                {!hideCloseBtn && onClose && (
+                    <button
+                        onClick={onClose}
+                        className={`absolute top-0 right-0 font-bold transition-colors z-50 flex items-center justify-center focus:outline-none ${closeBtnClassName || `p-4 text-2xl hover:text-white ${accentClass.split(' ')[2]}`}`}
+                    >
+                        [X]
+                    </button>
+                )}
+
                 {/* Header */}
                 <div className={`flex justify-between items-center border-b ${borderColor}/30 pb-3 mb-4 shrink-0`}>
                     <h2 data-testid="modal-title" className={`text-xl font-bold tracking-widest uppercase ${accentClass.split(' ')[2]} flex items-center gap-2`}>
                         {title}
                     </h2>
-                    {!hideCloseBtn && onClose && (
-                        <button
-                            onClick={onClose}
-                            className={`text-2xl hover:text-white bg-transparent outline-none transition-colors border-none p-0 flex items-center justify-center focus:outline-none ${accentClass.split(' ')[2]} ${closeBtnClassName}`}
-                        >
-                            [X]
-                        </button>
-                    )}
                 </div>
 
                 {/* Body */}
