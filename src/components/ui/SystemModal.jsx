@@ -8,7 +8,8 @@ const SystemModal = ({
     variant = 'primary',
     maxWidth = 'max-w-md',
     hideCloseBtn = false,
-    className = ''
+    className = '',
+    closeBtnClassName = ''
 }) => {
     if (!isOpen) return null;
 
@@ -32,7 +33,7 @@ const SystemModal = ({
                     {!hideCloseBtn && onClose && (
                         <button
                             onClick={onClose}
-                            className={`text-2xl hover:text-white bg-transparent outline-none transition-colors border-none p-0 mr-4 flex items-center justify-center focus:outline-none ${accentClass.split(' ')[2]}`}
+                            className={`text-2xl hover:text-white bg-transparent outline-none transition-colors border-none p-0 flex items-center justify-center focus:outline-none ${accentClass.split(' ')[2]} ${closeBtnClassName}`}
                         >
                             [X]
                         </button>
