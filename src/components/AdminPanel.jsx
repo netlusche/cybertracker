@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../utils/ThemeContext';
+import { apiFetch } from '../utils/api';
 
 // --- Sub-components for Modals ---
 
@@ -110,7 +111,7 @@ const AdminPanel = ({ onClose }) => {
 
     const fetchSettings = async () => {
         try {
-            const res = await fetch('api/admin.php?action=get_settings');
+            const res = await apiFetch('api/admin.php?action=get_settings');
             if (res.ok) {
                 const data = await res.json();
                 setSettings(data);
@@ -120,7 +121,7 @@ const AdminPanel = ({ onClose }) => {
 
     const handleToggleSetting = async (key, newValue) => {
         try {
-            const res = await fetch('api/admin.php?action=update_setting', {
+            const res = await apiFetch('api/admin.php?action=update_setting', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ key, value: newValue })
@@ -192,7 +193,7 @@ const AdminPanel = ({ onClose }) => {
 
     const performToggleRole = async (user, newRole) => {
         try {
-            const res = await fetch('api/admin.php?action=update_role', {
+            const res = await apiFetch('api/admin.php?action=update_role', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ target_id: user.id, new_role: newRole })
@@ -217,7 +218,7 @@ const AdminPanel = ({ onClose }) => {
 
     const performDeleteUser = async (id, username) => {
         try {
-            const res = await fetch('api/admin.php?action=delete_user', {
+            const res = await apiFetch('api/admin.php?action=delete_user', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ target_id: id })
@@ -234,7 +235,7 @@ const AdminPanel = ({ onClose }) => {
 
     const handleToggleVerified = async (user) => {
         try {
-            const res = await fetch('api/admin.php?action=toggle_verified', {
+            const res = await apiFetch('api/admin.php?action=toggle_verified', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ target_id: user.id })
@@ -259,7 +260,7 @@ const AdminPanel = ({ onClose }) => {
     const performResetPassword = async (id, username, newPass) => {
         if (!newPass) return;
         try {
-            const res = await fetch('api/admin.php?action=reset_password', {
+            const res = await apiFetch('api/admin.php?action=reset_password', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ target_id: id, new_password: newPass })
@@ -279,7 +280,7 @@ const AdminPanel = ({ onClose }) => {
 
     const performDisable2FA = async (id, username) => {
         try {
-            const res = await fetch('api/admin.php?action=disable_2fa', {
+            const res = await apiFetch('api/admin.php?action=disable_2fa', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ target_id: id })

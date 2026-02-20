@@ -1,3 +1,17 @@
+# CyberTasker v1.9.4 - Security & Feature Polish
+
+**Release Date:** 2026-02-20
+
+This tactical update resolves key friction points reported during fleet trials, improving administrative overrides, task editing stability, and tactile UI readability.
+
+## 🐛 Bug Fixes & UX Polish
+- **Task Title Append Bug**: Fixed an issue during inline editing where new text was inadvertently appended to the existing title.
+- **Task Character Limits**: Enforced a strict 255-character limitation on task directives at both the neural network (database) and frontend layers to preserve interface integrity.
+- **Admin Console CSRF Fix**: Resolved a critical `403 Forbidden` error preventing Admins from disabling 2FA or modifying setting toggles. The `csrf_token` is now correctly injected into the standard login payload and utilized globally by the Admin Panel.
+- **LCARS Icon Legibility**: Increased the font size and hit-boxes of the "Complete" (○/✓) and "Delete" (×) buttons on task cards, drastically improving their visibility and clickability, particularly within the LCARS aesthetic profile.
+
+---
+
 # CyberTasker v1.9.3 - Security Hardening (Phase 3)
 
 **Release Date:** 2026-02-20

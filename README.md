@@ -31,6 +31,14 @@
 ---
 ---
 
+## 🛡️ New in Version 1.9.4 (Security & Feature Polish)
+
+### 🐛 Bug Fixes & UX Finetuning
+*   **Task Limit Controls**: Enforced a strict 255-character limit on task titles at both the UI and Database layers for maximum stability.
+*   **Editing Synchronization**: Patched an inline editing anomaly where new task text was appended instead of replacing the old state.
+*   **Admin Console CSRF**: Restored Admin override capabilities (like 2FA disable) by ensuring proper CSRF token transmission via the internal `apiFetch` wrapper.
+*   **LCARS Readability**: Significantly enlarged the hit-targets and icons for the 'Complete' and 'Delete' task actions, optimizing tactile interaction in the LCARS theme.
+
 ## 🛡️ New in Version 1.9.3 (Security Hardening Phase 3)
 
 ### 🚫 Anti-Brute-Force & Integrity Protocols

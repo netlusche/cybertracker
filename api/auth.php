@@ -581,7 +581,8 @@ elseif ($action === 'login') {
                 'two_factor_enabled' => (bool)$user['two_factor_enabled'],
                 'theme' => $user['theme'],
                 'stats' => $stats
-            ]
+            ],
+            'csrf_token' => $_SESSION['csrf_token']
         ]);
     }
     else {
@@ -787,23 +788,4 @@ else {
         }
     }
 }
-?>
-?? }
-}
-??
-??
-?? }
-}
-??
-??      }
-    }
-}
-?>
-?? }
-}
-??
-??
-?? }
-}
-?>
 ?>

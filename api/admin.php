@@ -231,7 +231,7 @@ elseif ($method === 'POST') {
     }
 
     elseif ($action === 'disable_2fa') {
-        $targetId = $data['target_id'];
+        $targetId = $data['target_id'] ?? null;
 
         if (!$targetId) {
             http_response_code(400);
@@ -239,7 +239,7 @@ elseif ($method === 'POST') {
             exit;
         }
 
-        $stmt = $pdo->prepare("UPDATE users SET two_factor_enabled = 0, two_factor_secret = NULL, two_factor_method = NULL, two_factor_backup_codes = NULL WHERE id = ?");
+        $stmt = $pdo->prepare("UPDATE users SET two_factor_enabled = 0, two_factor_secret = NULL, two_factor_method = 'totp', two_factor_backup_codes = NULL WHERE id = ?");
         $stmt->execute([$targetId]);
 
         echo json_encode(['success' => true, 'message' => '2FA Disabled']);

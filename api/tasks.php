@@ -114,13 +114,18 @@ switch ($method) {
 
     case 'POST':
         $data = json_decode(file_get_contents("php://input"), true);
-        if (!isset($data['title'])) {
+        $title = trim($data['title'] ?? ''); // Use null coalescing to prevent error if 'title' is not set
+        if (empty($title)) {
             http_response_code(400);
             echo json_encode(['error' => 'Title is required']);
-            exit();
+            exit;
+        }
+        if (strlen($title) > 255) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Title exceeds maximum length of 255 characters']);
+            exit;
         }
 
-        $title = $data['title'];
         $category = $data['category'] ?? 'General';
         $priority = $data['priority'] ?? 2;
         $points = $data['points_value'] ?? 10;
@@ -181,8 +186,14 @@ switch ($method) {
             }
         }
         if (isset($data['title'])) {
+            $titleToUpdate = trim($data['title']);
+            if (strlen($titleToUpdate) > 255) {
+                http_response_code(400);
+                echo json_encode(['error' => 'Title exceeds maximum length of 255 characters']);
+                exit;
+            }
             $fields[] = 'title = ?';
-            $params[] = $data['title'];
+            $params[] = $titleToUpdate;
         }
         if (isset($data['category'])) {
             $fields[] = 'category = ?';

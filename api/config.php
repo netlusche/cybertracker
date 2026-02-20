@@ -23,7 +23,9 @@ if (!defined('DB_PASS'))
 if (!defined('FRONTEND_URL')) {
     // Determine base URL automatically or default to local Vite dev server
     $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
-    define('FRONTEND_URL', $protocol . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost:5173'));
+    $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+    $scriptDir = $scriptName ? rtrim(dirname($scriptName), '/api') : '';
+    define('FRONTEND_URL', $protocol . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost:5173') . $scriptDir);
 }
 
 // CORS Configuration - Restrict to Frontend Domain

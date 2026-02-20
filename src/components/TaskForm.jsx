@@ -82,7 +82,7 @@ const TaskForm = ({ onAddTask, categoryRefreshTrigger, categories = [] }) => {
                         placeholder={t('tasks.placeholder')}
                         className={`input-cyber w-full placeholder-gray-200 border-gray-400 focus:border-cyber-primary focus:shadow-cyber-primary input-normal-case ${error ? 'border-cyber-secondary shadow-cyber-secondary' : ''}`}
                         onFocus={(e) => e.target.select()}
-                        maxLength={60}
+                        maxLength={255}
                     />
                 </div>
 
