@@ -26,7 +26,7 @@ const SystemModal = ({
 
                 {/* Header */}
                 <div className={`flex justify-between items-center border-b ${borderColor}/30 pb-3 mb-4 shrink-0`}>
-                    <h2 className={`text-xl font-bold tracking-widest uppercase ${accentClass.split(' ')[2]} flex items-center gap-2`}>
+                    <h2 data-testid="modal-title" className={`text-xl font-bold tracking-widest uppercase ${accentClass.split(' ')[2]} flex items-center gap-2`}>
                         {title}
                     </h2>
                     {!hideCloseBtn && onClose && (

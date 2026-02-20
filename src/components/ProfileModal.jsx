@@ -141,8 +141,15 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                     const data = await res.json();
 
                     if (res.ok) {
-                        setMessage(data.message ? t(`auth.messages.${data.message.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.message) : t('profile.messages.identity_terminated'));
-                        onLogout(); // Force logout/reset app
+                        setAlertModal({
+                            show: true,
+                            title: t('profile.alerts.security_alert'),
+                            message: data.message ? t(`auth.messages.${data.message.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.message) : t('profile.messages.identity_terminated'),
+                            variant: 'pink',
+                            onClose: () => {
+                                onLogout();
+                            }
+                        });
                     } else {
                         const errorMsg = data.error ? t(`auth.messages.${data.error.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.error) : t('profile.messages.termination_failed');
                         setAlertModal({
@@ -584,7 +591,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                 </button>
                 <div className="overflow-y-auto custom-scrollbar flex-1 relative p-4 pl-5">
 
-                    <h2 className="text-2xl font-bold text-cyber-primary mb-6 tracking-widest uppercase border-b border-cyber-gray pb-2 flex flex-col pt-2">
+                    <h2 data-testid="modal-title" className="text-2xl font-bold text-cyber-primary mb-6 tracking-widest uppercase border-b border-cyber-gray pb-2 flex flex-col pt-2">
                         <span>{t('profile.title')}:</span>
                         <span className="text-white text-3xl mt-1">{user.username}</span>
                     </h2>
@@ -829,6 +836,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                             </h3>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 <button
+                                    data-testid="theme-switch-cyberpunk"
                                     onClick={() => setTheme('cyberpunk')}
                                     className={`theme-preview-card theme-cyberpunk transition-all duration-300 overflow-hidden ${theme === 'cyberpunk' ? 'border border-cyber-primary bg-cyber-primary/20 shadow-[0_0_20px_rgba(0,255,255,0.4)] scale-[1.02]' : 'border-gray-700 bg-black/40 hover:border-gray-500 scale-100'}`}
                                 >
@@ -848,6 +856,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                 </button>
 
                                 <button
+                                    data-testid="theme-switch-lcars"
                                     onClick={() => setTheme('lcars')}
                                     className={`theme-preview-card theme-lcars rounded-2xl transition-all duration-300 overflow-hidden ${theme === 'lcars' ? 'border-[3px] border-cyber-primary bg-black scale-[1.02]' : 'border-[3px] border-gray-700 bg-black/40 hover:border-gray-500 scale-100'}`}
                                 >
@@ -867,6 +876,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                 </button>
 
                                 <button
+                                    data-testid="theme-switch-matrix"
                                     onClick={() => setTheme('matrix')}
                                     className={`theme-preview-card theme-matrix transition-all duration-300 overflow-hidden ${theme === 'matrix' ? 'border border-cyber-primary bg-cyber-primary/10 shadow-[0_0_20px_rgba(0,255,65,0.4)] scale-[1.02]' : 'border-gray-700 bg-black/40 hover:border-gray-500 scale-100'}`}
                                 >
@@ -886,6 +896,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                 </button>
 
                                 <button
+                                    data-testid="theme-switch-weyland"
                                     onClick={() => setTheme('weyland')}
                                     className={`theme-preview-card theme-weyland transition-all duration-300 overflow-hidden ${theme === 'weyland' ? 'border border-cyber-primary bg-cyber-primary/10 shadow-[0_0_20px_rgba(255,176,0,0.4)] scale-[1.02]' : 'border-gray-700 bg-black/40 hover:border-gray-500 scale-100'}`}
                                 >
@@ -934,7 +945,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                     className="input-cyber text-sm w-full"
                                     required
                                 />
-                                <button type="submit" className="btn-cyber btn-cyber-primary btn-cyber-primary text-xs self-end">
+                                <button type="submit" className="btn-cyber btn-cyber-primary text-xs self-end">
                                     {t('profile.cypher.execute')}
                                 </button>
                             </form>
@@ -997,7 +1008,10 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                         title={alertModal.title}
                         message={alertModal.message}
                         variant={alertModal.variant}
-                        onClose={() => setAlertModal({ ...alertModal, show: false })}
+                        onClose={() => {
+                            setAlertModal({ ...alertModal, show: false });
+                            if (alertModal.onClose) alertModal.onClose();
+                        }}
                     />
                 )
             }

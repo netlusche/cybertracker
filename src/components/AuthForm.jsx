@@ -77,7 +77,9 @@ const AuthForm = ({ onLogin }) => {
                     setRequires2FA(true);
                     setTwoFactorMethod(data.two_factor_method || 'totp');
                 } else {
-                    if (data.csrf_token) setCsrfToken(data.csrf_token);
+                    if (data.csrf_token) {
+                        setCsrfToken(data.csrf_token);
+                    }
                     triggerNeonConfetti(theme);
                     onLogin(data.user);
                 }
@@ -395,6 +397,7 @@ const AuthForm = ({ onLogin }) => {
                             </button>
                         )}
                         <button
+                            data-testid="auth-toggle"
                             onClick={() => { setIsLogin(!isLogin); setIsForgot(false); setError(''); setValidationErrors({}); }}
                             className="text-sm text-gray-300 hover:text-cyber-success underline decoration-dotted underline-offset-4"
                         >

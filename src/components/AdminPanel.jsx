@@ -354,6 +354,7 @@ const AdminPanel = ({ onClose }) => {
                         {u.role === 'admin' ? t('admin.downgrade') : t('admin.promote')}
                     </CyberButton>
                     <CyberButton
+                        data-testid="admin-reset-pwd"
                         onClick={() => handleResetPasswordClick(u)}
                         variant="ghost"
                         className="!text-[10px] !py-1 !px-2 min-w-[70px]"
@@ -408,6 +409,7 @@ const AdminPanel = ({ onClose }) => {
             <div className="flex justify-end mb-4 relative z-10 w-full mt-2">
                 <input
                     type="text"
+                    data-testid="admin-search"
                     placeholder={t('admin.search_placeholder')}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -418,7 +420,7 @@ const AdminPanel = ({ onClose }) => {
             </div>
 
             {error && <div className="bg-red-900/20 text-red-500 p-2 border border-red-900 mb-4 animate-in fade-in">⚠ {error}</div>}
-            {message && <div className="bg-green-900/20 text- साइबर-success p-2 border border-green-900 mb-4 animate-in fade-in">✓ {message}</div>}
+            {message && <div className="bg-green-900/20 text-cyber-success p-2 border border-green-900 mb-4 animate-in fade-in">✓ {message}</div>}
 
             <DataGrid
                 columns={columns}
@@ -436,6 +438,7 @@ const AdminPanel = ({ onClose }) => {
                 </div>
                 <div className="flex items-center gap-2">
                     <button
+                        data-testid="admin-first-page"
                         disabled={pagination.currentPage <= 1}
                         onClick={() => fetchUsers(1)}
                         className="px-3 py-1 border border-cyber-primary/50 text-cyber-primary hover:bg-cyber-primary/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
@@ -444,6 +447,7 @@ const AdminPanel = ({ onClose }) => {
                         &laquo;
                     </button>
                     <button
+                        data-testid="admin-previous-page"
                         disabled={pagination.currentPage <= 1}
                         onClick={() => fetchUsers(pagination.currentPage - 1)}
                         className="px-3 py-1 border border-cyber-primary/50 text-cyber-primary hover:bg-cyber-primary/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
@@ -457,6 +461,7 @@ const AdminPanel = ({ onClose }) => {
                     </span>
 
                     <button
+                        data-testid="admin-next-page"
                         disabled={pagination.currentPage >= pagination.totalPages}
                         onClick={() => fetchUsers(pagination.currentPage + 1)}
                         className="px-3 py-1 border border-cyber-primary/50 text-cyber-primary hover:bg-cyber-primary/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
@@ -465,6 +470,7 @@ const AdminPanel = ({ onClose }) => {
                         &rsaquo;
                     </button>
                     <button
+                        data-testid="admin-last-page"
                         disabled={pagination.currentPage >= pagination.totalPages}
                         onClick={() => fetchUsers(pagination.totalPages)}
                         className="px-3 py-1 border border-cyber-primary/50 text-cyber-primary hover:bg-cyber-primary/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
@@ -490,6 +496,7 @@ const AdminPanel = ({ onClose }) => {
                     <label className="relative inline-flex items-center cursor-pointer">
                         <input
                             type="checkbox"
+                            data-testid="strict-password-toggle"
                             className="sr-only peer"
                             checked={String(settings.strict_password_policy) === '1'}
                             onChange={() => handleToggleSetting('strict_password_policy', String(settings.strict_password_policy) === '1' ? '0' : '1')}

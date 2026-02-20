@@ -42,7 +42,7 @@ const DataGrid = ({
                         </tr>
                     ) : (
                         data.map((row, rowIndex) => (
-                            <tr key={keyExtractor ? keyExtractor(row) : rowIndex} className="border-b border-gray-800 hover:bg-white/5 transition-colors group">
+                            <tr data-testid={`datagrid-row-${rowIndex}`} key={keyExtractor ? keyExtractor(row) : rowIndex} className="border-b border-gray-800 hover:bg-white/5 transition-colors group">
                                 {columns.map((col, colIndex) => (
                                     <td
                                         key={colIndex}

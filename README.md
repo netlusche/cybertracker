@@ -81,7 +81,7 @@
 *   **Dynamic Language Overlay**: Patched the coordinate calculation for the language selection menu. It now utilizes viewport bounds checking to ensure the overlay remains fully visible on smartphones, maintaining a 16px safety margin from the screen edges.
 
 ### 🧪 Test Strategy & Protocol
-*   **Expanded Test Coverage**: Updated the `master_test_plan.md` with `test-suite-06`, dedicated to Category Management (Adding, Renaming, Deleting, and Defaulting protocols).
+*   **Expanded Test Coverage**: Updated the `MASTER_TEST_PLAN.md` with `test-suite-06`, dedicated to Category Management (Adding, Renaming, Deleting, and Defaulting protocols).
 *   **Bug Reporting Handshake**: Established a formal execution policy. Operatives/Agents will now document discovered failures in their reports before proceeding with fixes, ensuring a clear audit trail and manual intervention options.
 
 ## 🆕 New in Version 1.8.1 (Stress Tested & Secure)
