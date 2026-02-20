@@ -1,3 +1,14 @@
+# CyberTasker v2.0.2 - Account Recovery Hotfix
+
+**Release Date:** 2026-02-21
+
+A fast follow-up patch to address broken account recovery and email verification links.
+
+## 🩹 Hotfixes
+*   **Verification Uplinks:** Corrected legacy fetch URLs in `verify.html` and `reset-password.html` to point to the new `api/index.php?route=auth/` endpoints, restoring functionality for new user registration and password recovery.
+
+---
+
 # CyberTasker v2.0.1 - Deployment Hotfix
 
 **Release Date:** 2026-02-21
