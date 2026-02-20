@@ -1,7 +1,11 @@
 <?php
 // api/csrf.php
 if (session_status() === PHP_SESSION_NONE) {
-    session_save_path(__DIR__ . "/sessions");
+    $sessionPath = __DIR__ . "/sessions";
+    if (!is_dir($sessionPath)) {
+        mkdir($sessionPath, 0755, true);
+    }
+    session_save_path($sessionPath);
     session_start();
 }
 
