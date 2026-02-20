@@ -48,8 +48,9 @@ class UserRepository extends Repository
 
     public function countRecentFailedAttempts(string $ip, string $endpoint, int $windowMinutes): int
     {
-        $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM auth_logs WHERE ip_address = ? AND endpoint = ? AND success = 0 AND created_at > datetime('now', '-$windowMinutes minutes')");
-        $stmt->execute([$ip, $endpoint]);
+        $threshold = date('Y-m-d H:i:s', strtotime("-$windowMinutes minutes"));
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM auth_logs WHERE ip_address = ? AND endpoint = ? AND success = 0 AND created_at > ?");
+        $stmt->execute([$ip, $endpoint, $threshold]);
         return (int)$stmt->fetchColumn();
     }
 
