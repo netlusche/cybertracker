@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { apiFetch } from './api';
 
 const ThemeContext = createContext();
 
@@ -10,7 +11,7 @@ export const ThemeProvider = ({ children, initialTheme = 'cyberpunk' }) => {
 
     // Apply theme class to document body
     useEffect(() => {
-        document.body.classList.remove('theme-cyberpunk', 'theme-lcars');
+        document.body.className = document.body.className.replace(/\btheme-\S+/g, '');
         document.body.classList.add(`theme-${theme}`);
         localStorage.setItem('cybertasker_theme', theme);
     }, [theme]);
@@ -19,7 +20,7 @@ export const ThemeProvider = ({ children, initialTheme = 'cyberpunk' }) => {
         setThemeState(newTheme);
         localStorage.setItem('cybertasker_theme', newTheme);
         try {
-            await fetch('api/auth.php?action=update_theme', {
+            const res = await apiFetch('api/index.php?route=auth/update_theme', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ theme: newTheme })

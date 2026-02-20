@@ -15,7 +15,7 @@ const CyberAlert = ({ message, onClose, variant = 'cyan', title }) => {
     const buttonClass = isPink ? 'btn-cyber-secondary' : 'btn-cyber-primary';
 
     return (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-[9999] backdrop-blur-md animate-in fade-in duration-300">
+        <div data-testid="cyber-alert" className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-[9999] backdrop-blur-md animate-in fade-in duration-300">
             <div className={`bg-cyber-black p-8 max-w-md w-full border-2 ${accentClass} ${glowClass} relative overflow-hidden`}>
                 {/* Glitch Effect Ornaments */}
                 <div className={`absolute top-0 left-0 w-full h-1 ${decorationClass} animate-pulse`}></div>
@@ -36,6 +36,7 @@ const CyberAlert = ({ message, onClose, variant = 'cyan', title }) => {
 
                     <div className="w-full pt-4">
                         <button
+                            data-testid="alert-acknowledge"
                             onClick={onClose}
                             className={`w-full py-3 ${buttonClass} text-black font-black uppercase text-xs tracking-[0.2em] transform transition-all duration-300 hover:scale-[1.02] active:scale-95 active:brightness-75`}
                         >

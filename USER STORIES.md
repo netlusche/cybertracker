@@ -12,6 +12,7 @@ This document provides a categorized overview of the user stories implemented in
 *   **Standardized Alerts**: As an operative, I want all authentication feedback (Login, Registration, 2FA) to use the high-immersion `CyberAlert` overlay system for a unified experience.
 *   **Streamlined Recovery**: As an operative, I want to be automatically redirected to the login terminal after acknowledging a password reset request to minimize operational friction.
 *   **Identity Cloaking**: As an operative, I want the recovery system to use generic messaging ("If this email exists...") to prevent unauthorized scanning of the operative database.
+*   **Secure Comms (Email)**: As an operative, I want to receive verifiable email transmissions for account verification, email updates, and emergency 2FA overrides.
 
 ## 📋 2. Directive Management (Task Control)
 *   **Initialize Directive**: As an operative, I want to create new directives with specified titles, priorities, and categories.
@@ -19,6 +20,7 @@ This document provides a categorized overview of the user stories implemented in
 *   **Tactical Execution**: As an operative, I want to mark directives as completed to earn XP and clear my active queue.
 *   **Cycle Protocols**: As an operative, I want to click on priority or category badges to quickly cycle through available options.
 *   **Deep Search**: As an operative, I want to filter directives by keyword, priority, or protocol to locate critical information instantly.
+*   **Paginated Feeds**: As an operative, I want my extensive directive list to be paginated, ensuring fast terminal performance without sensory overload.
 
 ## 📈 3. Gamification & Progression
 *   **XP Acquisition**: As an operative, I want to earn Experience Points (XP) for every completed directive to track my professional growth.
@@ -31,7 +33,7 @@ This document provides a categorized overview of the user stories implemented in
 *   **Visual Deadlines**: As an operative, I want color-coded timestamps and clock icons to identify directives nearing "Signal Decay."
 
 ## 🕵️‍♂️ 5. Fleet Administration & Stability
-*   **Operative Overview**: As an administrator, I want to see a paginated list of all operatives, including their verification status and last login history.
+*   **Operative Overview**: As an administrator, I want to see a paginated list of all operatives (using the DataGrid component), including tracking of verification status and last login history.
 *   **Neural Override**: As an administrator, I want to deactivate 2FA for operatives who have lost their authentication links.
 *   **Credential Reset**: As an administrator, I want to securely reset operative passwords to restore system access.
 *   **System Diagnostics**: As an administrator, I want to view real-time metrics on user counts and database health to ensure grid stability.
@@ -45,7 +47,7 @@ This document provides a categorized overview of the user stories implemented in
 *   **Smart Validation Cleaning**: As an operative, I want all validation error tooltips to disappear globally as soon as I focus on any field to keep my terminal clear while correcting my input.
 
 ## 🎨 7. Multi-Theme Visual Architecture
-*   **Visual Identity Shift**: As an operative, I want to choose between different visual interfaces (e.g., Cyberpunk, LCARS) in my profile to match my preferred aesthetic.
+*   **Visual Identity Shift**: As an operative, I want to choose between different visual interfaces (Cyberpunk, LCARS, Matrix, Weyland-Yutani) in my profile to match my preferred aesthetic.
 *   **Persistent Aesthetics**: As an operative, I want my theme selection to be preserved across sessions and devices so that my neural environment remains consistent.
 *   **Theme-Specific Typography**: As an operative, I want the system to utilize theme-authentic fonts (like Antonio for LCARS) to enhance immersion and readability.
 *   **Harmonized Color Palettes**: As an operative, I want every system element (buttons, borders, icons) to automatically adapt to the active theme's color scheme for a unified UX.

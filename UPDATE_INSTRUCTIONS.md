@@ -1,20 +1,27 @@
-# CyberTasker Server Update Instructions (v1.9.3 → v1.9.4)
+# CyberTasker Server Update Instructions (v1.9.4 → v2.0.0)
 
-These instructions guide you through updating to version **1.9.4**.
+These instructions guide you through the major migration to **v2.0.0**.
 
-## 1. Backup
+## 1. Backup (MANDATORY)
 - **Files**: Backup your `api/config.php` and your database file (if using SQLite).
+- **Core**: Since this is a major architectural change, ensure your backup is current.
 
 ## 2. Deploy Files
 1.  Upload the contents of the `dist` folder to your server.
 2.  **Overwrite all files** EXCEPT `api/config.php` and your database file.
+3.  **Note**: Legacy monolithic scripts (e.g., `api/auth.php`, `api/tasks.php`) are no longer used and can be safely deleted. All traffic now flows through `api/index.php`.
 
 ## 3. Database Update
-**No database schema changes are required.**
+**No database schema changes are required** if updating from v1.9.x.
 
 ## 4. Verify Update
-1.  **Admin Check**: Ensure Admin actions (like toggling 2FA OFF) function without returning a 403 Forbidden error.
-2.  **Task Validation**: Verify that attempting to create a task directive longer than 255 characters receives a proper error block.
+1.  **System Initialization**: Load the grid and verify the "INITIALIZING SYSTEM" sequence completes successfully.
+2.  **Theme Switch**: Switch to the new **Matrix** or **Weyland** themes in the Profile and verify the custom scrollbars and glow effects.
+3.  **Admin Check**: Verify that the Admin Console loads and is correctly paginating the user roster.
+
+---
+
+# CyberTasker Server Update Instructions (v1.9.3 → v1.9.4)
 
 ---
 

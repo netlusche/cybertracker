@@ -1,14 +1,26 @@
-# CyberTasker v1.9.4 - Security & Feature Polish
+# CyberTasker v2.0.0 - The Architecture Update
 
 **Release Date:** 2026-02-20
 
-This tactical update resolves key friction points reported during fleet trials, improving administrative overrides, task editing stability, and tactile UI readability.
+This landmark release transforms CyberTasker from a collection of monolithic scripts into a modern, robust, and testable application. Featuring a complete backend refactor, expanded visual themes, and a precision E2E automation suite.
 
-## 🐛 Bug Fixes & UX Polish
-- **Task Title Append Bug**: Fixed an issue during inline editing where new text was inadvertently appended to the existing title.
-- **Task Character Limits**: Enforced a strict 255-character limitation on task directives at both the neural network (database) and frontend layers to preserve interface integrity.
-- **Admin Console CSRF Fix**: Resolved a critical `403 Forbidden` error preventing Admins from disabling 2FA or modifying setting toggles. The `csrf_token` is now correctly injected into the standard login payload and utilized globally by the Admin Panel.
-- **LCARS Icon Legibility**: Increased the font size and hit-boxes of the "Complete" (○/✓) and "Delete" (×) buttons on task cards, drastically improving their visibility and clickability, particularly within the LCARS aesthetic profile.
+## 🏗️ Backend Revolution
+- **MVC Architecture**: Implemented a central Front Controller (`api/index.php`) and Router, separating concerns into dedicated domain controllers (`AuthController`, `TaskController`, etc.).
+- **Repository Pattern**: Extracted SQL logic into clean Repository classes, ensuring the database layer is fully decoupled and easily maintainable.
+- **RESTful Uplink**: Standardized API communication formats and improved error handling throughput.
+
+## 🎨 Visual System Expansion
+- **Matrix & Weyland-Yutani Themes**: Two new high-fidelity visual identities. Matrix features a phosphorescent green cathode glow, while Weyland-Yutani delivers an industrial amber terminal aesthetic.
+- **Custom Scrollbar Engine**: Unique, theme-aware scrollbar styling implemented for all four visual modes.
+- **Precision LCARS Geometry**: Refined the LCARS "Pill" aesthetic. Close buttons are now perfectly flush, and rounding is standardized to `1.5rem` across the entire framework.
+
+## 🧪 Industrial-Grade Automation
+- **Playwright E2E Suite**: A comprehensive automation suite now verifies 100% of critical mission stories, including registration, security policies, and theme persistence.
+- **Strict Security Verification**: Automated checks for password complexity and administrative overrides.
+
+---
+
+# CyberTasker v1.9.4 - Security & Feature Polish
 
 ---
 
@@ -88,7 +100,7 @@ This update focuses on mobile responsiveness for global components and formalize
 - **Dynamic Language Overlay**: Patched the coordinate calculation for the language selection menu. It now utilizes viewport bounds checking to ensure the overlay remains fully visible on smartphones, maintaining a 16px safety margin from the screen edges.
 
 ## 🧪 Test Strategy & Protocol
-- **Expanded Test Coverage**: Updated the `master_test_plan.md` with `test-suite-06`, dedicated to Category Management (Adding, Renaming, Deleting, and Defaulting protocols).
+- **Expanded Test Coverage**: Updated the `MASTER_TEST_PLAN.md` with `test-suite-06`, dedicated to Category Management (Adding, Renaming, Deleting, and Defaulting protocols).
 - **Bug Reporting Handshake**: Established a formal execution policy. Operatives/Agents will now document discovered failures in their reports before proceeding with fixes, ensuring a clear audit trail and manual intervention options.
 
 ---

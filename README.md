@@ -2,24 +2,25 @@
 
 **CyberTasker** is a gamified, cyberpunk-themed task management application built with **React (Vite)** and **PHP**. It supports **MySQL, MariaDB, and SQLite**, featuring a robust role-based access control (RBAC) system, gamification mechanics (XP, Levels, Badges), and secure Two-Factor Authentication (2FA).
 
-## 🚀 Features
+## 🛡️ New in Version 2.0.0 (The Architecture Update)
 
-*   **Gamification**: Earn XP for completing tasks, level up, and track progress via a dynamic XP bar.
-*   **Cyberpunk Aesthetic**: Fully custom Tailwind CSS theme with neon visuals, glassmorphism, and responsive design.
-*   **Security**:
-    *   **Two-Factor Authentication (2FA)**: Google Authenticator compatible (TOTP). Toggleable on/off by users.
-    *   **Secure Auth**: Bcrypt password hashing, session-based authentication.
-    *   **RBAC**: Admin and User roles. Admins can manage all users and data.
-*   **Task Management**:
-    *   **Create**: Initialize directives with due dates and priority.
-    *   **Edit**: Inline editing of task titles.
-    *   **Search & Filter**: Real-time filtering by Title, Priority, Category, and Overdue status.
-    *   **Cyber-Triage Sorting**: Optimized task hierarchy: **Overdue (Signal Leak)** > **Due Today (Heat Spike)** > **Priority (Strategic)** > **Creation Date**.
-    *   **Cycle**: Click Category/Priority badges to cycle through options (High/Med/Low).
-    *   **Onboarding**: New operatives receive starter directives automatically.
-*   **Smart Scheduling**: Custom Cyberpunk Calendar with visual deadlines.
-*   **Pagination**: Efficient handling of large task lists.
-*   **Admin Panel**: User management, system metrics, and safety controls.
+### 🏗️ Modernized Backend
+*   **MVC Architecture**: Refactored monolithic scripts into a clean Controller/Router pattern.
+*   **Repository Pattern**: Abstracted database interactions into dedicated Repositories for better testability and maintenance.
+*   **Front Controller**: All API traffic now routes through a single secure entry point (`api/index.php`).
+
+### 🎨 Visual Expansion
+*   **Two New Themes**: Introduced the **Matrix** (Green Phosphor) and **Weyland-Yutani** (Industrial Amber) themes, joining **Cyberpunk** and **LCARS**.
+*   **Custom Scrollbars**: Every theme now features custom-styled scrollbars (e.g., green glow for Matrix, neon pink for Cyberpunk).
+*   **LCARS Flush Frames**: Precision alignment and standardized `1.5rem` rounding for all LCARS modals and panels.
+
+### 🧪 Stabilized Automation
+*   **E2E Test Suite**: Fully integrated Playwright test suite covering 100% of critical user stories.
+*   **Strict Password Policy**: Automated verification of complexity rules and admin overrides.
+
+---
+---
+---
 
 ## 🛠 Tech Stack
 
@@ -81,7 +82,7 @@
 *   **Dynamic Language Overlay**: Patched the coordinate calculation for the language selection menu. It now utilizes viewport bounds checking to ensure the overlay remains fully visible on smartphones, maintaining a 16px safety margin from the screen edges.
 
 ### 🧪 Test Strategy & Protocol
-*   **Expanded Test Coverage**: Updated the `master_test_plan.md` with `test-suite-06`, dedicated to Category Management (Adding, Renaming, Deleting, and Defaulting protocols).
+*   **Expanded Test Coverage**: Updated the `MASTER_TEST_PLAN.md` with `test-suite-06`, dedicated to Category Management (Adding, Renaming, Deleting, and Defaulting protocols).
 *   **Bug Reporting Handshake**: Established a formal execution policy. Operatives/Agents will now document discovered failures in their reports before proceeding with fixes, ensuring a clear audit trail and manual intervention options.
 
 ## 🆕 New in Version 1.8.1 (Stress Tested & Secure)

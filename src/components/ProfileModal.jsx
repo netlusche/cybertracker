@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import CyberConfirm from './CyberConfirm';
 import CyberAlert from './CyberAlert';
 import { useTheme } from '../utils/ThemeContext';
+import { apiFetch } from '../utils/api';
 
 // Internal reusable component for password fields with toggle
 const PasswordInput = ({ value, onChange, placeholder, className, required = false, onInvalid, error, t, onFocus }) => {
@@ -87,7 +88,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
             onConfirm: async () => {
                 setConfirmModal({ show: false, message: '', onConfirm: null, title: '', variant: '' });
                 try {
-                    const res = await fetch('api/auth.php?action=change_password', {
+                    const res = await apiFetch('api/index.php?route=auth/change_password', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ current_password: currentPassword, new_password: newPassword })
@@ -132,7 +133,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
             onConfirm: async () => {
                 setConfirmModal({ show: false, message: '', onConfirm: null, title: '', variant: '' });
                 try {
-                    const res = await fetch('api/auth.php?action=delete_account', {
+                    const res = await apiFetch('api/index.php?route=auth/delete_account', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ password: deleteConfirmation }),
@@ -140,8 +141,15 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                     const data = await res.json();
 
                     if (res.ok) {
-                        setMessage(data.message ? t(`auth.messages.${data.message.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.message) : t('profile.messages.identity_terminated'));
-                        onLogout(); // Force logout/reset app
+                        setAlertModal({
+                            show: true,
+                            title: t('profile.alerts.security_alert'),
+                            message: data.message ? t(`auth.messages.${data.message.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.message) : t('profile.messages.identity_terminated'),
+                            variant: 'pink',
+                            onClose: () => {
+                                onLogout();
+                            }
+                        });
                     } else {
                         const errorMsg = data.error ? t(`auth.messages.${data.error.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.error) : t('profile.messages.termination_failed');
                         setAlertModal({
@@ -184,7 +192,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
         setError('');
         setMessage('');
         try {
-            const res = await fetch('api/auth.php?action=setup_2fa');
+            const res = await apiFetch('api/index.php?route=auth/setup_2fa');
             const data = await res.json();
             if (res.ok) {
                 setQrSecret(data.secret);
@@ -207,7 +215,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
         setError('');
         setMessage('');
         try {
-            const res = await fetch('api/auth.php?action=setup_email_2fa');
+            const res = await apiFetch('api/index.php?route=auth/setup_email_2fa');
             const data = await res.json();
             if (res.ok) {
                 setShow2FA(true);
@@ -271,7 +279,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                 ? { secret: qrSecret, code: cleanedCode }
                 : { code: cleanedCode };
 
-            const res = await fetch(`api/auth.php?action=${action}`, {
+            const res = await apiFetch(`api/index.php?route=auth/${action}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
@@ -311,7 +319,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
             onConfirm: async () => {
                 setConfirmModal({ show: false, message: '', onConfirm: null, title: '', variant: '' });
                 try {
-                    const res = await fetch('api/auth.php?action=disable_2fa', { method: 'POST' });
+                    const res = await apiFetch('api/index.php?route=auth/disable_2fa', { method: 'POST' });
                     const data = await res.json();
                     if (res.ok) {
                         setMessage(data.message ? t(`auth.messages.${data.message.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.message) : t('profile.messages.2fa_disabled'));
@@ -346,7 +354,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
             onConfirm: async () => {
                 setConfirmModal({ show: false, message: '', onConfirm: null, title: '', variant: '' });
                 try {
-                    const res = await fetch('api/auth.php?action=update_email', {
+                    const res = await apiFetch('api/index.php?route=auth/update_email', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email: newEmail, password: password })
@@ -458,7 +466,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
 
     const loadCategories = async () => {
         try {
-            const res = await fetch('api/categories.php');
+            const res = await apiFetch('api/index.php?route=categories');
             const data = await res.json();
             if (Array.isArray(data)) setCategories(data);
         } catch (err) { console.error("Failed to load categories"); }
@@ -468,7 +476,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
         e.preventDefault();
         if (!newCatName.trim()) return;
         try {
-            const res = await fetch('api/categories.php', {
+            const res = await apiFetch('api/index.php?route=categories', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name: newCatName })
@@ -496,7 +504,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
     const handleSaveRename = async (id) => {
         if (!editingCatName.trim()) return;
         try {
-            const res = await fetch('api/categories.php', {
+            const res = await apiFetch('api/index.php?route=categories', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id, name: editingCatName })
@@ -525,7 +533,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
             onConfirm: async () => {
                 setConfirmModal({ show: false, message: '', onConfirm: null, title: '', variant: '' });
                 try {
-                    const res = await fetch(`api/categories.php?id=${id}`, {
+                    const res = await apiFetch(`api/index.php?route=categories&id=${id}`, {
                         method: 'DELETE'
                     });
                     if (res.ok) {
@@ -553,7 +561,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
 
     const handleSetDefault = async (id) => {
         try {
-            const res = await fetch(`api/categories.php?action=set_default`, {
+            const res = await apiFetch(`api/index.php?route=categories/set_default`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id })
@@ -577,13 +585,13 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
             <div className="card-cyber w-full max-w-lg border-cyber-primary shadow-cyber-primary relative max-h-[90vh] flex flex-col p-1 overflow-hidden">
                 <button
                     onClick={onClose}
-                    className={`absolute top-1 right-1 font-bold text-xl transition-colors z-50 ${theme === 'lcars' ? 'bg-[#ffaa00] text-black px-3 py-1 rounded-tr-xl hover:brightness-110' : 'text-cyber-secondary hover:text-white'}`}
+                    className={`absolute font-bold text-xl transition-colors z-50 ${theme === 'lcars' ? 'top-0 right-0 bg-[#ffaa00] text-black px-3 py-1 rounded-tr-[1.5rem] hover:brightness-110' : `top-1 ${(theme === 'matrix' || theme === 'weyland' || theme === 'cyberpunk') ? 'right-6' : 'right-1'} text-cyber-secondary hover:text-white`}`}
                 >
                     [X]
                 </button>
                 <div className="overflow-y-auto custom-scrollbar flex-1 relative p-4 pl-5">
 
-                    <h2 className="text-2xl font-bold text-cyber-primary mb-6 tracking-widest uppercase border-b border-cyber-gray pb-2 flex flex-col pt-2">
+                    <h2 data-testid="modal-title" className="text-2xl font-bold text-cyber-primary mb-6 tracking-widest uppercase border-b border-cyber-gray pb-2 flex flex-col pt-2">
                         <span>{t('profile.title')}:</span>
                         <span className="text-white text-3xl mt-1">{user.username}</span>
                     </h2>
@@ -596,8 +604,8 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
 
 
                         {/* Category Management */}
-                        <div className="border border-cyber-accent/30 bg-cyber-accent/5 p-4 rounded">
-                            <h3 className="text-cyber-accent font-bold mb-3 flex items-center gap-2">
+                        <div className="border border-cyber-primary/30 bg-cyber-primary/5 p-4 rounded">
+                            <h3 className="text-cyber-primary font-bold mb-3 flex items-center gap-2">
                                 <span>📂</span> {t('profile.categories.protocols')}
                             </h3>
 
@@ -674,7 +682,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                         </div>
                                     )}
                                 </div>
-                                <button type="submit" className="btn-cyber text-cyber-accent border-cyber-accent hover:bg-cyber-accent hover:text-black text-xs px-3">
+                                <button type="submit" className="btn-cyber text-cyber-primary border-cyber-primary hover:bg-cyber-primary hover:text-black text-xs px-3">
                                     {t('profile.categories.add')}
                                 </button>
                             </form>
@@ -826,17 +834,18 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                             <h3 className="text-cyber-primary font-bold mb-4 flex items-center gap-2">
                                 <span>👁</span> {t('profile.theme_selection')}
                             </h3>
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 <button
+                                    data-testid="theme-switch-cyberpunk"
                                     onClick={() => setTheme('cyberpunk')}
                                     className={`theme-preview-card theme-cyberpunk transition-all duration-300 overflow-hidden ${theme === 'cyberpunk' ? 'border border-cyber-primary bg-cyber-primary/20 shadow-[0_0_20px_rgba(0,255,255,0.4)] scale-[1.02]' : 'border-gray-700 bg-black/40 hover:border-gray-500 scale-100'}`}
                                 >
-                                    <div className="flex flex-col items-center gap-2 relative z-10">
+                                    <div className="flex flex-col items-center gap-2 relative z-10 w-full h-full justify-center">
                                         <div className="w-12 h-6 bg-cyber-primary/20 border border-cyber-primary relative overflow-hidden">
                                             <div className="absolute top-0 left-0 w-full h-[2px] bg-cyber-secondary animate-pulse shadow-cyber-secondary"></div>
                                         </div>
                                         <span className={`text-[10px] font-bold tracking-widest font-preview-cyberpunk ${theme === 'cyberpunk' ? 'text-cyber-primary' : 'text-gray-400'}`}>
-                                            {t('profile.themes.cyberpunk')}
+                                            {t('profile.themes.cyberpunk', 'CYBERPUNK')}
                                         </span>
                                     </div>
                                     {theme === 'cyberpunk' && (
@@ -847,18 +856,59 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                 </button>
 
                                 <button
+                                    data-testid="theme-switch-lcars"
                                     onClick={() => setTheme('lcars')}
                                     className={`theme-preview-card theme-lcars rounded-2xl transition-all duration-300 overflow-hidden ${theme === 'lcars' ? 'border-[3px] border-cyber-primary bg-black scale-[1.02]' : 'border-[3px] border-gray-700 bg-black/40 hover:border-gray-500 scale-100'}`}
                                 >
-                                    <div className="flex flex-col items-center gap-2 relative z-10">
+                                    <div className="flex flex-col items-center gap-2 relative z-10 w-full h-full justify-center">
                                         <div className="w-12 h-6 bg-cyber-primary rounded-full flex items-center px-1">
                                             <div className="w-3 h-3 bg-black rounded-full"></div>
                                         </div>
                                         <span className={`text-[10px] font-bold tracking-widest font-preview-lcars ${theme === 'lcars' ? 'text-white' : 'text-gray-400'}`}>
-                                            {t('profile.themes.lcars')}
+                                            {t('profile.themes.lcars', 'LCARS')}
                                         </span>
                                     </div>
                                     {theme === 'lcars' && (
+                                        <div className="absolute top-0 right-0 bg-cyber-primary text-black font-bold text-[8px] px-2 py-0.5 transform rotate-45 translate-x-3 translate-y-[-2px] z-20">
+                                            ACTIVE
+                                        </div>
+                                    )}
+                                </button>
+
+                                <button
+                                    data-testid="theme-switch-matrix"
+                                    onClick={() => setTheme('matrix')}
+                                    className={`theme-preview-card theme-matrix transition-all duration-300 overflow-hidden ${theme === 'matrix' ? 'border border-cyber-primary bg-cyber-primary/10 shadow-[0_0_20px_rgba(0,255,65,0.4)] scale-[1.02]' : 'border-gray-700 bg-black/40 hover:border-gray-500 scale-100'}`}
+                                >
+                                    <div className="flex flex-col items-center gap-2 relative z-10 w-full h-full justify-center">
+                                        <div className="text-[14px] text-cyber-primary font-bold animate-pulse font-preview-matrix">
+                                            &gt;_
+                                        </div>
+                                        <span className={`text-[10px] font-bold tracking-widest font-preview-matrix ${theme === 'matrix' ? 'text-cyber-primary' : 'text-gray-400'}`}>
+                                            {t('profile.themes.matrix', 'MATRIX')}
+                                        </span>
+                                    </div>
+                                    {theme === 'matrix' && (
+                                        <div className="absolute top-0 right-0 bg-cyber-primary text-black font-bold text-[8px] px-2 py-0.5 transform rotate-45 translate-x-3 translate-y-[-2px] z-20">
+                                            ACTIVE
+                                        </div>
+                                    )}
+                                </button>
+
+                                <button
+                                    data-testid="theme-switch-weyland"
+                                    onClick={() => setTheme('weyland')}
+                                    className={`theme-preview-card theme-weyland transition-all duration-300 overflow-hidden ${theme === 'weyland' ? 'border border-cyber-primary bg-cyber-primary/10 shadow-[0_0_20px_rgba(255,176,0,0.4)] scale-[1.02]' : 'border-gray-700 bg-black/40 hover:border-gray-500 scale-100'}`}
+                                >
+                                    <div className="flex flex-col items-center gap-2 relative z-10 w-full h-full justify-center">
+                                        <div className="text-[14px] text-cyber-primary font-bold tracking-[0.2em] font-preview-weyland opacity-80">
+                                            W-Y
+                                        </div>
+                                        <span className={`text-[10px] font-bold tracking-widest font-preview-weyland ${theme === 'weyland' ? 'text-cyber-primary' : 'text-gray-400'}`}>
+                                            {t('profile.themes.weyland', 'WEY-YU')}
+                                        </span>
+                                    </div>
+                                    {theme === 'weyland' && (
                                         <div className="absolute top-0 right-0 bg-cyber-primary text-black font-bold text-[8px] px-2 py-0.5 transform rotate-45 translate-x-3 translate-y-[-2px] z-20">
                                             ACTIVE
                                         </div>
@@ -895,7 +945,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                     className="input-cyber text-sm w-full"
                                     required
                                 />
-                                <button type="submit" className="btn-cyber btn-cyber-primary btn-cyber-primary text-xs self-end">
+                                <button type="submit" className="btn-cyber btn-cyber-primary text-xs self-end">
                                     {t('profile.cypher.execute')}
                                 </button>
                             </form>
@@ -958,7 +1008,10 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                         title={alertModal.title}
                         message={alertModal.message}
                         variant={alertModal.variant}
-                        onClose={() => setAlertModal({ ...alertModal, show: false })}
+                        onClose={() => {
+                            setAlertModal({ ...alertModal, show: false });
+                            if (alertModal.onClose) alertModal.onClose();
+                        }}
                     />
                 )
             }
