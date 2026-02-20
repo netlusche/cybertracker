@@ -2,13 +2,40 @@
 // auth.php
 header("Content-Type: application/json");
 require_once 'db.php';
+require_once 'csrf.php'; // Includes session_start() and CSRF logic
 require_once 'TOTP.php';
 require_once 'mail_helper.php';
-session_start();
 
 $pdo = getDBConnection();
 $data = json_decode(file_get_contents("php://input"), true);
 $action = $_GET['action'] ?? '';
+
+// --- RATE LIMITING MIDDLEWARE ---
+function getClientIp()
+{
+    return $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+}
+
+function checkRateLimit($pdo, $endpoint, $maxAttempts = 5, $windowMinutes = 15)
+{
+    $ip = getClientIp();
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM auth_logs WHERE ip_address = ? AND endpoint = ? AND success = 0 AND created_at > datetime('now', '-$windowMinutes minutes')");
+    $stmt->execute([$ip, $endpoint]);
+    $attempts = $stmt->fetchColumn();
+
+    if ($attempts >= $maxAttempts) {
+        http_response_code(429);
+        echo json_encode(['error' => 'Too many failed attempts. Please try again later.']);
+        exit;
+    }
+}
+
+function logAuthAttempt($pdo, $endpoint, $success)
+{
+    $ip = getClientIp();
+    $stmt = $pdo->prepare("INSERT INTO auth_logs (ip_address, endpoint, success) VALUES (?, ?, ?)");
+    $stmt->execute([$ip, $endpoint, $success ? 1 : 0]);
+}
 
 // --- 2FA ACTIONS ---
 
@@ -252,6 +279,7 @@ elseif ($action === 'verify_2fa') {
 
     if ($verified) {
         // Promote to full session
+        session_regenerate_id(true);
         $_SESSION['user_id'] = $userId;
         unset($_SESSION['partial_id']);
 
@@ -278,7 +306,8 @@ elseif ($action === 'verify_2fa') {
                 'two_factor_method' => $user['two_factor_method'],
                 'theme' => $user['theme'],
                 'stats' => $stats
-            ]
+            ],
+            'csrf_token' => $_SESSION['csrf_token']
         ]);
     }
     else {
@@ -492,6 +521,8 @@ elseif ($action === 'verify_email') {
 }
 
 elseif ($action === 'login') {
+    checkRateLimit($pdo, 'login');
+
     $username = $data['username'] ?? '';
     $password = $data['password'] ?? '';
 
@@ -500,6 +531,7 @@ elseif ($action === 'login') {
     $user = $stmt->fetch();
 
     if ($user && password_verify($password, $user['password'])) {
+        logAuthAttempt($pdo, 'login', true);
 
         // Check Verification Status (Phase 2)
         if (isset($user['is_verified']) && $user['is_verified'] == 0) {
@@ -529,6 +561,7 @@ elseif ($action === 'login') {
         }
 
         // Standard Login
+        session_regenerate_id(true);
         $_SESSION['user_id'] = $user['id'];
 
         // Record Last Login
@@ -548,10 +581,12 @@ elseif ($action === 'login') {
                 'two_factor_enabled' => (bool)$user['two_factor_enabled'],
                 'theme' => $user['theme'],
                 'stats' => $stats
-            ]
+            ],
+            'csrf_token' => $_SESSION['csrf_token']
         ]);
     }
     else {
+        logAuthAttempt($pdo, 'login', false);
         http_response_code(401);
         echo json_encode(['error' => 'Invalid credentials']);
     }
@@ -746,7 +781,8 @@ else {
                     'two_factor_method' => $user['two_factor_method'],
                     'theme' => $user['theme'],
                     'stats' => $stats
-                ]
+                ],
+                'csrf_token' => $_SESSION['csrf_token']
             ]);
             exit;
         }

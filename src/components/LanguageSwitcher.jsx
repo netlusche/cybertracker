@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { createPortal } from 'react-dom';
+import { useTheme } from '../utils/ThemeContext';
 
 const LanguageSwitcher = () => {
     const { i18n, t } = useTranslation();
+    const { theme } = useTheme();
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef(null);
     const portalRef = useRef(null);
@@ -67,9 +69,11 @@ const LanguageSwitcher = () => {
                 onClick={() => setIsOpen(!isOpen)}
                 aria-haspopup="listbox"
                 aria-expanded={isOpen}
-                className={`text-[10px] md:text-xs px-2 py-1 transition-all font-bold border rounded uppercase tracking-widest flex items-center gap-2 group btn-lang-yellow ${isOpen
-                    ? 'bg-cyber-neonPink border-cyber-neonPink text-black shadow-[0_0_10px_#ff00ff] language-active'
-                    : 'border-cyber-gray text-cyber-neonCyan hover:border-cyber-neonCyan hover:shadow-[0_0_5px_#00ffff]'
+                className={`text-[10px] md:text-xs px-2 py-1 transition-all font-bold border rounded uppercase tracking-widest flex items-center gap-2 group btn-lang-yellow ${theme === 'lcars'
+                    ? `border-transparent ${isOpen ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'}`
+                    : (isOpen
+                        ? 'bg-cyber-secondary border-cyber-secondary text-black shadow-cyber-secondary language-active'
+                        : 'border-cyber-gray text-cyber-primary hover:border-cyber-primary hover:shadow-cyber-primary')
                     }`}
             >
                 <span className={isOpen ? '' : 'group-hover:animate-pulse'}>{currentLang?.label || '??'}</span>
@@ -81,7 +85,7 @@ const LanguageSwitcher = () => {
                 <div
                     ref={portalRef}
                     style={{ top: coords.top, left: coords.left }}
-                    className="fixed z-[10000] w-32 bg-cyber-black/90 border border-cyber-neonCyan p-1 backdrop-blur-md shadow-[0_0_20px_rgba(0,255,255,0.2)] animate-in fade-in zoom-in-95 duration-200 lang-dropdown-layer"
+                    className={`fixed z-[10000] w-32 backdrop-blur-md animate-in fade-in zoom-in-95 duration-200 lang-dropdown-layer ${theme === 'lcars' ? 'bg-black/95 border border-gray-600 shadow-2xl p-0' : 'bg-cyber-black/90 border border-cyber-primary shadow-cyber-primary p-1'}`}
                 >
                     <div className="flex flex-col gap-1">
                         {languages.map(lang => (
@@ -91,18 +95,22 @@ const LanguageSwitcher = () => {
                                     i18n.changeLanguage(lang.code);
                                     setIsOpen(false);
                                 }}
-                                className={`relative text-[10px] md:text-xs px-3 py-2 text-left transition-all font-bold uppercase tracking-widest hover:bg-cyber-neonCyan hover:text-black flex items-center justify-between group/item ${i18n.language === lang.code ? 'text-cyber-neonCyan active-lang' : 'text-gray-400'
+                                className={`relative text-[10px] md:text-xs px-3 py-2 text-left transition-all font-bold uppercase tracking-widest hover:bg-cyber-primary hover:text-black flex items-center justify-between group/item ${i18n.language === lang.code ? (theme === 'lcars' ? 'text-white bg-white/10 active-lang' : 'text-cyber-primary active-lang') : 'text-gray-400'
                                     }`}
                             >
-                                <span className="relative z-10">{lang.fullName}</span>
+                                <span className={`relative z-10 ${theme === 'lcars' ? "font-['Antonio',_sans-serif]" : ""}`}>{lang.fullName}</span>
                                 {i18n.language === lang.code && <span className="relative z-10 text-[8px]">●</span>}
-                                <div className="absolute inset-0 bg-cyber-neonCyan/20 opacity-0 group-hover/item:opacity-100 pointer-events-none transition-opacity"></div>
+                                {theme !== 'lcars' && <div className="absolute inset-0 bg-cyber-primary/20 opacity-0 group-hover/item:opacity-100 pointer-events-none transition-opacity"></div>}
                             </button>
                         ))}
                     </div>
-                    {/* Decorative bits */}
-                    <div className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t border-l border-cyber-neonCyan decorative-corner"></div>
-                    <div className="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-b border-r border-cyber-neonCyan decorative-corner"></div>
+                    {/* Decorative bits for Cyberpunk only */}
+                    {theme !== 'lcars' && (
+                        <>
+                            <div className="absolute -top-[1px] -left-[1px] w-2 h-2 border-t border-l border-cyber-primary decorative-corner"></div>
+                            <div className="absolute -bottom-[1px] -right-[1px] w-2 h-2 border-b border-r border-cyber-primary decorative-corner"></div>
+                        </>
+                    )}
                 </div>,
                 document.body
             )}

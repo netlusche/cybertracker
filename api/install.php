@@ -84,6 +84,37 @@ try {
         echo "MySQL DB Name: " . DB_NAME . "<br>\n";
     }
 
+    echo "<h4>Checking Database Lock Status...</h4>\n";
+    // Security 1.0: Zero-Config Auto-Lock
+    // If the 'users' table exists, the system is considered initialized. 
+    // To proceed with schema updates, the operative MUST be logged in as an Admin.
+    if (tableExists($pdo, 'users')) {
+        echo "System initialized ('users' table detected). Engaging Auto-Lock protocol.<br>\n";
+        if (session_status() === PHP_SESSION_NONE) {
+            // Secure session start to check credentials
+            session_set_cookie_params([
+                'lifetime' => 86400,
+                'path' => '/',
+                'secure' => isset($_SERVER['HTTPS']),
+                'httponly' => true,
+                'samesite' => 'Strict'
+            ]);
+            session_name('CYBER_SESSION');
+            session_start();
+        }
+
+        if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+            http_response_code(403);
+            echo "<h3 style='color: red;'>[ ACCESS DENIED: SECURITY AUTO-LOCK ]</h3>\n";
+            echo "<p>The grid has already been initialized. To execute schema updates, you must establish an active neural link as an 'admin' via the main login terminal first.</p>\n";
+            exit(1);
+        }
+        echo "<span style='color: green;'>ACCESS GRANTED: Active Admin session detected. Proceeding with schema update...</span><br>\n";
+    }
+    else {
+        echo "<span style='color: yellow;'>SYSTEM EMPTY: First-time initialization detected. Auto-Lock bypassed.</span><br>\n";
+    }
+
     // --- USERS TABLE ---
     $autoIncrement = ($dbType === 'sqlite') ? 'INTEGER PRIMARY KEY AUTOINCREMENT' : 'INT AUTO_INCREMENT PRIMARY KEY';
 
@@ -190,6 +221,17 @@ try {
         $pdo->exec("ALTER TABLE user_stats ADD COLUMN badges_json $jsonType");
         echo "Column 'badges_json' added to user_stats.<br>\n";
     }
+
+    // --- AUTH LOGS TABLE (Rate Limiting) ---
+    $sqlAuthLogs = "CREATE TABLE IF NOT EXISTS auth_logs (
+        id $autoIncrement,
+        ip_address VARCHAR(45) NOT NULL,
+        endpoint VARCHAR(50) NOT NULL,
+        success BOOLEAN NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )";
+    $pdo->exec($sqlAuthLogs);
+    echo "Table 'auth_logs' check/create complete.<br>\n";
 
     // --- DEFAULT ADMIN USER ---
     $adminUsername = 'admin';

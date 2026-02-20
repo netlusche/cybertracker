@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../utils/ThemeContext';
+import { apiFetch } from '../utils/api';
 
 // --- Sub-components for Modals ---
 
@@ -7,14 +9,14 @@ const ConfirmModal = ({ message, onConfirm, onCancel }) => {
     const { t } = useTranslation();
     return (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[150]">
-            <div className="bg-gray-900 border border-yellow-500 p-6 max-w-sm w-full shadow-[0_0_20px_rgba(255,200,0,0.5)]">
+            <div className="bg-gray-900 border border-cyber-warning p-6 max-w-sm w-full shadow-cyber-warning">
                 <h3 className="text-yellow-500 font-bold text-xl mb-4">{t('admin.confirm_title')}</h3>
                 <p className="text-gray-300 mb-6 font-mono">{message}</p>
                 <div className="flex justify-end gap-2">
                     <button onClick={onCancel} className="px-4 py-2 border border-gray-600 text-gray-400 hover:bg-white/10">
                         {t('common.cancel')}
                     </button>
-                    <button onClick={onConfirm} className="px-4 py-2 bg-yellow-600/20 border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black font-bold">
+                    <button onClick={onConfirm} className="px-4 py-2 bg-yellow-600/20 border border-cyber-warning text-yellow-500 hover:bg-yellow-500 hover:text-black font-bold">
                         {t('common.confirm')}
                     </button>
                 </div>
@@ -30,8 +32,8 @@ const PromptModal = ({ message, onConfirm, onCancel }) => {
 
     return (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[150]">
-            <div className="bg-gray-900 border border-cyber-neonCyan p-6 max-w-sm w-full shadow-[0_0_20px_rgba(0,255,255,0.5)]">
-                <h3 className="text-cyber-neonCyan font-bold text-xl mb-4">{t('admin.input_required')}</h3>
+            <div className="bg-gray-900 border border-cyber-primary p-6 max-w-sm w-full shadow-cyber-primary">
+                <h3 className="text-cyber-primary font-bold text-xl mb-4">{t('admin.input_required')}</h3>
                 <p className="text-gray-300 mb-2 font-mono">{message}</p>
 
                 <div className="relative mb-6">
@@ -41,12 +43,12 @@ const PromptModal = ({ message, onConfirm, onCancel }) => {
                         onFocus={(e) => e.target.select()}
                         value={value}
                         onChange={(e) => setValue(e.target.value)}
-                        className="w-full bg-black/50 border border-gray-600 text-white p-2 pr-10 focus:border-cyber-neonCyan outline-none font-mono input-normal-case"
+                        className="w-full bg-black/50 border border-gray-600 text-white p-2 pr-10 focus:border-cyber-primary outline-none font-mono input-normal-case"
                     />
                     <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-2 top-2 text-cyber-neonCyan hover:text-white transition-colors"
+                        className="absolute right-2 top-2 text-cyber-primary hover:text-white transition-colors"
                     >
                         {showPassword ? (
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -65,7 +67,7 @@ const PromptModal = ({ message, onConfirm, onCancel }) => {
                     <button onClick={onCancel} className="px-4 py-2 border border-gray-600 text-gray-400 hover:bg-white/10">
                         {t('common.cancel')}
                     </button>
-                    <button onClick={() => onConfirm(value)} className="px-4 py-2 bg-cyan-900/20 border border-cyber-neonCyan text-cyber-neonCyan hover:bg-cyber-neonCyan hover:text-black font-bold">
+                    <button onClick={() => onConfirm(value)} className="px-4 py-2 bg-cyan-900/20 border border-cyber-primary text-cyber-primary hover:bg-cyber-primary hover:text-black font-bold">
                         {t('common.submit')}
                     </button>
                 </div>
@@ -77,6 +79,7 @@ const PromptModal = ({ message, onConfirm, onCancel }) => {
 
 const AdminPanel = ({ onClose }) => {
     const { t } = useTranslation();
+    const { theme } = useTheme();
     const [users, setUsers] = useState([]);
     const [pagination, setPagination] = useState({ totalUsers: 0, totalPages: 1, currentPage: 1 });
     const [sortConfig, setSortConfig] = useState({ key: 'id', direction: 'ASC' });
@@ -108,7 +111,7 @@ const AdminPanel = ({ onClose }) => {
 
     const fetchSettings = async () => {
         try {
-            const res = await fetch('api/admin.php?action=get_settings');
+            const res = await apiFetch('api/admin.php?action=get_settings');
             if (res.ok) {
                 const data = await res.json();
                 setSettings(data);
@@ -118,7 +121,7 @@ const AdminPanel = ({ onClose }) => {
 
     const handleToggleSetting = async (key, newValue) => {
         try {
-            const res = await fetch('api/admin.php?action=update_setting', {
+            const res = await apiFetch('api/admin.php?action=update_setting', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ key, value: newValue })
@@ -190,7 +193,7 @@ const AdminPanel = ({ onClose }) => {
 
     const performToggleRole = async (user, newRole) => {
         try {
-            const res = await fetch('api/admin.php?action=update_role', {
+            const res = await apiFetch('api/admin.php?action=update_role', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ target_id: user.id, new_role: newRole })
@@ -215,7 +218,7 @@ const AdminPanel = ({ onClose }) => {
 
     const performDeleteUser = async (id, username) => {
         try {
-            const res = await fetch('api/admin.php?action=delete_user', {
+            const res = await apiFetch('api/admin.php?action=delete_user', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ target_id: id })
@@ -232,7 +235,7 @@ const AdminPanel = ({ onClose }) => {
 
     const handleToggleVerified = async (user) => {
         try {
-            const res = await fetch('api/admin.php?action=toggle_verified', {
+            const res = await apiFetch('api/admin.php?action=toggle_verified', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ target_id: user.id })
@@ -257,7 +260,7 @@ const AdminPanel = ({ onClose }) => {
     const performResetPassword = async (id, username, newPass) => {
         if (!newPass) return;
         try {
-            const res = await fetch('api/admin.php?action=reset_password', {
+            const res = await apiFetch('api/admin.php?action=reset_password', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ target_id: id, new_password: newPass })
@@ -277,7 +280,7 @@ const AdminPanel = ({ onClose }) => {
 
     const performDisable2FA = async (id, username) => {
         try {
-            const res = await fetch('api/admin.php?action=disable_2fa', {
+            const res = await apiFetch('api/admin.php?action=disable_2fa', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ target_id: id })
@@ -309,203 +312,210 @@ const AdminPanel = ({ onClose }) => {
                 />
             )}
 
-            <div className="card-cyber w-full max-w-4xl h-[80vh] flex flex-col border-yellow-500 shadow-[0_0_30px_rgba(255,200,0,0.3)]">
-                <div className="flex justify-between items-center border-b border-yellow-700/50 pb-4 mb-4">
-                    <h2 className="text-2xl font-bold text-yellow-500 tracking-widest uppercase">
-                        {t('admin.console_title')}
-                    </h2>
-                    <button onClick={onClose} className="text-yellow-500 hover:text-white text-xl font-bold">[X]</button>
-                </div>
+            <div className="card-cyber w-full max-w-4xl h-[80vh] flex flex-col p-1 overflow-hidden border-cyber-warning shadow-cyber-warning relative">
+                <button
+                    onClick={onClose}
+                    className={`absolute top-1 right-1 font-bold text-xl transition-colors z-50 ${theme === 'lcars' ? 'bg-[#ffaa00] text-black px-3 py-1 rounded-tr-xl hover:brightness-110' : 'text-cyber-secondary hover:text-white'}`}
+                >
+                    [X]
+                </button>
+                <div className="overflow-y-auto custom-scrollbar flex-1 relative p-4 pl-5">
+                    <div className="flex justify-between items-center border-b border-yellow-700/50 pb-4 mb-4 pt-2">
+                        <h2 className="text-2xl font-bold text-yellow-500 tracking-widest uppercase">
+                            {t('admin.console_title')}
+                        </h2>
+                    </div>
 
-                {/* Search Input */}
-                <div className="flex justify-end mb-4 relative">
-                    <input
-                        type="text"
-                        placeholder={t('admin.search_placeholder')}
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        onFocus={(e) => e.target.select()}
-                        className="bg-black/50 border border-yellow-700/50 text-yellow-400 px-3 py-1 pr-8 text-sm focus:outline-none focus:border-yellow-500 w-64 rounded-sm tracking-widest placeholder-yellow-700 input-normal-case"
-                    />
-                    <span className="absolute right-2 top-1 text-yellow-600 pointer-events-none">🔍</span>
-                </div>
+                    {/* Search Input */}
+                    <div className="flex justify-end mb-4 relative">
+                        <input
+                            type="text"
+                            placeholder={t('admin.search_placeholder')}
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onFocus={(e) => e.target.select()}
+                            className="bg-black/50 border border-yellow-700/50 text-yellow-400 px-3 py-1 pr-8 text-sm focus:outline-none focus:border-cyber-warning w-64 rounded-sm tracking-widest placeholder-yellow-700 input-normal-case"
+                        />
+                        <span className="absolute right-2 top-1 text-yellow-600 pointer-events-none">🔍</span>
+                    </div>
 
-                {error && <div className="bg-red-900/20 text-red-500 p-2 border border-red-900 mb-4">⚠ {error}</div>}
-                {message && <div className="bg-green-900/20 text-green-500 p-2 border border-green-900 mb-4">✓ {message}</div>}
+                    {error && <div className="bg-red-900/20 text-red-500 p-2 border border-red-900 mb-4">⚠ {error}</div>}
+                    {message && <div className="bg-green-900/20 text-cyber-success p-2 border border-green-900 mb-4">✓ {message}</div>}
 
-                <div className="overflow-auto flex-1">
-                    <table className="w-full text-left border-collapse">
-                        <thead>
-                            <tr className="text-yellow-600 border-b border-yellow-700/30">
-                                <th
-                                    className={`p-2 cursor-pointer select-none hover:text-yellow-400 ${sortConfig.key === 'id' ? 'text-yellow-500' : ''}`}
-                                    onClick={() => handleSort('id')}
-                                >
-                                    <div className="flex items-center gap-1">
-                                        ID <SortIcon columnKey="id" />
-                                    </div>
-                                </th>
-                                <th
-                                    className={`p-2 cursor-pointer select-none hover:text-yellow-400 ${sortConfig.key === 'username' ? 'text-yellow-500' : ''}`}
-                                    onClick={() => handleSort('username')}
-                                >
-                                    <div className="flex items-center gap-1">
-                                        {t('admin.col_codename')} <SortIcon columnKey="username" />
-                                    </div>
-                                </th>
-                                <th className="p-2">{t('admin.col_role')}</th>
-                                <th
-                                    className={`p-2 cursor-pointer select-none hover:text-yellow-400 ${sortConfig.key === 'is_verified' ? 'text-yellow-500' : ''}`}
-                                    onClick={() => handleSort('is_verified')}
-                                >
-                                    <div className="flex items-center justify-center gap-1">
-                                        {t('admin.col_verified')} <SortIcon columnKey="is_verified" />
-                                    </div>
-                                </th>
-                                <th
-                                    className={`p-2 cursor-pointer select-none hover:text-yellow-400 ${sortConfig.key === 'last_login' ? 'text-yellow-500' : ''}`}
-                                    onClick={() => handleSort('last_login')}
-                                >
-                                    <div className="flex items-center gap-1">
-                                        {t('admin.col_history')} <SortIcon columnKey="last_login" />
-                                    </div>
-                                </th>
-                                <th className="p-2 text-right">{t('admin.col_actions')}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {users.map(u => (
-                                <tr key={u.id} className="border-b border-gray-800 hover:bg-white/5 transition-colors">
-                                    <td className="p-2 text-gray-400">#{u.id}</td>
-                                    <td className="p-2 text-white font-bold">{u.username}</td>
-                                    <td className="p-2">
-                                        <span className={`text-xs px-2 py-1 rounded border ${u.role === 'admin' ? 'border-yellow-500 text-yellow-500' : 'border-gray-500 text-gray-300'}`}>
-                                            {u.role.toUpperCase()}
-                                        </span>
-                                        {u.two_factor_enabled == 1 && (
-                                            <span className="ml-2 text-[10px] bg-green-900/30 text-green-500 border border-green-900 px-1 font-bold">2FA</span>
-                                        )}
-                                    </td>
-                                    <td className="p-2 text-center">
-                                        <button
-                                            onClick={() => handleToggleVerified(u)}
-                                            className={`text-xs font-bold btn-admin-status ${u.is_verified == 1 ? 'verified text-green-500 hover:text-green-400' : 'unverified text-red-500 hover:text-red-400'}`}
-                                            title="Toggle Verification"
-                                        >
-                                            {u.is_verified == 1 ? `✓ ${t('admin.verified')}` : `✖ ${t('admin.unverified')}`}
-                                        </button>
-                                    </td>
-                                    <td className="p-2 align-top">
-                                        <div className="grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 text-[10px] leading-none">
-                                            <span className="text-gray-400 uppercase">{t('admin.joined_label')}</span>
-                                            <span className="text-gray-300">{u.created_at?.split(' ')[0]}</span>
-                                            <span className="text-gray-400 uppercase">{t('admin.login_label')}</span>
-                                            <span className="text-cyan-500">{u.last_login ? u.last_login.split(' ')[0] : t('admin.never')}</span>
+                    <div className="overflow-auto flex-1">
+                        <table className="w-full text-left border-collapse">
+                            <thead>
+                                <tr className="text-yellow-600 border-b border-yellow-700/30">
+                                    <th
+                                        className={`p-2 cursor-pointer select-none hover:text-yellow-400 ${sortConfig.key === 'id' ? 'text-yellow-500' : ''}`}
+                                        onClick={() => handleSort('id')}
+                                    >
+                                        <div className="flex items-center gap-1">
+                                            ID <SortIcon columnKey="id" />
                                         </div>
-                                    </td>
-                                    <td className="p-2 text-right">
-                                        <div className="flex flex-wrap justify-end gap-1">
-                                            <button
-                                                onClick={() => handleToggleRoleClick(u)}
-                                                className="text-[10px] px-2 py-1 border border-blue-900 text-blue-500 hover:bg-blue-900 hover:text-white transition-colors min-w-[70px] uppercase btn-admin-blue"
-                                            >
-                                                {u.role === 'admin' ? t('admin.downgrade') : t('admin.promote')}
-                                            </button>
-                                            <button
-                                                onClick={() => handleResetPasswordClick(u)}
-                                                className="text-[10px] px-2 py-1 border border-gray-500 text-gray-300 hover:border-white hover:text-white transition-colors min-w-[70px] uppercase btn-admin-grey"
-                                            >
-                                                {t('admin.reset_pwd')}
-                                            </button>
-                                            {u.two_factor_enabled == 1 && (
-                                                <button
-                                                    onClick={() => handleDisable2FAClick(u)}
-                                                    className="text-[10px] px-2 py-1 border border-orange-900 text-orange-600 hover:bg-orange-900 hover:text-white transition-colors min-w-[70px] uppercase"
-                                                >
-                                                    {t('admin.2fa_off')}
-                                                </button>
-                                            )}
-                                            <button
-                                                onClick={() => handleDeleteUserClick(u)}
-                                                className="text-[10px] px-2 py-1 border border-red-900 text-red-700 hover:bg-red-900 hover:text-white transition-colors min-w-[70px] uppercase btn-admin-erase"
-                                            >
-                                                {t('admin.erase')}
-                                            </button>
+                                    </th>
+                                    <th
+                                        className={`p-2 cursor-pointer select-none hover:text-yellow-400 ${sortConfig.key === 'username' ? 'text-yellow-500' : ''}`}
+                                        onClick={() => handleSort('username')}
+                                    >
+                                        <div className="flex items-center gap-1">
+                                            {t('admin.col_codename')} <SortIcon columnKey="username" />
                                         </div>
-                                    </td>
+                                    </th>
+                                    <th className="p-2">{t('admin.col_role')}</th>
+                                    <th
+                                        className={`p-2 cursor-pointer select-none hover:text-yellow-400 ${sortConfig.key === 'is_verified' ? 'text-yellow-500' : ''}`}
+                                        onClick={() => handleSort('is_verified')}
+                                    >
+                                        <div className="flex items-center justify-center gap-1">
+                                            {t('admin.col_verified')} <SortIcon columnKey="is_verified" />
+                                        </div>
+                                    </th>
+                                    <th
+                                        className={`p-2 cursor-pointer select-none hover:text-yellow-400 ${sortConfig.key === 'last_login' ? 'text-yellow-500' : ''}`}
+                                        onClick={() => handleSort('last_login')}
+                                    >
+                                        <div className="flex items-center gap-1">
+                                            {t('admin.col_history')} <SortIcon columnKey="last_login" />
+                                        </div>
+                                    </th>
+                                    <th className="p-2 text-right">{t('admin.col_actions')}</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-
-                {/* Pagination Controls */}
-                <div className="flex items-center justify-between border-t border-yellow-700/30 pt-4 mb-4 text-xs font-mono">
-                    <div className="text-gray-400">
-                        {t('admin.total_recruits')}: <span className="text-yellow-500">{pagination.totalUsers}</span>
+                            </thead>
+                            <tbody>
+                                {users.map(u => (
+                                    <tr key={u.id} className="border-b border-gray-800 hover:bg-white/5 transition-colors">
+                                        <td className="p-2 text-gray-400">#{u.id}</td>
+                                        <td className="p-2 text-white font-bold">{u.username}</td>
+                                        <td className="p-2">
+                                            <span className={`text-xs px-2 py-1 rounded border ${u.role === 'admin' ? 'border-cyber-warning text-yellow-500' : 'border-gray-500 text-gray-300'}`}>
+                                                {u.role.toUpperCase()}
+                                            </span>
+                                            {u.two_factor_enabled == 1 && (
+                                                <span className="ml-2 text-[10px] bg-green-900/30 text-cyber-success border border-green-900 px-1 font-bold">2FA</span>
+                                            )}
+                                        </td>
+                                        <td className="p-2 text-center">
+                                            <button
+                                                onClick={() => handleToggleVerified(u)}
+                                                className={`text-xs font-bold btn-admin-status ${u.is_verified == 1 ? 'verified text-cyber-success hover:text-green-400' : 'unverified text-red-500 hover:text-red-400'}`}
+                                                title="Toggle Verification"
+                                            >
+                                                {u.is_verified == 1 ? `✓ ${t('admin.verified')}` : `✖ ${t('admin.unverified')}`}
+                                            </button>
+                                        </td>
+                                        <td className="p-2 align-top">
+                                            <div className="grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 text-[10px] leading-none">
+                                                <span className="text-gray-400 uppercase">{t('admin.joined_label')}</span>
+                                                <span className="text-gray-300">{u.created_at?.split(' ')[0]}</span>
+                                                <span className="text-gray-400 uppercase">{t('admin.login_label')}</span>
+                                                <span className="text-cyan-500">{u.last_login ? u.last_login.split(' ')[0] : t('admin.never')}</span>
+                                            </div>
+                                        </td>
+                                        <td className="p-2 text-right">
+                                            <div className="flex flex-wrap justify-end gap-1">
+                                                <button
+                                                    onClick={() => handleToggleRoleClick(u)}
+                                                    className="text-[10px] px-2 py-1 border border-blue-900 text-blue-500 hover:bg-blue-900 hover:text-white transition-colors min-w-[70px] uppercase btn-cyber-info"
+                                                >
+                                                    {u.role === 'admin' ? t('admin.downgrade') : t('admin.promote')}
+                                                </button>
+                                                <button
+                                                    onClick={() => handleResetPasswordClick(u)}
+                                                    className="text-[10px] px-2 py-1 border border-gray-500 text-gray-300 hover:border-white hover:text-white transition-colors min-w-[70px] uppercase bg-cyber-gray text-white"
+                                                >
+                                                    {t('admin.reset_pwd')}
+                                                </button>
+                                                {u.two_factor_enabled == 1 && (
+                                                    <button
+                                                        onClick={() => handleDisable2FAClick(u)}
+                                                        className="text-[10px] px-2 py-1 border border-orange-900 text-orange-600 hover:bg-orange-900 hover:text-white transition-colors min-w-[70px] uppercase"
+                                                    >
+                                                        {t('admin.2fa_off')}
+                                                    </button>
+                                                )}
+                                                <button
+                                                    onClick={() => handleDeleteUserClick(u)}
+                                                    className="text-[10px] px-2 py-1 border border-red-900 text-red-700 hover:bg-red-900 hover:text-white transition-colors min-w-[70px] uppercase btn-admin-erase"
+                                                >
+                                                    {t('admin.erase')}
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <button
-                            disabled={pagination.currentPage <= 1}
-                            onClick={() => fetchUsers(1)}
-                            className="px-3 py-1 border border-yellow-700/50 text-yellow-600 hover:bg-yellow-700/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
-                            title="First Page"
-                        >
-                            &laquo;
-                        </button>
-                        <button
-                            disabled={pagination.currentPage <= 1}
-                            onClick={() => fetchUsers(pagination.currentPage - 1)}
-                            className="px-3 py-1 border border-yellow-700/50 text-yellow-600 hover:bg-yellow-700/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
-                            title="Previous Page"
-                        >
-                            &lsaquo;
-                        </button>
 
-                        <span className="text-yellow-600 px-2">
-                            {pagination.currentPage} / {pagination.totalPages}
-                        </span>
-
-                        <button
-                            disabled={pagination.currentPage >= pagination.totalPages}
-                            onClick={() => fetchUsers(pagination.currentPage + 1)}
-                            className="px-3 py-1 border border-yellow-700/50 text-yellow-600 hover:bg-yellow-700/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
-                            title="Next Page"
-                        >
-                            &rsaquo;
-                        </button>
-                        <button
-                            disabled={pagination.currentPage >= pagination.totalPages}
-                            onClick={() => fetchUsers(pagination.totalPages)}
-                            className="px-3 py-1 border border-yellow-700/50 text-yellow-600 hover:bg-yellow-700/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
-                            title="Last Page"
-                        >
-                            &raquo;
-                        </button>
-                    </div>
-                </div>
-
-                {/* System Policies Section */}
-                <div className="border-t border-yellow-700/50 pt-4 mt-4">
-                    <h3 className="text-yellow-500 font-bold mb-3 flex items-center gap-2">
-                        <span>⚙</span> {t('admin.policies_title')}
-                    </h3>
-                    <div className="flex items-center gap-4 bg-yellow-700/10 p-3 rounded border border-yellow-700/30">
-                        <div className="flex-1">
-                            <h4 className="text-white font-bold text-sm">{t('admin.policy_strict_pwd_title')}</h4>
-                            <p className="text-xs text-gray-300">
-                                {t('admin.policy_strict_pwd_desc')}
-                            </p>
+                    {/* Pagination Controls */}
+                    <div className="flex items-center justify-between border-t border-yellow-700/30 pt-4 mb-4 text-xs font-mono">
+                        <div className="text-gray-400">
+                            {t('admin.total_recruits')}: <span className="text-yellow-500">{pagination.totalUsers}</span>
                         </div>
-                        <label className="relative inline-flex items-center cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="sr-only peer"
-                                checked={String(settings.strict_password_policy) === '1'}
-                                onChange={() => handleToggleSetting('strict_password_policy', String(settings.strict_password_policy) === '1' ? '0' : '1')}
-                            />
-                            <div className="w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-yellow-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-600"></div>
-                        </label>
+                        <div className="flex items-center gap-2">
+                            <button
+                                disabled={pagination.currentPage <= 1}
+                                onClick={() => fetchUsers(1)}
+                                className="px-3 py-1 border border-yellow-700/50 text-yellow-600 hover:bg-yellow-700/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
+                                title="First Page"
+                            >
+                                &laquo;
+                            </button>
+                            <button
+                                disabled={pagination.currentPage <= 1}
+                                onClick={() => fetchUsers(pagination.currentPage - 1)}
+                                className="px-3 py-1 border border-yellow-700/50 text-yellow-600 hover:bg-yellow-700/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
+                                title="Previous Page"
+                            >
+                                &lsaquo;
+                            </button>
+
+                            <span className="text-yellow-600 px-2">
+                                {pagination.currentPage} / {pagination.totalPages}
+                            </span>
+
+                            <button
+                                disabled={pagination.currentPage >= pagination.totalPages}
+                                onClick={() => fetchUsers(pagination.currentPage + 1)}
+                                className="px-3 py-1 border border-yellow-700/50 text-yellow-600 hover:bg-yellow-700/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
+                                title="Next Page"
+                            >
+                                &rsaquo;
+                            </button>
+                            <button
+                                disabled={pagination.currentPage >= pagination.totalPages}
+                                onClick={() => fetchUsers(pagination.totalPages)}
+                                className="px-3 py-1 border border-yellow-700/50 text-yellow-600 hover:bg-yellow-700/20 disabled:opacity-30 disabled:hover:bg-transparent font-bold"
+                                title="Last Page"
+                            >
+                                &raquo;
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* System Policies Section */}
+                    <div className="border-t border-yellow-700/50 pt-4 mt-4">
+                        <h3 className="text-yellow-500 font-bold mb-3 flex items-center gap-2">
+                            <span>⚙</span> {t('admin.policies_title')}
+                        </h3>
+                        <div className="flex items-center gap-4 bg-yellow-700/10 p-3 rounded border border-yellow-700/30">
+                            <div className="flex-1">
+                                <h4 className="text-white font-bold text-sm">{t('admin.policy_strict_pwd_title')}</h4>
+                                <p className="text-xs text-gray-300">
+                                    {t('admin.policy_strict_pwd_desc')}
+                                </p>
+                            </div>
+                            <label className="relative inline-flex items-center cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    className="sr-only peer"
+                                    checked={String(settings.strict_password_policy) === '1'}
+                                    onChange={() => handleToggleSetting('strict_password_policy', String(settings.strict_password_policy) === '1' ? '0' : '1')}
+                                />
+                                <div className="w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-yellow-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-600"></div>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>

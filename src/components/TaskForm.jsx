@@ -60,12 +60,12 @@ const TaskForm = ({ onAddTask, categoryRefreshTrigger, categories = [] }) => {
     return (
         <form
             onSubmit={handleSubmit}
-            className={`card-cyber mb-8 relative border-cyber-neonCyan transition-all duration-300 ${successFlash ? 'shadow-[0_0_30px_#00ffff] border-white scale-[1.01]' : 'shadow-[0_0_15px_rgba(0,255,255,0.3)]'}`}
+            className={`card-cyber mb-8 relative border-cyber-primary transition-all duration-300 ${successFlash ? 'shadow-cyber-primary border-white scale-[1.01]' : 'shadow-cyber-primary'}`}
         >
-            <h3 className="text-cyber-neonCyan font-bold mb-4 uppercase tracking-wider">{t('tasks.new_directive')}</h3>
+            <h3 className="text-cyber-primary font-bold mb-4 uppercase tracking-wider">{t('tasks.new_directive')}</h3>
 
             {error && (
-                <div className="absolute top-2 right-4 text-xs font-bold text-cyber-neonPink animate-pulse bg-black px-2 border border-cyber-neonPink shadow-[0_0_10px_#ff00ff]">
+                <div className="absolute top-2 right-4 text-xs font-bold text-cyber-secondary animate-pulse bg-black px-2 border border-cyber-secondary shadow-cyber-secondary">
                     ⚠ {error}
                 </div>
             )}
@@ -80,9 +80,9 @@ const TaskForm = ({ onAddTask, categoryRefreshTrigger, categories = [] }) => {
                             if (error) setError('');
                         }}
                         placeholder={t('tasks.placeholder')}
-                        className={`input-cyber w-full placeholder-gray-200 border-gray-400 focus:border-cyber-neonCyan focus:shadow-[0_0_10px_#00ffff] input-normal-case ${error ? 'border-cyber-neonPink shadow-[0_0_10px_#ff00ff]' : ''}`}
+                        className={`input-cyber w-full placeholder-gray-200 border-gray-400 focus:border-cyber-primary focus:shadow-cyber-primary input-normal-case ${error ? 'border-cyber-secondary shadow-cyber-secondary' : ''}`}
                         onFocus={(e) => e.target.select()}
-                        maxLength={60}
+                        maxLength={255}
                     />
                 </div>
 
@@ -116,7 +116,7 @@ const TaskForm = ({ onAddTask, categoryRefreshTrigger, categories = [] }) => {
                         placeholder={t('tasks.due_date')}
                     />
 
-                    <button type="submit" className="btn-cyber btn-neon-cyan flex-none w-full sm:w-auto ml-auto">
+                    <button type="submit" className="btn-cyber btn-cyber-primary flex-none w-full sm:w-auto ml-auto">
                         {t('tasks.add')}
                     </button>
                 </div>

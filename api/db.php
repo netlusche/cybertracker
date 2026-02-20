@@ -28,7 +28,8 @@ function getDBConnection()
         // For security, do not output detailed errors in production
 // But for development, we can show it
         http_response_code(500);
-        echo json_encode(['error' => 'Database connection failed: ' . $e->getMessage()]);
+        error_log('Database connection failed: ' . $e->getMessage());
+        echo json_encode(['error' => 'Database connection failed. Internal server error.']);
         exit();
     }
 }

@@ -6,7 +6,7 @@ const LevelBar = ({ level, currentXP, totalXPForLevel, isLevelUp }) => {
     const progress = (currentXP % 100);
 
     return (
-        <div className={`w-full mb-6 p-4 rounded-lg bg-cyber-dark border transition-all duration-500 lvl-bar-container ${isLevelUp ? 'border-cyber-neonPink shadow-[0_0_30px_#ff00ff] scale-105' : 'border-cyber-neonPink shadow-[0_0_15px_rgba(255,0,255,0.3)]'}`}>
+        <div className={`w-full mb-6 p-4 rounded-lg bg-cyber-dark border transition-all duration-500 lvl-bar-container ${isLevelUp ? 'border-cyber-secondary shadow-cyber-secondary scale-105' : 'border-cyber-secondary shadow-cyber-secondary'}`}>
             <div className="flex justify-between items-end mb-2">
                 <div>
                     <span className="text-xs text-gray-300 uppercase tracking-widest">Operator Level</span>
@@ -15,14 +15,14 @@ const LevelBar = ({ level, currentXP, totalXPForLevel, isLevelUp }) => {
                     </div>
                 </div>
                 <div className="text-right">
-                    <span className="text-cyber-neonPink font-bold text-xl xp-text">{currentXP}</span>
+                    <span className="text-cyber-secondary font-bold text-xl xp-text">{currentXP}</span>
                     <span className="text-gray-300 text-sm"> XP Total</span>
                 </div>
             </div>
 
             <div className="relative h-4 bg-gray-800 rounded-full overflow-hidden border border-gray-700">
                 <div
-                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-cyber-neonPink to-purple-600 transition-all duration-1000 ease-out xp-progress-bar"
+                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-cyber-secondary to-purple-600 transition-all duration-1000 ease-out xp-progress-bar"
                     style={{ width: `${progress}%` }}
                 ></div>
                 {/* Striped overlay for cyberpunk effect */}

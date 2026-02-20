@@ -85,12 +85,12 @@ const CyberDateInput = ({ value, onChange, placeholder = "Select Date" }) => {
                     }
                 }}
                 onClick={() => setIsOpen(!isOpen)}
-                className={`input-cyber flex items-center justify-between cursor-pointer min-w-[140px] focus:outline-none focus:border-cyber-neonCyan focus:shadow-[0_0_10px_#00ffff] ${isOpen ? 'border-cyber-neonPink shadow-[0_0_10px_#ff00ff]' : ''}`}
+                className={`input-cyber flex items-center justify-between cursor-pointer min-w-[140px] focus:outline-none focus:border-cyber-primary focus:shadow-cyber-primary ${isOpen ? 'border-cyber-secondary shadow-cyber-secondary' : ''}`}
             >
                 <span className="text-white">
                     {value ? formatDateDisplay(value) : placeholder}
                 </span>
-                <span className="text-cyber-neonCyan ml-2">📅</span>
+                <span className="text-cyber-primary ml-2">📅</span>
             </div>
 
             {/* Calendar Overlay - Portaled to Body */}

@@ -1,3 +1,23 @@
+# CyberTasker Server Update Instructions (v1.9.3 → v1.9.4)
+
+These instructions guide you through updating to version **1.9.4**.
+
+## 1. Backup
+- **Files**: Backup your `api/config.php` and your database file (if using SQLite).
+
+## 2. Deploy Files
+1.  Upload the contents of the `dist` folder to your server.
+2.  **Overwrite all files** EXCEPT `api/config.php` and your database file.
+
+## 3. Database Update
+**No database schema changes are required.**
+
+## 4. Verify Update
+1.  **Admin Check**: Ensure Admin actions (like toggling 2FA OFF) function without returning a 403 Forbidden error.
+2.  **Task Validation**: Verify that attempting to create a task directive longer than 255 characters receives a proper error block.
+
+---
+
 # CyberTasker Server Update Instructions (v1.8.2 → v1.9.0)
 
 These instructions guide you through updating to version **1.9.0**. This major update introduces Multi-Theme support.

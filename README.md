@@ -29,6 +29,37 @@
 
 ---
 ---
+---
+
+## 🛡️ New in Version 1.9.4 (Security & Feature Polish)
+
+### 🐛 Bug Fixes & UX Finetuning
+*   **Task Limit Controls**: Enforced a strict 255-character limit on task titles at both the UI and Database layers for maximum stability.
+*   **Editing Synchronization**: Patched an inline editing anomaly where new task text was appended instead of replacing the old state.
+*   **Admin Console CSRF**: Restored Admin override capabilities (like 2FA disable) by ensuring proper CSRF token transmission via the internal `apiFetch` wrapper.
+*   **LCARS Readability**: Significantly enlarged the hit-targets and icons for the 'Complete' and 'Delete' task actions, optimizing tactile interaction in the LCARS theme.
+
+## 🛡️ New in Version 1.9.3 (Security Hardening Phase 3)
+
+### 🚫 Anti-Brute-Force & Integrity Protocols
+*   **Database-Backed Rate Limiting**: The authorization grid (`api/auth.php`) now actively tracks and evaluates login and 2FA verification attempts. If a terminal exceeds 5 failed attempts within a 15-minute window, it is locked out (`HTTP 429 Too Many Requests`), neutralizing automated brute-force and dictionary attacks.
+*   **Subresource Integrity (SRI)**: Mathematical SHA-384 cryptographic hashes have been injected into `index.html` for all external CDN dependencies (e.g., `qrcode.min.js`). The browser will now physically refuse to execute the neural scripts if the Content Delivery Network is ever compromised.
+
+## 🛡️ New in Version 1.9.2 (Security Hardening Phase 1 & 2)
+
+### 🔒 Enterprise-Grade Security Patches
+*   **Zero-Config Auto-Lock**: The installer (`api/install.php`) now detects initialized grids. If the system is active, it strictly requires an authenticated Admin session to execute schema updates, physically preventing unauthorized resets without compromising 1-click deployments on shared hosting.
+*   **CSRF Middleware**: Developed a centralized token-negotiation protocol (`api/csrf.php`) and a uniform frontend API wrapper (`apiFetch`). All state-changing requests (POST/PUT/DELETE) are now cryptographically verified to block Cross-Site Request Forgery.
+*   **Strict CORS Policy**: Restricted API access (`Access-Control-Allow-Origin`) exclusively to the operational frontend domain, neutralizing cross-origin data exfiltration vectors.
+*   **Session Fixation Mitigation**: Embedded forced session regeneration (`session_regenerate_id()`) within all critical authorization uplinks (Login & 2FA Verification) to stop session hijacking.
+*   **Information Leakage Sanitization**: Intercepted and scrubbed all raw database exception outputs (`$e->getMessage()`). Vulnerability details are now securely routed to sterile server logs, returning only generic HTTP 500 status codes to the client.
+
+## 🆕 New in Version 1.9.1 (Robust Theme Engine)
+
+### 🎨 Semantic Theming & Geometry
+*   **Zero-Bleed Architecture**: Re-engineered the CSS backend to utilize strict, locally-scoped semantic variables (`--theme-primary`). This completely eliminates "theme bleeding" (e.g., cyan buttons showing up in the LCARS theme).
+*   **LCARS Geometric Enforcement**: Applied rigorous shape-control to the LCARS theme. All action buttons are now perfectly oval (pill-shaped), and all modal containers feature deeply rounded corners (1.5rem radius) to match authentic Starfleet topology.
+*   **Aesthetic Finetuning**: Corrected tactical confetti sequences to match the active theme's palette, optimized the visual contrast of Admin "Promote" buttons, and explicitly colored critical LCARS interactables with tactical `#ffaa00`.
 
 ## 🆕 New in Version 1.9.0 (Visual Paradigm Shift)
 

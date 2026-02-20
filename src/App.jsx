@@ -11,6 +11,7 @@ import HelpModal from './components/HelpModal';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import { triggerNeonConfetti } from './utils/confetti';
 import { useTheme } from './utils/ThemeContext';
+import { apiFetch, setCsrfToken } from './utils/api';
 import logo from './assets/logo.png';
 
 function App() {
@@ -52,7 +53,7 @@ function App() {
 
   const fetchCategories = async () => {
     try {
-      const res = await fetch('api/categories.php');
+      const res = await apiFetch('api/categories.php');
       if (res.ok) {
         const data = await res.json();
         if (Array.isArray(data)) {
@@ -66,9 +67,12 @@ function App() {
 
   const checkAuth = async () => {
     try {
-      const res = await fetch('api/auth.php'); // Default action checks session
+      const res = await apiFetch('api/auth.php'); // Default action checks session
       const data = await res.json();
       if (data.isAuthenticated) {
+        if (data.csrf_token) {
+          setCsrfToken(data.csrf_token);
+        }
         setUser(data.user);
         if (data.user.theme) {
           setThemeState(data.user.theme);
@@ -91,7 +95,7 @@ function App() {
         ...filters
       });
 
-      const res = await fetch(`api/tasks.php?${params.toString()}`);
+      const res = await apiFetch(`api/tasks.php?${params.toString()}`);
       if (res.status === 401) {
         setUser(null);
         return;
@@ -115,14 +119,14 @@ function App() {
 
   const fetchUserStats = async () => {
     try {
-      const res = await fetch('api/user.php');
+      const res = await apiFetch('api/user.php');
       if (res.ok) {
         const data = await res.json();
         setUser(prev => ({ ...prev, ...data }));
 
         // Detect Level Up from Backend Flag
         if (data.leveled_up) {
-          triggerNeonConfetti(user?.theme || 'lcars'); // Trigger Confetti - user.theme or current state
+          triggerNeonConfetti(theme); // Trigger Confetti - user.theme or current state
           setIsLevelUp(true);    // Trigger Border Animation
           setTimeout(() => setIsLevelUp(false), 5000); // Reset after 5s
         }
@@ -139,7 +143,8 @@ function App() {
   };
 
   const handleLogout = async () => {
-    await fetch('api/auth.php?action=logout', { method: 'POST' });
+    await apiFetch('api/auth.php?action=logout', { method: 'POST' });
+    setCsrfToken(null);
     setUser(null);
     setTasks([]);
     setShowProfile(false);
@@ -149,13 +154,13 @@ function App() {
 
   const handleAddTask = async (newTask) => {
     try {
-      const res = await fetch('api/tasks.php', {
+      const res = await apiFetch('api/tasks.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newTask),
       });
       if (res.ok) {
-        triggerNeonConfetti(user?.theme || 'lcars');
+        triggerNeonConfetti(theme);
         fetchTasks();
       }
     } catch (err) {
@@ -172,7 +177,7 @@ function App() {
         t.id === task.id ? { ...t, status: newStatus } : t
       ));
 
-      const res = await fetch('api/tasks.php', {
+      const res = await apiFetch('api/tasks.php', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: task.id, status: newStatus }),
@@ -186,7 +191,7 @@ function App() {
 
         // If completing, refresh user stats to check for level up
         if (newStatus === 1) {
-          triggerNeonConfetti(user?.theme || 'lcars');
+          triggerNeonConfetti(theme);
           await fetchUserStats();
         }
       } else {
@@ -206,7 +211,7 @@ function App() {
         ? { id: task.id, title: updates }
         : { id: task.id, ...updates };
 
-      const res = await fetch('api/tasks.php', {
+      const res = await apiFetch('api/tasks.php', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -225,7 +230,7 @@ function App() {
 
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`api/tasks.php?id=${id}`, { method: 'DELETE' });
+      const res = await apiFetch(`api/tasks.php?id=${id}`, { method: 'DELETE' });
       if (res.ok) {
         fetchTasks();
       }
@@ -235,7 +240,7 @@ function App() {
   };
 
   if (loading) {
-    return <div className="min-h-screen bg-cyber-black text-cyber-neonCyan flex items-center justify-center font-mono">INITIALIZING SYSTEM...</div>;
+    return <div className="min-h-screen bg-cyber-black text-cyber-primary flex items-center justify-center font-mono">INITIALIZING SYSTEM...</div>;
   }
 
   return (
@@ -248,15 +253,15 @@ function App() {
           <div className="w-full lg:w-auto">
             <h1 className="text-3xl md:text-4xl font-bold flex items-center gap-3">
               <a href="./" className="flex items-center gap-3 hover:opacity-80 transition-opacity no-underline text-inherit">
-                <img src={logo} alt="Logo" className="h-8 w-8 md:h-10 md:w-10 drop-shadow-[0_0_8px_rgba(0,255,255,0.6)]" />
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyber-neonCyan to-cyber-neonPink drop-shadow-[0_0_5px_rgba(0,255,255,0.5)]">
+                <img src={logo} alt="Logo" className="h-8 w-8 md:h-10 md:w-10 drop-shadow-[0_0_8px_var(--theme-primary)]" />
+                <span className={theme === 'lcars' ? "text-cyber-primary font-['Antonio',_sans-serif] font-normal tracking-[0.1em] drop-shadow-none" : "bg-clip-text text-transparent bg-gradient-to-r from-cyber-primary to-cyber-secondary drop-shadow-[0_0_5px_var(--theme-primary)]"}>
                   {t('header.title')}<span className="text-white">{t('header.subtitle')}</span>
                 </span>
               </a>
             </h1>
             <div className="text-[10px] md:text-xs text-gray-300 font-bold tracking-widest mt-1 opacity-80 uppercase">
-              {t('header.operative')}: <span className="text-cyber-neonGreen">{user ? user.username : t('header.unknown')}</span>
-              {user?.role === 'admin' && <span className="ml-2 text-cyber-neonPink border border-cyber-neonPink/30 px-1 rounded">{t('header.admin_clearance')}</span>}
+              {t('header.operative')}: <span className="text-cyber-success">{user ? user.username : t('header.unknown')}</span>
+              {user?.role === 'admin' && <span className="ml-2 text-cyber-secondary border border-cyber-secondary/30 px-1 rounded">{t('header.admin_clearance')}</span>}
             </div>
           </div>
 
@@ -265,18 +270,18 @@ function App() {
 
             {user && (
               <div className="flex flex-wrap lg:flex-nowrap gap-2">
-                <button onClick={() => setShowHelp(true)} className="text-[10px] md:text-xs border border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white px-2 py-1 rounded transition-colors whitespace-nowrap">
+                <button onClick={() => setShowHelp(true)} className={`text-[10px] md:text-xs transition-colors whitespace-nowrap ${theme === 'lcars' ? 'bg-cyber-primary text-black font-bold uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white px-2 py-1 rounded'}`}>
                   {t('header.system_help')}
                 </button>
+                <button onClick={() => setShowProfile(true)} className={`text-[10px] md:text-xs transition-colors whitespace-nowrap ${theme === 'lcars' ? 'bg-cyber-primary text-black font-bold uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-cyber-primary/50 text-cyber-primary hover:bg-cyber-primary hover:text-black px-2 py-1 rounded'}`}>
+                  {t('header.profile')}
+                </button>
                 {user.role === 'admin' && (
-                  <button onClick={() => setShowAdmin(true)} className="text-[10px] md:text-xs border border-yellow-500/50 text-yellow-500 hover:bg-yellow-500 hover:text-black px-2 py-1 rounded transition-colors font-bold whitespace-nowrap">
+                  <button onClick={() => setShowAdmin(true)} className={`text-[10px] md:text-xs transition-colors font-bold whitespace-nowrap ${theme === 'lcars' ? 'bg-cyber-primary text-black uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-cyber-warning/50 text-yellow-500 hover:bg-yellow-500 hover:text-black px-2 py-1 rounded'}`}>
                     {t('header.admin')}
                   </button>
                 )}
-                <button onClick={() => setShowProfile(true)} className="text-[10px] md:text-xs border border-cyber-neonCyan/50 text-cyber-neonCyan hover:bg-cyber-neonCyan hover:text-black px-2 py-1 rounded transition-colors whitespace-nowrap">
-                  {t('header.profile')}
-                </button>
-                <button onClick={handleLogout} className="text-[10px] md:text-xs border border-red-900/50 text-red-500 hover:bg-red-900 hover:text-white px-2 py-1 rounded transition-colors whitespace-nowrap btn-logout-orange">
+                <button onClick={handleLogout} className={`text-[10px] md:text-xs transition-colors whitespace-nowrap ${theme === 'lcars' ? 'bg-[#ffaa00] text-black font-bold uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-cyber-danger/50 text-cyber-danger hover:bg-cyber-danger hover:text-white px-2 py-1 rounded btn-cyber-danger'}`}>
                   {t('header.logout')}
                 </button>
               </div>
@@ -312,7 +317,7 @@ function App() {
             />
 
             <div className="space-y-4">
-              <h2 className="text-xl text-cyber-neonGreen border-l-4 border-cyber-neonGreen pl-3 mb-4 uppercase tracking-wider">
+              <h2 className="text-xl text-cyber-success border-l-4 border-cyber-success pl-3 mb-4 uppercase tracking-wider">
                 {t('tasks.active_directives')}
               </h2>
 
@@ -343,14 +348,14 @@ function App() {
                 <button
                   onClick={() => fetchTasks(1)}
                   disabled={pagination.currentPage === 1}
-                  className="px-3 py-1 border border-cyber-gray text-cyber-neonCyan disabled:opacity-30 hover:bg-white/10"
+                  className="px-3 py-1 border border-cyber-gray text-cyber-primary disabled:opacity-30 hover:bg-white/10"
                 >
                   «
                 </button>
                 <button
                   onClick={() => fetchTasks(pagination.currentPage - 1)}
                   disabled={pagination.currentPage === 1}
-                  className="px-3 py-1 border border-cyber-gray text-cyber-neonCyan disabled:opacity-30 hover:bg-white/10"
+                  className="px-3 py-1 border border-cyber-gray text-cyber-primary disabled:opacity-30 hover:bg-white/10"
                 >
                   ‹
                 </button>
@@ -362,14 +367,14 @@ function App() {
                 <button
                   onClick={() => fetchTasks(pagination.currentPage + 1)}
                   disabled={pagination.currentPage === pagination.totalPages}
-                  className="px-3 py-1 border border-cyber-gray text-cyber-neonCyan disabled:opacity-30 hover:bg-white/10"
+                  className="px-3 py-1 border border-cyber-gray text-cyber-primary disabled:opacity-30 hover:bg-white/10"
                 >
                   ›
                 </button>
                 <button
                   onClick={() => fetchTasks(pagination.totalPages)}
                   disabled={pagination.currentPage === pagination.totalPages}
-                  className="px-3 py-1 border border-cyber-gray text-cyber-neonCyan disabled:opacity-30 hover:bg-white/10"
+                  className="px-3 py-1 border border-cyber-gray text-cyber-primary disabled:opacity-30 hover:bg-white/10"
                 >
                   »
                 </button>

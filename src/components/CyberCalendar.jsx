@@ -78,12 +78,12 @@ const CyberCalendar = ({ value, onChange, onClose }) => {
                 selected.getMonth() === month &&
                 selected.getDate() === day;
 
-            let cellClass = "p-2 text-center cursor-pointer text-sm font-mono transition-colors hover:bg-cyber-neonGreen hover:text-black";
+            let cellClass = "p-2 text-center cursor-pointer text-sm font-mono transition-colors hover:bg-cyber-success hover:text-black";
 
             if (isSelected) {
-                cellClass += " bg-cyber-neonPink text-black font-bold shadow-[0_0_10px_#ff00ff]";
+                cellClass += " bg-cyber-secondary text-black font-bold shadow-cyber-secondary";
             } else if (isToday) {
-                cellClass += " border border-cyber-neonCyan text-cyber-neonCyan";
+                cellClass += " border border-cyber-primary text-cyber-primary";
             } else {
                 cellClass += " text-gray-300";
             }
@@ -102,20 +102,20 @@ const CyberCalendar = ({ value, onChange, onClose }) => {
     };
 
     return (
-        <div className="w-64 calendar-container bg-cyber-black border border-cyber-neonCyan shadow-[0_0_20px_rgba(0,255,255,0.3)] p-2 animate-in fade-in zoom-in-95 duration-150 relative">
+        <div className="w-64 calendar-container bg-cyber-black border border-cyber-primary shadow-cyber-primary p-2 animate-in fade-in zoom-in-95 duration-150 relative">
 
             {/* Header */}
             <div className="flex justify-between items-center mb-2 pb-2 border-b border-gray-800">
                 <div className="flex gap-1">
-                    <button type="button" onClick={() => handleYearChange(-1)} className="text-cyber-neonCyan hover:text-white px-1 font-bold text-xs">{'<<'}</button>
-                    <button type="button" onClick={handlePrevMonth} className="text-cyber-neonCyan hover:text-white px-1">&lt;</button>
+                    <button type="button" onClick={() => handleYearChange(-1)} className="text-cyber-primary hover:text-white px-1 font-bold text-xs">{'<<'}</button>
+                    <button type="button" onClick={handlePrevMonth} className="text-cyber-primary hover:text-white px-1">&lt;</button>
                 </div>
-                <span className="text-cyber-neonPink font-bold uppercase tracking-wider text-sm">
+                <span className="text-cyber-secondary font-bold uppercase tracking-wider text-sm">
                     {months[viewDate.getMonth()]} {viewDate.getFullYear()}
                 </span>
                 <div className="flex gap-1">
-                    <button type="button" onClick={handleNextMonth} className="text-cyber-neonCyan hover:text-white px-1">&gt;</button>
-                    <button type="button" onClick={() => handleYearChange(1)} className="text-cyber-neonCyan hover:text-white px-1 font-bold text-xs">{'>>'}</button>
+                    <button type="button" onClick={handleNextMonth} className="text-cyber-primary hover:text-white px-1">&gt;</button>
+                    <button type="button" onClick={() => handleYearChange(1)} className="text-cyber-primary hover:text-white px-1 font-bold text-xs">{'>>'}</button>
                 </div>
             </div>
 

@@ -7,12 +7,12 @@ const CyberConfirm = ({ message, onConfirm, onCancel, variant = 'cyan', title })
     const isPink = variant === 'pink';
 
     // Theme-compatible classes (using our defined CSS variables in index.css)
-    const accentClass = isPink ? 'border-cyber-neonPink' : 'border-cyber-neonCyan';
-    const textClass = isPink ? 'text-cyber-neonPink' : 'text-cyber-neonCyan';
-    const glowClass = isPink ? 'shadow-neon-pink' : 'shadow-neon-cyan';
-    const decorationClass = isPink ? 'bg-cyber-neonPink/50' : 'bg-cyber-neonCyan/50';
-    const iconGlow = isPink ? 'shadow-neon-pink' : 'shadow-neon-cyan';
-    const buttonClass = isPink ? 'btn-neon-pink' : 'btn-neon-cyan';
+    const accentClass = isPink ? 'border-cyber-secondary' : 'border-cyber-primary';
+    const textClass = isPink ? 'text-cyber-secondary' : 'text-cyber-primary';
+    const glowClass = isPink ? 'shadow-cyber-secondary' : 'shadow-cyber-primary';
+    const decorationClass = isPink ? 'bg-cyber-secondary/50' : 'bg-cyber-primary/50';
+    const iconGlow = isPink ? 'shadow-cyber-secondary' : 'shadow-cyber-primary';
+    const buttonClass = isPink ? 'btn-cyber-secondary' : 'btn-cyber-primary';
 
     return (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-[9999] backdrop-blur-sm animate-in fade-in duration-300">

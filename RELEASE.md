@@ -1,6 +1,62 @@
-# CyberTasker v1.9.0 - Visual Paradigm Shift
+# CyberTasker v1.9.4 - Security & Feature Polish
 
-**Release Date:** 2026-02-19
+**Release Date:** 2026-02-20
+
+This tactical update resolves key friction points reported during fleet trials, improving administrative overrides, task editing stability, and tactile UI readability.
+
+## 🐛 Bug Fixes & UX Polish
+- **Task Title Append Bug**: Fixed an issue during inline editing where new text was inadvertently appended to the existing title.
+- **Task Character Limits**: Enforced a strict 255-character limitation on task directives at both the neural network (database) and frontend layers to preserve interface integrity.
+- **Admin Console CSRF Fix**: Resolved a critical `403 Forbidden` error preventing Admins from disabling 2FA or modifying setting toggles. The `csrf_token` is now correctly injected into the standard login payload and utilized globally by the Admin Panel.
+- **LCARS Icon Legibility**: Increased the font size and hit-boxes of the "Complete" (○/✓) and "Delete" (×) buttons on task cards, drastically improving their visibility and clickability, particularly within the LCARS aesthetic profile.
+
+---
+
+# CyberTasker v1.9.3 - Security Hardening (Phase 3)
+
+**Release Date:** 2026-02-20
+
+This update finalizes the OWASP Top 10 security hardening roadmap by introducing robust anti-brute-force measures and cryptographic integrity checks for external dependencies.
+
+## 🚫 Anti-Brute-Force & Integrity Protocols
+- **Database-Backed Rate Limiting**: The authorization grid (`api/auth.php`) now actively tracks and evaluates login and 2FA verification attempts. If a terminal exceeds 5 failed attempts within a 15-minute window, it is locked out (`HTTP 429 Too Many Requests`), neutralizing automated brute-force and dictionary attacks. The registration endpoint is also strictly throttled.
+- **Subresource Integrity (SRI)**: Mathematical SHA-384 cryptographic hashes have been injected into `index.html` for all external CDN dependencies (e.g., `qrcode.min.js`). The browser will now physically refuse to execute the neural scripts if the Content Delivery Network is ever compromised.
+
+---
+
+# CyberTasker v1.9.2 - Security Hardening (Phase 1 & 2)
+
+**Release Date:** 2026-02-20
+
+This update focuses exclusively on mitigating critical OWASP Top 10 vulnerabilities, establishing a robust, enterprise-grade security baseline for the application.
+
+## 🔒 Enterprise-Grade Security Patches
+- **Zero-Config Auto-Lock**: The installer (`api/install.php`) now detects initialized grids. If the system is active, it strictly requires an authenticated Admin session to execute schema updates, physically preventing unauthorized resets without compromising 1-click deployments on shared hosting.
+- **CSRF Middleware**: Developed a centralized token-negotiation protocol (`api/csrf.php`) and a uniform frontend API wrapper (`apiFetch`). All state-changing requests (POST/PUT/DELETE) are now cryptographically verified to block Cross-Site Request Forgery.
+- **Strict CORS Policy**: Restricted API access (`Access-Control-Allow-Origin`) exclusively to the operational frontend domain, neutralizing cross-origin data exfiltration vectors.
+- **Session Fixation Mitigation**: Embedded forced session regeneration (`session_regenerate_id()`) within all critical authorization uplinks (Login & 2FA Verification) to stop session hijacking.
+- **Information Leakage Sanitization**: Intercepted and scrubbed all raw database exception outputs (`$e->getMessage()`). Vulnerability details are now securely routed to sterile server logs, returning only generic HTTP 500 status codes to the client.
+
+---
+
+# CyberTasker v1.9.1 - Robust Theme Engine
+
+**Release Date:** 2026-02-20
+
+This update hardens the Multi-Theme Architecture introduced in v1.9.0, ensuring absolute CSS isolation and enforcing authentic LCARS geometry across all system components.
+
+## 🎨 Semantic Theming & Geometry
+- **Zero-Bleed Architecture**: Re-engineered the CSS backend to utilize strict, locally-scoped semantic variables (`--theme-primary` instead of `cyber-neonCyan`). This completely eliminates "theme bleeding" where components incorrectly inherited global styles while inside a specific theme preview.
+- **LCARS Geometric Enforcement**: Applied rigorous shape-control to the LCARS theme. All action buttons are now perfectly oval (pill-shaped), and all modal containers feature deeply rounded corners (`1.5rem` radius) to match authentic Starfleet topology.
+- **Aesthetic Finetuning**: Corrected tactical confetti sequences to match the active theme's palette, optimized the visual contrast of Admin "Promote" buttons, and explicitly colored critical LCARS interactables with tactical `#ffaa00`.
+
+## ⚙️ Layout & Polish
+- **Frame Stabilization**: Fixed a critical `border-box` layout drift in the Profile Modal caused by scrollbar overlapping. The frame now correctly contains the custom LCARS scrolling module.
+- **Unified Action Nodes**: The `[X]` close buttons across all modals (Help, Admin, Profile) have been strictly unified, rendering as bold, filled orange tabs specifically within the LCARS environment.
+
+---
+
+# CyberTasker v1.9.0 - Visual Paradigm Shift
 
 This major update introduces the first phase of the Multi-Theme Visual Architecture, featuring the LCARS-inspired interface alongside the classic Cyberpunk neon look.
 

@@ -16,7 +16,7 @@ const PasswordInput = ({ value, onChange, placeholder, className, required = fal
                 onFocus={onFocus}
                 onInvalid={onInvalid}
                 placeholder={placeholder}
-                className={`${className} pr-10 input-normal-case ${error ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
+                className={`${className} pr-10 input-normal-case ${error ? 'border-cyber-secondary shadow-cyber-secondary' : ''}`}
                 required={required}
             />
             {error && (
@@ -27,7 +27,7 @@ const PasswordInput = ({ value, onChange, placeholder, className, required = fal
             <button
                 type="button"
                 onClick={() => setShow(!show)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-cyber-neonCyan hover:text-white transition-colors p-1"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-cyber-primary hover:text-white transition-colors p-1"
                 tabIndex="-1"
             >
                 {show ? (
@@ -419,7 +419,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                         onChange={(e) => handleInputChange('email', e.target.value, setEmail)}
                         onFocus={(e) => { e.target.select(); clearEmailValidation(); }}
                         onInvalid={(e) => handleInvalid(e, 'email')}
-                        className={`input-cyber text-sm w-full input-normal-case ${validationErrors.email ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
+                        className={`input-cyber text-sm w-full input-normal-case ${validationErrors.email ? 'border-cyber-secondary shadow-cyber-secondary' : ''}`}
                         required
                     />
                     {validationErrors.email && (
@@ -439,7 +439,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                     className="input-cyber text-sm w-full"
                     required
                 />
-                <button type="submit" className="btn-cyber btn-auth-orange text-cyber-neonCyan border-cyber-neonCyan hover:bg-cyber-neonCyan hover:text-black text-xs self-end">
+                <button type="submit" className="btn-cyber text-cyber-primary border border-cyber-primary hover:bg-cyber-primary hover:text-black text-xs self-end">
                     {t('profile.contact.reroute')}
                 </button>
             </form>
@@ -574,370 +574,372 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
 
     return (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-            <div className="card-cyber w-full max-w-lg border-cyber-neonCyan shadow-[0_0_30px_rgba(0,255,255,0.3)] relative max-h-[90vh] overflow-y-auto">
+            <div className="card-cyber w-full max-w-lg border-cyber-primary shadow-cyber-primary relative max-h-[90vh] flex flex-col p-1 overflow-hidden">
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-cyber-neonPink hover:text-white font-bold text-xl"
+                    className={`absolute top-1 right-1 font-bold text-xl transition-colors z-50 ${theme === 'lcars' ? 'bg-[#ffaa00] text-black px-3 py-1 rounded-tr-xl hover:brightness-110' : 'text-cyber-secondary hover:text-white'}`}
                 >
                     [X]
                 </button>
+                <div className="overflow-y-auto custom-scrollbar flex-1 relative p-4 pl-5">
 
-                <h2 className="text-2xl font-bold text-cyber-neonCyan mb-6 tracking-widest uppercase border-b border-cyber-gray pb-2 flex flex-col">
-                    <span>{t('profile.title')}:</span>
-                    <span className="text-white text-3xl mt-1">{user.username}</span>
-                </h2>
+                    <h2 className="text-2xl font-bold text-cyber-primary mb-6 tracking-widest uppercase border-b border-cyber-gray pb-2 flex flex-col pt-2">
+                        <span>{t('profile.title')}:</span>
+                        <span className="text-white text-3xl mt-1">{user.username}</span>
+                    </h2>
 
-                {message && <div className="text-cyber-neonGreen mb-4 font-mono">✓ {message}</div>}
-                {error && <div className="text-red-500 mb-4 font-mono">⚠ {error}</div>}
+                    {message && <div className="text-cyber-success mb-4 font-mono">✓ {message}</div>}
+                    {error && <div className="text-red-500 mb-4 font-mono">⚠ {error}</div>}
 
-                <div className="space-y-8">
+                    <div className="space-y-8">
 
 
 
-                    {/* Category Management */}
-                    <div className="border border-cyber-neonPurple/30 bg-cyber-neonPurple/5 p-4 rounded">
-                        <h3 className="text-cyber-neonPurple font-bold mb-3 flex items-center gap-2">
-                            <span>📂</span> {t('profile.categories.protocols')}
-                        </h3>
+                        {/* Category Management */}
+                        <div className="border border-cyber-accent/30 bg-cyber-accent/5 p-4 rounded">
+                            <h3 className="text-cyber-accent font-bold mb-3 flex items-center gap-2">
+                                <span>📂</span> {t('profile.categories.protocols')}
+                            </h3>
 
-                        <div className="space-y-2 mb-4 max-h-40 overflow-y-auto custom-scrollbar">
-                            {categories.map(cat => (
-                                <div key={cat.id} className="flex items-center justify-between bg-black/40 p-2 rounded border border-gray-700">
-                                    {editingCatId === cat.id ? (
-                                        <form
-                                            onSubmit={(e) => {
-                                                e.preventDefault();
-                                                handleSaveRename(cat.id);
-                                            }}
-                                            className="flex gap-2 w-full"
-                                        >
-                                            <div className="relative flex-1">
-                                                <input
-                                                    type="text"
-                                                    value={editingCatName}
-                                                    onChange={(e) => handleInputChange(`edit_cat_${cat.id}`, e.target.value, setEditingCatName)}
-                                                    onFocus={(e) => e.target.select()}
-                                                    onInvalid={(e) => handleInvalid(e, `edit_cat_${cat.id}`)}
-                                                    className={`input-cyber text-xs p-1 w-full input-normal-case ${validationErrors[`edit_cat_${cat.id}`] ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
-                                                    autoFocus
-                                                    required
-                                                />
-                                                {validationErrors[`edit_cat_${cat.id}`] && (
-                                                    <div className="cyber-validation-bubble">
-                                                        {t('auth.messages.input_required')}
-                                                    </div>
-                                                )}
-                                            </div>
-                                            <button type="submit" className="text-green-500 hover:text-green-400">✓</button>
-                                            <button type="button" onClick={() => setEditingCatId(null)} className="text-red-500 hover:text-red-400">✕</button>
-                                        </form>
-                                    ) : (
-                                        <>
-                                            <div className="flex items-center gap-2">
-                                                <span className="text-gray-300 font-mono text-sm">{cat.name}</span>
-                                                {cat.is_default && (
-                                                    <span className="text-[10px] bg-cyber-neonCyan/20 text-cyber-neonCyan px-1 rounded border border-cyber-neonCyan/30 animate-pulse font-bold">
-                                                        {t('profile.categories.default')}
-                                                    </span>
-                                                )}
-                                            </div>
-                                            <div className="flex gap-2">
-                                                {!cat.is_default && (
-                                                    <button onClick={() => handleSetDefault(cat.id)} className="text-gray-500 hover:text-yellow-500" title={t('profile.categories.set_default')}>★</button>
-                                                )}
-                                                <button onClick={() => handleStartEdit(cat)} className="text-gray-500 hover:text-cyber-neonCyan" title={t('profile.categories.rename')}>✎</button>
-                                                <button onClick={() => handleDeleteCategory(cat.id)} className="text-gray-500 hover:text-red-500 btn-cat-delete" title={t('profile.categories.delete')}>🗑</button>
-                                            </div>
-                                        </>
+                            <div className="space-y-2 mb-4 max-h-40 overflow-y-auto custom-scrollbar">
+                                {categories.map(cat => (
+                                    <div key={cat.id} className="flex items-center justify-between bg-black/40 p-2 rounded border border-gray-700">
+                                        {editingCatId === cat.id ? (
+                                            <form
+                                                onSubmit={(e) => {
+                                                    e.preventDefault();
+                                                    handleSaveRename(cat.id);
+                                                }}
+                                                className="flex gap-2 w-full"
+                                            >
+                                                <div className="relative flex-1">
+                                                    <input
+                                                        type="text"
+                                                        value={editingCatName}
+                                                        onChange={(e) => handleInputChange(`edit_cat_${cat.id}`, e.target.value, setEditingCatName)}
+                                                        onFocus={(e) => e.target.select()}
+                                                        onInvalid={(e) => handleInvalid(e, `edit_cat_${cat.id}`)}
+                                                        className={`input-cyber text-xs p-1 w-full input-normal-case ${validationErrors[`edit_cat_${cat.id}`] ? 'border-cyber-secondary shadow-cyber-secondary' : ''}`}
+                                                        autoFocus
+                                                        required
+                                                    />
+                                                    {validationErrors[`edit_cat_${cat.id}`] && (
+                                                        <div className="cyber-validation-bubble">
+                                                            {t('auth.messages.input_required')}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <button type="submit" className="text-cyber-success hover:text-green-400">✓</button>
+                                                <button type="button" onClick={() => setEditingCatId(null)} className="text-red-500 hover:text-red-400">✕</button>
+                                            </form>
+                                        ) : (
+                                            <>
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-gray-300 font-mono text-sm">{cat.name}</span>
+                                                    {cat.is_default && (
+                                                        <span className="text-[10px] bg-cyber-primary/20 text-cyber-primary px-1 rounded border border-cyber-primary/30 animate-pulse font-bold">
+                                                            {t('profile.categories.default')}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                <div className="flex gap-2">
+                                                    {!cat.is_default && (
+                                                        <button onClick={() => handleSetDefault(cat.id)} className="text-gray-500 hover:text-yellow-500" title={t('profile.categories.set_default')}>★</button>
+                                                    )}
+                                                    <button onClick={() => handleStartEdit(cat)} className="text-gray-500 hover:text-cyber-primary" title={t('profile.categories.rename')}>✎</button>
+                                                    <button onClick={() => handleDeleteCategory(cat.id)} className="text-gray-500 hover:text-red-500 bg-cyber-danger text-white rounded px-2 py-0.5 hover:brightness-110" title={t('profile.categories.delete')}>🗑</button>
+                                                </div>
+                                            </>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+
+                            <form onSubmit={handleAddCategory} className="flex gap-2">
+                                <div className="relative flex-1">
+                                    <input
+                                        type="text"
+                                        placeholder={t('profile.categories.new_protocol_placeholder')}
+                                        value={newCatName}
+                                        onChange={(e) => handleInputChange('new_cat', e.target.value, setNewCatName)}
+                                        onFocus={(e) => { e.target.select(); clearValidation(); }}
+                                        onInvalid={(e) => handleInvalid(e, 'new_cat')}
+                                        className={`input-cyber text-xs w-full input-normal-case ${validationErrors.new_cat ? 'border-cyber-secondary shadow-cyber-secondary' : ''}`}
+                                        maxLength={20}
+                                        required
+                                    />
+                                    {validationErrors.new_cat && (
+                                        <div className="cyber-validation-bubble">
+                                            {t('auth.messages.input_required')}
+                                        </div>
                                     )}
                                 </div>
-                            ))}
+                                <button type="submit" className="btn-cyber text-cyber-accent border-cyber-accent hover:bg-cyber-accent hover:text-black text-xs px-3">
+                                    {t('profile.categories.add')}
+                                </button>
+                            </form>
                         </div>
 
-                        <form onSubmit={handleAddCategory} className="flex gap-2">
-                            <div className="relative flex-1">
-                                <input
-                                    type="text"
-                                    placeholder={t('profile.categories.new_protocol_placeholder')}
-                                    value={newCatName}
-                                    onChange={(e) => handleInputChange('new_cat', e.target.value, setNewCatName)}
-                                    onFocus={(e) => { e.target.select(); clearValidation(); }}
-                                    onInvalid={(e) => handleInvalid(e, 'new_cat')}
-                                    className={`input-cyber text-xs w-full input-normal-case ${validationErrors.new_cat ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : ''}`}
-                                    maxLength={20}
+                        {/* 2FA Section */}
+                        <div className="border border-cyber-success/30 bg-cyber-success/5 p-4 rounded shadow-[inset_0_0_15px_rgba(0,255,0,0.05)]">
+                            <h3 className="text-cyber-success font-bold mb-4 flex items-center gap-2 tracking-widest text-sm">
+                                <span className="animate-pulse">🛡</span> {t('profile.security.bio_lock')}
+                            </h3>
+
+                            {/* PHASE 0: ACTIVE STATUS */}
+                            {user.two_factor_enabled && !show2FA && !backupCodes && (
+                                <div className="text-center space-y-4 py-2">
+                                    <p className="text-cyber-success font-mono text-xs uppercase tracking-[0.2em] border-y border-cyber-success/20 py-2">
+                                        ✓ {t('profile.security.protocols_active')} {user.two_factor_method === 'totp' ? t('profile.security.neural_auth') : t('profile.security.email_uplink')}
+                                    </p>
+                                    <button onClick={handleDisable2FA} className="btn-cyber border-red-500 text-red-500 hover:bg-red-500 hover:text-white text-[10px] w-full py-2 transition-all btn-cyber-primary">
+                                        {t('profile.security.terminate_protocols')}
+                                    </button>
+                                </div>
+                            )}
+
+                            {/* PHASE 1: SELECTION */}
+                            {!user.two_factor_enabled && !show2FA && !backupCodes && (
+                                <div className="grid grid-cols-2 gap-3">
+                                    <button onClick={handleSetup2FA} className="btn-cyber btn-cyber-primary btn-cyber-primary text-[10px] py-3 uppercase font-bold tracking-tighter">
+                                        {t('profile.security.auth_app')}
+                                    </button>
+                                    <button onClick={handleSetupEmail2FA} className="btn-cyber btn-cyber-accent text-[10px] py-3 uppercase font-bold tracking-tighter">
+                                        {t('profile.security.email_security')}
+                                    </button>
+                                </div>
+                            )}
+
+                            {/* PHASE 2: SETUP/VERIFICATION */}
+                            {show2FA && !backupCodes && (
+                                <form
+                                    onSubmit={(e) => {
+                                        e.preventDefault();
+                                        handleEnable2FA();
+                                    }}
+                                    className="flex flex-col gap-4 animate-in fade-in slide-in-from-top-2 duration-300"
+                                >
+                                    {setupMethod === 'totp' ? (
+                                        <div className="flex flex-col items-center gap-3 bg-black/40 p-3 border border-cyber-primary/20 rounded">
+                                            <p className="text-[11px] text-gray-300 uppercase tracking-widest text-center">{t('profile.security.sync_link')}</p>
+                                            <div id="qrcode" className="border-2 border-white p-1 bg-white shadow-[0_0_20px_rgba(255,255,255,0.1)]"></div>
+                                            <p className="text-[11px] text-cyber-primary font-mono break-all text-center px-4 py-1 bg-black/60 rounded border border-gray-800">{qrSecret}</p>
+                                        </div>
+                                    ) : (
+                                        <div className="text-center space-y-2 py-4 border-y border-cyber-accent/20 bg-cyber-accent/5">
+                                            <p className="text-xs text-cyber-accent uppercase font-bold tracking-[0.1em]">{t('profile.security.transmission_sent')}</p>
+                                            <p className="text-[11px] text-gray-400 font-mono italic">{t('profile.security.signal_decay')}</p>
+                                        </div>
+                                    )}
+
+                                    <div className="flex gap-2 w-full">
+                                        <div className="relative flex-1">
+                                            <input
+                                                type="text"
+                                                placeholder={t('profile.security.verify_code')}
+                                                value={twoFaCode}
+                                                onChange={e => handleInputChange('two_fa_code', e.target.value, setTwoFaCode)}
+                                                onFocus={(e) => { e.target.select(); clearValidation(); }}
+                                                onInvalid={e => handleInvalid(e, 'two_fa_code')}
+                                                className={`input-cyber text-center w-full text-sm h-10 tracking-[0.3em] font-bold input-normal-case ${validationErrors.two_fa_code ? 'border-cyber-secondary shadow-cyber-secondary' : 'border-cyber-success/40'}`}
+                                                maxLength={6}
+                                                required
+                                                autoFocus
+                                            />
+                                            {validationErrors.two_fa_code && (
+                                                <div className="cyber-validation-bubble">
+                                                    {t('auth.messages.input_required')}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <button
+                                            type="submit"
+                                            className="btn-cyber bg-cyber-success text-black font-bold text-xs px-6 h-10 shadow-cyber-success hover:brightness-110 active:scale-95 transition-all"
+                                        >
+                                            {t('profile.security.bridge')}
+                                        </button>
+                                    </div>
+                                    <button type="button" onClick={clearSetupState} className="text-[11px] text-gray-400 hover:text-white uppercase tracking-widest text-center transition-colors">
+                                        {t('profile.security.abort_uplink')}
+                                    </button>
+                                </form>
+                            )}
+
+                            {/* PHASE 3: BACKUP FRAGMENTS */}
+                            {backupCodes && (
+                                <div className="bg-black/60 p-4 border border-cyber-primary rounded-lg space-y-4 animate-in zoom-in-95 duration-300 shadow-cyber-primary">
+                                    <div className="text-center border-b border-cyber-primary/30 pb-3">
+                                        <p className="text-cyber-secondary text-xs font-bold uppercase tracking-[0.2em] animate-pulse">
+                                            {t('profile.security.critical_backup')}
+                                        </p>
+                                        <p className="text-[11px] text-gray-400 mt-1 uppercase tracking-tighter">{t('profile.security.emergency_override')}</p>
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-2 font-mono">
+                                        {backupCodes.map((code, i) => (
+                                            <div key={i} className="group relative bg-gray-900/80 p-2 border border-gray-800 text-center text-cyber-primary hover:border-cyber-primary transition-all duration-300">
+                                                <span className="text-xs tracking-widest">{code}</span>
+                                                <div
+                                                    onClick={() => {
+                                                        navigator.clipboard.writeText(code);
+                                                        setMessage(t('profile.messages.fragment_copied'));
+                                                        setTimeout(() => setMessage(""), 2000);
+                                                    }}
+                                                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-cyber-primary/20 backdrop-blur-[1px] transition-opacity cursor-pointer border border-cyber-primary scale-105"
+                                                >
+                                                    <span className="bg-cyber-primary text-black text-[9px] px-2 font-bold uppercase shadow-lg">{t('profile.security.copy_fragment')}</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <button
+                                        type="button"
+                                        onClick={clearSetupState}
+                                        className="btn-cyber btn-cyber-primary text-black font-bold text-xs w-full py-3 uppercase shadow-cyber-primary hover:scale-[1.02] transition-transform"
+                                    >
+                                        {t('profile.security.uplink_complete')}
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Email Update Section */}
+                        <div>
+                            <h3 className="text-white font-bold mb-3 flex items-center gap-2">
+                                <span className="text-cyber-primary">@</span> {t('profile.contact.channel')}
+                            </h3>
+                            <div className="flex flex-col gap-3">
+                                <div className="text-xs text-gray-400 mb-1">
+                                    {t('profile.contact.current')} <span className="text-white font-mono">{user.email || 'N/A'}</span>
+                                </div>
+                                <UpdateEmailForm
+                                    currentEmail={user.email}
+                                    onUpdate={(email, pass) => handleUpdateEmail(email, pass)}
+                                    t={t}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Theme Selection Overlay */}
+                        <div className="border border-cyber-primary/30 bg-cyber-primary/5 p-4 rounded">
+                            <h3 className="text-cyber-primary font-bold mb-4 flex items-center gap-2">
+                                <span>👁</span> {t('profile.theme_selection')}
+                            </h3>
+                            <div className="grid grid-cols-2 gap-4">
+                                <button
+                                    onClick={() => setTheme('cyberpunk')}
+                                    className={`theme-preview-card theme-cyberpunk transition-all duration-300 overflow-hidden ${theme === 'cyberpunk' ? 'border border-cyber-primary bg-cyber-primary/20 shadow-[0_0_20px_rgba(0,255,255,0.4)] scale-[1.02]' : 'border-gray-700 bg-black/40 hover:border-gray-500 scale-100'}`}
+                                >
+                                    <div className="flex flex-col items-center gap-2 relative z-10">
+                                        <div className="w-12 h-6 bg-cyber-primary/20 border border-cyber-primary relative overflow-hidden">
+                                            <div className="absolute top-0 left-0 w-full h-[2px] bg-cyber-secondary animate-pulse shadow-cyber-secondary"></div>
+                                        </div>
+                                        <span className={`text-[10px] font-bold tracking-widest font-preview-cyberpunk ${theme === 'cyberpunk' ? 'text-cyber-primary' : 'text-gray-400'}`}>
+                                            {t('profile.themes.cyberpunk')}
+                                        </span>
+                                    </div>
+                                    {theme === 'cyberpunk' && (
+                                        <div className="absolute top-0 right-0 bg-cyber-primary text-black font-bold text-[8px] px-2 py-0.5 transform rotate-45 translate-x-3 translate-y-[-2px] z-20">
+                                            ACTIVE
+                                        </div>
+                                    )}
+                                </button>
+
+                                <button
+                                    onClick={() => setTheme('lcars')}
+                                    className={`theme-preview-card theme-lcars rounded-2xl transition-all duration-300 overflow-hidden ${theme === 'lcars' ? 'border-[3px] border-cyber-primary bg-black scale-[1.02]' : 'border-[3px] border-gray-700 bg-black/40 hover:border-gray-500 scale-100'}`}
+                                >
+                                    <div className="flex flex-col items-center gap-2 relative z-10">
+                                        <div className="w-12 h-6 bg-cyber-primary rounded-full flex items-center px-1">
+                                            <div className="w-3 h-3 bg-black rounded-full"></div>
+                                        </div>
+                                        <span className={`text-[10px] font-bold tracking-widest font-preview-lcars ${theme === 'lcars' ? 'text-white' : 'text-gray-400'}`}>
+                                            {t('profile.themes.lcars')}
+                                        </span>
+                                    </div>
+                                    {theme === 'lcars' && (
+                                        <div className="absolute top-0 right-0 bg-cyber-primary text-black font-bold text-[8px] px-2 py-0.5 transform rotate-45 translate-x-3 translate-y-[-2px] z-20">
+                                            ACTIVE
+                                        </div>
+                                    )}
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Change Password Section */}
+                        <div>
+                            <h3 className="text-white font-bold mb-3 flex items-center gap-2">
+                                <span className="text-cyber-secondary">»</span> {t('profile.cypher.update_title')}
+                            </h3>
+                            <form onSubmit={handleChangePassword} className="flex flex-col gap-3">
+                                <PasswordInput
+                                    placeholder={t('profile.cypher.current_placeholder')}
+                                    value={currentPassword}
+                                    onChange={(e) => handleInputChange('current_pass', e.target.value, setCurrentPassword)}
+                                    onFocus={clearValidation}
+                                    onInvalid={(e) => handleInvalid(e, 'current_pass')}
+                                    error={validationErrors.current_pass}
+                                    t={t}
+                                    className="input-cyber text-sm w-full"
                                     required
                                 />
-                                {validationErrors.new_cat && (
-                                    <div className="cyber-validation-bubble">
-                                        {t('auth.messages.input_required')}
-                                    </div>
-                                )}
-                            </div>
-                            <button type="submit" className="btn-cyber text-cyber-neonPurple border-cyber-neonPurple hover:bg-cyber-neonPurple hover:text-black text-xs px-3">
-                                {t('profile.categories.add')}
-                            </button>
-                        </form>
-                    </div>
-
-                    {/* 2FA Section */}
-                    <div className="border border-cyber-neonGreen/30 bg-cyber-neonGreen/5 p-4 rounded shadow-[inset_0_0_15px_rgba(0,255,0,0.05)]">
-                        <h3 className="text-cyber-neonGreen font-bold mb-4 flex items-center gap-2 tracking-widest text-sm">
-                            <span className="animate-pulse">🛡</span> {t('profile.security.bio_lock')}
-                        </h3>
-
-                        {/* PHASE 0: ACTIVE STATUS */}
-                        {user.two_factor_enabled && !show2FA && !backupCodes && (
-                            <div className="text-center space-y-4 py-2">
-                                <p className="text-cyber-neonGreen font-mono text-xs uppercase tracking-[0.2em] border-y border-cyber-neonGreen/20 py-2">
-                                    ✓ {t('profile.security.protocols_active')} {user.two_factor_method === 'totp' ? t('profile.security.neural_auth') : t('profile.security.email_uplink')}
-                                </p>
-                                <button onClick={handleDisable2FA} className="btn-cyber border-red-500 text-red-500 hover:bg-red-500 hover:text-white text-[10px] w-full py-2 transition-all btn-auth-orange">
-                                    {t('profile.security.terminate_protocols')}
+                                <PasswordInput
+                                    placeholder={t('profile.cypher.new_placeholder')}
+                                    value={newPassword}
+                                    onChange={(e) => handleInputChange('new_pass', e.target.value, setNewPassword)}
+                                    onFocus={clearValidation}
+                                    onInvalid={(e) => handleInvalid(e, 'new_pass')}
+                                    error={validationErrors.new_pass}
+                                    t={t}
+                                    className="input-cyber text-sm w-full"
+                                    required
+                                />
+                                <button type="submit" className="btn-cyber btn-cyber-primary btn-cyber-primary text-xs self-end">
+                                    {t('profile.cypher.execute')}
                                 </button>
-                            </div>
-                        )}
+                            </form>
+                        </div>
 
-                        {/* PHASE 1: SELECTION */}
-                        {!user.two_factor_enabled && !show2FA && !backupCodes && (
-                            <div className="grid grid-cols-2 gap-3">
-                                <button onClick={handleSetup2FA} className="btn-cyber btn-neon-cyan btn-auth-orange text-[10px] py-3 uppercase font-bold tracking-tighter">
-                                    {t('profile.security.auth_app')}
-                                </button>
-                                <button onClick={handleSetupEmail2FA} className="btn-cyber btn-neon-purple text-[10px] py-3 uppercase font-bold tracking-tighter">
-                                    {t('profile.security.email_security')}
-                                </button>
-                            </div>
-                        )}
-
-                        {/* PHASE 2: SETUP/VERIFICATION */}
-                        {show2FA && !backupCodes && (
+                        {/* Delete Account Section */}
+                        <div className="border border-cyber-danger/50 bg-red-900/10 p-4 rounded">
+                            <h3 className="text-red-500 font-bold mb-3 flex items-center gap-2">
+                                <span className="text-red-500">⚠</span> {t('profile.danger.title')}
+                            </h3>
+                            <p className="text-xs text-gray-400 mb-3">
+                                {t('profile.danger.warning')}
+                            </p>
                             <form
                                 onSubmit={(e) => {
                                     e.preventDefault();
-                                    handleEnable2FA();
+                                    handleDeleteAccount();
                                 }}
-                                className="flex flex-col gap-4 animate-in fade-in slide-in-from-top-2 duration-300"
+                                className="flex flex-col md:flex-row gap-2 items-stretch md:items-center"
                             >
-                                {setupMethod === 'totp' ? (
-                                    <div className="flex flex-col items-center gap-3 bg-black/40 p-3 border border-cyber-neonCyan/20 rounded">
-                                        <p className="text-[11px] text-gray-300 uppercase tracking-widest text-center">{t('profile.security.sync_link')}</p>
-                                        <div id="qrcode" className="border-2 border-white p-1 bg-white shadow-[0_0_20px_rgba(255,255,255,0.1)]"></div>
-                                        <p className="text-[11px] text-cyber-neonCyan font-mono break-all text-center px-4 py-1 bg-black/60 rounded border border-gray-800">{qrSecret}</p>
-                                    </div>
-                                ) : (
-                                    <div className="text-center space-y-2 py-4 border-y border-cyber-neonPurple/20 bg-cyber-neonPurple/5">
-                                        <p className="text-xs text-cyber-neonPurple uppercase font-bold tracking-[0.1em]">{t('profile.security.transmission_sent')}</p>
-                                        <p className="text-[11px] text-gray-400 font-mono italic">{t('profile.security.signal_decay')}</p>
-                                    </div>
-                                )}
-
-                                <div className="flex gap-2 w-full">
-                                    <div className="relative flex-1">
-                                        <input
-                                            type="text"
-                                            placeholder={t('profile.security.verify_code')}
-                                            value={twoFaCode}
-                                            onChange={e => handleInputChange('two_fa_code', e.target.value, setTwoFaCode)}
-                                            onFocus={(e) => { e.target.select(); clearValidation(); }}
-                                            onInvalid={e => handleInvalid(e, 'two_fa_code')}
-                                            className={`input-cyber text-center w-full text-sm h-10 tracking-[0.3em] font-bold input-normal-case ${validationErrors.two_fa_code ? 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)]' : 'border-cyber-neonGreen/40'}`}
-                                            maxLength={6}
-                                            required
-                                            autoFocus
-                                        />
-                                        {validationErrors.two_fa_code && (
-                                            <div className="cyber-validation-bubble">
-                                                {t('auth.messages.input_required')}
-                                            </div>
-                                        )}
-                                    </div>
-                                    <button
-                                        type="submit"
-                                        className="btn-cyber bg-cyber-neonGreen text-black font-bold text-xs px-6 h-10 shadow-[0_0_10px_rgba(57,255,20,0.3)] hover:brightness-110 active:scale-95 transition-all"
-                                    >
-                                        {t('profile.security.bridge')}
-                                    </button>
+                                <div className="flex-grow">
+                                    <PasswordInput
+                                        placeholder={t('profile.danger.confirm_placeholder')}
+                                        value={deleteConfirmation}
+                                        onChange={(e) => handleInputChange('delete_confirm', e.target.value, setDeleteConfirmation)}
+                                        onFocus={clearValidation}
+                                        onInvalid={(e) => handleInvalid(e, 'delete_confirm')}
+                                        error={validationErrors.delete_confirm}
+                                        t={t}
+                                        className="input-cyber text-sm w-full border-red-900 focus:border-red-500"
+                                        required
+                                    />
                                 </div>
-                                <button type="button" onClick={clearSetupState} className="text-[11px] text-gray-400 hover:text-white uppercase tracking-widest text-center transition-colors">
-                                    {t('profile.security.abort_uplink')}
+                                <button
+                                    type="submit"
+                                    className="px-6 py-2 bg-red-900 text-white font-bold text-xs transition-colors border border-red-500 whitespace-nowrap btn-terminate"
+                                >
+                                    {t('profile.danger.terminate_btn')}
                                 </button>
                             </form>
-                        )}
-
-                        {/* PHASE 3: BACKUP FRAGMENTS */}
-                        {backupCodes && (
-                            <div className="bg-black/60 p-4 border border-cyber-neonCyan rounded-lg space-y-4 animate-in zoom-in-95 duration-300 shadow-[0_0_20px_rgba(0,255,255,0.1)]">
-                                <div className="text-center border-b border-cyber-neonCyan/30 pb-3">
-                                    <p className="text-cyber-neonPink text-xs font-bold uppercase tracking-[0.2em] animate-pulse">
-                                        {t('profile.security.critical_backup')}
-                                    </p>
-                                    <p className="text-[11px] text-gray-400 mt-1 uppercase tracking-tighter">{t('profile.security.emergency_override')}</p>
-                                </div>
-
-                                <div className="grid grid-cols-2 gap-2 font-mono">
-                                    {backupCodes.map((code, i) => (
-                                        <div key={i} className="group relative bg-gray-900/80 p-2 border border-gray-800 text-center text-cyber-neonCyan hover:border-cyber-neonCyan transition-all duration-300">
-                                            <span className="text-xs tracking-widest">{code}</span>
-                                            <div
-                                                onClick={() => {
-                                                    navigator.clipboard.writeText(code);
-                                                    setMessage(t('profile.messages.fragment_copied'));
-                                                    setTimeout(() => setMessage(""), 2000);
-                                                }}
-                                                className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-cyber-neonCyan/20 backdrop-blur-[1px] transition-opacity cursor-pointer border border-cyber-neonCyan scale-105"
-                                            >
-                                                <span className="bg-cyber-neonCyan text-black text-[9px] px-2 font-bold uppercase shadow-lg">{t('profile.security.copy_fragment')}</span>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                <button
-                                    type="button"
-                                    onClick={clearSetupState}
-                                    className="btn-cyber btn-neon-cyan text-black font-bold text-xs w-full py-3 uppercase shadow-[0_0_20px_rgba(0,255,255,0.3)] hover:scale-[1.02] transition-transform"
-                                >
-                                    {t('profile.security.uplink_complete')}
-                                </button>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Email Update Section */}
-                    <div>
-                        <h3 className="text-white font-bold mb-3 flex items-center gap-2">
-                            <span className="text-cyber-neonCyan">@</span> {t('profile.contact.channel')}
-                        </h3>
-                        <div className="flex flex-col gap-3">
-                            <div className="text-xs text-gray-400 mb-1">
-                                {t('profile.contact.current')} <span className="text-white font-mono">{user.email || 'N/A'}</span>
-                            </div>
-                            <UpdateEmailForm
-                                currentEmail={user.email}
-                                onUpdate={(email, pass) => handleUpdateEmail(email, pass)}
-                                t={t}
-                            />
                         </div>
-                    </div>
-
-                    {/* Theme Selection Overlay */}
-                    <div className="border border-cyber-neonCyan/30 bg-cyber-neonCyan/5 p-4 rounded">
-                        <h3 className="text-cyber-neonCyan font-bold mb-4 flex items-center gap-2">
-                            <span>👁</span> {t('profile.theme_selection')}
-                        </h3>
-                        <div className="grid grid-cols-2 gap-4">
-                            <button
-                                onClick={() => setTheme('cyberpunk')}
-                                className={`theme-preview-card transition-all duration-300 overflow-hidden ${theme === 'cyberpunk' ? 'border border-cyber-neonCyan bg-cyber-neonCyan/20 shadow-[0_0_20px_rgba(0,255,255,0.4)] scale-[1.02]' : 'border-gray-700 bg-black/40 hover:border-gray-500 scale-100'}`}
-                            >
-                                <div className="flex flex-col items-center gap-2 relative z-10">
-                                    <div className="w-12 h-6 bg-[#00FFFF]/20 border border-[#00FFFF] relative overflow-hidden">
-                                        <div className="absolute top-0 left-0 w-full h-[2px] bg-[#FF00FF] animate-pulse shadow-[0_0_10px_#FF00FF]"></div>
-                                    </div>
-                                    <span className={`text-[10px] font-bold tracking-widest font-preview-cyberpunk ${theme === 'cyberpunk' ? 'text-[#00FFFF]' : 'text-gray-400'}`}>
-                                        {t('profile.themes.cyberpunk')}
-                                    </span>
-                                </div>
-                                {theme === 'cyberpunk' && (
-                                    <div className="absolute top-0 right-0 bg-[#00FFFF] text-black font-bold text-[8px] px-2 py-0.5 transform rotate-45 translate-x-3 translate-y-[-2px] z-20">
-                                        ACTIVE
-                                    </div>
-                                )}
-                            </button>
-
-                            <button
-                                onClick={() => setTheme('lcars')}
-                                className={`theme-preview-card transition-all duration-300 overflow-hidden ${theme === 'lcars' ? 'border border-[#ffcc33] bg-[#8888aa] scale-[1.02]' : 'border-gray-700 bg-black/40 hover:border-gray-500 scale-100'}`}
-                            >
-                                <div className="flex flex-col items-center gap-2 relative z-10">
-                                    <div className="w-12 h-6 bg-[#ffcc33] rounded-full flex items-center px-1">
-                                        <div className="w-3 h-3 bg-black rounded-full"></div>
-                                    </div>
-                                    <span className={`text-[10px] font-bold tracking-widest font-preview-lcars ${theme === 'lcars' ? 'text-white' : 'text-gray-400'}`}>
-                                        {t('profile.themes.lcars')}
-                                    </span>
-                                </div>
-                                {theme === 'lcars' && (
-                                    <div className="absolute top-0 right-0 bg-[#ffcc33] text-black font-bold text-[8px] px-2 py-0.5 transform rotate-45 translate-x-3 translate-y-[-2px] z-20">
-                                        ACTIVE
-                                    </div>
-                                )}
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Change Password Section */}
-                    <div>
-                        <h3 className="text-white font-bold mb-3 flex items-center gap-2">
-                            <span className="text-cyber-neonPink">»</span> {t('profile.cypher.update_title')}
-                        </h3>
-                        <form onSubmit={handleChangePassword} className="flex flex-col gap-3">
-                            <PasswordInput
-                                placeholder={t('profile.cypher.current_placeholder')}
-                                value={currentPassword}
-                                onChange={(e) => handleInputChange('current_pass', e.target.value, setCurrentPassword)}
-                                onFocus={clearValidation}
-                                onInvalid={(e) => handleInvalid(e, 'current_pass')}
-                                error={validationErrors.current_pass}
-                                t={t}
-                                className="input-cyber text-sm w-full"
-                                required
-                            />
-                            <PasswordInput
-                                placeholder={t('profile.cypher.new_placeholder')}
-                                value={newPassword}
-                                onChange={(e) => handleInputChange('new_pass', e.target.value, setNewPassword)}
-                                onFocus={clearValidation}
-                                onInvalid={(e) => handleInvalid(e, 'new_pass')}
-                                error={validationErrors.new_pass}
-                                t={t}
-                                className="input-cyber text-sm w-full"
-                                required
-                            />
-                            <button type="submit" className="btn-cyber btn-neon-cyan btn-auth-orange text-xs self-end">
-                                {t('profile.cypher.execute')}
-                            </button>
-                        </form>
-                    </div>
-
-                    {/* Delete Account Section */}
-                    <div className="border border-red-900/50 bg-red-900/10 p-4 rounded">
-                        <h3 className="text-red-500 font-bold mb-3 flex items-center gap-2">
-                            <span className="text-red-500">⚠</span> {t('profile.danger.title')}
-                        </h3>
-                        <p className="text-xs text-gray-400 mb-3">
-                            {t('profile.danger.warning')}
-                        </p>
-                        <form
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                                handleDeleteAccount();
-                            }}
-                            className="flex flex-col md:flex-row gap-2 items-stretch md:items-center"
-                        >
-                            <div className="flex-grow">
-                                <PasswordInput
-                                    placeholder={t('profile.danger.confirm_placeholder')}
-                                    value={deleteConfirmation}
-                                    onChange={(e) => handleInputChange('delete_confirm', e.target.value, setDeleteConfirmation)}
-                                    onFocus={clearValidation}
-                                    onInvalid={(e) => handleInvalid(e, 'delete_confirm')}
-                                    error={validationErrors.delete_confirm}
-                                    t={t}
-                                    className="input-cyber text-sm w-full border-red-900 focus:border-red-500"
-                                    required
-                                />
-                            </div>
-                            <button
-                                type="submit"
-                                className="px-6 py-2 bg-red-900 text-white font-bold text-xs transition-colors border border-red-500 whitespace-nowrap btn-terminate"
-                            >
-                                {t('profile.danger.terminate_btn')}
-                            </button>
-                        </form>
                     </div>
                 </div>
-            </div >
+            </div>
 
             {
                 confirmModal.show && (
@@ -960,7 +962,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                     />
                 )
             }
-        </div >
+        </div>
     );
 };
 

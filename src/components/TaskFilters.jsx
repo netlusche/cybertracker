@@ -34,14 +34,14 @@ const TaskFilters = ({ filters, onFilterChange, categories }) => {
 
                 {/* Search Input */}
                 <div className="relative w-full md:w-1/3">
-                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-cyber-neonCyan">🔍</span>
+                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-cyber-primary">🔍</span>
                     <input
                         type="text"
                         placeholder={t('tasks.search_placeholder')}
                         value={localSearch}
                         onChange={(e) => setLocalSearch(e.target.value)}
                         onFocus={(e) => e.target.select()}
-                        className="w-full bg-black border border-cyber-gray text-white pl-10 pr-4 py-2 rounded focus:border-cyber-neonCyan focus:shadow-[0_0_10px_#00ffff] outline-none transition-all placeholder-gray-200 font-mono input-normal-case"
+                        className="w-full bg-black border border-cyber-gray text-white pl-10 pr-4 py-2 rounded focus:border-cyber-primary focus:shadow-cyber-primary outline-none transition-all placeholder-gray-200 font-mono input-normal-case"
                     />
                 </div>
 
@@ -79,14 +79,14 @@ const TaskFilters = ({ filters, onFilterChange, categories }) => {
                         onChange={(e) => handleChange('overdue', e.target.checked)}
                         className="hidden" // Custom checkbox style can be added here or just use simple toggle visual
                     />
-                    <span className={`w-3 h-3 rounded-full ${filters.overdue ? 'bg-red-500 shadow-[0_0_8px_#ff0000]' : 'bg-gray-600'}`}></span>
+                    <span className={`w-3 h-3 rounded-full ${filters.overdue ? 'bg-red-500 shadow-cyber-danger' : 'bg-gray-600'}`}></span>
                     {t('tasks.overdue_only')}
                 </label>
 
                 {/* Reset Button */}
                 <button
                     onClick={() => onFilterChange({ search: '', priority: '', category: '', overdue: false })}
-                    className="text-xs text-cyber-neonCyan border border-cyber-neonCyan px-3 py-2 rounded hover:bg-cyber-neonCyan hover:text-black transition-all font-bold ml-auto btn-filter-reset"
+                    className="text-xs text-cyber-primary border border-cyber-primary px-3 py-2 rounded hover:bg-cyber-primary hover:text-black transition-all font-bold ml-auto"
                 >
                     {t('common.reset')}
                 </button>

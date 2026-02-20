@@ -51,7 +51,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
 
     const priorityColors = {
         1: 'border-l-4 border-red-500',   // High
-        2: 'border-l-4 border-yellow-500', // Medium
+        2: 'border-l-4 border-cyber-warning', // Medium
         3: 'border-l-4 border-green-500',  // Low
     };
 
@@ -180,7 +180,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
                             <button
                                 onClick={handleCycleCategory}
                                 disabled={task.status == 1}
-                                className={`text-[10px] font-bold text-cyber-neonCyan tracking-wider uppercase border border-cyber-neonCyan px-2 py-1 rounded transition-all ${task.status != 1 ? 'hover:bg-cyber-neonCyan hover:text-black cursor-pointer active:scale-95' : 'cursor-default'}`}
+                                className={`text-[10px] font-bold text-cyber-primary tracking-wider uppercase border border-cyber-primary px-2 py-1 rounded transition-all ${task.status != 1 ? 'hover:bg-cyber-primary hover:text-black cursor-pointer active:scale-95' : 'cursor-default'}`}
                                 title={task.status != 1 ? t('tasks.cycle_category') : ""}
                             >
                                 {task.category}
@@ -213,20 +213,26 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
                                     disabled={isSaving}
                                     autoFocus
                                     onFocus={(e) => e.target.select()}
-                                    className={`bg-black/50 border text-white px-2 py-1 w-full text-lg font-bold focus:outline-none transition-all duration-300 input-normal-case ${isSaving ? 'border-cyber-neonGreen shadow-[0_0_15px_#0f0] text-cyber-neonGreen' : 'border-cyber-neonCyan shadow-[0_0_10px_#0ff] animate-pulse'}`}
+                                    maxLength={255}
+                                    className={`bg-black/50 border text-white px-2 py-1 w-full text-lg font-bold focus:outline-none transition-all duration-300 input-normal-case ${isSaving ? 'border-cyber-success shadow-cyber-success text-cyber-success' : 'border-cyber-primary shadow-cyber-primary animate-pulse'}`}
                                 />
                                 <button
                                     onClick={handleSave}
                                     disabled={isSaving}
-                                    className={`hover:text-white transition-colors ${isSaving ? 'text-cyber-neonGreen animate-spin' : 'text-cyber-neonGreen'}`}
+                                    className={`hover:text-white transition-colors ${isSaving ? 'text-cyber-success animate-spin' : 'text-cyber-success'}`}
                                 >
                                     {isSaving ? '⏳' : '✓'}
                                 </button>
                             </div>
                         ) : (
                             <h3
-                                onClick={() => task.status != 1 && setIsEditing(true)}
-                                className={`text-lg font-bold text-white mb-1 cursor-pointer hover:text-cyber-neonCyan transition-colors ${task.status == 1 ? 'line-through text-gray-400 pointer-events-none' : ''}`}
+                                onClick={() => {
+                                    if (task.status != 1) {
+                                        setEditTitle(task.title);
+                                        setIsEditing(true);
+                                    }
+                                }}
+                                className={`text-lg font-bold text-white mb-1 cursor-pointer hover:text-cyber-primary transition-colors ${task.status == 1 ? 'line-through text-gray-400 pointer-events-none' : ''}`}
                                 title={task.status != 1 ? t('tasks.edit_directive') : ""}
                             >
                                 {task.title}
@@ -239,7 +245,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
                                 className={`flex items-center gap-2 mb-2 font-mono text-base ${task.status != 1 ? 'cursor-pointer hover:bg-white/5 transition-colors p-1 -ml-1 rounded' : ''}`}
                                 title={task.status != 1 ? t('tasks.change_date') : ""}
                             >
-                                <span className="text-cyber-neonPink xp-text">🕒</span>
+                                <span className="text-cyber-secondary xp-text">🕒</span>
                                 <span className={
                                     task.due_date && new Date(task.due_date) < new Date() && task.status != 1
                                         ? "text-red-500 font-bold"
@@ -260,7 +266,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
                             )}
                         </div>
 
-                        <p className="text-sm text-cyber-neonPink font-mono xp-text">
+                        <p className="text-sm text-cyber-secondary font-mono xp-text">
                             +{task.points_value} XP
                         </p>
                     </div>
@@ -268,7 +274,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
                     <div className="flex flex-col gap-2">
                         <button
                             onClick={() => onToggleStatus(task)}
-                            className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${task.status == 1 ? 'bg-cyber-neonGreen text-black' : 'bg-transparent border border-gray-500 hover:border-cyber-neonGreen hover:text-cyber-neonGreen'}`}
+                            className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors text-xl pb-0.5 ${task.status == 1 ? 'bg-cyber-success text-black' : 'bg-transparent border border-gray-500 hover:border-cyber-success hover:text-cyber-success'}`}
                             title={task.status == 1 ? t('tasks.mark_todo') : t('tasks.mark_done')}
                         >
                             {task.status == 1 ? '✓' : '○'}
@@ -276,7 +282,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
 
                         <button
                             onClick={handleDeleteClick}
-                            className={`w-8 h-8 rounded-full border border-gray-600 flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100 btn-task-delete ${task.status == 1 ? 'text-gray-300 hover:text-white hover:border-gray-400' : 'text-gray-500 hover:border-red-500 hover:text-red-500'}`}
+                            className={`w-8 h-8 rounded-full border border-gray-600 flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100 btn-task-delete text-xl pb-0.5 ${task.status == 1 ? 'text-gray-300 hover:text-white hover:border-gray-400' : 'text-gray-500 hover:border-red-500 hover:text-red-500'}`}
                             title={t('tasks.delete_task')}
                         >
                             ×

@@ -19,6 +19,23 @@
   --shadow-accent: 0 0 10px var(--theme-accent), 0 0 20px var(--theme-accent);
 }
 
+.theme-cyberpunk {
+  --theme-bg: #0a0a0a;
+  --theme-surface: #121212;
+  --theme-border: #1e1e1e;
+  --theme-primary: #00ffff;
+  --theme-secondary: #ff00ff;
+  --theme-success: #00ff00;
+  --theme-accent: #bc13fe;
+  --theme-card: rgba(30, 30, 30, 0.8);
+  --theme-font: 'Courier New', Courier, monospace;
+  --theme-radius: 0.5rem;
+
+  --shadow-primary: 0 0 10px var(--theme-primary), 0 0 20px var(--theme-primary);
+  --shadow-secondary: 0 0 10px var(--theme-secondary), 0 0 20px var(--theme-secondary);
+  --shadow-accent: 0 0 10px var(--theme-accent), 0 0 20px var(--theme-accent);
+}
+
 .theme-lcars {
   /* LCARS Classic Theme overrides (Palette Mapped) */
   --theme-bg: #000000;
@@ -46,15 +63,11 @@
   --theme-font: 'Antonio', sans-serif;
   --theme-radius: 2rem;
 
-  /* Explicit utility overrides for LCARS */
-  --color-cyber-neonPink: #dd4444;
-  --color-cyber-neonCyan: #ffcc33;
-  --color-cyber-neonGreen: #88ccff;
-  --color-cyber-neonPurple: #cc88ff;
-
   --shadow-primary: none;
   --shadow-secondary: none;
+  --shadow-success: none;
   --shadow-accent: none;
+  --shadow-danger: none;
 }
 
 /* Theme Selection Preview Cards */
@@ -69,71 +82,7 @@
   justify-content: center !important;
 }
 
-/* Custom LCARS refinements */
-.theme-lcars button,
-.theme-lcars .btn-cyber,
-.theme-lcars h1,
-.theme-lcars h2,
-.theme-lcars h3,
-.theme-lcars .card-cyber,
-.theme-lcars input,
-.theme-lcars select {
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--theme-text);
-  font-family: var(--theme-font) !important;
-}
-
-.theme-lcars .btn-cyber,
-.theme-lcars button {
-  border: none !important;
-  box-shadow: none !important;
-  background-color: var(--theme-primary);
-  color: #000 !important;
-  border-radius: var(--theme-radius);
-  padding-left: 1.5rem !important;
-  padding-right: 1.5rem !important;
-  transform: none !important;
-}
-
-.theme-lcars .btn-cyber:hover,
-.theme-lcars button:hover {
-  filter: brightness(1.2);
-  transform: none !important;
-  opacity: 1 !important;
-}
-
-.theme-lcars .card-cyber {
-  border: none !important;
-  border-left: 8px solid var(--theme-primary) !important;
-  box-shadow: none !important;
-  background-color: var(--theme-surface);
-}
-
-.theme-lcars .card-priority-1 {
-  border-left-color: #dd4444 !important;
-}
-
-.theme-lcars .card-priority-2 {
-  border-left-color: #ffcc66 !important;
-}
-
-.theme-lcars .card-priority-3 {
-  border-left-color: #33cc99 !important;
-}
-
-.theme-lcars input,
-.theme-lcars select {
-  background-color: #000 !important;
-  border: 2px solid var(--theme-border) !important;
-  border-radius: var(--theme-radius) !important;
-  box-shadow: none !important;
-}
-
-.theme-lcars input:focus {
-  border-color: var(--theme-primary) !important;
-}
+/* LCARS Specific Detail Overrides removed to prevent clashing with standard Tailwind semantic styling */
 
 /* LCARS Specific Detail Overrides */
 .theme-lcars .lvl-bar-container {
@@ -176,20 +125,25 @@
   --color-cyber-black: var(--theme-bg);
   --color-cyber-dark: var(--theme-surface);
   --color-cyber-gray: var(--theme-border);
-  --color-cyber-neonPink: var(--theme-secondary);
-  --color-cyber-neonCyan: var(--theme-primary);
-  --color-cyber-neonGreen: var(--theme-success);
-  --color-cyber-neonPurple: var(--theme-accent);
+  --color-cyber-primary: var(--theme-primary);
+  --color-cyber-secondary: var(--theme-secondary);
+  --color-cyber-success: var(--theme-success);
+  --color-cyber-accent: var(--theme-accent);
+  --color-cyber-danger: var(--theme-danger);
+  --color-cyber-warning: var(--theme-warning);
+  --color-cyber-info: var(--theme-info);
   --color-cyber-card: var(--theme-card);
 
   --font-mono: var(--theme-font);
 
-  --shadow-neon-pink: var(--shadow-secondary);
-  --shadow-neon-cyan: var(--shadow-primary);
-  --shadow-neon-purple: var(--shadow-accent);
+  --shadow-cyber-primary: var(--shadow-primary);
+  --shadow-cyber-secondary: var(--shadow-secondary);
+  --shadow-cyber-success: var(--shadow-success, 0 0 10px var(--theme-success));
+  --shadow-cyber-accent: var(--shadow-accent);
+  --shadow-cyber-danger: var(--shadow-danger, 0 0 10px var(--theme-danger));
 
   /* Custom UI shadows */
-  --shadow-cyber-focus: 0 0 10px rgba(0, 255, 255, 0.2);
+  --shadow-cyber-focus: 0 0 10px var(--theme-primary);
   --shadow-cyber-validation: 0 0 15px var(--theme-secondary);
 }
 
@@ -198,12 +152,22 @@
   font-family: 'Antonio', sans-serif !important;
 }
 
-body {
-  /* These variables consume the theme variables */
-  --cyber-neonCyan: var(--theme-primary);
-  --cyber-neonPink: var(--theme-secondary);
-  --cyber-neonGreen: var(--theme-success);
-  --cyber-neonPurple: var(--theme-accent);
+.theme-cyberpunk,
+.theme-cyberpunk * {
+  font-family: 'Courier New', Courier, monospace !important;
+}
+
+body,
+.theme-cyberpunk,
+.theme-lcars {
+  /* These variables re-evaluate the static Tailwind @theme colors cleanly inside the body scope */
+  --color-cyber-primary: var(--theme-primary);
+  --color-cyber-secondary: var(--theme-secondary);
+  --color-cyber-success: var(--theme-success);
+  --color-cyber-accent: var(--theme-accent);
+  --color-cyber-danger: var(--theme-danger);
+  --color-cyber-info: var(--theme-info);
+  --color-cyber-warning: var(--theme-warning);
   --cyber-bg: var(--theme-bg);
   --cyber-surface: var(--theme-surface);
   --cyber-border: var(--theme-border);
@@ -222,16 +186,20 @@ body {
     border-radius: var(--theme-radius);
   }
 
-  .btn-neon-pink {
-    @apply bg-cyber-neonPink shadow-neon-pink hover:scale-105 hover:opacity-90;
+  .btn-cyber-primary {
+    @apply bg-cyber-primary shadow-cyber-primary hover:scale-105 hover:opacity-90;
   }
 
-  .btn-neon-cyan {
-    @apply bg-cyber-neonCyan shadow-neon-cyan hover:scale-105 hover:opacity-90;
+  .btn-cyber-secondary {
+    @apply bg-cyber-secondary shadow-cyber-secondary hover:scale-105 hover:opacity-90;
   }
 
-  .btn-neon-purple {
-    @apply bg-cyber-neonPurple shadow-neon-purple hover:scale-105 hover:opacity-90;
+  .btn-cyber-accent {
+    @apply bg-cyber-accent shadow-cyber-accent hover:scale-105 hover:opacity-90;
+  }
+
+  .btn-cyber-danger {
+    @apply bg-cyber-danger shadow-cyber-danger hover:scale-105 hover:opacity-90;
   }
 
   .card-cyber {
@@ -240,7 +208,7 @@ body {
   }
 
   .input-cyber {
-    @apply bg-cyber-dark border border-cyber-gray p-2 text-[#e0e0e0] placeholder-gray-500 focus:outline-none focus:border-cyber-neonCyan transition-all duration-300;
+    @apply bg-cyber-dark border border-cyber-gray p-2 text-[#e0e0e0] placeholder-gray-500 focus:outline-none focus:border-cyber-primary transition-all duration-300;
     border-radius: var(--theme-radius);
   }
 
@@ -248,30 +216,28 @@ body {
     @apply shadow-cyber-focus;
   }
 
-
-
   .cyber-validation-bubble {
-    @apply absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-3 py-1 bg-cyber-neonPink text-black text-[12px] font-bold uppercase tracking-tighter whitespace-nowrap z-50 shadow-cyber-validation pointer-events-none animate-bounce;
+    @apply absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-3 py-1 bg-cyber-secondary text-black text-[12px] font-bold uppercase tracking-tighter whitespace-nowrap z-50 shadow-cyber-validation pointer-events-none animate-bounce;
     clip-path: polygon(0% 0%, 100% 0%, 100% 88%, 58% 88%, 50% 100%, 42% 88%, 0% 88%);
   }
 
   /* LCARS Scrollbar */
-  .theme-lcars *::-webkit-scrollbar {
+  .theme-lcars .custom-scrollbar::-webkit-scrollbar {
     width: 12px;
     height: 12px;
   }
 
-  .theme-lcars *::-webkit-scrollbar-track {
+  .theme-lcars .custom-scrollbar::-webkit-scrollbar-track {
     background: #000;
   }
 
-  .theme-lcars *::-webkit-scrollbar-thumb {
+  .theme-lcars .custom-scrollbar::-webkit-scrollbar-thumb {
     background: #ff9c00;
     border-radius: 6px;
     border: 3px solid #000;
   }
 
-  .theme-lcars *::-webkit-scrollbar-thumb:hover {
+  .theme-lcars .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #ffcc99;
   }
 }
@@ -303,161 +269,31 @@ body {
   box-shadow: 0 0 15px rgba(255, 34, 0, 0.5) !important;
 }
 
-/* LCARS Theme overrides for Logout and Language buttons */
-.theme-lcars .btn-logout-orange {
-  background-color: #ffaa00 !important;
-  color: black !important;
-  border-color: #ffaa00 !important;
+.theme-lcars .btn-terminate {
+  border-radius: 9999px !important;
 }
 
-.theme-lcars .btn-logout-orange:hover {
-  background-color: #cc8800 !important;
-  opacity: 0.9;
+/* LCARS Global Shape Overrides */
+.theme-lcars button,
+.theme-lcars .btn-cyber {
+  border-radius: 9999px !important;
 }
 
-.theme-lcars .btn-lang-yellow {
-  background-color: transparent !important;
-  color: #666688 !important;
-  border-color: #666688 !important;
+/* Ensure the inner close button [X] inside modals doesn't look weird if it's perfectly round but mapped to the corner. Wait, we explicitly styled [X] with rounded-tr-xl, so we need to exclude it or be specific. */
+.theme-lcars button:not(.rounded-tr-xl) {
+  border-radius: 9999px !important;
 }
 
-.theme-lcars .btn-lang-yellow:hover {
-  background-color: rgba(102, 102, 136, 0.2) !important;
-  color: white !important;
+/* Force deeply rounded corners on Modals, Alert Overlays, and Notification boxes */
+.theme-lcars .card-cyber,
+.theme-lcars .bg-cyber-black.max-w-md,
+.theme-lcars .bg-red-500\/10,
+.theme-lcars .bg-red-900\/10,
+.theme-lcars .bg-yellow-700\/10,
+.theme-lcars .bg-cyber-success\/5,
+.theme-lcars .bg-cyber-accent\/5,
+.theme-lcars .bg-cyber-primary\/5 {
+  border-radius: 1.5rem !important;
 }
 
-.theme-lcars .btn-lang-yellow.language-active {
-  background-color: #666688 !important;
-  color: white !important;
-  border-color: #666688 !important;
-  box-shadow: 0 0 10px rgba(102, 102, 136, 0.5) !important;
-}
-
-/* LCARS Language Dropdown Layer Refinement */
-.theme-lcars .lang-dropdown-layer {
-  border-color: #666688 !important;
-  background-color: #050505 !important;
-  box-shadow: 0 0 20px rgba(102, 102, 136, 0.3) !important;
-}
-
-.theme-lcars .lang-dropdown-layer button {
-  background-color: transparent !important;
-  color: #666688 !important;
-  border-radius: 4px !important;
-  margin: 2px 0 !important;
-}
-
-.theme-lcars .lang-dropdown-layer button:hover {
-  background-color: rgba(102, 102, 136, 0.2) !important;
-  color: white !important;
-}
-
-.theme-lcars .lang-dropdown-layer button.active-lang {
-  color: white !important;
-  background-color: rgba(102, 102, 136, 0.4) !important;
-  border: 1px solid #666688 !important;
-}
-
-.theme-lcars .lang-dropdown-layer .decorative-corner {
-  border-color: #666688 !important;
-}
-
-/* LCARS Auth Form Submit Button Refinement */
-.theme-lcars .btn-auth-submit {
-  background-color: #ffaa00 !important;
-  color: black !important;
-  border-color: #ffaa00 !important;
-  box-shadow: none !important;
-}
-
-.theme-lcars .btn-auth-submit:hover {
-  background-color: #cc8800 !important;
-  opacity: 0.9 !important;
-}
-.theme-lcars .btn-cat-delete {
-  background-color: #dd4444 !important;
-  color: white !important;
-  border: none !important;
-  border-radius: var(--theme-radius) !important;
-  padding: 0.25rem 0.75rem !important;
-}
-
-.theme-lcars .btn-cat-delete:hover {
-  filter: brightness(1.2);
-}
-
-.theme-lcars .btn-auth-orange {
-  background-color: #ffaa00 !important;
-  color: black !important;
-  border-color: #ffaa00 !important;
-}
-
-.theme-lcars .btn-auth-orange:hover {
-  background-color: #cc8800 !important;
-  opacity: 0.9 !important;
-}
-
-.theme-lcars .btn-filter-reset {
-  background-color: #ffaa00 !important;
-  color: black !important;
-  border-color: #ffaa00 !important;
-}
-
-.theme-lcars .btn-filter-reset:hover {
-  background-color: #cc8800 !important;
-  opacity: 0.9 !important;
-}
-
-.theme-lcars .btn-task-delete {
-  background-color: transparent !important;
-  color: #666 !important;
-  border: 1px solid #333 !important;
-}
-
-.theme-lcars *:hover > .flex .btn-task-delete,
-.theme-lcars .btn-task-delete:hover {
-  background-color: #dd4444 !important;
-  color: white !important;
-  border-color: #dd4444 !important;
-  opacity: 1 !important;
-}
-
-.theme-lcars .btn-admin-status.verified {
-  background-color: #33cc99 !important;
-  color: black !important;
-  border: none !important;
-  padding: 0.25rem 1rem !important;
-}
-
-.theme-lcars .btn-admin-status.unverified {
-  background-color: #dd4444 !important;
-  color: white !important;
-  border: none !important;
-  padding: 0.25rem 1rem !important;
-}
-
-.theme-lcars .btn-admin-blue {
-  background-color: #4455ff !important;
-  color: white !important;
-  border: none !important;
-}
-
-.theme-lcars .btn-admin-grey {
-  background-color: #666688 !important;
-  color: white !important;
-  border: none !important;
-}
-
-.theme-lcars .btn-admin-erase {
-  background-color: #dd4444 !important;
-  color: white !important;
-  border: none !important;
-}
-
-.theme-lcars .btn-admin-status:hover,
-.theme-lcars .btn-admin-blue:hover,
-.theme-lcars .btn-admin-grey:hover,
-.theme-lcars .btn-admin-erase:hover {
-  filter: brightness(1.2) !important;
-  opacity: 1 !important;
-}
+/* Theme overrides section cleaned up in execution phase. */

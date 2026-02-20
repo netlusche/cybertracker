@@ -7,20 +7,20 @@ const CyberSelect = ({ value, onChange, options, label, className = "", neonColo
     const containerRef = useRef(null);
     // ... existing state mapping logic skipped for brevity if possible, but replace_file_content needs full block
     const neonClass = {
-        cyan: 'border-cyber-neonCyan shadow-[0_0_10px_rgba(0,255,255,0.3)] focus:shadow-[0_0_15px_#00ffff]',
-        pink: 'border-cyber-neonPink shadow-[0_0_10px_rgba(255,0,255,0.3)] focus:shadow-[0_0_15px_#ff00ff]',
-        green: 'border-cyber-neonGreen shadow-[0_0_10px_rgba(0,255,0,0.3)] focus:shadow-[0_0_15px_#00ff00]',
-        info: 'border-[#4455ff] shadow-[0_0_10px_rgba(68,85,255,0.3)] focus:shadow-[0_0_15px_#4455ff]',
-        gray: 'border-cyber-gray shadow-none focus:border-cyber-neonCyan focus:shadow-[0_0_10px_#00ffff]'
-    }[neonColor] || 'border-cyber-neonCyan shadow-[0_0_10px_rgba(0,255,255,0.3)]';
+        cyan: 'border-cyber-primary shadow-cyber-primary focus:shadow-cyber-primary',
+        pink: 'border-cyber-secondary shadow-cyber-secondary focus:shadow-cyber-secondary',
+        green: 'border-cyber-success shadow-cyber-success focus:shadow-cyber-success',
+        info: 'border-[#4455ff] shadow-cyber-info focus:shadow-cyber-info',
+        gray: 'border-cyber-gray shadow-none focus:border-cyber-primary focus:shadow-cyber-primary'
+    }[neonColor] || 'border-cyber-primary shadow-cyber-primary';
 
     const activeNeonClass = {
-        cyan: 'border-cyber-neonCyan shadow-[0_0_15px_#00ffff]',
-        pink: 'border-cyber-neonPink shadow-[0_0_15px_#ff00ff]',
-        green: 'border-cyber-neonGreen shadow-[0_0_15px_#00ff00]',
-        info: 'border-[#4455ff] shadow-[0_0_15px_#4455ff]',
-        gray: 'border-cyber-neonCyan shadow-[0_0_15px_#00ffff]'
-    }[neonColor] || 'border-cyber-neonCyan shadow-[0_0_15px_#00ffff]';
+        cyan: 'border-cyber-primary shadow-cyber-primary',
+        pink: 'border-cyber-secondary shadow-cyber-secondary',
+        green: 'border-cyber-success shadow-cyber-success',
+        info: 'border-[#4455ff] shadow-cyber-info',
+        gray: 'border-cyber-primary shadow-cyber-primary'
+    }[neonColor] || 'border-cyber-primary shadow-cyber-primary';
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -56,7 +56,7 @@ const CyberSelect = ({ value, onChange, options, label, className = "", neonColo
                 <span className="truncate pr-2 font-mono uppercase tracking-wider text-sm">
                     {displayValue}
                 </span>
-                <span className={`text-[10px] transition-transform duration-200 ${isOpen ? 'rotate-180 text-white' : 'text-cyber-neonCyan'}`}>
+                <span className={`text-[10px] transition-transform duration-200 ${isOpen ? 'rotate-180 text-white' : 'text-cyber-primary'}`}>
                     ▼
                 </span>
             </div>
@@ -64,7 +64,7 @@ const CyberSelect = ({ value, onChange, options, label, className = "", neonColo
             {isOpen && (
                 <ul
                     role="listbox"
-                    className="absolute z-[1000] w-full mt-1 bg-black border border-cyber-neonCyan shadow-[0_0_30px_rgba(0,0,0,0.9)] max-h-60 overflow-y-auto backdrop-blur-xl bg-opacity-95 rounded-sm"
+                    className="absolute z-[1000] w-full mt-1 bg-black border border-cyber-primary shadow-xl max-h-60 overflow-y-auto backdrop-blur-xl bg-opacity-95 rounded-sm"
                 >
                     {options.map((opt, idx) => {
                         const optValue = opt.value || opt.name || opt;
@@ -81,7 +81,7 @@ const CyberSelect = ({ value, onChange, options, label, className = "", neonColo
                                     setIsOpen(false);
                                     onChange(optValue);
                                 }}
-                                className={`px-4 py-2 cursor-pointer font-mono text-sm uppercase tracking-widest transition-colors hover:bg-cyber-neonCyan hover:text-black ${isSelected ? 'bg-cyber-neonCyan/20 text-cyber-neonCyan' : 'text-gray-300'}`}
+                                className={`px-4 py-2 cursor-pointer font-mono text-sm uppercase tracking-widest transition-colors hover:bg-cyber-primary hover:text-black ${isSelected ? 'bg-cyber-primary/20 text-cyber-primary' : 'text-gray-300'}`}
                             >
                                 {optLabel} {opt.is_default ? t('tasks.default_suffix') : ''}
                             </li>
