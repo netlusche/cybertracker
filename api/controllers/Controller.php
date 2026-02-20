@@ -29,6 +29,9 @@ class Controller
 
     protected function jsonResponse(array $data, int $status = 200): void
     {
+        while (ob_get_level()) {
+            ob_end_clean();
+        } // Strip all rogue whitespace before JSON
         http_response_code($status);
         echo json_encode($data);
         exit;

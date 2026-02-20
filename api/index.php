@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Prevent config.local.php trailing whitespace from triggering 'Headers already sent'
 // api/index.php
 require_once __DIR__ . '/db.php';
 require_once __DIR__ . '/csrf.php';
