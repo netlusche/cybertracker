@@ -2,9 +2,9 @@
 // auth.php
 header("Content-Type: application/json");
 require_once 'db.php';
+require_once 'csrf.php'; // Includes session_start() and CSRF logic
 require_once 'TOTP.php';
 require_once 'mail_helper.php';
-session_save_path(__DIR__ . "/sessions"); session_start();
 
 $pdo = getDBConnection();
 $data = json_decode(file_get_contents("php://input"), true);
@@ -252,6 +252,7 @@ elseif ($action === 'verify_2fa') {
 
     if ($verified) {
         // Promote to full session
+        session_regenerate_id(true);
         $_SESSION['user_id'] = $userId;
         unset($_SESSION['partial_id']);
 
@@ -278,7 +279,8 @@ elseif ($action === 'verify_2fa') {
                 'two_factor_method' => $user['two_factor_method'],
                 'theme' => $user['theme'],
                 'stats' => $stats
-            ]
+            ],
+            'csrf_token' => $_SESSION['csrf_token']
         ]);
     }
     else {
@@ -529,6 +531,7 @@ elseif ($action === 'login') {
         }
 
         // Standard Login
+        session_regenerate_id(true);
         $_SESSION['user_id'] = $user['id'];
 
         // Record Last Login
@@ -746,10 +749,15 @@ else {
                     'two_factor_method' => $user['two_factor_method'],
                     'theme' => $user['theme'],
                     'stats' => $stats
-                ]
+                ],
+                'csrf_token' => $_SESSION['csrf_token']
             ]);
             exit;
         }
     }
 }
+?>
+??  }
+}
+?>
 ?>

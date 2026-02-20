@@ -1,7 +1,11 @@
 <?php
 // user.php
 require_once 'db.php';
-session_save_path(__DIR__ . "/sessions"); session_start();
+require_once 'csrf.php';
+
+session_save_path(__DIR__ . "/sessions");
+session_start();
+verify_csrf_token();
 
 header("Content-Type: application/json");
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { triggerNeonConfetti } from '../utils/confetti';
 import { useTheme } from '../utils/ThemeContext';
+import { apiFetch, setCsrfToken } from '../utils/api';
 import HelpModal from './HelpModal';
 import CyberAlert from './CyberAlert';
 
@@ -52,7 +53,7 @@ const AuthForm = ({ onLogin }) => {
         const body = isLogin ? { username, password } : { username, password, email };
 
         try {
-            const res = await fetch(endpoint, {
+            const res = await apiFetch(endpoint, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body),
@@ -76,6 +77,7 @@ const AuthForm = ({ onLogin }) => {
                     setRequires2FA(true);
                     setTwoFactorMethod(data.two_factor_method || 'totp');
                 } else {
+                    if (data.csrf_token) setCsrfToken(data.csrf_token);
                     triggerNeonConfetti(theme);
                     onLogin(data.user);
                 }
@@ -121,7 +123,7 @@ const AuthForm = ({ onLogin }) => {
     const handleForgotSubmit = async () => {
         setLoading(true);
         try {
-            const res = await fetch('api/auth.php?action=request_password_reset', {
+            const res = await apiFetch('api/auth.php?action=request_password_reset', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email }),
@@ -163,7 +165,7 @@ const AuthForm = ({ onLogin }) => {
     const handle2FAVerify = async () => {
         setLoading(true);
         try {
-            const res = await fetch('api/auth.php?action=verify_2fa', {
+            const res = await apiFetch('api/auth.php?action=verify_2fa', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ code: twoFaCode })
@@ -171,6 +173,7 @@ const AuthForm = ({ onLogin }) => {
             const data = await res.json();
 
             if (res.ok) {
+                if (data.csrf_token) setCsrfToken(data.csrf_token);
                 triggerNeonConfetti(theme);
                 onLogin(data.user);
             } else {
@@ -197,7 +200,7 @@ const AuthForm = ({ onLogin }) => {
         setError('');
         setLoading(true);
         try {
-            const res = await fetch('api/auth.php?action=resend_email_2fa', { method: 'POST' });
+            const res = await apiFetch('api/auth.php?action=resend_email_2fa', { method: 'POST' });
             const data = await res.json();
             if (res.ok) {
                 setAlert({

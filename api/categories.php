@@ -2,7 +2,10 @@
 require_once 'db.php';
 
 // 1. Authenticate
-session_save_path(__DIR__ . "/sessions"); session_start();
+require_once 'csrf.php';
+session_save_path(__DIR__ . "/sessions");
+session_start();
+verify_csrf_token();
 header("Cache-Control: no-cache, no-store, must-revalidate");
 header("Pragma: no-cache");
 header("Expires: 0");
@@ -167,7 +170,13 @@ if ($method === 'PUT') {
             $pdo->rollBack();
         }
         http_response_code(500);
-        echo json_encode(['error' => $e->getMessage()]);
+        if ($e->getMessage() === 'Category not found') {
+            echo json_encode(['error' => 'Category not found']);
+        }
+        else {
+            error_log("Category rename error: " . $e->getMessage());
+            echo json_encode(['error' => 'Database transaction failed.']);
+        }
     }
     exit;
 }

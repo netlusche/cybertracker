@@ -1,7 +1,11 @@
 <?php
 // admin.php
 require_once 'db.php';
-session_save_path(__DIR__ . "/sessions"); session_start();
+require_once 'csrf.php';
+
+session_save_path(__DIR__ . "/sessions");
+session_start();
+verify_csrf_token();
 header("Content-Type: application/json");
 header("Cache-Control: no-cache, no-store, must-revalidate");
 header("Pragma: no-cache");
@@ -104,7 +108,8 @@ if ($method === 'GET') {
         }
         catch (Exception $e) {
             http_response_code(500);
-            echo json_encode(['error' => $e->getMessage()]);
+            error_log("Admin settings fetch error: " . $e->getMessage());
+            echo json_encode(['error' => 'Failed to fetch settings due to an internal error.']);
         }
     }
 }

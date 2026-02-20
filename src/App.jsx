@@ -11,6 +11,7 @@ import HelpModal from './components/HelpModal';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import { triggerNeonConfetti } from './utils/confetti';
 import { useTheme } from './utils/ThemeContext';
+import { apiFetch, setCsrfToken } from './utils/api';
 import logo from './assets/logo.png';
 
 function App() {
@@ -52,7 +53,7 @@ function App() {
 
   const fetchCategories = async () => {
     try {
-      const res = await fetch('api/categories.php');
+      const res = await apiFetch('api/categories.php');
       if (res.ok) {
         const data = await res.json();
         if (Array.isArray(data)) {
@@ -66,9 +67,12 @@ function App() {
 
   const checkAuth = async () => {
     try {
-      const res = await fetch('api/auth.php'); // Default action checks session
+      const res = await apiFetch('api/auth.php'); // Default action checks session
       const data = await res.json();
       if (data.isAuthenticated) {
+        if (data.csrf_token) {
+          setCsrfToken(data.csrf_token);
+        }
         setUser(data.user);
         if (data.user.theme) {
           setThemeState(data.user.theme);
@@ -91,7 +95,7 @@ function App() {
         ...filters
       });
 
-      const res = await fetch(`api/tasks.php?${params.toString()}`);
+      const res = await apiFetch(`api/tasks.php?${params.toString()}`);
       if (res.status === 401) {
         setUser(null);
         return;
@@ -115,7 +119,7 @@ function App() {
 
   const fetchUserStats = async () => {
     try {
-      const res = await fetch('api/user.php');
+      const res = await apiFetch('api/user.php');
       if (res.ok) {
         const data = await res.json();
         setUser(prev => ({ ...prev, ...data }));
@@ -139,7 +143,8 @@ function App() {
   };
 
   const handleLogout = async () => {
-    await fetch('api/auth.php?action=logout', { method: 'POST' });
+    await apiFetch('api/auth.php?action=logout', { method: 'POST' });
+    setCsrfToken(null);
     setUser(null);
     setTasks([]);
     setShowProfile(false);
@@ -149,7 +154,7 @@ function App() {
 
   const handleAddTask = async (newTask) => {
     try {
-      const res = await fetch('api/tasks.php', {
+      const res = await apiFetch('api/tasks.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newTask),
@@ -172,7 +177,7 @@ function App() {
         t.id === task.id ? { ...t, status: newStatus } : t
       ));
 
-      const res = await fetch('api/tasks.php', {
+      const res = await apiFetch('api/tasks.php', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: task.id, status: newStatus }),
@@ -206,7 +211,7 @@ function App() {
         ? { id: task.id, title: updates }
         : { id: task.id, ...updates };
 
-      const res = await fetch('api/tasks.php', {
+      const res = await apiFetch('api/tasks.php', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -225,7 +230,7 @@ function App() {
 
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`api/tasks.php?id=${id}`, { method: 'DELETE' });
+      const res = await apiFetch(`api/tasks.php?id=${id}`, { method: 'DELETE' });
       if (res.ok) {
         fetchTasks();
       }

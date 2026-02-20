@@ -31,6 +31,15 @@
 ---
 ---
 
+## 🛡️ New in Version 1.9.2 (Security Hardening Phase 1 & 2)
+
+### 🔒 Enterprise-Grade Security Patches
+*   **Zero-Config Auto-Lock**: The installer (`api/install.php`) now detects initialized grids. If the system is active, it strictly requires an authenticated Admin session to execute schema updates, physically preventing unauthorized resets without compromising 1-click deployments on shared hosting.
+*   **CSRF Middleware**: Developed a centralized token-negotiation protocol (`api/csrf.php`) and a uniform frontend API wrapper (`apiFetch`). All state-changing requests (POST/PUT/DELETE) are now cryptographically verified to block Cross-Site Request Forgery.
+*   **Strict CORS Policy**: Restricted API access (`Access-Control-Allow-Origin`) exclusively to the operational frontend domain, neutralizing cross-origin data exfiltration vectors.
+*   **Session Fixation Mitigation**: Embedded forced session regeneration (`session_regenerate_id()`) within all critical authorization uplinks (Login & 2FA Verification) to stop session hijacking.
+*   **Information Leakage Sanitization**: Intercepted and scrubbed all raw database exception outputs (`$e->getMessage()`). Vulnerability details are now securely routed to sterile server logs, returning only generic HTTP 500 status codes to the client.
+
 ## 🆕 New in Version 1.9.1 (Robust Theme Engine)
 
 ### 🎨 Semantic Theming & Geometry
