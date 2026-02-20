@@ -321,6 +321,45 @@ body,
   .theme-lcars .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #ffcc99;
   }
+
+  /* Matrix Scrollbar */
+  .theme-matrix .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .theme-matrix .custom-scrollbar::-webkit-scrollbar-track {
+    background: #030804;
+  }
+
+  .theme-matrix .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #00ff41;
+    border-radius: 0px;
+    box-shadow: 0 0 5px #00ff41;
+  }
+
+  .theme-matrix .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #00ff41;
+  }
+
+  /* Weyland Scrollbar (Industrial Amber) */
+  .theme-weyland .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .theme-weyland .custom-scrollbar::-webkit-scrollbar-track {
+    background: #050505;
+  }
+
+  .theme-weyland .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #ffb000;
+    border-radius: 2px;
+  }
+
+  .theme-weyland .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #cc8400;
+  }
 }
 
 .input-lowercase {
