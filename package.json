@@ -1,11 +1,11 @@
 {
   "name": "cyber-tasker",
   "private": true,
-  "version": "1.9.3",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && cp -r api dist/ && cp .htaccess dist/ 2>/dev/null || true",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run"
