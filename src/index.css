@@ -360,6 +360,26 @@ body,
   .theme-weyland .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #cc8400;
   }
+
+  /* Cyberpunk Scrollbar (Neon Pink) */
+  .theme-cyberpunk .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .theme-cyberpunk .custom-scrollbar::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+
+  .theme-cyberpunk .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #ff00ff;
+    border-radius: 4px;
+    box-shadow: 0 0 10px #ff00ff;
+  }
+
+  .theme-cyberpunk .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #bc13fe;
+  }
 }
 
 .input-lowercase {

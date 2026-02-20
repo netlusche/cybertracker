@@ -585,7 +585,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
             <div className="card-cyber w-full max-w-lg border-cyber-primary shadow-cyber-primary relative max-h-[90vh] flex flex-col p-1 overflow-hidden">
                 <button
                     onClick={onClose}
-                    className={`absolute top-1 font-bold text-xl transition-colors z-50 ${(theme === 'matrix' || theme === 'weyland') ? 'right-6' : 'right-1'} ${theme === 'lcars' ? 'bg-[#ffaa00] text-black px-3 py-1 rounded-tr-xl hover:brightness-110' : 'text-cyber-secondary hover:text-white'}`}
+                    className={`absolute top-1 font-bold text-xl transition-colors z-50 ${(theme === 'matrix' || theme === 'weyland' || theme === 'cyberpunk') ? 'right-6' : 'right-1'} ${theme === 'lcars' ? 'bg-[#ffaa00] text-black px-3 py-1 rounded-tr-xl hover:brightness-110' : 'text-cyber-secondary hover:text-white'}`}
                 >
                     [X]
                 </button>
