@@ -2,6 +2,14 @@
 // config.php
 // Database configuration
 
+// Protocols & HTTPS detection (Detect early to override hardcoded config.local.php values if needed)
+$isHttps = (
+    (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] === 'on' || $_SERVER['HTTPS'] == 1)) ||
+    (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ||
+    (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] === 'on') ||
+    (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)
+    );
+
 // Check for local configuration override (for development)
 if (file_exists(__DIR__ . '/config.local.php')) {
     require_once __DIR__ . '/config.local.php';
@@ -21,13 +29,6 @@ if (!defined('DB_PASS'))
 
 // Global Configuration
 if (!defined('FRONTEND_URL')) {
-    // Determine protocol: Check direct HTTPS first, then common proxy headers
-    $isHttps = (
-        (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] === 'on' || $_SERVER['HTTPS'] == 1)) ||
-        (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ||
-        (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] === 'on')
-        );
-
     $protocol = $isHttps ? 'https' : 'http';
     $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
     $scriptDir = $scriptName ? rtrim(dirname($scriptName), '/api') : '';
@@ -36,7 +37,8 @@ if (!defined('FRONTEND_URL')) {
 
 // CORS Configuration - Restrict to Frontend Domain
 $parsedUrl = parse_url(FRONTEND_URL);
-$allowedOrigin = ($parsedUrl['scheme'] ?? 'http') . '://' . ($parsedUrl['host'] ?? 'localhost');
+$scheme = $isHttps ? 'https' : ($parsedUrl['scheme'] ?? 'http');
+$allowedOrigin = $scheme . '://' . ($parsedUrl['host'] ?? 'localhost');
 if (isset($parsedUrl['port'])) {
     $allowedOrigin .= ':' . $parsedUrl['port'];
 }
