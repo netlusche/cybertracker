@@ -446,4 +446,96 @@ body,
   border-radius: 1.5rem !important;
 }
 
-/* Theme overrides section cleaned up in execution phase. */
+/* --- v2.1.0 New System Themes --- */
+
+/* --- RobCo Terminal (Pip-Boy) --- */
+body.theme-robco {
+  --cyber-primary: #1aff1a;
+  --cyber-secondary: #004400;
+  --cyber-bg: #001100;
+  --cyber-card: #002200;
+  --cyber-danger: #ff0000;
+  --cyber-warning: #ffff00;
+  --cyber-accent: #00ff00;
+  --cyber-text: #1aff1a;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+body.theme-robco .card-cyber {
+  border: 2px solid var(--cyber-primary);
+  background: rgba(0, 34, 0, 0.9);
+  box-shadow: inset 0 0 15px rgba(26, 255, 26, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+body.theme-robco .card-cyber::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 4px, 3px 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* --- The Grid Theme (TRON) --- */
+body.theme-grid {
+  --cyber-primary: #6fc3df;
+  --cyber-secondary: #df6f20;
+  --cyber-bg: #020d1a;
+  --cyber-card: #05162a;
+  --cyber-danger: #ff3300;
+  --cyber-warning: #ffcc00;
+  --cyber-accent: #00ffff;
+  --cyber-text: #6fc3df;
+  font-family: 'Inter', sans-serif;
+}
+
+body.theme-grid .card-cyber {
+  border: 1px solid var(--cyber-primary);
+  box-shadow: 0 0 15px rgba(111, 195, 223, 0.3);
+  background: linear-gradient(135deg, #05162a 0%, #020d1a 100%);
+  border-radius: 4px;
+}
+
+/* --- Section 9 Theme (Ghost in the Shell) --- */
+body.theme-section9 {
+  --cyber-primary: #34e2e2;
+  --cyber-secondary: #fce94f;
+  --cyber-bg: #0e0e12;
+  --cyber-card: #1c1c24;
+  --cyber-danger: #ef2929;
+  --cyber-warning: #f57900;
+  --cyber-accent: #888a85;
+  --cyber-text: #eeeeec;
+  font-family: 'Outfit', sans-serif;
+}
+
+body.theme-section9 .card-cyber {
+  border-left: 4px solid var(--cyber-primary);
+  border-radius: 0;
+  background: #1c1c24;
+}
+
+/* --- Outrun 1984 Theme (Retro Synthwave) --- */
+body.theme-outrun {
+  --cyber-primary: #ff00ff;
+  --cyber-secondary: #00ffff;
+  --cyber-bg: #1a0033;
+  --cyber-card: #2d0059;
+  --cyber-danger: #ff4d4d;
+  --cyber-warning: #ffff66;
+  --cyber-accent: #f0f;
+  --cyber-text: #fff;
+  font-family: 'Inter', sans-serif;
+}
+
+body.theme-outrun .card-cyber {
+  background: rgba(45, 0, 89, 0.8);
+  border: 2px solid;
+  border-image: linear-gradient(to right, #ff00ff, #00ffff) 1;
+}

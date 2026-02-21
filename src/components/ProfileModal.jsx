@@ -914,6 +914,87 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                         </div>
                                     )}
                                 </button>
+
+                                {/* v2.1.0 Themes */}
+                                <button
+                                    data-testid="theme-switch-robco"
+                                    onClick={() => setTheme('robco')}
+                                    className={`theme-preview-card theme-robco transition-all duration-300 overflow-hidden ${theme === 'robco' ? 'border-2 border-green-500 bg-green-500/20 shadow-[0_0_15px_rgba(26,255,26,0.4)] scale-[1.02]' : 'border-gray-700 bg-black/40 hover:border-gray-500 scale-100'}`}
+                                >
+                                    <div className="flex flex-col items-center gap-2 relative z-10 w-full h-full justify-center">
+                                        <div className="text-[12px] text-green-500 font-mono animate-pulse">
+                                            ROBCO v1.0
+                                        </div>
+                                        <span className={`text-[10px] font-bold tracking-widest font-mono ${theme === 'robco' ? 'text-green-500' : 'text-gray-400'}`}>
+                                            PIP-BOY
+                                        </span>
+                                    </div>
+                                    {theme === 'robco' && (
+                                        <div className="absolute top-0 right-0 bg-green-500 text-black font-bold text-[8px] px-2 py-0.5 transform rotate-45 translate-x-3 translate-y-[-2px] z-20">
+                                            ACTIVE
+                                        </div>
+                                    )}
+                                </button>
+
+                                <button
+                                    data-testid="theme-switch-grid"
+                                    onClick={() => setTheme('grid')}
+                                    className={`theme-preview-card theme-grid transition-all duration-300 overflow-hidden ${theme === 'grid' ? 'border border-[#6fc3df] bg-[#6fc3df]/20 shadow-[0_0_15px_rgba(111,195,223,0.4)] scale-[1.02]' : 'border-gray-700 bg-black/40 hover:border-gray-500 scale-100'}`}
+                                >
+                                    <div className="flex flex-col items-center gap-2 relative z-10 w-full h-full justify-center">
+                                        <div className="w-8 h-8 rounded-full border-2 border-[#6fc3df] flex items-center justify-center">
+                                            <div className="w-4 h-4 rounded-full border border-[#6fc3df]"></div>
+                                        </div>
+                                        <span className={`text-[10px] font-bold tracking-widest ${theme === 'grid' ? 'text-[#6fc3df]' : 'text-gray-400'}`}>
+                                            THE GRID
+                                        </span>
+                                    </div>
+                                    {theme === 'grid' && (
+                                        <div className="absolute top-0 right-0 bg-[#6fc3df] text-black font-bold text-[8px] px-2 py-0.5 transform rotate-45 translate-x-3 translate-y-[-2px] z-20">
+                                            ACTIVE
+                                        </div>
+                                    )}
+                                </button>
+
+                                <button
+                                    data-testid="theme-switch-section9"
+                                    onClick={() => setTheme('section9')}
+                                    className={`theme-preview-card theme-section9 transition-all duration-300 overflow-hidden ${theme === 'section9' ? 'border-l-4 border-[#34e2e2] bg-[#34e2e2]/10 scale-[1.02]' : 'border-gray-700 bg-black/40 hover:border-gray-500 scale-100'}`}
+                                >
+                                    <div className="flex flex-col items-center gap-2 relative z-10 w-full h-full justify-center">
+                                        <div className="text-[12px] text-[#34e2e2] font-bold tracking-tighter italic">
+                                            SECTION 9
+                                        </div>
+                                        <span className={`text-[10px] font-bold tracking-widest ${theme === 'section9' ? 'text-[#34e2e2]' : 'text-gray-400'}`}>
+                                            GHOST
+                                        </span>
+                                    </div>
+                                    {theme === 'section9' && (
+                                        <div className="absolute top-0 right-0 bg-[#34e2e2] text-black font-bold text-[8px] px-2 py-0.5 transform rotate-45 translate-x-3 translate-y-[-2px] z-20">
+                                            ACTIVE
+                                        </div>
+                                    )}
+                                </button>
+
+                                <button
+                                    data-testid="theme-switch-outrun"
+                                    onClick={() => setTheme('outrun')}
+                                    className={`theme-preview-card theme-outrun transition-all duration-300 overflow-hidden ${theme === 'outrun' ? 'border-2 border-magenta bg-magenta/20 shadow-[0_0_15px_rgba(255,0,255,0.4)] scale-[1.02]' : 'border-gray-700 bg-black/40 hover:border-gray-500 scale-100'}`}
+                                >
+                                    <div className="flex flex-col items-center gap-2 relative z-10 w-full h-full justify-center">
+                                        <div className="text-[14px] bg-gradient-to-t from-magenta to-cyan bg-clip-text text-transparent font-black italic">
+                                            1984
+                                        </div>
+                                        <span className={`text-[10px] font-bold tracking-widest ${theme === 'outrun' ? 'text-magenta' : 'text-gray-400'}`}>
+                                            OUTRUN
+                                        </span>
+                                    </div>
+                                    {theme === 'outrun' && (
+                                        <div className="absolute top-0 right-0 bg-gradient-to-r from-magenta to-cyan text-black font-bold text-[8px] px-2 py-0.5 transform rotate-45 translate-x-3 translate-y-[-2px] z-20">
+                                            ACTIVE
+                                        </div>
+                                    )}
+                                </button>
                             </div>
                         </div>
 
