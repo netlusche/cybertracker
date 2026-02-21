@@ -1,3 +1,15 @@
+# CyberTasker v2.0.3 - CORS Protocol Hotfix
+
+**Release Date:** 2026-02-21
+
+This patch addresses a protocol mismatch issue where the backend incorrectly detected the server protocol as HTTP instead of HTTPS on shared hosting environments (like Strato).
+
+## 🩹 Hotfixes
+*   **Protocol Detection:** Enhanced HTTPS detection logic to recognize standard proxy headers (`X-Forwarded-Proto`, `X-Forwarded-Ssl`). This ensures email verification links are generated with the correct `https://` prefix and prevents browser-blocked redirects during the verification process.
+*   **CORS Alignment:** Corrected the `Access-Control-Allow-Origin` header to match the active HTTPS protocol, resolving "CONNECTION FAILED" errors.
+
+---
+
 # CyberTasker v2.0.2 - Account Recovery Hotfix
 
 **Release Date:** 2026-02-21

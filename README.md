@@ -2,7 +2,7 @@
 
 **CyberTasker** is a gamified, cyberpunk-themed task management application built with **React (Vite)** and **PHP**. It supports **MySQL, MariaDB, and SQLite**, featuring a robust role-based access control (RBAC) system, gamification mechanics (XP, Levels, Badges), and secure Two-Factor Authentication (2FA).
 
-## 🛡️ New in Version 2.0.2 (Account Recovery Hotfix)
+## 🛡️ New in Version 2.0.3 (CORS Protocol Hotfix)
 
 ### 🏗️ Modernized Backend
 *   **MVC Architecture**: Refactored monolithic scripts into a clean Controller/Router pattern.
