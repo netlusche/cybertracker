@@ -1,3 +1,15 @@
+# CyberTasker v2.0.4 - Account Verification Hotfix
+
+**Release Date:** 2026-02-21
+
+A critical patch to resolve the "CONNECTION FAILED" error on account verification and password reset pages.
+
+## 🩹 Hotfixes
+*   **Router Integration**: Corrected the API endpoints in `verify.html` and `reset-password.html` to point to the new centralized router (`api/index.php?route=auth/...`).
+*   **Protocol Integrity**: Finalized the dynamic CORS and HTTPS mapping to ensure seamless operation on Strato/Shared hosting.
+
+---
+
 # CyberTasker v2.0.3 - CORS Protocol Hotfix
 
 **Release Date:** 2026-02-21

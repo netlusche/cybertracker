@@ -2,7 +2,7 @@
 
 **CyberTasker** is a gamified, cyberpunk-themed task management application built with **React (Vite)** and **PHP**. It supports **MySQL, MariaDB, and SQLite**, featuring a robust role-based access control (RBAC) system, gamification mechanics (XP, Levels, Badges), and secure Two-Factor Authentication (2FA).
 
-## 🛡️ New in Version 2.0.3 (CORS Protocol Hotfix)
+## 🛡️ New in Version 2.0.4 (Account Verification Hotfix)
 
 ### 🏗️ Modernized Backend
 *   **MVC Architecture**: Refactored monolithic scripts into a clean Controller/Router pattern.
@@ -14,9 +14,10 @@
 *   **Custom Scrollbars**: Every theme now features custom-styled scrollbars (e.g., green glow for Matrix, neon pink for Cyberpunk).
 *   **LCARS Flush Frames**: Precision alignment and standardized `1.5rem` rounding for all LCARS modals and panels.
 
-### 🧪 Stabilized Automation
-*   **E2E Test Suite**: Fully integrated Playwright test suite covering 100% of critical user stories.
-*   **Strict Password Policy**: Automated verification of complexity rules and admin overrides.
+### 🩹 Critical Fixes
+*   **Account Verification**: Restored the connection between static HTML pages (`verify.html`, `reset-password.html`) and the new router-based API, fixing the "CONNECTION FAILED" error.
+*   **HTTPS Protocol Detection**: Improved detection for shared hosting environments (Strato) to ensure secure links and valid CORS headers.
+*   **Dynamic CORS Mapping**: The system now automatically adapts its security headers to the request protocol (HTTP vs HTTPS).
 
 ---
 ---
