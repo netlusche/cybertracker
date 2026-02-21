@@ -21,8 +21,14 @@ if (!defined('DB_PASS'))
 
 // Global Configuration
 if (!defined('FRONTEND_URL')) {
-    // Determine base URL automatically or default to local Vite dev server
-    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+    // Determine protocol: Check direct HTTPS first, then common proxy headers
+    $isHttps = (
+        (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] === 'on' || $_SERVER['HTTPS'] == 1)) ||
+        (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ||
+        (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] === 'on')
+        );
+
+    $protocol = $isHttps ? 'https' : 'http';
     $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
     $scriptDir = $scriptName ? rtrim(dirname($scriptName), '/api') : '';
     define('FRONTEND_URL', $protocol . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost:5173') . $scriptDir);
