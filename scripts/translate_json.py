@@ -4,7 +4,7 @@ import urllib.request
 import urllib.parse
 import time
 
-TARGETS = ['da', 'sv', 'no', 'fi', 'hu', 'pl', 'pt', 'el', 'ru', 'zh-CN']
+TARGETS = ['da', 'sv', 'no', 'fi', 'hu', 'pl', 'pt', 'el', 'ru', 'zh-CN', 'de', 'es', 'fr', 'nl', 'it']
 KLINGON = 'tlh'
 
 print("Loading base english strings...")
