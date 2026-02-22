@@ -154,9 +154,11 @@ const HelpModal = ({ onClose }) => {
                                         { key: 'klingon', color: '#ff0000' }
                                     ].map(({ key, color }) => {
                                         const full = t(`help.sections.visual_interface.theme_${key}`, '');
-                                        const dashIdx = full.indexOf(' — ');
-                                        const label = dashIdx >= 0 ? full.slice(0, dashIdx) : full;
-                                        const desc = dashIdx >= 0 ? full.slice(dashIdx + 3) : '';
+                                        const match = full.match(/(\s*—\s*|\s*-\s*|\s*–\s*|:\s*|——)/);
+                                        const dashIdx = match ? match.index : -1;
+                                        const delimLen = match ? match[0].length : 0;
+                                        const label = dashIdx >= 0 ? full.slice(0, dashIdx).trim() : full;
+                                        const desc = dashIdx >= 0 ? full.slice(dashIdx + delimLen).trim() : '';
                                         return (
                                             <li key={key} className="flex gap-2">
                                                 <span className="font-bold shrink-0" style={{ color }}>{label}</span>

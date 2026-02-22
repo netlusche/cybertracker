@@ -154,12 +154,11 @@
 }
 
 /* Background effects for Klingon Theme */
-html.theme-klingon {
-  background-image: repeating-linear-gradient(45deg, #0a0101 25%, transparent 25%, transparent 75%, #0a0101 75%, #0a0101), repeating-linear-gradient(45deg, #0a0101 25%, #050000 25%, #050000 75%, #0a0101 75%, #0a0101) !important;
+.theme-klingon .cyber-grid {
+  background-image: repeating-linear-gradient(45deg, #0a0101 25%, transparent 25%, transparent 75%, #0a0101 75%, #0a0101), repeating-linear-gradient(45deg, #0a0101 25%, #050000 25%, #050000 75%, #0a0101 75%, #0a0101);
   background-position: 0 0, 15px 15px;
-  /* Removed !important to allow animations */
-  background-size: 30px 30px !important;
-  background-attachment: fixed !important;
+  background-size: 30px 30px;
+  background-attachment: fixed;
 }
 
 .theme-klingon .bg-cyber-surface,
@@ -1341,8 +1340,11 @@ body.theme-steampunk .input-cyber:focus {
 }
 
 /* 13. Klingon - Grinding Steel */
-html.theme-klingon {
+.theme-klingon .cyber-grid {
+  background-image: repeating-linear-gradient(45deg, rgba(10, 1, 1, 0.8) 25%, transparent 25%, transparent 75%, rgba(10, 1, 1, 0.8) 75%, rgba(10, 1, 1, 0.8)), repeating-linear-gradient(45deg, rgba(10, 1, 1, 0.8) 25%, rgba(5, 0, 0, 0.8) 25%, rgba(5, 0, 0, 0.8) 75%, rgba(10, 1, 1, 0.8) 75%, rgba(10, 1, 1, 0.8)) !important;
+  background-size: 30px 30px !important;
   animation: grind-steel 30s linear infinite;
+  opacity: 0.8 !important;
 }
 
 @keyframes grind-steel {
@@ -1353,4 +1355,163 @@ html.theme-klingon {
   100% {
     background-position: -30px -30px, -15px -15px;
   }
+}
+
+/* ==========================================================================
+   CUSTOM THEMED SCROLLBARS
+   ========================================================================== */
+
+.theme-robco .custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.theme-robco .custom-scrollbar::-webkit-scrollbar-track {
+  background: #050f05;
+  border-left: 1px solid #003300;
+}
+
+.theme-robco .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #1aff1a;
+  border-radius: 4px;
+}
+
+.theme-robco .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #33ff33;
+  box-shadow: 0 0 5px #1aff1a;
+}
+
+.theme-grid .custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.theme-grid .custom-scrollbar::-webkit-scrollbar-track {
+  background: #0a0a0a;
+  border-left: 1px solid #1a3a4a;
+}
+
+.theme-grid .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #6fc3df;
+  border-radius: 4px;
+  box-shadow: 0 0 5px #6fc3df;
+}
+
+.theme-grid .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #00e5ff;
+}
+
+.theme-section9 .custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.theme-section9 .custom-scrollbar::-webkit-scrollbar-track {
+  background: #050a0a;
+  border-left: 1px solid #0a1a1a;
+}
+
+.theme-section9 .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #34e2e2;
+  border-radius: 0;
+}
+
+.theme-section9 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #5ce6e6;
+}
+
+.theme-outrun .custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.theme-outrun .custom-scrollbar::-webkit-scrollbar-track {
+  background: #1a051a;
+  border-left: 1px solid #330a33;
+}
+
+.theme-outrun .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff00ff, #00ffff);
+  border-radius: 4px;
+}
+
+.theme-outrun .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  filter: brightness(1.2);
+}
+
+.theme-force .custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.theme-force .custom-scrollbar::-webkit-scrollbar-track {
+  background: #0a0a0a;
+  border-left: 1px solid #222;
+}
+
+.theme-force .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cc4422;
+  border-radius: 4px;
+}
+
+.theme-force .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #ff5533;
+}
+
+.theme-arrakis .custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.theme-arrakis .custom-scrollbar::-webkit-scrollbar-track {
+  background: #1c1917;
+  border-left: 1px solid #3f1d08;
+}
+
+.theme-arrakis .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #d97706;
+  border-radius: 4px;
+}
+
+.theme-arrakis .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #f59e0b;
+}
+
+.theme-renaissance .custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.theme-renaissance .custom-scrollbar::-webkit-scrollbar-track {
+  background: #000;
+  border-left: 1px solid #221a05;
+}
+
+.theme-renaissance .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #ffb000;
+  border-radius: 0;
+  clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
+}
+
+.theme-renaissance .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #ffd700;
+}
+
+.theme-klingon .custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.theme-klingon .custom-scrollbar::-webkit-scrollbar-track {
+  background: #0a0000;
+  border-left: 1px solid #2a0000;
+}
+
+.theme-klingon .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #ff0000;
+  border-radius: 0;
+}
+
+.theme-klingon .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #cc0000;
 }
