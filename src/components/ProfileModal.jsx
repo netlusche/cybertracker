@@ -53,6 +53,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
     const { theme, setTheme } = useTheme();
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
+    const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const [deleteConfirmation, setDeleteConfirmation] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
@@ -78,7 +79,17 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
 
     const handleChangePassword = (e) => {
         e.preventDefault();
-        if (!currentPassword || !newPassword) return;
+        if (!currentPassword || !newPassword || !confirmNewPassword) return;
+
+        if (newPassword !== confirmNewPassword) {
+            setAlertModal({
+                show: true,
+                title: t('profile.alerts.security_alert'),
+                message: t('auth.messages.password_mismatch', 'Passwords do not match'),
+                variant: 'pink'
+            });
+            return;
+        }
 
         setConfirmModal({
             show: true,
@@ -103,6 +114,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                         });
                         setCurrentPassword('');
                         setNewPassword('');
+                        setConfirmNewPassword('');
                     } else {
                         const errorMsg = data.error ? t(`auth.messages.${data.error.toLowerCase().replace(/[\s\W]+/g, '_')}`, data.error) : t('profile.messages.update_failed');
                         setAlertModal({
@@ -1240,6 +1252,17 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                     error={validationErrors.new_pass}
                                     t={t}
                                     className="input-cyber text-sm w-full"
+                                    required
+                                />
+                                <PasswordInput
+                                    placeholder={t('profile.cypher.confirm_new_placeholder', 'Confirm new password')}
+                                    value={confirmNewPassword}
+                                    onChange={(e) => handleInputChange('confirm_new_pass', e.target.value, setConfirmNewPassword)}
+                                    onFocus={clearValidation}
+                                    onInvalid={(e) => handleInvalid(e, 'confirm_new_pass')}
+                                    error={validationErrors.confirm_new_pass || (confirmNewPassword && newPassword !== confirmNewPassword)}
+                                    t={t}
+                                    className={`input-cyber text-sm w-full ${confirmNewPassword && newPassword !== confirmNewPassword ? 'border-red-500 shadow-[0_0_10px_rgba(255,0,0,0.5)]' : ''}`}
                                     required
                                 />
                                 <button type="submit" className="btn-cyber btn-cyber-primary text-xs self-end">

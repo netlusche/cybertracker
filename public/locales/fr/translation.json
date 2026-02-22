@@ -8,7 +8,8 @@
         "system_help": "AIDE SYSTÈME",
         "admin": "ADMINISTRATEUR",
         "profile": "PROFIL",
-        "logout": "DÉCONNEXION"
+        "logout": "DÉCONNEXION",
+        "calendar": "CALENDRIER"
     },
     "auth": {
         "title": "CONNEXION NETRUNNER",
@@ -66,7 +67,8 @@
             "2fa_disabled": "Protocoles de sécurité [2FA] désactivés.",
             "email_2fa_activated": "E-mail 2FA activé avec succès.",
             "2fa_enabled": "Protocole d'intégrité [2FA] activé.",
-            "input_required": "SAISIE OBLIGATOIRE // CHAMP OBLIGATOIRE"
+            "input_required": "SAISIE OBLIGATOIRE // CHAMP OBLIGATOIRE",
+            "password_mismatch": "ERREUR : LES MOTS DE PASSE NE CORRESPONDENT PAS."
         },
         "alerts": {
             "id_established": "IDENTITÉ ÉTABLIE",
@@ -78,7 +80,8 @@
         "placeholders": {
             "recovery_email": "COM-LINK (EMAIL) POUR LA RÉCUPÉRATION",
             "access_code": "CODE D'ACCÈS",
-            "new_pwd": "NOUVEAU PWD"
+            "new_pwd": "NOUVEAU PWD",
+            "confirm_new_pwd": "CONFIRMER LE NOUVEAU MDP"
         },
         "static": {
             "verification_title": "VÉRIFICATION D'IDENTITÉ",
@@ -185,7 +188,8 @@
             "update_title": "MISE À JOUR DU CHIFFRE",
             "current_placeholder": "Mot de passe actuel",
             "new_placeholder": "Nouveau mot de passe",
-            "execute": "EXÉCUTER LA MISE À JOUR"
+            "execute": "EXÉCUTER LA MISE À JOUR",
+            "confirm_new_placeholder": "Confirmer le nouveau mot de passe"
         },
         "danger": {
             "title": "ZONE DANGEREUSE",
@@ -319,7 +323,9 @@
                 "item2_label": "SAUTS DANS LE TEMPS",
                 "item2_text": "Utilisez les commandes de navigation annuelles pour la planification à long terme.",
                 "item3_label": "SYNCHRONISATION INTERACTIVE",
-                "item3_text": "Modifiez les dates directement sur les cartes actives via les protocoles CYBER CONFIRM."
+                "item3_text": "Modifiez les dates directement sur les cartes actives via les protocoles CYBER CONFIRM.",
+                "item4_label": "CALENDRIER MONDIAL",
+                "item4_text": "Accédez à la chronologie principale via le Top Header pour visualiser toutes les directives planifiées et vous connecter directement à leurs dossiers."
             },
             "system_resiliency": {
                 "title": "// RÉSILIENCE DU SYSTÈME [Stabilité]",
@@ -426,6 +432,30 @@
         "disable_2fa_failed": "Échec de la désactivation de 2FA"
     },
     "calendar": {
-        "clear_date": "EFFACER LA DATE"
+        "clear_date": "EFFACER LA DATE",
+        "title": "CHRONO-SYNC // CALENDRIER",
+        "months": {
+            "0": "JANVIER",
+            "1": "FÉVRIER",
+            "2": "MARS",
+            "3": "AVRIL",
+            "4": "MAI",
+            "5": "JUIN",
+            "6": "JUILLET",
+            "7": "AOÛT",
+            "8": "SEPTEMBRE",
+            "9": "OCTOBRE",
+            "10": "NOVEMBRE",
+            "11": "DÉCEMBRE"
+        },
+        "days": {
+            "0": "SOLEIL",
+            "1": "LUN",
+            "2": "MAR",
+            "3": "MER",
+            "4": "JEU",
+            "5": "VEN",
+            "6": "ASSIS"
+        }
     }
 }

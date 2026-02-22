@@ -8,7 +8,8 @@
         "system_help": "AYUDA DEL SISTEMA",
         "admin": "ADMINISTRADOR",
         "profile": "PERFIL",
-        "logout": "SALIR"
+        "logout": "SALIR",
+        "calendar": "CALENDARIO"
     },
     "auth": {
         "title": "INICIO DE SESIÓN DE NETRUNNER",
@@ -66,7 +67,8 @@
             "2fa_disabled": "Protocolos de seguridad [2FA] deshabilitados.",
             "email_2fa_activated": "Correo electrónico 2FA activado exitosamente.",
             "2fa_enabled": "Protocolo de integridad [2FA] activado.",
-            "input_required": "ENTRADA REQUERIDA // CAMPO OBLIGATORIO"
+            "input_required": "ENTRADA REQUERIDA // CAMPO OBLIGATORIO",
+            "password_mismatch": "ERROR: LAS CONTRASEÑAS NO COINCIDEN."
         },
         "alerts": {
             "id_established": "IDENTIDAD ESTABLECIDA",
@@ -78,7 +80,8 @@
         "placeholders": {
             "recovery_email": "COM-LINK (CORREO ELECTRÓNICO) PARA RECUPERACIÓN",
             "access_code": "CÓDIGO DE ACCESO",
-            "new_pwd": "NUEVA PWD"
+            "new_pwd": "NUEVA PWD",
+            "confirm_new_pwd": "CONFIRMAR NUEVA PWD"
         },
         "static": {
             "verification_title": "VERIFICACIÓN DE IDENTIDAD",
@@ -185,7 +188,8 @@
             "update_title": "ACTUALIZAR CIFERO",
             "current_placeholder": "Contraseña actual",
             "new_placeholder": "Nueva contraseña",
-            "execute": "EJECUTAR ACTUALIZACIÓN"
+            "execute": "EJECUTAR ACTUALIZACIÓN",
+            "confirm_new_placeholder": "Confirmar nueva contraseña"
         },
         "danger": {
             "title": "ZONA DE PELIGRO",
@@ -319,7 +323,9 @@
                 "item2_label": "SALTOS EN EL TIEMPO",
                 "item2_text": "Utilice controles de navegación anual para planificación a largo plazo.",
                 "item3_label": "SINCRONIZACIÓN INTERACTIVA",
-                "item3_text": "Modifique fechas directamente en tarjetas activas a través de protocolos CYBER CONFIRM."
+                "item3_text": "Modifique fechas directamente en tarjetas activas a través de protocolos CYBER CONFIRM.",
+                "item4_label": "CALENDARIO MUNDIAL",
+                "item4_text": "Acceda a la cronología maestra a través del encabezado superior para ver todas las directivas programadas e interactuar directamente con sus expedientes."
             },
             "system_resiliency": {
                 "title": "// RESILIENCIA DEL SISTEMA [Estabilidad]",
@@ -426,6 +432,30 @@
         "disable_2fa_failed": "No se pudo desactivar 2FA"
     },
     "calendar": {
-        "clear_date": "FECHA CLARA"
+        "clear_date": "FECHA CLARA",
+        "title": "CRONO-SYNC // CALENDARIO",
+        "months": {
+            "0": "ENERO",
+            "1": "FEBRERO",
+            "2": "MARZO",
+            "3": "ABRIL",
+            "4": "MAYO",
+            "5": "JUNIO",
+            "6": "JULIO",
+            "7": "AGOSTO",
+            "8": "SEPTIEMBRE",
+            "9": "OCTUBRE",
+            "10": "NOVIEMBRE",
+            "11": "DICIEMBRE"
+        },
+        "days": {
+            "0": "SOL",
+            "1": "LUN",
+            "2": "MAR",
+            "3": "MIÉ",
+            "4": "JUEVES",
+            "5": "VIE",
+            "6": "SE SENTÓ"
+        }
     }
 }

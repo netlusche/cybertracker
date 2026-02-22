@@ -9,6 +9,8 @@ import ProfileModal from './components/ProfileModal';
 import AdminPanel from './components/AdminPanel';
 import HelpModal from './components/HelpModal';
 import LanguageSwitcher from './components/LanguageSwitcher';
+import CalendarModal from './components/CalendarModal';
+import DirectiveModal from './components/DirectiveModal';
 import { useTheme } from './utils/ThemeContext';
 import { useAuth } from './hooks/useAuth';
 import { useTasks } from './hooks/useTasks';
@@ -47,6 +49,8 @@ function App() {
   const [showProfile, setShowProfile] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [showDossierForTask, setShowDossierForTask] = useState(null);
   const [activeCalendarTaskId, setActiveCalendarTaskId] = useState(null);
 
   useEffect(() => {
@@ -154,6 +158,9 @@ function App() {
                 <button onClick={() => setShowHelp(true)} className={`text-[10px] md:text-xs transition-colors whitespace-nowrap ${theme === 'lcars' ? 'bg-cyber-primary text-black font-bold uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white px-2 py-1 rounded'}`}>
                   {t('header.system_help')}
                 </button>
+                <button data-testid="calendar-btn" onClick={() => setShowCalendar(true)} className={`text-[10px] md:text-xs transition-colors whitespace-nowrap ${theme === 'lcars' ? 'bg-cyber-primary text-black font-bold uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-cyber-primary/50 text-cyber-primary hover:bg-cyber-primary hover:text-black px-2 py-1 rounded'}`}>
+                  {t('header.calendar')}
+                </button>
                 <button data-testid="profile-btn" onClick={() => setShowProfile(true)} className={`text-[10px] md:text-xs transition-colors whitespace-nowrap ${theme === 'lcars' ? 'bg-cyber-primary text-black font-bold uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-cyber-primary/50 text-cyber-primary hover:bg-cyber-primary hover:text-black px-2 py-1 rounded'}`} >
                   {t('header.profile')}
                 </button>
@@ -212,6 +219,7 @@ function App() {
                     <TaskCard
                       key={task.id}
                       task={task}
+                      categories={categories}
                       onToggleStatus={handleToggleStatus}
                       onUpdateTask={handleUpdateTask}
                       onDelete={handleDelete}
@@ -227,6 +235,7 @@ function App() {
             {pagination.totalPages > 1 && (
               <div className="flex justify-center items-center gap-2 mt-8 mb-12">
                 <button
+                  data-testid="first-page"
                   onClick={() => fetchTasks(1)}
                   disabled={pagination.currentPage === 1}
                   className="px-3 py-1 border border-cyber-gray text-cyber-primary disabled:opacity-30 hover:bg-white/10"
@@ -234,6 +243,7 @@ function App() {
                   «
                 </button>
                 <button
+                  data-testid="previous-page"
                   onClick={() => fetchTasks(pagination.currentPage - 1)}
                   disabled={pagination.currentPage === 1}
                   className="px-3 py-1 border border-cyber-gray text-cyber-primary disabled:opacity-30 hover:bg-white/10"
@@ -241,11 +251,12 @@ function App() {
                   ‹
                 </button>
 
-                <span className="text-gray-500 font-mono text-sm px-2">
+                <span className="text-gray-500 font-mono text-sm px-2 pr-4">
                   {t('tasks.page')} <span className="text-white">{pagination.currentPage}</span> / {pagination.totalPages}
                 </span>
 
                 <button
+                  data-testid="next-page"
                   onClick={() => fetchTasks(pagination.currentPage + 1)}
                   disabled={pagination.currentPage === pagination.totalPages}
                   className="px-3 py-1 border border-cyber-gray text-cyber-primary disabled:opacity-30 hover:bg-white/10"
@@ -253,6 +264,7 @@ function App() {
                   ›
                 </button>
                 <button
+                  data-testid="last-page"
                   onClick={() => fetchTasks(pagination.totalPages)}
                   disabled={pagination.currentPage === pagination.totalPages}
                   className="px-3 py-1 border border-cyber-gray text-cyber-primary disabled:opacity-30 hover:bg-white/10"
@@ -284,6 +296,37 @@ function App() {
 
       {showHelp && (
         <HelpModal onClose={() => setShowHelp(false)} />
+      )}
+
+      {showCalendar && (
+        <CalendarModal
+          tasks={tasks}
+          onClose={() => setShowCalendar(false)}
+          onOpenDossier={(task) => {
+            setShowCalendar(false); // hide calendar temporarily
+            setShowDossierForTask(task);
+          }}
+        />
+      )}
+
+      {showDossierForTask && (
+        <DirectiveModal
+          task={showDossierForTask}
+          categories={categories}
+          onUpdate={async (task, updates) => {
+            // Update the single task state in App context here
+            const success = await handleUpdateTask(task, updates);
+            // Dossier component re-renders from App state
+            if (success) {
+              setShowDossierForTask(prev => ({ ...prev, ...updates }));
+            }
+            return success;
+          }}
+          onClose={() => {
+            setShowDossierForTask(null);
+            setShowCalendar(true); // Bring back calendar!
+          }}
+        />
       )}
     </div>
   );

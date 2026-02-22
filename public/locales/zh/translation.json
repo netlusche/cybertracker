@@ -8,7 +8,8 @@
         "system_help": "系统帮助",
         "admin": "管理员",
         "profile": "简介",
-        "logout": "退出"
+        "logout": "退出",
+        "calendar": "日历"
     },
     "auth": {
         "title": "NETRUNNER 登录",
@@ -66,7 +67,8 @@
             "2fa_disabled": "安全协议 [2FA] 已禁用。",
             "email_2fa_activated": "电子邮件 2FA 激活成功。",
             "2fa_enabled": "完整性协议 [2FA] 已激活。",
-            "input_required": "需要输入 // 必填字段"
+            "input_required": "需要输入 // 必填字段",
+            "password_mismatch": "错误：密码不匹配。"
         },
         "alerts": {
             "id_established": "身份确立",
@@ -78,7 +80,8 @@
         "placeholders": {
             "recovery_email": "用于恢复的 COM 链接（电子邮件）",
             "access_code": "访问代码",
-            "new_pwd": "新残疾人"
+            "new_pwd": "新残疾人",
+            "confirm_new_pwd": "确认新密码"
         },
         "static": {
             "verification_title": "身份验证",
@@ -185,7 +188,8 @@
             "update_title": "更新密码",
             "current_placeholder": "当前密码",
             "new_placeholder": "新密码",
-            "execute": "执行更新"
+            "execute": "执行更新",
+            "confirm_new_placeholder": "确认新密码"
         },
         "danger": {
             "title": "危险区域",
@@ -319,7 +323,9 @@
                 "item2_label": "时间跳跃",
                 "item2_text": "使用年份导航控件进行长期规划。",
                 "item3_label": "互动同步",
-                "item3_text": "通过 CYBER CONFIRM 协议直接修改活动卡上的日期。"
+                "item3_text": "通过 CYBER CONFIRM 协议直接修改活动卡上的日期。",
+                "item4_label": "全球日历",
+                "item4_text": "通过顶部标题访问主年表，查看所有预定指令并直接与其档案交互。"
             },
             "system_resiliency": {
                 "title": "// 系统弹性[稳定性]",
@@ -426,6 +432,30 @@
         "disable_2fa_failed": "无法禁用 2FA"
     },
     "calendar": {
-        "clear_date": "明确日期"
+        "clear_date": "明确日期",
+        "title": "计时同步 // 日历",
+        "months": {
+            "0": "一月",
+            "1": "二月",
+            "2": "三月",
+            "3": "四月",
+            "4": "五月",
+            "5": "六月",
+            "6": "七月",
+            "7": "八月",
+            "8": "九月",
+            "9": "十月",
+            "10": "十一月",
+            "11": "十二月"
+        },
+        "days": {
+            "0": "太阳",
+            "1": "周一",
+            "2": "星期二",
+            "3": "周三",
+            "4": "周四",
+            "5": "星期五",
+            "6": "SAT"
+        }
     }
 }

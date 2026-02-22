@@ -38,7 +38,7 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
         try {
             const params = new URLSearchParams({
                 page,
-                limit: 50,
+                limit: 25,
                 ...filters
             });
 

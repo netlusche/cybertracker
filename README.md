@@ -2,6 +2,28 @@
 
 **CyberTasker** is a gamified, cyberpunk-themed task management application built with **React (Vite)** and **PHP**. It supports **MySQL, MariaDB, and SQLite**, featuring a robust role-based access control (RBAC) system, gamification mechanics (XP, Levels, Badges), and secure Two-Factor Authentication (2FA).
 
+## 📁 New in Version 2.2.0 (The Dashboard & Dossier Upgrade)
+
+### 📅 Global Calendar (Chrono-Sync)
+*   **Header Navigation**: Instantly access the newly integrated Calendar module from the main navigation header to view a chronological sorting of all active deadlines.
+*   **Interactive Modal Links**: Click any scheduled directive within the calendar to instantly open its Dossier overlay for rapid field editing.
+
+### 📝 Elevated Dossier Interactions
+*   **Interactive Dropdowns**: Replaced static text labels with fully styled `CyberSelect` dropdowns for changing **Priority** and **Category** directly inside the Directive Dossier.
+*   **Inline Title Editing**: Operatives can now rename directives directly from within the Dossier by clicking the title.
+*   **Markdown Headers**: The internal markdown parser now natively supports structural headers (`#`, `##`, `###`) without strict spacing requirements.
+
+### 🌍 Massive Localization Expansion
+*   **5 New Languages**: The Neural Link now fully supports Japanese (`ja`), Korean (`ko`), Hindi (`hi`), Turkish (`tr`), and Vietnamese (`vi`).
+*   **Alphabetical Sorting**: The language switching overlay automatically sorts all dialects by their native names for faster intuitive selection.
+
+### 🛡 QA & Polishing
+*   **Password Confirmation**: Hardened the system Profile and Recovery flow by requiring a matching "Confirm Password" input before executing cryptographic changes.
+*   **Pagination Adjustments**: Reduced the default dashboard data chunking limit to 25 directives to optimize rendering speed on heavy dossiers.
+*   **System Help Updates**: Synchronized the operational manual to reflect new Global Calendar features across all supported dialects.
+
+---
+
 ## 📁 New in Version 2.1.4 (Deep Directives & Global Localization)
 
 ### 📝 Deep Directives

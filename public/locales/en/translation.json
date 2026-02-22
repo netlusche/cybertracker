@@ -8,7 +8,8 @@
         "system_help": "SYSTEM HELP",
         "admin": "ADMIN",
         "profile": "PROFILE",
-        "logout": "LOGOUT"
+        "logout": "LOGOUT",
+        "calendar": "CALENDAR"
     },
     "auth": {
         "title": "NETRUNNER LOGIN",
@@ -66,7 +67,8 @@
             "2fa_disabled": "Security Protocols [2FA] disabled.",
             "email_2fa_activated": "Email 2FA activated successfully.",
             "2fa_enabled": "Integrity protocol [2FA] activated.",
-            "input_required": "INPUT REQUIRED // MANDATORY FIELD"
+            "input_required": "INPUT REQUIRED // MANDATORY FIELD",
+            "password_mismatch": "ERROR: PASSWORDS DO NOT MATCH."
         },
         "alerts": {
             "id_established": "IDENTITY ESTABLISHED",
@@ -78,7 +80,8 @@
         "placeholders": {
             "recovery_email": "COM-LINK (EMAIL) FOR RECOVERY",
             "access_code": "ACCESS CODE",
-            "new_pwd": "NEW PWD"
+            "new_pwd": "NEW PWD",
+            "confirm_new_pwd": "CONFIRM NEW PWD"
         },
         "static": {
             "verification_title": "IDENTITY VERIFICATION",
@@ -185,6 +188,7 @@
             "update_title": "UPDATE CYPHER",
             "current_placeholder": "Current Password",
             "new_placeholder": "New Password",
+            "confirm_new_placeholder": "Confirm new password",
             "execute": "EXECUTE UPDATE"
         },
         "danger": {
@@ -319,7 +323,9 @@
                 "item2_label": "TIME JUMPS",
                 "item2_text": "Use year navigation controls for long-range planning.",
                 "item3_label": "INTERACTIVE SYNC",
-                "item3_text": "Modify dates directly on active cards via CYBER CONFIRM protocols."
+                "item3_text": "Modify dates directly on active cards via CYBER CONFIRM protocols.",
+                "item4_label": "GLOBAL CALENDAR",
+                "item4_text": "Access the master chronology via the Top Header to view all scheduled directives and interface directly with their Dossiers."
             },
             "system_resiliency": {
                 "title": "// SYSTEM RESILIENCY [Stability]",
@@ -426,6 +432,30 @@
         "disable_2fa_failed": "Failed to disable 2FA"
     },
     "calendar": {
-        "clear_date": "CLEAR DATE"
+        "title": "CHRONO-SYNC // CALENDAR",
+        "clear_date": "CLEAR DATE",
+        "months": {
+            "0": "JANUARY",
+            "1": "FEBRUARY",
+            "2": "MARCH",
+            "3": "APRIL",
+            "4": "MAY",
+            "5": "JUNE",
+            "6": "JULY",
+            "7": "AUGUST",
+            "8": "SEPTEMBER",
+            "9": "OCTOBER",
+            "10": "NOVEMBER",
+            "11": "DECEMBER"
+        },
+        "days": {
+            "0": "SUN",
+            "1": "MON",
+            "2": "TUE",
+            "3": "WED",
+            "4": "THU",
+            "5": "FRI",
+            "6": "SAT"
+        }
     }
 }

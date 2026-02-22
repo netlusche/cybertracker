@@ -10,7 +10,8 @@ const SystemModal = ({
     hideCloseBtn = false,
     className = '',
     closeBtnClassName = '',
-    allowScroll = true
+    allowScroll = true,
+    zIndex = 'z-[150]'
 }) => {
     if (!isOpen) return null;
 
@@ -23,7 +24,7 @@ const SystemModal = ({
             : 'border-cyber-primary';
 
     return (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[150] p-4 font-mono animate-in fade-in duration-300">
+        <div className={`fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center ${zIndex} p-4 font-mono animate-in fade-in duration-300`}>
             <div className={`bg-cyber-black p-6 ${maxWidth} w-full border-2 ${accentClass.split(' ')[0]} ${accentClass.split(' ')[1]} relative overflow-hidden flex flex-col max-h-[90vh] ${className}`}>
 
                 {!hideCloseBtn && onClose && (

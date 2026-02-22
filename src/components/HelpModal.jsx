@@ -108,6 +108,7 @@ const HelpModal = ({ onClose }) => {
                                 <li><strong>{t('help.sections.chrono_sync.item1_label')}:</strong> {t('help.sections.chrono_sync.item1_text')}</li>
                                 <li><strong>{t('help.sections.chrono_sync.item2_label')}:</strong> {t('help.sections.chrono_sync.item2_text')}</li>
                                 <li><strong>{t('help.sections.chrono_sync.item3_label')}:</strong> {t('help.sections.chrono_sync.item3_text')}</li>
+                                <li><strong>{t('help.sections.chrono_sync.item4_label')}:</strong> {t('help.sections.chrono_sync.item4_text')}</li>
                             </ul>
                         </section>
 

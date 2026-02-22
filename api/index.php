@@ -60,6 +60,7 @@ $router->post('auth/resend_email_2fa', [AuthController::class , 'resendEmail2fa'
 
 // --- Task Routes ---
 $router->get('tasks', [TaskController::class , 'index']);
+$router->get('tasks/calendar', [TaskController::class , 'calendar']);
 $router->get('tasks/download', [TaskController::class , 'downloadFile']);
 $router->post('tasks', [TaskController::class , 'store']);
 $router->post('tasks/upload', [TaskController::class , 'uploadFiles']);

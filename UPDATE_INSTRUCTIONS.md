@@ -1,3 +1,27 @@
+# CyberTasker Server Update Instructions (v2.1.4 → v2.2.0)
+
+These instructions guide you through the update to **v2.2.0** (The Dashboard & Dossier Upgrade).
+
+## 1. Backup (MANDATORY)
+- **Files**: Backup your `api/config.php` and your database file (if using SQLite). Be sure to also back up any existing files in the `uploads/` directory.
+
+## 2. Deploy Files
+1.  Upload the contents of the `dist` folder to your server.
+    > [!CAUTION]
+    > **CRITICAL SECURITY WARNING FOR MACOS USERS**: macOS Finder hides files starting with a dot (like `.htaccess`) by default. If you simply drag the visible files to your FTP client, the `.htaccess` files **will be left behind**, exposing your database and uploads to the public web! 
+    > Press `Cmd` + `Shift` + `.` in Finder to reveal hidden files, and ensure `.htaccess` in `api/` and `api/uploads/` are successfully transferred to your web server.
+2.  **Overwrite all files** EXCEPT `api/config.php` and your database file.
+
+## 3. Database Update
+**No database schema changes are required** if updating from v2.1.x.
+
+## 4. Verify Update
+1.  **Global Calendar**: Log in and verify the new `CALENDAR` button in the top navigation header. Click it to view tasks with due dates.
+2.  **Dossier Editing**: Click any task to open its Dossier, and verify you can alter the Category and Priority using the new interactive dropdown menus.
+3.  **Language Check**: Open the language switcher in the header and verify Japanese (`日本語`), Korean (`한국어`), Hindi, Turkish, and Vietnamese are available and sorted alphabetically.
+
+---
+
 # CyberTasker Server Update Instructions (v2.0.4 → v2.1.4)
 
 These instructions guide you through the update to **v2.1.4** (Deep Directives).

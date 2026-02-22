@@ -8,7 +8,8 @@
         "system_help": "POMOC SYSTEMOWA",
         "admin": "ADMIN",
         "profile": "PROFIL",
-        "logout": "WYLOGUJ"
+        "logout": "WYLOGUJ",
+        "calendar": "KALENDARZ"
     },
     "auth": {
         "title": "LOGOWANIE NETRUNERA",
@@ -66,7 +67,8 @@
             "2fa_disabled": "Protokoły bezpieczeństwa [2FA] wyłączone.",
             "email_2fa_activated": "Aktywacja poczty e-mail 2FA zakończyła się pomyślnie.",
             "2fa_enabled": "Aktywowano protokół integralności [2FA].",
-            "input_required": "WYMAGANE WPROWADZENIE // POLE OBOWIĄZKOWE"
+            "input_required": "WYMAGANE WPROWADZENIE // POLE OBOWIĄZKOWE",
+            "password_mismatch": "BŁĄD: HASŁA NIE PASUJĄ."
         },
         "alerts": {
             "id_established": "TOŻSAMOŚĆ USTALONA",
@@ -78,7 +80,8 @@
         "placeholders": {
             "recovery_email": "LINK COM (E-MAIL) DO ODZYSKANIA",
             "access_code": "KOD DOSTĘPU",
-            "new_pwd": "NOWY PWD"
+            "new_pwd": "NOWY PWD",
+            "confirm_new_pwd": "POTWIERDŹ NOWE HASŁO"
         },
         "static": {
             "verification_title": "WERYFIKACJA TOŻSAMOŚCI",
@@ -185,7 +188,8 @@
             "update_title": "AKTUALIZACJA CYFRU",
             "current_placeholder": "Aktualne hasło",
             "new_placeholder": "Nowe hasło",
-            "execute": "WYKONAJ AKTUALIZACJĘ"
+            "execute": "WYKONAJ AKTUALIZACJĘ",
+            "confirm_new_placeholder": "Potwierdź nowe hasło"
         },
         "danger": {
             "title": "STREFA NIEBEZPIECZEŃSTWA",
@@ -319,7 +323,9 @@
                 "item2_label": "SKOKI CZASU",
                 "item2_text": "Użyj elementów nawigacji rocznej do planowania dalekosiężnego.",
                 "item3_label": "INTERAKTYWNA SYNCHRONIZACJA",
-                "item3_text": "Modyfikuj daty bezpośrednio na aktywnych kartach poprzez protokoły CYBER CONFIRM."
+                "item3_text": "Modyfikuj daty bezpośrednio na aktywnych kartach poprzez protokoły CYBER CONFIRM.",
+                "item4_label": "GLOBALNY KALENDARZ",
+                "item4_text": "Uzyskaj dostęp do głównej chronologii poprzez górny nagłówek, aby wyświetlić wszystkie zaplanowane dyrektywy i bezpośrednio połączyć się z ich dokumentacjami."
             },
             "system_resiliency": {
                 "title": "// WYTRZYMAŁOŚĆ SYSTEMU [Stabilność]",
@@ -426,6 +432,30 @@
         "disable_2fa_failed": "Nie udało się wyłączyć 2FA"
     },
     "calendar": {
-        "clear_date": "WYCZYŚĆ DATĘ"
+        "clear_date": "WYCZYŚĆ DATĘ",
+        "title": "CHRONO-SYNC // KALENDARZ",
+        "months": {
+            "0": "STYCZEŃ",
+            "1": "LUTY",
+            "2": "MARZEC",
+            "3": "KWIECIEŃ",
+            "4": "MAJ",
+            "5": "CZERWIEC",
+            "6": "LIPIEC",
+            "7": "SIERPIEŃ",
+            "8": "WRZESIEŃ",
+            "9": "PAŹDZIERNIK",
+            "10": "LISTOPAD",
+            "11": "GRUDNIA"
+        },
+        "days": {
+            "0": "NIEDZIELA",
+            "1": "PON",
+            "2": "WT",
+            "3": "ŚR",
+            "4": "CZW",
+            "5": "PIĄTEK",
+            "6": "SOBOTA"
+        }
     }
 }

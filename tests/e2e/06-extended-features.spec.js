@@ -27,6 +27,7 @@ test.describe('TS-08: Linguistic Uplink & Identity Termination', () => {
 
             // Verify Persistence on Reload
             await page.reload();
+            await expect(page.locator('body')).not.toContainText(/INITIALIZING SYSTEM/i, { timeout: 15000 });
             await expect(headerText).toContainText(lang.expected);
         }
     });

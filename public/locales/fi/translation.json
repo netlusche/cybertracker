@@ -8,7 +8,8 @@
         "system_help": "JÄRJESTELMÄOHJE",
         "admin": "JÄRJESTELMÄNVALVOJA",
         "profile": "PROFIILI",
-        "logout": "KIRJAUDU OUT"
+        "logout": "KIRJAUDU OUT",
+        "calendar": "KALENTERI"
     },
     "auth": {
         "title": "NETRUNNER LOGIN",
@@ -66,7 +67,8 @@
             "2fa_disabled": "Suojausprotokollat ​​[2FA] pois käytöstä.",
             "email_2fa_activated": "Sähköposti 2FA aktivoitu onnistuneesti.",
             "2fa_enabled": "Eheysprotokolla [2FA] aktivoitu.",
-            "input_required": "SYÖTTÖ ​​VAADITTAA // PAKOLLINEN KENTTÄ"
+            "input_required": "SYÖTTÖ ​​VAADITTAA // PAKOLLINEN KENTTÄ",
+            "password_mismatch": "ERROR: PASSWORDS DO NOT MATCH."
         },
         "alerts": {
             "id_established": "IDENTITEETTI MUODOSTETTU",
@@ -78,7 +80,8 @@
         "placeholders": {
             "recovery_email": "COM-LINK (SÄHKÖPOSTI) PALAUTTAMISTA VARTEN",
             "access_code": "PÄÄSYKOODI",
-            "new_pwd": "UUSI PWD"
+            "new_pwd": "UUSI PWD",
+            "confirm_new_pwd": "VAHVISTA UUSI PWD"
         },
         "static": {
             "verification_title": "TUNNISTUSVARMISTAMINEN",
@@ -185,7 +188,8 @@
             "update_title": "PÄIVITYS CYPHER",
             "current_placeholder": "Nykyinen salasana",
             "new_placeholder": "Uusi salasana",
-            "execute": "SUORITA PÄIVITYS"
+            "execute": "SUORITA PÄIVITYS",
+            "confirm_new_placeholder": "Vahvista uusi salasana"
         },
         "danger": {
             "title": "VAARAALUE",
@@ -319,7 +323,9 @@
                 "item2_label": "AIKAHYPPIÄ",
                 "item2_text": "Käytä vuoden navigointisäätimiä pitkän aikavälin suunnitteluun.",
                 "item3_label": "INTERAKTIIVINEN SYNC",
-                "item3_text": "Muokkaa päivämääriä suoraan aktiivisilla korteilla CYBER CONFIRM -protokollien avulla."
+                "item3_text": "Muokkaa päivämääriä suoraan aktiivisilla korteilla CYBER CONFIRM -protokollien avulla.",
+                "item4_label": "MAAILMANLAAJUINEN KALENTERI",
+                "item4_text": "Pääset pääkronologiaan yläotsikon kautta nähdäksesi kaikki ajoitetut käskyt ja liittääksesi suoraan niiden aineistoihin."
             },
             "system_resiliency": {
                 "title": "// JÄRJESTELMÄN KESTÄVYYS [Vakaus]",
@@ -426,6 +432,30 @@
         "disable_2fa_failed": "2FA:n poistaminen käytöstä epäonnistui"
     },
     "calendar": {
-        "clear_date": "TYHJENNÄ PÄIVÄMÄÄRÄ"
+        "clear_date": "TYHJENNÄ PÄIVÄMÄÄRÄ",
+        "title": "CHRONO-SYNC // KALENTERI",
+        "months": {
+            "0": "TAMMIKUU",
+            "1": "HELMIKUU",
+            "2": "MAALISKUU",
+            "3": "HUHTIKUU",
+            "4": "TOUKOKUU",
+            "5": "KESÄKUU",
+            "6": "HEINÄKUU",
+            "7": "ELOKUU",
+            "8": "SYYSKUU",
+            "9": "LOKAKUU",
+            "10": "MARRASKUU",
+            "11": "JOULUKUU"
+        },
+        "days": {
+            "0": "AURINKO",
+            "1": "MA",
+            "2": "TUE",
+            "3": "KE",
+            "4": "TO",
+            "5": "PE",
+            "6": "SAT"
+        }
     }
 }

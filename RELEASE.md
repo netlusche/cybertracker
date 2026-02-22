@@ -1,3 +1,13 @@
+# CyberTasker v2.2 (The Dashboard & Dossier Upgrade)
+*Release Date: 2026-02-22*
+
+*   **Global Chrono-Sync Calendar**: A dedicated top-level Calendar UI mapped to the header navigation, allowing operatives to visualize deadlines and interface directly with dossiers.
+*   **Dossier Field Editing**: Integrated native dropdowns for changing Priority and Category directly within the Directive Dossier overlay with correctly stacked `CyberConfirm` z-index layers.
+*   **Internationalization Scale-up**: Deployed robust language packs for Japanese, Korean, Hindi, Turkish, and Vietnamese.
+*   **Security & UX Polish**: Implemented double-entry confirmation for password changes, inline Dossier title editing, and optimized Dashboard pagination rendering limits.
+
+---
+
 # CyberTasker v2.1 (Deep Directives & Global Localization)
 *Release Date: 2026-02-22*
 

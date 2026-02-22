@@ -8,7 +8,8 @@
         "system_help": "AIUTO SISTEMA",
         "admin": "AMMINISTRATORE",
         "profile": "PROFILO",
-        "logout": "ESCI"
+        "logout": "ESCI",
+        "calendar": "CALENDARIO"
     },
     "auth": {
         "title": "ACCESSO AL NETRUNNER",
@@ -66,7 +67,8 @@
             "2fa_disabled": "Protocolli di sicurezza [2FA] disabilitati.",
             "email_2fa_activated": "Email 2FA attivata con successo.",
             "2fa_enabled": "Protocollo di integrità [2FA] attivato.",
-            "input_required": "IMMISSIONE RICHIESTA // CAMPO OBBLIGATORIO"
+            "input_required": "IMMISSIONE RICHIESTA // CAMPO OBBLIGATORIO",
+            "password_mismatch": "ERRORE: LE PASSWORD NON CORRISPONDONO."
         },
         "alerts": {
             "id_established": "IDENTITÀ STABILITA",
@@ -78,7 +80,8 @@
         "placeholders": {
             "recovery_email": "COM-LINK (EMAIL) PER IL RECUPERO",
             "access_code": "CODICE DI ACCESSO",
-            "new_pwd": "NUOVA PWD"
+            "new_pwd": "NUOVA PWD",
+            "confirm_new_pwd": "CONFERMA NUOVA PWD"
         },
         "static": {
             "verification_title": "VERIFICA DELL'IDENTITÀ",
@@ -185,7 +188,8 @@
             "update_title": "AGGIORNAMENTO CIFRA",
             "current_placeholder": "Password attuale",
             "new_placeholder": "Nuova password",
-            "execute": "ESEGUIRE AGGIORNAMENTO"
+            "execute": "ESEGUIRE AGGIORNAMENTO",
+            "confirm_new_placeholder": "Conferma la nuova password"
         },
         "danger": {
             "title": "ZONA DI PERICOLO",
@@ -319,7 +323,9 @@
                 "item2_label": "SALTI DI TEMPO",
                 "item2_text": "Utilizza i controlli di navigazione annuale per la pianificazione a lungo termine.",
                 "item3_label": "SINCRONIZZAZIONE INTERATTIVA",
-                "item3_text": "Modifica le date direttamente sulle carte attive tramite i protocolli CYBER CONFIRM."
+                "item3_text": "Modifica le date direttamente sulle carte attive tramite i protocolli CYBER CONFIRM.",
+                "item4_label": "CALENDARIO GLOBALE",
+                "item4_text": "Accedi alla cronologia principale tramite il Top Header per visualizzare tutte le direttive previste e interfacciarti direttamente con i loro Dossier."
             },
             "system_resiliency": {
                 "title": "// RESILIENZA DEL SISTEMA [Stabilità]",
@@ -426,6 +432,30 @@
         "disable_2fa_failed": "Impossibile disattivare 2FA"
     },
     "calendar": {
-        "clear_date": "DATA CHIARA"
+        "clear_date": "DATA CHIARA",
+        "title": "CRONO-SINC // CALENDARIO",
+        "months": {
+            "0": "GENNAIO",
+            "1": "FEBBRAIO",
+            "2": "MARZO",
+            "3": "APRILE",
+            "4": "MAGGIO",
+            "5": "GIUGNO",
+            "6": "LUGLIO",
+            "7": "AGOSTO",
+            "8": "SETTEMBRE",
+            "9": "OTTOBRE",
+            "10": "NOVEMBRE",
+            "11": "DICEMBRE"
+        },
+        "days": {
+            "0": "SOLE",
+            "1": "LUN",
+            "2": "MAR",
+            "3": "MER",
+            "4": "GIO",
+            "5": "VEN",
+            "6": "SAB"
+        }
     }
 }
