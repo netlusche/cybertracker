@@ -4,6 +4,17 @@ import urllib.request
 import urllib.parse
 import time
 
+# ==============================================================================
+# CRITICAL TRANSLATION POLICY:
+# Google Translate relies entirely on the English (en/translation.json) baseline.
+# If the English source uses overly abstract cyberpunk jargon without context,
+# the resulting translations in the 14 other languages will be nonsensical.
+# 
+# RULE: Balance theme with clarity. E.g., Use "Re-route Com-Link (Email)" 
+# rather than just "Splice the Datalink".
+# Read TRANSLATION_GUIDELINES.md before adding new keys!
+# ==============================================================================
+
 TARGETS = ['da', 'sv', 'no', 'fi', 'hu', 'pl', 'pt', 'el', 'ru', 'zh-CN', 'de', 'es', 'fr', 'nl', 'it']
 KLINGON = 'tlh'
 
