@@ -1165,3 +1165,178 @@ body.theme-steampunk .input-cyber:focus {
 .theme-steampunk .priority-select-border {
   border-color: #c8882a !important;
 }
+
+/* ==========================================================================
+   AMBIENT CSS BACKGROUND ANIMATIONS
+   ========================================================================== */
+
+/* 1. Cyberpunk - Scrolling Tech Grid */
+.theme-cyberpunk .cyber-grid {
+  animation: bg-pan-diagonal 30s linear infinite;
+}
+
+@keyframes bg-pan-diagonal {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 48px 48px;
+  }
+}
+
+/* 2. LCARS - Scrolling Telemetry */
+.theme-lcars .cyber-grid {
+  display: block !important;
+  background-image:
+    linear-gradient(90deg, #ffcc33 2px, transparent 2px, transparent 15px, #dd4444 15px, #dd4444 25px, transparent 25px, transparent 50px, #88ccff 50px, #88ccff 55px, transparent 55px),
+    linear-gradient(90deg, transparent 60px, #cc88ff 60px, #cc88ff 65px, transparent 65px);
+  background-size: 150px 10px;
+  background-repeat: repeat-x;
+  background-position: 0 20%, 50px 80%;
+  opacity: 0.15;
+  animation: lcars-telemetry 20s linear infinite;
+}
+
+@keyframes lcars-telemetry {
+  0% {
+    background-position: 0 20%, 50px 80%;
+  }
+
+  100% {
+    background-position: -300px 20%, 350px 80%;
+  }
+}
+
+/* 4. Weyland - CRT Scanline Roll */
+.theme-weyland .cyber-grid {
+  background: linear-gradient(to bottom, transparent 50%, rgba(255, 176, 0, 0.05) 50%, rgba(255, 176, 0, 0.08) 100%);
+  background-size: 100% 8px;
+  animation: crt-roll 10s linear infinite;
+}
+
+@keyframes crt-roll {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 0 -400px;
+  }
+}
+
+/* 5. RobCo - Scan Sweep */
+.theme-robco .cyber-grid {
+  background: linear-gradient(to bottom, rgba(26, 255, 26, 0) 0%, rgba(26, 255, 26, 0.15) 50%, rgba(26, 255, 26, 0) 100%);
+  background-size: 100% 200px;
+  background-repeat: no-repeat;
+  animation: robco-scan 6s linear infinite;
+}
+
+@keyframes robco-scan {
+  0% {
+    background-position: 0 -200px;
+  }
+
+  100% {
+    background-position: 0 120vh;
+  }
+}
+
+/* 6. The Grid - Scrolling Horizontal Lines */
+.theme-grid .cyber-grid {
+  background-image:
+    linear-gradient(to bottom, rgba(111, 195, 223, 0.1) 1px, transparent 1px),
+    linear-gradient(to right, rgba(111, 195, 223, 0.05) 1px, transparent 1px);
+  background-size: 100% 40px, 40px 100%;
+  animation: grid-forward 3s linear infinite;
+}
+
+@keyframes grid-forward {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+
+  100% {
+    background-position: 0 40px, 0 0;
+  }
+}
+
+/* 7. Section 9 - Floating Data / Ghost */
+.theme-section9 .cyber-grid {
+  background-image:
+    radial-gradient(circle at 2px 2px, rgba(52, 226, 226, 0.3) 1px, transparent 1px),
+    radial-gradient(circle at 10px 10px, rgba(252, 233, 79, 0.1) 1px, transparent 1px);
+  background-size: 60px 60px, 80px 80px;
+  animation: ghost-float 15s ease-in-out infinite alternate;
+}
+
+@keyframes ghost-float {
+  0% {
+    background-position: 0 0, 0 0;
+    transform: scale(1);
+    opacity: 0.3;
+  }
+
+  100% {
+    background-position: 15px 30px, -10px -20px;
+    transform: scale(1.05);
+    opacity: 0.6;
+  }
+}
+
+/* 8. Outrun - Synthwave Grid Scrolling */
+.theme-outrun .cyber-grid {
+  background-image:
+    linear-gradient(to bottom, rgba(255, 0, 255, 0.3) 2px, transparent 2px),
+    linear-gradient(to right, rgba(0, 255, 255, 0.1) 2px, transparent 2px);
+  background-size: 100% 80px, 60px 100%;
+  animation: outrun-drive 2s linear infinite;
+}
+
+@keyframes outrun-drive {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+
+  100% {
+    background-position: 0 80px, 0 0;
+  }
+}
+
+/* 9. Steampunk - Drifting Fog */
+.theme-steampunk .cyber-grid {
+  background-image:
+    radial-gradient(ellipse at center, rgba(200, 136, 42, 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse at center, rgba(139, 69, 19, 0.05) 0%, transparent 60%),
+    linear-gradient(rgba(107, 66, 38, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(107, 66, 38, 0.08) 1px, transparent 1px) !important;
+  background-size: 400px 400px, 300px 300px, 48px 48px, 48px 48px !important;
+  animation: steam-drift 40s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes steam-drift {
+  0% {
+    background-position: 0 0, 150px 150px, 0 0, 0 0;
+  }
+
+  100% {
+    background-position: 400px 200px, -150px 300px, 0 0, 0 0;
+  }
+}
+
+/* 13. Klingon - Grinding Steel */
+html.theme-klingon {
+  animation: grind-steel 30s linear infinite;
+}
+
+@keyframes grind-steel {
+  0% {
+    background-position: 0 0, 15px 15px;
+  }
+
+  100% {
+    background-position: -30px -30px, -15px -15px;
+  }
+}
