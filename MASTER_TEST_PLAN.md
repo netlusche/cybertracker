@@ -1,6 +1,6 @@
-# CyberTasker: Master Automated Test Plan v2.0.0
+# CyberTasker: Master Automated Test Plan v2.1.0
 
-This plan outlines the end-to-end testing strategy for CyberTasker v2.0.0. The goal is to verify all functional requirements, multi-theming architecture, and OWASP-aligned security hardening using automated browser sessions and backend audits.
+This plan outlines the end-to-end testing strategy for CyberTasker v2.1.0. The goal is to verify all functional requirements, multi-theming architecture, and OWASP-aligned security hardening using automated browser sessions and backend audits.
 
 ---
 
@@ -108,8 +108,8 @@ The suite has been hardened against "flakiness" using the following patterns:
 ## 🎨 test-suite-03: Visual Architecture & Multi-Theming
 
 ### TS-03.1: Theme Switching & Isolation
-- **Scenario**: Switch between "Cyberpunk", "LCARS", "Matrix", and "Weyland-Yutani" in the profile.
-- **Validation**: CSS variables and fonts update immediately (e.g., Antonio vs Courier vs VT323 vs Share Tech Mono). Contrast ratios remain compliant across all themes.
+- **Scenario**: Switch between "Cyberpunk", "LCARS", "Matrix", "Weyland-Yutani", and "Klingon" in the profile.
+- **Validation**: CSS variables and fonts update immediately (e.g., Wallpoet vs Antonio vs Courier). Contrast ratios remain compliant across all themes.
 
 ### TS-03.2: Theme Persistence [AUTOMATED] (03-theme-persistence.spec.js)
 - **Scenario**: Set theme (e.g., "Matrix"), logout, and verify login screen aesthetics.

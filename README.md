@@ -12,6 +12,11 @@
 ### 🌍 Static Localization Engine
 *   **Vanilla JS i18n Hydration**: The static authentication pages (`verify.html`, `reset-password.html`) now hydrate to the user's preferred language natively without booting the full React bundle, preserving microsecond load times.
 
+### 🎨 Aesthetic Refinements
+*   **Klingon Theme Integration**: Introduced the brutalist, blood-red **QO'NOS (Klingon)** theme featuring grinding steel CSS background animations and aggressive typography.
+*   **Ambient Animations**: Injected dynamic CSS background behaviors across the existing visual roster (Cyberpunk, LCARS, Matrix, Weyland, RobCo, Grid, Section 9, Outrun, Steampunk) with precision opacity and velocity controls.
+*   **Universal Scrollbars**: Fully styled custom scrollbars deployed across all operational visual themes for maximum immersion.
+
 ---
 
 ## 🛡️ New in Version 2.0.4 (Account Verification Hotfix)
