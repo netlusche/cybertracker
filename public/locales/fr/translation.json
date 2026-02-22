@@ -177,9 +177,9 @@
         "contact": {
             "channel": "CANAL DE CONTACT",
             "current": "Actuel :",
-            "new_placeholder": "Nouvelle fréquence d'e-mail",
+            "new_placeholder": "Nouveau Com-Link (E-mail)",
             "confirm_password": "Confirmer le mot de passe",
-            "reroute": "FRÉQUENCE DE RÉACHEMINEMENT"
+            "reroute": "RE-ROUTER COM-LINK"
         },
         "cypher": {
             "update_title": "MISE À JOUR DU CHIFFRE",
@@ -233,142 +233,55 @@
         }
     },
     "help": {
-        "title": "MANUEL OPÉRATIONNEL CYBER_TASKER",
+        "title": "MANUEL DU SYSTÈME CYBER_TASKER",
         "acknowledge": "RECONNAISSANCE",
         "sections": {
             "neural_progression": {
-                "title": "// PROGRESSION NEURONALE [XP et rangs]",
-                "item1_label": "RÉCOLTE XP",
-                "item1_text": "L’exécution réussie d’une directive injecte des données d’expérience brutes dans votre noyau neuronal. Une complexité plus élevée génère de plus grandes récompenses.",
-                "item2_label": "CLASSEMENT OPÉRATIONNEL",
-                "item2_text": "Accumulez des paquets de données pour faire progresser votre NIVEAU D'OPÉRATEUR. La barre de suivi visualise votre statut de synchronisation avec le classement suivant.",
-                "item3_label": "CÉLÉBRATION DU RANG",
-                "item3_text": "La mise à niveau déclenche une boucle de rétroaction au néon à haut spectre à l'échelle du système et une célébration atmosphérique."
+                "title": "// PROGRESSION [XP et rangs]",
+                "item1_label": "GAGNER DE L'XP",
+                "item1_text": "L'accomplissement de tâches confère des points d'expérience (XP). Les tâches plus prioritaires rapportent de plus grandes récompenses.",
+                "item2_label": "MISE À NIVEAU",
+                "item2_text": "Accumulez suffisamment d'XP pour atteindre le niveau d'opérateur suivant. La barre de suivi affiche votre progression actuelle.",
+                "item3_label": "RÉCOMPENSES",
+                "item3_text": "La mise à niveau déclenche un retour visuel et débloque des rangs plus élevés au sein du système."
             },
             "system_access": {
-                "title": "// ACCÈS AU SYSTÈME [Protocole d'authentification]",
-                "item1_label": "INITIER UNE NOUVELLE IDENTITÉ",
-                "item1_text1": "Exécutez NEW IDENTITY pour vous inscrire. Saisissez CODENAME (nom d'utilisateur), COM-LINK (e-mail) et ACCESS KEY (mot de passe).",
-                "item1_warn": "⚠ Vérification requise par e-mail.",
-                "item2_label": "JACK IN",
-                "item2_text": "Accédez à la grille via CODENAME ou COM-LINK et votre CLÉ D'ACCÈS."
+                "title": "// ACCÈS [Authentification]",
+                "item1_label": "INSCRIPTION",
+                "item1_text1": "Créez un nouveau compte en utilisant un nom de code (nom d'utilisateur), Com-Link (e-mail) et une clé d'accès (mot de passe).",
+                "item1_warn": "⚠ Une vérification par e-mail est requise pour activer le compte.",
+                "item2_label": "CONNEXION",
+                "item2_text": "Accédez à la grille via votre e-mail ou votre nom de code avec votre mot de passe."
             },
             "bio_lock": {
-                "title": "// SÉCURITÉ BIO-LOCK [2FA]",
+                "title": "// SÉCURITÉ [2FA]",
                 "item1": "Accédez à PROFIL > ACTIVER LA SÉCURITÉ 2FA.",
-                "item2": "Scannez le QR MATRIX avec votre authentifiant.",
-                "item3": "Saisissez le code à activer. Les futures connexions nécessiteront ce code de synchronisation.",
-                "item4_warn": "⚠ ALERTE DE SÉCURITÉ :",
-                "item4_text": "La fin de 2FA déclenche un avertissement défensif hautement prioritaire."
+                "item2": "Scannez le code QR avec une application d'authentification.",
+                "item3": "Entrez le code à 6 chiffres pour l'activer. Les futures connexions nécessiteront ce code.",
+                "item4_warn": "⚠ AVERTISSEMENT :",
+                "item4_text": "La désactivation de 2FA réduit considérablement la sécurité de votre compte."
             },
             "directive_execution": {
-                "title": "// EXÉCUTION DE DIRECTIVE [Gestion des tâches]",
-                "item1_label": "INITIALISER",
-                "item1_text": "Saisissez les paramètres de la directive et attribuez la PRIORITÉ. Utilisez ENTER pour un déploiement rapide.",
-                "item2_label": "IMPULSION TERMINALE",
-                "item2_text": "Une initialisation réussie déclenche une IMPULSION DE RÉTROACTION CYAN et une célébration.",
-                "item3_label": "MODIFIER",
-                "item3_text": "Cliquez sur le titre de la tâche à renommer. flux de travail efficace.",
-                "item4_label": "MODIFIER",
-                "item4_text": "Cliquez sur les badges CATÉGORIE ou PRIORITÉ pour une sélection thématique.",
-                "item5_label": "EXÉCUTER",
-                "item5_text": "Marquez les directives comme TERMINÉE. Le système fournit un FEEDBACK NEON une fois terminé."
+                "title": "// GESTION DES TÂCHES [Opérations]",
+                "item1_label": "CRÉATION",
+                "item1_text": "Entrez les détails de votre tâche et attribuez une priorité. Appuyez sur ENTRÉE pour créer la tâche rapidement.",
+                "item2_label": "RÉTROACTION",
+                "item2_text": "Une création réussie déclenche une confirmation visuelle.",
+                "item3_label": "ÉDITION",
+                "item3_text": "Cliquez sur n’importe quel titre de tâche pour le renommer instantanément.",
+                "item4_label": "CATÉGORIES ET PRIORITÉS",
+                "item4_text": "Cliquez sur les badges de catégorie ou de priorité d'une tâche pour les modifier.",
+                "item5_label": "ACHEVEMENT",
+                "item5_text": "Marquez les tâches comme TERMINÉES pour gagner de l'XP et déclencher des effets d'achèvement."
             },
             "deep_directives": {
-                "title": "// DIRECTIVES PROFONDES [Dossier & Intel]",
-                "item1_label": "DESCRIPTION DU PROTOCOLE",
-                "item1_text": "Accédez au DOSSIER OPÉRATIF en cliquant sur n’importe quelle directive active. Encodez les informations en texte enrichi à l’aide du protocole Markdown pour maintenir la clarté de la mission.",
-                "item2_label": "LIENS HAUT",
-                "item2_text": "Établissez des connexions neuronales sécurisées aux grilles de données externes via des pièces jointes URL. Assurez-vous d’un tunnelage HTTPS approprié.",
-                "item3_label": "PIÈCES PIÈCES DE FICHIERS",
-                "item3_text": "Téléchargez les ressources critiques de la mission directement dans le coffre-fort crypté pour un stockage sécurisé localisé."
-            },
-            "sort_order": {
-                "title": "// PROTOCOLE D'ORDRE DE TRI [Gestion des tâches]",
-                "item1_label": "FUITE DE SIGNAL (En retard)",
-                "item1_text": "Priorité critique. Toute directive dépassant son échéance est épinglée en haut du flux de données.",
-                "item2_label": "PIC DE CHALEUR (à prévoir aujourd'hui)",
-                "item2_text": "Priorité immédiate. Les directives destinées à aujourd’hui font suite aux Signal Leaks.",
-                "item3_label": "STRATÉGIQUE (Priorité)",
-                "item3_text": "Les directives actives restantes sont triées par niveau de base HIGH > MED > LOW.",
-                "item4_label": "TRI DES ARCHIVES",
-                "item4_text": "Les directives terminées sont triées selon le dernier horodatage d'achèvement (DESC)."
-            },
-            "category_protocols": {
-                "title": "// PROTOCOLES DE CATÉGORIE [Personnalisation]",
-                "item1_label": "GÉRER LES PROTOCOLES",
-                "item1_text": "Accédez à votre PROFIL pour initialiser, renommer ou supprimer des catégories personnalisées.",
-                "item2_label": "REMPLACEMENT PAR DÉFAUT",
-                "item2_text": "Marquez n'importe quel protocole comme STOCKED/DEFAULT (★) pour le prioriser dans le terminal de déploiement.",
-                "item3_label": "RÉINITIALISATION",
-                "item3_text": "Renommer un protocole corrigera rétroactivement toutes les directives archivées associées."
-            },
-            "neural_search": {
-                "title": "// RECHERCHE ET FILTRE NEURONAUX [Récupération de données]",
-                "item1_label": "REQUÊTE",
-                "item1_text": "Saisissez des mots-clés dans la barre de recherche neuronale pour isoler instantanément les directives.",
-                "item2_label": "VECTEURS",
-                "item2_text": "Filtrer la grille par statut PRIORITÉ, CATÉGORIE ou EN RETARD.",
-                "item3_label": "RÉINITIALISATION DU SYSTÈME",
-                "item3_text": "Exécutez RESET pour effacer les filtres actifs et restaurer l’intégralité du flux de données."
-            },
-            "chrono_sync": {
-                "title": "// CHRONO-SYNC [Planification]",
-                "item1_label": "DÉLAIS",
-                "item1_text": "Attribuez des dates d’exécution via la superposition CYBER CALENDAR.",
-                "item2_label": "SAUTS DANS LE TEMPS",
-                "item2_text": "Utilisez les commandes de navigation annuelles pour la planification à long terme.",
-                "item3_label": "SYNCHRONISATION INTERACTIVE",
-                "item3_text": "Modifiez les dates directement sur les cartes actives via les protocoles CYBER CONFIRM."
-            },
-            "system_resiliency": {
-                "title": "// RÉSILIENCE DU SYSTÈME [Stabilité]",
-                "item1_label": "CONFIG ROBUSTE",
-                "item1_text": "Le système utilise désormais une logique de repli de configuration résiliente. Si `config.local.php` est incomplet, la grille principale fournit automatiquement les paramètres manquants (comme `DB_HOST`).",
-                "item2_label": "INSTALLATEUR DE DIAGNOSTIC",
-                "item2_text": "L'utilitaire `install.php` propose désormais des diagnostics à haute immersion, suivant la stabilité des liens neuronaux et le nombre de lignes de la base de données pour une vérification immédiate."
-            },
-            "multilingual_sync": {
-                "title": "// SYNCHRONISATION MULTILINGUE [Protocole de langue]",
-                "item1_label": "SÉLECTION DE LA LANGUE",
-                "item1_text": "Utilisez les modules d'en-tête pour basculer l'interface neuronale entre les langues disponibles.",
-                "item2_label": "ADAPTATION EN TEMPS RÉEL",
-                "item2_text": "La grille traduit toutes les directives et paramètres du système instantanément après la commutation.",
-                "item3_label": "LIEN PERSISTANT",
-                "item3_text": "Votre préférence linguistique est verrouillée dans le stockage local de votre deck et chargée automatiquement à chaque connexion."
-            },
-            "visual_interface": {
-                "title": "// INTERFACE VISUELLE [Changement de thème]",
-                "item1_label": "SÉLECTION DE THÈME",
-                "item1_text": "Accédez à votre PROFIL pour basculer entre les préréglages visuels disponibles. Chaque thème reconfigure l'esthétique de la grille tout en conservant l'intégrité directive fondamentale.",
-                "item2_label": "SYNCHRONISATION PERSISTANTE",
-                "item2_text": "Votre préférence visuelle est verrouillée sur votre identifiant neuronal dans toutes les sessions jusqu'à ce qu'une substitution manuelle soit lancée.",
-                "item3_label": "EXTENSIONS FUTURES",
-                "item3_text": "Le réseau est conçu pour l'expansion. De nouveaux modules visuels seront déployés sur le sélecteur de thème dès qu'ils seront certifiés pour une utilisation opérationnelle.",
-                "themes_title": "// MODULES VISUELS DISPONIBLES",
-                "theme_cyberpunk": "CYBERPUNK — La grille neuronale par défaut. Le cyan néon saigne dans l’obscurité. Votre interface opérationnelle standard. Restez alerte, restez connecté.",
-                "theme_lcars": "LCARS — Système d'accès/récupération informatique de la bibliothèque. Le meilleur de Starfleet. Bornes arrondies, ambre et or. L'espace est la directive finale.",
-                "theme_matrix": "MATRICE — La pluie de codes ne ment jamais. Les signaux au phosphore vert pulsent à travers un silence corrompu. Vous le voyez, n'est-ce pas ?",
-                "theme_weyland": "WEYLAND-YUTANI — L'ambre d'entreprise brûle froid. Terminaux Amber CRT, cryptés par une société qui a construit des dieux et les a appelés produits.",
-                "theme_robco": "PIP-BOY — Système d'exploitation unifié de RobCo Industries. Borne vert phosphore. Certifié avant-guerre. Le Wasteland fonctionne sur ce firmware.",
-                "theme_grid": "THE GRID — La frontière numérique de Tron. La lumière bleue néon traverse un réseau infini. Flynn a construit quelque chose qui n'a jamais été destiné aux humains.",
-                "theme_section9": "FANTÔME – Autorisation de la section 9. Un fantôme sans coquille. Des holographies turquoise scintillent sur un plan sombre minimaliste. Kusanagi approuverait.",
-                "theme_outrun": "OUTRUN – 1984. Des soleils magenta chauds coulent sous l’horizon synthwave. Conduisez vite, le néon ne dort pas. Retrowave ne meurt jamais.",
-                "theme_steampunk": "STEAMPUNK — Fer victorien et laiton bruni. Les engrenages claquent dans le brouillard. Un empire alimenté par la vapeur et les secrets. Vos directives, délivrées par tube pneumatique.",
-                "theme_force": "FORCE – Une galaxie lointaine, très lointaine. L'orange rebelle brille contre un champ d'étoiles. Le côté lumineux de la grille. Que la directive soit avec vous.",
-                "theme_arrakis": "ARRAKIS — Puissance et épices du désert. Des soleils d'ambre se couchent sur un paysage changeant. La grille coule avec les épices. La peur tue l'esprit.",
-                "theme_renaissance": "RENAISSANCE — L’ère du cyber-or. Les hexagones ambrés palpitent dans une mer de noir absolu. Un monde d'augmentations et de dieux corporatifs. L'humanité divisée.",
-                "theme_klingon": "QO'NOS (KLINGON) — Rouge sang et acier froid. Des bords brutalistes acérés. Aujourd’hui est une bonne journée pour coder. Qapla' !",
-                "theme_got": "WESTEROS (GOT) – Glace et feu. Acier bleu froid et accents rouge sang valyrien. L'hiver arrive. Le Nord s'en souvient.",
-                "theme_marvel": "COMIC (MARVEL) — Points d'action héroïques rouges et audacieux. Pouah ! Pan! Un hommage à l'âge d'or de la bande dessinée. Excelsior!",
-                "theme_dc": "GOTHAM (DC) – La nuit la plus sombre, le bleu le plus profond et un éclat de lumière jaune traversant la pluie. La justice ne dort jamais."
-            },
-            "danger_zone": {
-                "title": "// PROTOCOLES DE ZONES DANGEREUSES",
-                "item1_warn": "⚠ CESSATION D'IDENTITÉ :",
-                "item1_text": "La confirmation de la suppression du compte déclenche l'**ALERTE DE SÉCURITÉ DU TERMINAL**. Cette action est irréversible.",
-                "item2_label": "PROTOCOLE D'ÉVASION",
-                "item2_text": "Utilisez ABORT pour vous sauver immédiatement de la résiliation définitive."
+                "title": "// DIRECTIVES PROFONDES [Fichiers & Intel]",
+                "item1_label": "DESCRIPTION ET MARQUES",
+                "item1_text": "Cliquez sur une tâche pour ouvrir son dossier. Vous pouvez rédiger des descriptions en texte enrichi à l'aide de Markdown pour des notes détaillées.",
+                "item2_label": "LIENS",
+                "item2_text": "Incluez des URL dans votre description pour créer des liens sécurisés et cliquables vers des ressources externes.",
+                "item3_label": "PIÈCES JOINTES",
+                "item3_text": "Téléchargez des fichiers et des images importants directement dans une tâche pour un stockage sécurisé."
             }
         }
     },

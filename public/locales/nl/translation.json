@@ -177,9 +177,9 @@
         "contact": {
             "channel": "CONTACTKANAAL",
             "current": "Huidig:",
-            "new_placeholder": "Nieuwe e-mailfrequentie",
+            "new_placeholder": "Nieuwe Com-Link (e-mail)",
             "confirm_password": "Bevestig wachtwoord",
-            "reroute": "RE-ROUTE FREQUENTIE"
+            "reroute": "RE-ROUTE COM-LINK"
         },
         "cypher": {
             "update_title": "UPDATE CYPHER",
@@ -233,142 +233,55 @@
         }
     },
     "help": {
-        "title": "CYBER_TASKER OPERATIEVE HANDBOEK",
+        "title": "CYBER_TASKER SYSTEEMHANDLEIDING",
         "acknowledge": "BEVESTIG",
         "sections": {
             "neural_progression": {
-                "title": "// NEURALE VOORTGANG [XP en rangen]",
-                "item1_label": "XP OOGSTEN",
-                "item1_text": "Succesvolle uitvoering van richtlijnen injecteert ruwe ervaringsgegevens in uw neurale kern. Een hogere complexiteit levert grotere beloningen op.",
-                "item2_label": "OPERATIEVE RANGSTELLING",
-                "item2_text": "Verzamel datapakketten om uw OPERATORNIVEAU te verbeteren. De trackingbalk visualiseert uw synchronisatiestatus met de volgende rang.",
-                "item3_label": "RANK VIERING",
-                "item3_text": "Door een hoger niveau te bereiken, wordt een systeembrede neon-feedbacklus met hoog spectrum en een sfeervol feest geactiveerd."
+                "title": "// VOORTGANG [XP en rangen]",
+                "item1_label": "XP VERDIENEN",
+                "item1_text": "Het voltooien van taken levert Experience Points (XP) op. Taken met een hogere prioriteit leveren grotere beloningen op.",
+                "item2_label": "NIVEAU OMHOOG",
+                "item2_text": "Verzamel voldoende XP om het volgende operatorniveau te bereiken. De volgbalk geeft uw huidige voortgang weer.",
+                "item3_label": "BELONINGEN",
+                "item3_text": "Door een hoger niveau te bereiken, wordt visuele feedback geactiveerd en worden hogere rangen binnen het systeem ontgrendeld."
             },
             "system_access": {
-                "title": "// SYSTEEMTOEGANG [Auth-protocol]",
-                "item1_label": "INITIEER NIEUWE IDENTITEIT",
-                "item1_text1": "Voer NIEUWE IDENTITEIT uit om te registreren. Voer CODENAME (gebruikersnaam), COM-LINK (e-mail) en TOEGANGSSLEUTEL (wachtwoord) in.",
-                "item1_warn": "⚠ Verificatie vereist via e-mail.",
-                "item2_label": "JACK-IN",
-                "item2_text": "Toegang tot het netwerk via CODENAME of COM-LINK en uw TOEGANGSSLEUTEL."
+                "title": "// TOEGANG [Authenticatie]",
+                "item1_label": "REGISTRATIE",
+                "item1_text1": "Maak een nieuw account aan met behulp van een codenaam (gebruikersnaam), Com-Link (e-mail) en toegangssleutel (wachtwoord).",
+                "item1_warn": "⚠ E-mailverificatie is vereist om het account te activeren.",
+                "item2_label": "INLOGGEN",
+                "item2_text": "Toegang tot het netwerk via uw e-mailadres of codenaam samen met uw wachtwoord."
             },
             "bio_lock": {
-                "title": "// BIO-LOCK-BEVEILIGING [2FA]",
+                "title": "// BEVEILIGING [2FA]",
                 "item1": "Navigeer naar PROFIEL > 2FA-BEVEILIGING INSCHAKELEN.",
-                "item2": "Scan de QR MATRIX met uw authenticator.",
-                "item3": "Voer code in om te activeren. Bij toekomstige aanmeldingen is deze synchronisatiecode vereist.",
-                "item4_warn": "⚠ BEVEILIGINGSALARM:",
-                "item4_text": "Het beëindigen van 2FA activeert een defensieve waarschuwing met hoge prioriteit."
+                "item2": "Scan de QR-code met een authenticator-app.",
+                "item3": "Voer de 6-cijferige code in om te activeren. Bij toekomstige aanmeldingen is deze code vereist.",
+                "item4_warn": "⚠ WAARSCHUWING:",
+                "item4_text": "Als u 2FA uitschakelt, wordt uw accountbeveiliging aanzienlijk verminderd."
             },
             "directive_execution": {
-                "title": "// RICHTLIJN UITVOERING [Taakbeheer]",
-                "item1_label": "INITIALISEREN",
-                "item1_text": "Voer richtlijnparameters in en wijs PRIORITY toe. Gebruik ENTER voor snelle implementatie.",
-                "item2_label": "AANSLUITPULS",
-                "item2_text": "Succesvolle initialisatie veroorzaakt een CYAAN FEEDBACK PULSE en feest.",
-                "item3_label": "BEWERK",
-                "item3_text": "Klik op de taaktitel om de naam te wijzigen. efficiënte werkstroom.",
-                "item4_label": "WIJZIG",
-                "item4_text": "Klik op CATEGORIE- of PRIORITEIT-badges voor themaselectie.",
-                "item5_label": "UITVOEREN",
-                "item5_text": "Markeer richtlijnen als DONE. Het systeem biedt NEON FEEDBACK na voltooiing."
+                "title": "// TAAKBEHEER [Operaties]",
+                "item1_label": "CREATIE",
+                "item1_text": "Voer uw taakgegevens in en wijs een prioriteit toe. Druk op ENTER om de taak snel te maken.",
+                "item2_label": "FEEDBACK",
+                "item2_text": "Succesvolle creatie zorgt voor visuele bevestiging.",
+                "item3_label": "BEWERKEN",
+                "item3_text": "Klik op een taaktitel om deze onmiddellijk te hernoemen.",
+                "item4_label": "CATEGORIEËN & PRIORITEITEN",
+                "item4_text": "Klik op de categorie- of prioriteitsbadges van een taak om deze te wijzigen.",
+                "item5_label": "VOLTOOID",
+                "item5_text": "Markeer taken als KLAAR om XP te verdienen en voltooiingseffecten te activeren."
             },
             "deep_directives": {
-                "title": "// DIEPE RICHTLIJNEN [Dossier & Intel]",
-                "item1_label": "PROTOCOLBESCHRIJVING",
-                "item1_text": "U krijgt toegang tot het OPERATIEVE DOSSIER door op een actieve instructie te klikken. Codeer rich-text-informatie met behulp van het Markdown-protocol om de missie duidelijk te houden.",
-                "item2_label": "UPLINKS",
-                "item2_text": "Breng veilige neurale verbindingen tot stand met externe datanetwerken via URL-bijlagen. Zorg voor een goede HTTPS-tunneling.",
-                "item3_label": "BESTANDSBIJLAGEN",
-                "item3_text": "Upload kritieke missiemiddelen rechtstreeks naar de gecodeerde kluis voor gelokaliseerde, veilige opslag."
-            },
-            "sort_order": {
-                "title": "// SORTEERORDERPROTOCOL [Taakbeheer]",
-                "item1_label": "SIGNAALLEK (achterstallig)",
-                "item1_text": "Kritieke prioriteit. Elke richtlijn die de deadline overschrijdt, wordt bovenaan de datastroom vastgezet.",
-                "item2_label": "HITTESPIKE (vandaag verwacht)",
-                "item2_text": "Onmiddellijke prioriteit. Richtlijnen die voor vandaag bestemd zijn, volgen op de Signaallekken.",
-                "item3_label": "STRATEGISCH (prioriteit)",
-                "item3_text": "De resterende actieve richtlijnen worden gesorteerd op basisniveau HOOG > MED > LAAG.",
-                "item4_label": "ARCHIEF SORTEREN",
-                "item4_text": "Voltooide richtlijnen worden gesorteerd op de laatste voltooiingstijdstempel (DESC)."
-            },
-            "category_protocols": {
-                "title": "// CATEGORIEPROTOCOLLEN [Aanpassing]",
-                "item1_label": "BEHEER PROTOCOLLEN",
-                "item1_text": "Ga naar uw PROFIEL om aangepaste categorieën te initialiseren, hernoemen of verwijderen.",
-                "item2_label": "STANDAARD OVERSCHRIJVEN",
-                "item2_text": "Markeer elk protocol als VOORRAAD/DEFAULT (★) om er prioriteit aan te geven in de implementatieterminal.",
-                "item3_label": "HER-INITIALISATIE",
-                "item3_text": "Het hernoemen van een protocol zal met terugwerkende kracht alle bijbehorende gearchiveerde richtlijnen patchen."
-            },
-            "neural_search": {
-                "title": "// NEURAAL ZOEKEN & FILTER [Gegevens ophalen]",
-                "item1_label": "VRAAG",
-                "item1_text": "Voer trefwoorden in de neurale zoekbalk in om direct instructies te isoleren.",
-                "item2_label": "VECTOREN",
-                "item2_text": "Filter het raster op PRIORITEIT, CATEGORIE of OVERDUE-status.",
-                "item3_label": "SYSTEEM RESET",
-                "item3_text": "Voer RESET uit om actieve filters te wissen en de volledige gegevensstroom te herstellen."
-            },
-            "chrono_sync": {
-                "title": "// CHRONO-SYNC [Planning]",
-                "item1_label": "TERMIJNEN",
-                "item1_text": "Wijs uitvoeringsdata toe via de CYBER KALENDER-overlay.",
-                "item2_label": "TIJDSPRINGEN",
-                "item2_text": "Gebruik jaarnavigatieknoppen voor langetermijnplanning.",
-                "item3_label": "INTERACTIEVE SYNC",
-                "item3_text": "Wijzig datums rechtstreeks op actieve kaarten via CYBER CONFIRM-protocollen."
-            },
-            "system_resiliency": {
-                "title": "// SYSTEEMVEERKRACHT [Stabiliteit]",
-                "item1_label": "ROBUUSTE CONFIG",
-                "item1_text": "Het systeem maakt nu gebruik van een veerkrachtige fallback-logica voor de configuratie. Als `config.local.php` onvolledig is, levert het kernraster automatisch ontbrekende parameters (zoals `DB_HOST`).",
-                "item2_label": "DIAGNOSTISCHE INSTALLATEUR",
-                "item2_text": "Het `install.php` hulpprogramma beschikt nu over high-immersion diagnostiek, waarbij de stabiliteit van de neurale link en het aantal databaserijen wordt gevolgd voor onmiddellijke verificatie."
-            },
-            "multilingual_sync": {
-                "title": "// MEERTALIGE SYNC [Taalprotocol]",
-                "item1_label": "TAALSELECTIE",
-                "item1_text": "Gebruik de headermodules om de neurale interface tussen beschikbare talen te schakelen.",
-                "item2_label": "REAL-TIME AANPASSING",
-                "item2_text": "Het raster vertaalt alle systeemrichtlijnen en parameters onmiddellijk na het schakelen.",
-                "item3_label": "PERSISTENTE LINK",
-                "item3_text": "Je taalvoorkeur wordt opgeslagen in de lokale opslag van je deck en wordt automatisch geladen bij elke jack-in."
-            },
-            "visual_interface": {
-                "title": "// VISUELE INTERFACE [Themawisseling]",
-                "item1_label": "THEMASELECTIE",
-                "item1_text": "Ga naar uw PROFIEL om te schakelen tussen beschikbare visuele voorinstellingen. Elk thema herconfigureert de esthetiek van het raster, terwijl de integriteit van de kernrichtlijn behouden blijft.",
-                "item2_label": "PERSISTENTE SYNC",
-                "item2_text": "Uw visuele voorkeur is gedurende alle sessies gekoppeld aan uw neurale ID totdat een handmatige overschrijving wordt gestart.",
-                "item3_label": "TOEKOMSTIGE UITBREIDINGEN",
-                "item3_text": "Het netwerk is ontworpen voor uitbreiding. Er zullen nieuwe visuele modules worden ingezet in de themakiezer, omdat deze gecertificeerd zijn voor operationeel gebruik.",
-                "themes_title": "// BESCHIKBARE VISUELE MODULES",
-                "theme_cyberpunk": "CYBERPUNK — Het standaard neurale raster. Neoncyaan bloedt door het donker. Uw standaard operationele interface. Blijf scherp, blijf bedraad.",
-                "theme_lcars": "LCARS — Toegangs-/ophaalsysteem voor bibliotheekcomputers. Het beste van Starfleet. Afgeronde aansluitingen, amber en goud. Ruimte is de laatste richtlijn.",
-                "theme_matrix": "MATRIX — De coderegen liegt nooit. Groene fosforsignalen pulseren door de verstoorde stilte. Je ziet het, nietwaar?",
-                "theme_weyland": "WEYLAND-YUTANI – Bedrijfsamber brandt koud. Amber CRT-terminals, gecodeerd door een bedrijf dat goden bouwde en ze producten noemde.",
-                "theme_robco": "PIP-BOY — RobCo Industries verenigd besturingssysteem. Fosforgroene terminal. Gecertificeerd vooroorlogs. De woestenij draait op deze firmware.",
-                "theme_grid": "THE GRID — De digitale grens van Tron. Neonblauw licht circuleert door een oneindig rooster. Flynn heeft iets gebouwd dat nooit voor mensen bedoeld was.",
-                "theme_section9": "GHOST — Sectie 9 goedkeuring. Een geest zonder omhulsel. Blauwgroen holografische beelden flikkeren over een minimalistisch donker vlak. Kusanagi zou het goedkeuren.",
-                "theme_outrun": "OUTRUN – 1984. Hete magenta zonnen zinken onder de synthwave-horizon. Rijd snel, de neon slaapt niet. Retrowave sterft nooit.",
-                "theme_steampunk": "STEAMPUNK — Victoriaans ijzer en gepolijst messing. Tandwielen klikken in de mist. Een imperium aangedreven door stoom en geheimen. Uw richtlijnen, geleverd per pneumatische buis.",
-                "theme_force": "FORCE — Een sterrenstelsel ver, ver weg. Rebellenoranje gloeit tegen een sterrenveld. De lichte kant van het raster. Moge de richtlijn bij u zijn.",
-                "theme_arrakis": "ARRAKIS – Woestijnkracht en specerijen. Amberkleurige zonnen zinken over een veranderend landschap. Het rooster vloeit mee met het kruid. Angst is de geestdoder.",
-                "theme_renaissance": "RENAISSANCE — Het cybergoudtijdperk. Amberkleurige zeshoeken pulseren in een zee van absoluut zwart. Een wereld van augmentaties en bedrijfsgoden. De mensheid is verdeeld.",
-                "theme_klingon": "QO'NOS (KLINGON) — Bloedrood en koud staal. Vlijmscherpe brutalistische randen. Vandaag is een goede dag om te coderen. Qapla'!",
-                "theme_got": "WESTEROS (GOT) — IJs en vuur. Koud blauw staal en Valyrian bloedrode accenten. De winter komt eraan. Het Noorden herinnert zich.",
-                "theme_marvel": "COMIC (MARVEL) — Heroïsche rode en opvallende actiepunten. Pow! Wham! Een eerbetoon aan de gouden eeuw van stripboeken. Excelsior!",
-                "theme_dc": "GOTHAM (DC) — Donkerste nacht, diepste blauw en een streepje geel licht dat door de regen snijdt. Justitie slaapt nooit."
-            },
-            "danger_zone": {
-                "title": "// GEVAARZONEPROTOCOLLEN",
-                "item1_warn": "⚠ IDENTITEITSBEËINDIGING:",
-                "item1_text": "Als u de verwijdering van een account bevestigt, wordt de **TERMINAL SECURITY ALERT** geactiveerd. Deze actie is onomkeerbaar.",
-                "item2_label": "ONTSNAPPROTOCOL",
-                "item2_text": "Gebruik ABORT om uzelf onmiddellijk te redden van definitieve beëindiging."
+                "title": "// DIEPE RICHTLIJNEN [Bestanden en Intel]",
+                "item1_label": "BESCHRIJVING & PRIJZEN",
+                "item1_text": "Klik op een taak om het bijbehorende dossier te openen. U kunt rich-text-beschrijvingen schrijven met Markdown voor gedetailleerde opmerkingen.",
+                "item2_label": "LINKS",
+                "item2_text": "Neem URL's op in uw beschrijving om veilige, klikbare links naar externe bronnen te maken.",
+                "item3_label": "BIJLAGEN",
+                "item3_text": "Upload belangrijke bestanden en afbeeldingen rechtstreeks naar een taak voor veilige opslag."
             }
         }
     },

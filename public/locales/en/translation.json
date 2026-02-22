@@ -177,9 +177,9 @@
         "contact": {
             "channel": "CONTACT CHANNEL",
             "current": "Current:",
-            "new_placeholder": "New Email Frequency",
+            "new_placeholder": "New Com-Link (Email)",
             "confirm_password": "Confirm Password",
-            "reroute": "RE-ROUTE FREQUENCY"
+            "reroute": "RE-ROUTE COM-LINK"
         },
         "cypher": {
             "update_title": "UPDATE CYPHER",
@@ -233,142 +233,55 @@
         }
     },
     "help": {
-        "title": "CYBER_TASKER OPERATIVE HANDBOOK",
+        "title": "CYBER_TASKER SYSTEM MANUAL",
         "acknowledge": "ACKNOWLEDGE",
         "sections": {
             "neural_progression": {
-                "title": "// NEURAL PROGRESSION [XP & Ranks]",
-                "item1_label": "XP HARVESTING",
-                "item1_text": "Successful directive execution injects raw Experience Data into your neural core. Higher complexity yields greater rewards.",
-                "item2_label": "OPERATIVE RANKING",
-                "item2_text": "Accumulate data packets to advance your OPERATOR LEVEL. Tracking bar visualizes your sync status with the next rank.",
-                "item3_label": "RANK CELEBRATION",
-                "item3_text": "Leveling up triggers a system-wide high-spectrum neon feedback loop and atmospheric celebration."
+                "title": "// PROGRESSION [XP & Ranks]",
+                "item1_label": "EARNING XP",
+                "item1_text": "Completing tasks grants Experience Points (XP). Higher priority tasks yield greater rewards.",
+                "item2_label": "LEVELING UP",
+                "item2_text": "Accumulate enough XP to reach the next operator level. The tracking bar displays your current progression.",
+                "item3_label": "REWARDS",
+                "item3_text": "Leveling up triggers visual feedback and unlocks higher ranks within the system."
             },
             "system_access": {
-                "title": "// SYSTEM ACCESS [Auth Protocol]",
-                "item1_label": "INITIATE NEW IDENTITY",
-                "item1_text1": "Execute NEW IDENTITY to register. Input CODENAME (username), COM-LINK (email), and ACCESS KEY (password).",
-                "item1_warn": "⚠ Verification required via email.",
-                "item2_label": "JACK IN",
-                "item2_text": "Access the grid via CODENAME or COM-LINK and your ACCESS KEY."
+                "title": "// ACCESS [Authentication]",
+                "item1_label": "REGISTRATION",
+                "item1_text1": "Create a new account using a Codename (Username), Com-Link (Email), and Access Key (Password).",
+                "item1_warn": "⚠ Email verification is required to activate the account.",
+                "item2_label": "LOGIN",
+                "item2_text": "Access the grid via your email or codename along with your password."
             },
             "bio_lock": {
-                "title": "// BIO-LOCK SECURITY [2FA]",
+                "title": "// SECURITY [2FA]",
                 "item1": "Navigate to PROFILE > ENABLE 2FA SECURITY.",
-                "item2": "Scan the QR MATRIX with your authenticator.",
-                "item3": "Input code to activate. Future logins will require this sync code.",
-                "item4_warn": "⚠ SECURITY ALERT:",
-                "item4_text": "Terminating 2FA triggers a high-priority defensive warning."
+                "item2": "Scan the QR code with an authenticator app.",
+                "item3": "Enter the 6-digit code to activate. Future logins will require this code.",
+                "item4_warn": "⚠ WARNING:",
+                "item4_text": "Disabling 2FA reduces your account security significantly."
             },
             "directive_execution": {
-                "title": "// DIRECTIVE EXECUTION [Task Management]",
-                "item1_label": "INITIALIZE",
-                "item1_text": "Input directive parameters and assign PRIORITY. Use ENTER for rapid deployment.",
-                "item2_label": "TERMINAL PULSE",
-                "item2_text": "Successful initialization triggers a CYAN FEEDBACK PULSE and celebration.",
-                "item3_label": "EDIT",
-                "item3_text": "Click task title to rename. efficient workflow.",
-                "item4_label": "MODIFY",
-                "item4_text": "Click CATEGORY or PRIORITY badges for themed selection.",
-                "item5_label": "EXECUTE",
-                "item5_text": "Mark directives as DONE. System provides NEON FEEDBACK upon completion."
+                "title": "// TASK MANAGEMENT [Operations]",
+                "item1_label": "CREATION",
+                "item1_text": "Enter your task details and assign a priority. Press ENTER to create the task quickly.",
+                "item2_label": "FEEDBACK",
+                "item2_text": "Successful creation triggers visual confirmation.",
+                "item3_label": "EDITING",
+                "item3_text": "Click on any task title to rename it instantly.",
+                "item4_label": "CATEGORIES & PRIORITIES",
+                "item4_text": "Click the category or priority badges on a task to change them.",
+                "item5_label": "COMPLETION",
+                "item5_text": "Mark tasks as DONE to earn XP and trigger completion effects."
             },
             "deep_directives": {
-                "title": "// DEEP DIRECTIVES [Dossier & Intel]",
-                "item1_label": "PROTOCOL DESCRIPTION",
-                "item1_text": "Access the OPERATIVE DOSSIER by clicking any active directive. Encode rich-text intel using the Markdown protocol to maintain mission clarity.",
-                "item2_label": "UP-LINKS",
-                "item2_text": "Establish secure neural connections to external data grids via URL attachments. Ensure proper HTTPS tunneling.",
-                "item3_label": "FILE ATTACHMENTS",
-                "item3_text": "Upload critical mission assets directly into the encrypted vault for localized secure storage."
-            },
-            "sort_order": {
-                "title": "// SORT ORDER PROTOCOL [Task Management]",
-                "item1_label": "SIGNAL LEAK (Overdue)",
-                "item1_text": "Critical priority. Any directive past its deadline is pinned to the top of the data stream.",
-                "item2_label": "HEAT SPIKE (Due Today)",
-                "item2_text": "Immediate priority. Directives fated for today follow the Signal Leaks.",
-                "item3_label": "STRATEGIC (Priority)",
-                "item3_text": "Remaining active directives are sorted by base HIGH > MED > LOW level.",
-                "item4_label": "ARCHIVE SORT",
-                "item4_text": "Completed directives are sorted by the latest completion timestamp (DESC)."
-            },
-            "category_protocols": {
-                "title": "// CATEGORY PROTOCOLS [Customization]",
-                "item1_label": "MANAGE PROTOCOLS",
-                "item1_text": "Access your PROFILE to initialize, rename, or delete custom categories.",
-                "item2_label": "DEFAULT OVERRIDE",
-                "item2_text": "Tag any protocol as STOCKED/DEFAULT (★) to prioritize it in the deployment terminal.",
-                "item3_label": "RE-INITIALIZATION",
-                "item3_text": "Renaming a protocol will retroactively patch all associated archived directives."
-            },
-            "neural_search": {
-                "title": "// NEURAL SEARCH & FILTER [Data Retrieval]",
-                "item1_label": "QUERY",
-                "item1_text": "Input keywords into the neural search bar to instantly isolate directives.",
-                "item2_label": "VECTORS",
-                "item2_text": "Filter grid by PRIORITY, CATEGORY, or OVERDUE status.",
-                "item3_label": "SYSTEM RESET",
-                "item3_text": "Execute RESET to clear active filters and restore full data stream."
-            },
-            "chrono_sync": {
-                "title": "// CHRONO-SYNC [Scheduling]",
-                "item1_label": "DEADLINES",
-                "item1_text": "Assign execution dates via the CYBER CALENDAR overlay.",
-                "item2_label": "TIME JUMPS",
-                "item2_text": "Use year navigation controls for long-range planning.",
-                "item3_label": "INTERACTIVE SYNC",
-                "item3_text": "Modify dates directly on active cards via CYBER CONFIRM protocols."
-            },
-            "system_resiliency": {
-                "title": "// SYSTEM RESILIENCY [Stability]",
-                "item1_label": "ROBUST CONFIG",
-                "item1_text": "The system now utilizes a resilient configuration fallback logic. If `config.local.php` is incomplete, the core grid provides missing parameters (like `DB_HOST`) automatically.",
-                "item2_label": "DIAGNOSTIC INSTALLER",
-                "item2_text": "The `install.php` utility now features high-immersion diagnostics, tracking neural link stability and database row counts for immediate verification."
-            },
-            "multilingual_sync": {
-                "title": "// MULTILINGUAL SYNC [Language Protocol]",
-                "item1_label": "LANGUAGE SELECTION",
-                "item1_text": "Utilize the header modules to toggle the neural interface between available languages.",
-                "item2_label": "REAL-TIME ADAPTATION",
-                "item2_text": "The grid translates all system directives and parameters instantly after switching.",
-                "item3_label": "PERSISTENT LINK",
-                "item3_text": "Your language preference is locked into your deck's local storage and auto-loaded upon every jack-in."
-            },
-            "visual_interface": {
-                "title": "// VISUAL INTERFACE [Theme Switching]",
-                "item1_label": "THEME SELECTION",
-                "item1_text": "Access your PROFILE to toggle between available visual presets. Each theme reconfigures the grid's aesthetic while maintaining core directive integrity.",
-                "item2_label": "PERSISTENT SYNC",
-                "item2_text": "Your visual preference is locked to your neural ID across all sessions until a manual override is initiated.",
-                "item3_label": "FUTURE EXTENSIONS",
-                "item3_text": "The grid is architected for expansion. New visual modules will be deployed to the theme selector as they are certified for operative use.",
-                "themes_title": "// AVAILABLE VISUAL MODULES",
-                "theme_cyberpunk": "CYBERPUNK — The default neural grid. Neon cyan bleeds through the dark. Your standard operative interface. Stay sharp, stay wired.",
-                "theme_lcars": "LCARS — Library Computer Access/Retrieval System. Starfleet's finest. Rounded terminals, amber and gold. Space is the final directive.",
-                "theme_matrix": "MATRIX — The code rain never lies. Green phosphor signals pulse through corrupted silence. You see it, don't you?",
-                "theme_weyland": "WEYLAND-YUTANI — Corporate amber burns cold. Amber CRT terminals, encrypted by a corporation that built gods and called them products.",
-                "theme_robco": "PIP-BOY — RobCo Industries unified OS. Phosphor-green terminal. Certified pre-war. The wasteland runs on this firmware.",
-                "theme_grid": "THE GRID — Tron's digital frontier. Neon blue light cycles across an infinite lattice. Flynn built something that was never meant for humans.",
-                "theme_section9": "GHOST — Section 9 clearance. A ghost without a shell. Teal holographics flicker across a minimalist dark plane. Kusanagi would approve.",
-                "theme_outrun": "OUTRUN — 1984. Hot magenta suns sink below the synthwave horizon. Drive fast, the neon doesn't sleep. Retrowave never dies.",
-                "theme_steampunk": "STEAMPUNK — Victorian iron and burnished brass. Gears click in the fog. An empire powered by steam and secrets. Your directives, delivered by pneumatic tube.",
-                "theme_force": "FORCE — A galaxy far, far away. Rebel orange glows against a starfield. The light side of the grid. May the directive be with you.",
-                "theme_arrakis": "ARRAKIS — Desert power and spice. Amber suns sink over a shifting landscape. The grid flows with the spice. Fear is the mind-killer.",
-                "theme_renaissance": "RENAISSANCE — The cyber-gold era. Amber hexagons pulse in a sea of absolute black. A world of augmentations and corporate gods. Mankind divided.",
-                "theme_klingon": "QO'NOS (KLINGON) — Blood red and cold steel. Razor-sharp brutalist edges. Today is a good day to code. Qapla'!",
-                "theme_got": "WESTEROS (GOT) — Ice and Fire. Cold blue steel and Valyrian blood red accents. Winter is coming. The North remembers.",
-                "theme_marvel": "COMIC (MARVEL) — Heroic red and bold action dots. Pow! Wham! A tribute to the golden age of comic books. Excelsior!",
-                "theme_dc": "GOTHAM (DC) — Darkest night, deepest blue, and a sliver of yellow light cutting through the rain. Justice never sleeps."
-            },
-            "danger_zone": {
-                "title": "// DANGER ZONE PROTOCOLS",
-                "item1_warn": "⚠ IDENTITY TERMINATION:",
-                "item1_text": "Confirming account deletion triggers the **TERMINAL SECURITY ALERT**. This action is irreversible.",
-                "item2_label": "ESCAPE PROTOCOL",
-                "item2_text": "Use ABORT to immediately rescue yourself from final termination."
+                "title": "// DEEP DIRECTIVES [Files & Intel]",
+                "item1_label": "DESCRIPTION & MARKDOWN",
+                "item1_text": "Click on a task to open its dossier. You can write rich-text descriptions using Markdown for detailed notes.",
+                "item2_label": "LINKS",
+                "item2_text": "Include URLs in your description to create secure, clickable links to external resources.",
+                "item3_label": "ATTACHMENTS",
+                "item3_text": "Upload important files and images directly to a task for secure storage."
             }
         }
     },

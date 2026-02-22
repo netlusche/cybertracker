@@ -177,9 +177,9 @@
         "contact": {
             "channel": "KONTAKTKANAL",
             "current": "Aktuell:",
-            "new_placeholder": "Neue E-Mail-Häufigkeit",
+            "new_placeholder": "Neuer Com-Link (E-Mail)",
             "confirm_password": "Passwort bestätigen",
-            "reroute": "RUTE-HÄUFIGKEIT"
+            "reroute": "COM-LINK UMLEITEN"
         },
         "cypher": {
             "update_title": "CYPHER AKTUALISIEREN",
@@ -233,142 +233,55 @@
         }
     },
     "help": {
-        "title": "CYBER_TASKER OPERATIVHANDBUCH",
+        "title": "CYBER_TASKER SYSTEMHANDBUCH",
         "acknowledge": "BESTÄTIGEN",
         "sections": {
             "neural_progression": {
-                "title": "// NEURALER FORTSCHRITT [XP & Ränge]",
-                "item1_label": "XP-ERNTE",
-                "item1_text": "Durch die erfolgreiche Ausführung der Anweisung werden rohe Erfahrungsdaten in Ihren neuronalen Kern eingespeist. Höhere Komplexität führt zu größeren Belohnungen.",
-                "item2_label": "OPERATIVES RANGLISTE",
-                "item2_text": "Sammeln Sie Datenpakete, um Ihr OPERATOR-NIVEAU zu verbessern. Die Tracking-Leiste visualisiert Ihren Synchronisierungsstatus mit dem nächsten Rang.",
-                "item3_label": "RANGFEIER",
-                "item3_text": "Das Aufsteigen löst eine systemweite Neon-Feedbackschleife mit hohem Spektrum und eine stimmungsvolle Feier aus."
+                "title": "// FORTSCHRITT [XP & Ränge]",
+                "item1_label": "XP SAMMELN",
+                "item1_text": "Durch das Abschließen von Aufgaben erhältst du Erfahrungspunkte (XP). Höhere Prioritäten geben mehr Punkte.",
+                "item2_label": "LEVEL AUFSTIEG",
+                "item2_text": "Sammle genug XP, um das nächste Level zu erreichen. Der Fortschrittsbalken zeigt dir deinen aktuellen Status.",
+                "item3_label": "BELOHNUNGEN",
+                "item3_text": "Ein Levelaufstieg schaltet höhere Ränge frei und löst visuelle Effekte aus."
             },
             "system_access": {
-                "title": "// SYSTEMZUGRIFF [Auth-Protokoll]",
-                "item1_label": "NEUE IDENTITÄT INITIIEREN",
-                "item1_text1": "Führen Sie NEW IDENTITY aus, um sich zu registrieren. Geben Sie CODENAME (Benutzername), COM-LINK (E-Mail) und ACCESS KEY (Passwort) ein.",
-                "item1_warn": "⚠ Verifizierung per E-Mail erforderlich.",
-                "item2_label": "EINBUCHSEN",
-                "item2_text": "Greifen Sie über CODENAME oder COM-LINK und Ihren ZUGRIFFSSCHLÜSSEL auf das Raster zu."
+                "title": "// ZUGRIFF [Authentifizierung]",
+                "item1_label": "REGISTRIERUNG",
+                "item1_text1": "Erstelle einen neuen Account mit Codename, E-Mail und Passwort.",
+                "item1_warn": "⚠ Eine E-Mail-Verifizierung ist erforderlich, um den Account zu aktivieren.",
+                "item2_label": "LOGIN",
+                "item2_text": "Greife mit deiner E-Mail oder deinem Codenamen und Passwort auf das System zu."
             },
             "bio_lock": {
-                "title": "// BIO-LOCK-SICHERHEIT [2FA]",
-                "item1": "Navigieren Sie zu PROFIL > 2FA-SICHERHEIT AKTIVIEREN.",
-                "item2": "Scannen Sie die QR-MATRIX mit Ihrem Authentifikator.",
-                "item3": "Geben Sie den Code zur Aktivierung ein. Zukünftige Anmeldungen erfordern diesen Synchronisierungscode.",
-                "item4_warn": "⚠ SICHERHEITSWARNUNG:",
-                "item4_text": "Das Beenden von 2FA löst eine Abwehrwarnung mit hoher Priorität aus."
+                "title": "// SICHERHEIT [2FA]",
+                "item1": "Navigiere zu PROFIL > 2FA-SICHERHEIT AKTIVIEREN.",
+                "item2": "Scanne den QR-Code mit einer Authenticator-App.",
+                "item3": "Gib den 6-stelligen Code ein, um 2FA zu aktivieren. Zukünftige Logins erfordern diesen Code.",
+                "item4_warn": "⚠ WARNUNG:",
+                "item4_text": "Das Deaktivieren von 2FA verringert die Sicherheit deines Accounts erheblich."
             },
             "directive_execution": {
-                "title": "// RICHTLINIENAUSFÜHRUNG [Aufgabenverwaltung]",
-                "item1_label": "INITIALISIEREN",
-                "item1_text": "Geben Sie die Parameter der Direktive ein und weisen Sie PRIORITÄT zu. Verwenden Sie die EINGABETASTE für eine schnelle Bereitstellung.",
-                "item2_label": "KLEMMENPULS",
-                "item2_text": "Eine erfolgreiche Initialisierung löst einen CYAN-FEEDBACK-PULSE und eine Feier aus.",
+                "title": "// AUFGABENVERWALTUNG [Operationen]",
+                "item1_label": "ERSTELLUNG",
+                "item1_text": "Gib die Details der Aufgabe ein und weise eine Priorität zu. Drücke ENTER für eine schnelle Erstellung.",
+                "item2_label": "FEEDBACK",
+                "item2_text": "Erfolgreiche Erstellung löst eine visuelle Bestätigung aus.",
                 "item3_label": "BEARBEITEN",
-                "item3_text": "Klicken Sie zum Umbenennen auf den Aufgabentitel. effizienter Arbeitsablauf.",
-                "item4_label": "ÄNDERN",
-                "item4_text": "Klicken Sie für die Themenauswahl auf die Abzeichen KATEGORIE oder PRIORITÄT.",
-                "item5_label": "AUSFÜHREN",
-                "item5_text": "Markieren Sie Anweisungen als FERTIG. Das System gibt nach Abschluss NEON-FEEDBACK."
+                "item3_text": "Klicke auf einen Aufgabentitel, um ihn direkt umzubenennen.",
+                "item4_label": "KATEGORIEN & PRIORITÄTEN",
+                "item4_text": "Klicke auf die Kategorie- oder Prioritäts-Badges einer Aufgabe, um diese zu ändern.",
+                "item5_label": "ABSCHLUSS",
+                "item5_text": "Markiere Aufgaben als ERLEDIGT, um XP zu erhalten und die Aufgabe abzuschließen."
             },
             "deep_directives": {
-                "title": "// DEEP DIRECTIVES [Dossier & Intel]",
-                "item1_label": "PROTOKOLLBESCHREIBUNG",
-                "item1_text": "Greifen Sie auf das OPERATIVE DOSSIER zu, indem Sie auf eine aktive Anweisung klicken. Kodieren Sie Rich-Text-Informationen mithilfe des Markdown-Protokolls, um die Klarheit der Mission zu gewährleisten.",
-                "item2_label": "UP-LINKS",
-                "item2_text": "Stellen Sie über URL-Anhänge sichere neuronale Verbindungen zu externen Datengittern her. Sorgen Sie für ordnungsgemäßes HTTPS-Tunneling.",
-                "item3_label": "DATEINANHÄNGE",
-                "item3_text": "Laden Sie wichtige Missionsressourcen direkt in den verschlüsselten Tresor hoch, um eine lokale, sichere Speicherung zu ermöglichen."
-            },
-            "sort_order": {
-                "title": "// SORT ORDER PROTOCOL [Aufgabenverwaltung]",
-                "item1_label": "SIGNALLECK (überfällig)",
-                "item1_text": "Kritische Priorität. Jede Anweisung, deren Frist abgelaufen ist, wird oben im Datenstrom angeheftet.",
-                "item2_label": "HEAT SPIKE (heute fällig)",
-                "item2_text": "Unmittelbare Priorität. Den Signal Leaks folgen für heute vorgesehene Weisungen.",
-                "item3_label": "STRATEGISCH (Priorität)",
-                "item3_text": "Die verbleibenden aktiven Anweisungen werden nach der Basisstufe HIGH > MED > LOW sortiert.",
-                "item4_label": "ARCHIV SORTIEREN",
-                "item4_text": "Abgeschlossene Anweisungen werden nach dem Zeitstempel der letzten Fertigstellung (DESC) sortiert."
-            },
-            "category_protocols": {
-                "title": "// KATEGORIEPROTOKOLLE [Anpassung]",
-                "item1_label": "PROTOKOLLE VERWALTEN",
-                "item1_text": "Greifen Sie auf Ihr PROFIL zu, um benutzerdefinierte Kategorien zu initialisieren, umzubenennen oder zu löschen.",
-                "item2_label": "STANDARDÜBERSCHREITUNG",
-                "item2_text": "Markieren Sie jedes Protokoll als STOCKED/DEFAULT (★), um es im Bereitstellungsterminal zu priorisieren.",
-                "item3_label": "Neuinitialisierung",
-                "item3_text": "Durch das Umbenennen eines Protokolls werden alle zugehörigen archivierten Anweisungen rückwirkend gepatcht."
-            },
-            "neural_search": {
-                "title": "// NEURALE SUCHE & FILTER [Datenabruf]",
-                "item1_label": "ABFRAGE",
-                "item1_text": "Geben Sie Schlüsselwörter in die neuronale Suchleiste ein, um Anweisungen sofort zu isolieren.",
-                "item2_label": "VEKTOREN",
-                "item2_text": "Filtern Sie das Raster nach PRIORITÄT, KATEGORIE oder ÜBERFÄLLIG.",
-                "item3_label": "SYSTEM-RÜCKSETZUNG",
-                "item3_text": "Führen Sie RESET aus, um aktive Filter zu löschen und den vollständigen Datenstrom wiederherzustellen."
-            },
-            "chrono_sync": {
-                "title": "// CHRONO-SYNC [Planung]",
-                "item1_label": "TERMINE",
-                "item1_text": "Weisen Sie Ausführungstermine über das CYBER CALENDAR-Overlay zu.",
-                "item2_label": "ZEITSPRINGE",
-                "item2_text": "Verwenden Sie Steuerelemente für die Jahresnavigation für eine langfristige Planung.",
-                "item3_label": "INTERAKTIVE SYNCHRONISATION",
-                "item3_text": "Ändern Sie Daten direkt auf aktiven Karten über CYBER CONFIRM-Protokolle."
-            },
-            "system_resiliency": {
-                "title": "// SYSTEMRESILIENZ [Stabilität]",
-                "item1_label": "ROBUSTE KONFIGURATION",
-                "item1_text": "Das System nutzt jetzt eine robuste Konfigurations-Fallback-Logik. Wenn „config.local.php“ unvollständig ist, stellt das Core-Grid fehlende Parameter (wie „DB_HOST“) automatisch bereit.",
-                "item2_label": "DIAGNOSEINSTALLATOR",
-                "item2_text": "Das Dienstprogramm „install.php“ bietet jetzt eine umfassende Diagnose, die die Stabilität neuronaler Verbindungen und die Anzahl der Datenbankzeilen zur sofortigen Überprüfung verfolgt."
-            },
-            "multilingual_sync": {
-                "title": "// MULTILINGUAL SYNC [Sprachprotokoll]",
-                "item1_label": "SPRACHAUSWAHL",
-                "item1_text": "Nutzen Sie die Header-Module, um die neuronale Schnittstelle zwischen den verfügbaren Sprachen umzuschalten.",
-                "item2_label": "ECHTZEITANPASSUNG",
-                "item2_text": "Das Grid übersetzt alle Systemanweisungen und Parameter sofort nach dem Umschalten.",
-                "item3_label": "DAUERHAFTER LINK",
-                "item3_text": "Ihre bevorzugte Sprache ist im lokalen Speicher Ihres Decks gespeichert und wird bei jedem Jack-In automatisch geladen."
-            },
-            "visual_interface": {
-                "title": "// VISUELLE SCHNITTSTELLE [Themenwechsel]",
-                "item1_label": "THEMENAUSWAHL",
-                "item1_text": "Greifen Sie auf Ihr PROFIL zu, um zwischen den verfügbaren visuellen Voreinstellungen zu wechseln. Jedes Thema konfiguriert die Ästhetik des Rasters neu und behält gleichzeitig die Integrität der Kerndirektive bei.",
-                "item2_label": "DAUERHAFTE SYNCHRONISATION",
-                "item2_text": "Ihre visuelle Präferenz bleibt über alle Sitzungen hinweg an Ihre neuronale ID gebunden, bis eine manuelle Überschreibung eingeleitet wird.",
-                "item3_label": "ZUKÜNFTIGE ERWEITERUNGEN",
-                "item3_text": "Das Netz ist auf Erweiterung ausgelegt. Neue visuelle Module werden im Themenselektor bereitgestellt, sobald sie für den operativen Einsatz zertifiziert sind.",
-                "themes_title": "// VERFÜGBARE VISUELLE MODULE",
-                "theme_cyberpunk": "CYBERPUNK – Das standardmäßige neuronale Gitter. Neoncyan blutet durch die Dunkelheit. Ihre standardmäßige operative Schnittstelle. Bleiben Sie scharf, bleiben Sie vernetzt.",
-                "theme_lcars": "LCARS – Zugriffs-/Abrufsystem für Bibliothekscomputer. Das Beste der Sternenflotte. Abgerundete Enden, Bernstein und Gold. Der Raum ist die letzte Richtlinie.",
-                "theme_matrix": "MATRIX – Der Code „Regen lügt nie“. Grüne Phosphorsignale pulsieren durch verdorbene Stille. Du siehst es, nicht wahr?",
-                "theme_weyland": "WEYLAND-YUTANI – Unternehmensbernstein brennt kalt. Bernsteinfarbene CRT-Terminals, verschlüsselt von einem Unternehmen, das Götter gebaut und sie Produkte genannt hat.",
-                "theme_robco": "PIP-BOY – einheitliches Betriebssystem von RobCo Industries. Phosphorgrüner Anschluss. Zertifizierte Vorkriegszeit. Das Wastland läuft auf dieser Firmware.",
-                "theme_grid": "THE GRID – Trons digitale Grenze. Neonblaues Licht zirkuliert über ein unendliches Gitter. Flynn hat etwas gebaut, das nie für Menschen gedacht war.",
-                "theme_section9": "GHOST – Freigabe gemäß Abschnitt 9. Ein Geist ohne Hülle. Blaugrüne Holografien flackern über eine minimalistische dunkle Ebene. Kusanagi würde zustimmen.",
-                "theme_outrun": "OUTRUN – 1984. Heiße magentafarbene Sonnen versinken unter dem Synthwave-Horizont. Fahr schnell, das Neon schläft nicht. Retrowave stirbt nie.",
-                "theme_steampunk": "STEAMPUNK – Viktorianisches Eisen und brüniertes Messing. Zahnräder klicken im Nebel. Ein Imperium, angetrieben von Dampf und Geheimnissen. Ihre Anweisungen per Rohrpost.",
-                "theme_force": "FORCE – Eine weit, weit entfernte Galaxie. Rebellenorange leuchtet vor einem Sternenfeld. Die helle Seite des Gitters. Möge die Richtlinie mit Ihnen sein.",
-                "theme_arrakis": "ARRAKIS – Wüstenkraft und Würze. Bernsteinfarbene Sonnen versinken über einer sich verändernden Landschaft. Das Gitter fließt mit dem Gewürz. Angst ist der Geisteskiller.",
-                "theme_renaissance": "RENAISSANCE – Die Cyber-Gold-Ära. Bernsteinfarbene Sechsecke pulsieren in einem Meer aus absolutem Schwarz. Eine Welt voller Erweiterungen und Unternehmensgötter. Die Menschheit ist gespalten.",
-                "theme_klingon": "QO'NOS (KLINGONISCH) – Blutrot und kalter Stahl. Rasiermesserscharfe brutalistische Kanten. Heute ist ein guter Tag zum Codieren. Qapla'!",
-                "theme_got": "WESTEROS (GOT) – Eis und Feuer. Kaltblauer Stahl und valyrische blutrote Akzente. Der Winter kommt. Der Norden erinnert sich.",
-                "theme_marvel": "COMIC (MARVEL) – Heroische rote und auffällige Action-Punkte. Puh! Wham! Eine Hommage an das goldene Zeitalter der Comics. Holzwolle!",
-                "theme_dc": "GOTHAM (DC) – Dunkelste Nacht, tiefstes Blau und ein gelber Lichtstreifen, der durch den Regen schneidet. Gerechtigkeit schläft nie."
-            },
-            "danger_zone": {
-                "title": "// GEFAHRENZONENPROTOKOLLE",
-                "item1_warn": "⚠ IDENTITÄTSKÜNDIGUNG:",
-                "item1_text": "Durch die Bestätigung der Kontolöschung wird die **TERMINAL-SICHERHEITSWARNUNG** ausgelöst. Diese Aktion ist irreversibel.",
-                "item2_label": "Escape-Protokoll",
-                "item2_text": "Verwenden Sie ABORT, um sich sofort vor dem endgültigen Abbruch zu retten."
+                "title": "// DEEP DIRECTIVES [Dateien & Notizen]",
+                "item1_label": "BESCHREIBUNG & MARKDOWN",
+                "item1_text": "Klicke auf eine Aufgabe, um ihre Details zu öffnen. Du kannst Markdown nutzen, um formattierte Notizen zu schreiben.",
+                "item2_label": "LINKS",
+                "item2_text": "Füge URLs in deine Beschreibung ein, um klickbare Links zu externen Ressourcen zu erstellen.",
+                "item3_label": "DATEIANHÄNGE",
+                "item3_text": "Lade wichtige Dateien und Bilder direkt in eine Aufgabe hoch, um sie dort sicher zu speichern."
             }
         }
     },

@@ -177,9 +177,9 @@
         "contact": {
             "channel": "联系渠道",
             "current": "当前：",
-            "new_placeholder": "新电子邮件频率",
+            "new_placeholder": "新 Com-Link（电子邮件）",
             "confirm_password": "确认密码",
-            "reroute": "重新路由频率"
+            "reroute": "重新路由 COM-LINK"
         },
         "cypher": {
             "update_title": "更新密码",
@@ -233,142 +233,55 @@
         }
     },
     "help": {
-        "title": "CYBER_TASKER 操作手册",
+        "title": "CYBER_TASKER 系统手册",
         "acknowledge": "确认",
         "sections": {
             "neural_progression": {
-                "title": "// 神经进展 [XP 和等级]",
-                "item1_label": "XP 收获",
-                "item1_text": "成功的指令执行会将原始经验数据注入您的神经核心。更高的复杂性会带来更大的回报。",
-                "item2_label": "操作排名",
-                "item2_text": "积累数据包以提高您的操作员水平。跟踪栏以可视化方式显示您与下一个排名的同步状态。",
-                "item3_label": "排名庆祝",
-                "item3_text": "升级会触发全系统的高光谱霓虹灯反馈循环和氛围庆祝。"
+                "title": "// 进度 [XP 和排名]",
+                "item1_label": "赚取 XP",
+                "item1_text": "完成任务可获得经验值 (XP)。优先级较高的任务会带来更大的回报。",
+                "item2_label": "升级",
+                "item2_text": "积累足够的经验值以达到下一个操作员级别。跟踪栏显示您当前的进度。",
+                "item3_label": "奖励",
+                "item3_text": "升级会触发视觉反馈并解锁系统内更高的等级。"
             },
             "system_access": {
-                "title": "// 系统访问[验证协议]",
-                "item1_label": "启动新身份",
-                "item1_text1": "执行NEW IDENTITY 进行注册。输入 CODENAME（用户名）、COM-LINK（电子邮件）和 ACCESS KEY（密码）。",
-                "item1_warn": "⚠ 需要通过电子邮件进行验证。",
-                "item2_label": "插入",
-                "item2_text": "通过 CODENAME 或 COM-LINK 以及您的访问密钥访问网格。"
+                "title": "// 访问[身份验证]",
+                "item1_label": "注册",
+                "item1_text1": "使用代号（用户名）、Com-Link（电子邮件）和访问密钥（密码）创建新帐户。",
+                "item1_warn": "⚠ 需要验证电子邮件才能激活帐户。",
+                "item2_label": "登录",
+                "item2_text": "通过您的电子邮件或代号以及密码访问网格。"
             },
             "bio_lock": {
-                "title": "// 生物锁安全 [2FA]",
+                "title": "// 安全 [2FA]",
                 "item1": "导航到配置文件 > 启用 2FA 安全。",
-                "item2": "使用身份验证器扫描 QR MATRIX。",
-                "item3": "输入激活码。将来的登录将需要此同步代码。",
-                "item4_warn": "⚠ 安全警报：",
-                "item4_text": "终止 2FA 会触发高优先级防御警告。"
+                "item2": "使用身份验证器应用程序扫描二维码。",
+                "item3": "输入 6 位数字代码进行激活。将来的登录将需要此代码。",
+                "item4_warn": "⚠ 警告：",
+                "item4_text": "禁用 2FA 会显着降低您的帐户安全性。"
             },
             "directive_execution": {
-                "title": "// 指令执行 [任务管理]",
-                "item1_label": "初始化",
-                "item1_text": "输入指令参数并分配优先级。使用 ENTER 进行快速部署。",
-                "item2_label": "终端脉冲",
-                "item2_text": "成功初始化会触发青色反馈脉冲和庆祝活动。",
+                "title": "// 任务管理[操作]",
+                "item1_label": "创造",
+                "item1_text": "输入您的任务详细信息并分配优先级。按 ENTER 快速创建任务。",
+                "item2_label": "反馈",
+                "item2_text": "成功的创作会触发视觉确认。",
                 "item3_label": "编辑",
-                "item3_text": "单击任务标题即可重命名。高效的工作流程。",
-                "item4_label": "修改",
-                "item4_text": "单击类别或优先级徽章进行主题选择。",
-                "item5_label": "执行",
-                "item5_text": "将指令标记为“完成”。完成后系统会提供霓虹灯反馈。"
+                "item3_text": "单击任何任务标题即可立即重命名。",
+                "item4_label": "类别和优先级",
+                "item4_text": "单击任务上的类别或优先级徽章即可更改它们。",
+                "item5_label": "完成",
+                "item5_text": "将任务标记为“完成”以赚取 XP 并触发完成效果。"
             },
             "deep_directives": {
-                "title": "// 深层指令 [档案和英特尔]",
-                "item1_label": "协议描述",
-                "item1_text": "通过单击任何活动指令来访问操作档案。使用 Markdown 协议对富文本情报进行编码，以保持任务的清晰度。",
-                "item2_label": "上行链接",
-                "item2_text": "通过 URL 附件建立与外部数据网格的安全神经连接。确保正确的 HTTPS 隧道。",
-                "item3_label": "文件附件",
-                "item3_text": "将关键任务资产直接上传到加密库中以进行本地化安全存储。"
-            },
-            "sort_order": {
-                "title": "// 排序顺序协议 [任务管理]",
-                "item1_label": "信号泄漏（逾期）",
-                "item1_text": "关键优先事项。任何超过截止日期的指令都会被固定到数据流的顶部。",
-                "item2_label": "HEAT SPIKE（今天截止）",
-                "item2_text": "立即优先。今天的指令是在信号泄漏之后发布的。",
-                "item3_label": "战略（优先）",
-                "item3_text": "剩余的活动指令按基本 HIGH > MED > LOW 级别排序。",
-                "item4_label": "归档排序",
-                "item4_text": "已完成的指令按最新完成时间戳 (DESC) 排序。"
-            },
-            "category_protocols": {
-                "title": "// 类别协议 [自定义]",
-                "item1_label": "管理协议",
-                "item1_text": "访问您的个人资料以初始化、重命名或删除自定义类别。",
-                "item2_label": "默认覆盖",
-                "item2_text": "将任何协议标记为库存/默认 (★)，以在部署终端中对其进行优先排序。",
-                "item3_label": "重新初始化",
-                "item3_text": "重命名协议将追溯修补所有关联的存档指令。"
-            },
-            "neural_search": {
-                "title": "// 神经搜索和过滤[数据检索]",
-                "item1_label": "查询",
-                "item1_text": "在神经搜索栏中输入关键字即可立即隔离指令。",
-                "item2_label": "向量",
-                "item2_text": "按优先级、类别或逾期状态过滤网格。",
-                "item3_label": "系统重置",
-                "item3_text": "执行 RESET 以清除活动过滤器并恢复完整数据流。"
-            },
-            "chrono_sync": {
-                "title": "// CHRONO-SYNC [调度]",
-                "item1_label": "截止日期",
-                "item1_text": "通过网络日历叠加层分配执行日期。",
-                "item2_label": "时间跳跃",
-                "item2_text": "使用年份导航控件进行长期规划。",
-                "item3_label": "互动同步",
-                "item3_text": "通过 CYBER CONFIRM 协议直接修改活动卡上的日期。"
-            },
-            "system_resiliency": {
-                "title": "// 系统弹性[稳定性]",
-                "item1_label": "稳健的配置",
-                "item1_text": "该系统现在利用弹性配置回退逻辑。如果“config.local.php”不完整，核心网格会自动提供缺少的参数（如“DB_HOST”）。",
-                "item2_label": "诊断安装程序",
-                "item2_text": "“install.php”实用程序现在具有高度沉浸式诊断功能，可跟踪神经链接稳定性和数据库行计数以进行即时验证。"
-            },
-            "multilingual_sync": {
-                "title": "// 多语言同步 [语言协议]",
-                "item1_label": "语言选择",
-                "item1_text": "利用标头模块在可用语言之间切换神经接口。",
-                "item2_label": "实时适应",
-                "item2_text": "网格在切换后立即转换所有系统指令和参数。",
-                "item3_label": "持久链接",
-                "item3_text": "您的语言首选项被锁定到您的甲板的本地存储中，并在每次登录时自动加载。"
-            },
-            "visual_interface": {
-                "title": "// 视觉界面【主题切换】",
-                "item1_label": "主题选择",
-                "item1_text": "访问您的个人资料以在可用的视觉预设之间切换。每个主题都重新配置了网格的美感，同时保持了核心指令的完整性。",
-                "item2_label": "持续同步",
-                "item2_text": "在所有会话中，您的视觉偏好都会锁定到您的神经 ID，直到启动手动覆盖为止。",
-                "item3_label": "未来的扩展",
-                "item3_text": "网格的设计是为了扩展。新的视觉模块将被部署到主题选择器，因为它们经过了操作使用认证。",
-                "themes_title": "// 可用的视觉模块",
-                "theme_cyberpunk": "CYBERPUNK——默认的神经网格。霓虹青色在黑暗中流淌。您的标准操作界面。保持敏锐，保持连线。",
-                "theme_lcars": "LCARS — 图书馆计算机访问/检索系统。星际舰队最优秀的。圆形端子，琥珀色和金色。空间是最终指令。",
-                "theme_matrix": "MATRIX — 代码雨从不说谎。绿色荧光信号在腐败的寂静中脉动。你看到了，不是吗？",
-                "theme_weyland": "WEYLAND-YUTANI——企业琥珀冰冷。琥珀色的 CRT 终端，由一家创造神并将其称为产品的公司加密。",
-                "theme_robco": "PIP-BOY — RobCo Industries 统一操作系统。磷绿端子。战前认证。荒地运行在这个固件上。",
-                "theme_grid": "THE GRID — Tron 的数字前沿。霓虹蓝光在无限晶格中循环。弗林建造了一些不适合人类的东西。",
-                "theme_section9": "幽灵——第 9 条许可。没有壳的幽灵。青色全息图在极简主义的黑暗平面上闪烁。草薙会同意的。",
-                "theme_outrun": "OUTRUN — 1984 年。炽热的洋红色太阳沉入合成波地平线以下。开快点，霓虹灯不睡觉。复古浪潮永远不会消亡。",
-                "theme_steampunk": "蒸汽朋克 — 维多利亚时代的铁和抛光黄铜。齿轮在雾中发出咔哒声。一个由蒸汽和秘密驱动的帝国。您的指令由气动管传送。",
-                "theme_force": "力——一个遥远的星系。反叛的橙色在星空的映衬下闪闪发光。网格的光面。愿指令与你同在。",
-                "theme_arrakis": "阿拉斯加——沙漠能源和香料。琥珀色的太阳落在不断变化的风景上。网格随着香料流动。恐惧是心灵杀手。",
-                "theme_renaissance": "文艺复兴——网络黄金时代。琥珀色的六边形在一片纯黑的海洋中脉动。一个充满增强和企业之神的世界。人类分裂了。",
-                "theme_klingon": "QO'NOS（克林贡）——血红色和冰冷的钢铁。锋利的野兽派边缘。今天是编码的好日子。卡普拉！",
-                "theme_got": "维斯特洛（得到）——冰与火。冷蓝钢和瓦雷利亚血红色调。冬天来了。北方记得。",
-                "theme_marvel": "COMIC (MARVEL) — 英雄般的红色和大胆的动作圆点。噗！砰！向漫画黄金时代致敬。精益求精！",
-                "theme_dc": "哥谭（华盛顿）——最漆黑的夜晚，最深的蓝色，还有一丝黄光穿过雨丝。正义永不眠。"
-            },
-            "danger_zone": {
-                "title": "// 危险区域协议",
-                "item1_warn": "⚠ 身份终止：",
-                "item1_text": "确认帐户删除会触发**终端安全警报**。此操作是不可逆转的。",
-                "item2_label": "逃生协议",
-                "item2_text": "使用 ABORT 立即将自己从最终终止中解救出来。"
+                "title": "// 深层指令 [文件和英特尔]",
+                "item1_label": "描述和降价",
+                "item1_text": "单击任务以打开其达析报告。您可以使用 Markdown 编写富文本描述以获取详细注释。",
+                "item2_label": "链接",
+                "item2_text": "在描述中包含 URL，以创建指向外部资源的安全、可点击的链接。",
+                "item3_label": "附件",
+                "item3_text": "将重要文件和图像直接上传到任务以进行安全存储。"
             }
         }
     },
@@ -408,7 +321,7 @@
         "promote": "推广",
         "reset_pwd": "重置密码",
         "2fa_off": "2FA 关闭",
-        "erase": "删除",
+        "erase": "擦除",
         "total_recruits": "总招聘人数",
         "policies_title": "系统政策",
         "policy_strict_pwd_title": "严格的密码政策",

@@ -177,9 +177,9 @@
         "contact": {
             "channel": "KONTAKTKANAL",
             "current": "Aktuell:",
-            "new_placeholder": "Ny e-postfrekvens",
+            "new_placeholder": "Ny Com-Link (e-post)",
             "confirm_password": "Bekräfta lösenord",
-            "reroute": "OMDRAG FREKVENS"
+            "reroute": "ROUTE COM-LINK"
         },
         "cypher": {
             "update_title": "UPPDATERA CYPHER",
@@ -233,142 +233,55 @@
         }
     },
     "help": {
-        "title": "CYBER_TASKER OPERATIV HANDBOK",
+        "title": "CYBER_TASKER SYSTEMMANUAL",
         "acknowledge": "BEKRÄFTA",
         "sections": {
             "neural_progression": {
-                "title": "// NEURAL PROGRESSION [XP & Ranks]",
-                "item1_label": "XP SKÖRDNING",
-                "item1_text": "Framgångsrik direktexekvering injicerar rå erfarenhetsdata i din neurala kärna. Högre komplexitet ger större belöningar.",
-                "item2_label": "OPERATIV RANKNING",
-                "item2_text": "Ackumulera datapaket för att öka din OPERATÖRSNIVÅ. Spårningsfältet visualiserar din synkroniseringsstatus med nästa rankning.",
-                "item3_label": "RANK FIRANDE",
-                "item3_text": "Att höja nivån utlöser en systemomfattande högspektrum neonåterkopplingsslinga och atmosfäriskt firande."
+                "title": "// PROGRESSION [XP & Ranks]",
+                "item1_label": "TJÄNAR XP",
+                "item1_text": "Att slutföra uppgifter ger erfarenhetspoäng (XP). Högre prioriterade uppgifter ger större belöningar.",
+                "item2_label": "NIVÅ UPP",
+                "item2_text": "Samla tillräckligt med XP för att nå nästa operatörsnivå. Spårningsfältet visar din nuvarande utveckling.",
+                "item3_label": "BELONINGAR",
+                "item3_text": "En nivå upp utlöser visuell feedback och låser upp högre rang inom systemet."
             },
             "system_access": {
-                "title": "// SYSTEMÅTKOMST [Auth Protocol]",
-                "item1_label": "INITIERA NY IDENTITET",
-                "item1_text1": "Utför NY IDENTITET för att registrera dig. Mata in KODNAMN (användarnamn), COM-LINK (e-post) och ÅTKOMSTNYCKEL (lösenord).",
-                "item1_warn": "⚠ Verifiering krävs via e-post.",
-                "item2_label": "JACK IN",
-                "item2_text": "Få åtkomst till nätet via CODENAME eller COM-LINK och din ÅTKOMSTNYCKEL."
+                "title": "// ÅTKOMST [Autentisering]",
+                "item1_label": "REGISTRERING",
+                "item1_text1": "Skapa ett nytt konto med ett kodnamn (användarnamn), Com-Link (e-post) och åtkomstnyckel (lösenord).",
+                "item1_warn": "⚠ E-postverifiering krävs för att aktivera kontot.",
+                "item2_label": "LOGGA IN",
+                "item2_text": "Gå till nätet via din e-post eller ditt kodnamn tillsammans med ditt lösenord."
             },
             "bio_lock": {
-                "title": "// BIO-LOCK SÄKERHET [2FA]",
+                "title": "// SÄKERHET [2FA]",
                 "item1": "Navigera till PROFIL > AKTIVERA 2FA-SÄKERHET.",
-                "item2": "Skanna QR MATRIX med din autentisering.",
-                "item3": "Mata in kod för att aktivera. Framtida inloggningar kommer att kräva denna synkroniseringskod.",
-                "item4_warn": "⚠ SÄKERHETSVARNING:",
-                "item4_text": "Att avsluta 2FA utlöser en högprioriterad defensiv varning."
+                "item2": "Skanna QR-koden med en autentiseringsapp.",
+                "item3": "Ange den 6-siffriga koden för att aktivera. Framtida inloggningar kommer att kräva denna kod.",
+                "item4_warn": "⚠ VARNING:",
+                "item4_text": "Att inaktivera 2FA minskar ditt kontosäkerhet avsevärt."
             },
             "directive_execution": {
-                "title": "// DIREKTIV UTFÖRANDE [Task Management]",
-                "item1_label": "INITIALISERA",
-                "item1_text": "Mata in direktivparametrar och tilldela PRIORITET. Använd ENTER för snabb distribution.",
-                "item2_label": "TERMINALPULS",
-                "item2_text": "Lyckad initiering utlöser en CYAN ÅTERkopplingspuls och firande.",
-                "item3_label": "EDIT",
-                "item3_text": "Klicka på uppgiftens titel för att byta namn. effektivt arbetsflöde.",
-                "item4_label": "ÄNDRA",
-                "item4_text": "Klicka på KATEGORI eller PRIORITET märken för val av teman.",
-                "item5_label": "UTFÖR",
-                "item5_text": "Markera direktiv som KLAR. Systemet ger NEON FEEDBACK när det är färdigt."
+                "title": "// UPPGIFTSHANTERING [Verksamhet]",
+                "item1_label": "SKAPA",
+                "item1_text": "Ange dina uppgifter och tilldela en prioritet. Tryck på ENTER för att snabbt skapa uppgiften.",
+                "item2_label": "FEEDBACK",
+                "item2_text": "Framgångsrik skapelse utlöser visuell bekräftelse.",
+                "item3_label": "REDIGERING",
+                "item3_text": "Klicka på en uppgiftsrubrik för att byta namn på den direkt.",
+                "item4_label": "KATEGORIER OCH PRIORITETER",
+                "item4_text": "Klicka på kategorin eller prioritetsmärkena på en uppgift för att ändra dem.",
+                "item5_label": "SLUTFÖRANDE",
+                "item5_text": "Markera uppgifter som KLAR för att tjäna XP och utlösa slutförandeeffekter."
             },
             "deep_directives": {
-                "title": "// DJUPA DIREKTIV [Dossier & Intel]",
-                "item1_label": "PROTOKOLLBESKRIVNING",
-                "item1_text": "Gå till OPERATIV DOSSIER genom att klicka på ett aktivt direktiv. Koda rich text-information med Markdown-protokollet för att upprätthålla uppdragets tydlighet.",
-                "item2_label": "UPP-LÄNKAR",
-                "item2_text": "Upprätta säkra neurala anslutningar till externa datanät via URL-bilagor. Säkerställ korrekt HTTPS-tunnling.",
-                "item3_label": "FILBILAGA",
-                "item3_text": "Ladda upp kritiska uppdragstillgångar direkt till det krypterade valvet för lokaliserad säker lagring."
-            },
-            "sort_order": {
-                "title": "// SORTERA BESTÄLLNINGSPROTOKOLL [Task Management]",
-                "item1_label": "SIGNALÄCKA (Försenad)",
-                "item1_text": "Kritisk prioritet. Alla direktiv som passerar dess deadline fästs överst i dataströmmen.",
-                "item2_label": "HEAT SPIKE (förfaller idag)",
-                "item2_text": "Omedelbar prioritet. Direktiv som är avsedda för idag följer signalläckorna.",
-                "item3_label": "STRATEGISK (Prioritet)",
-                "item3_text": "Återstående aktiva direktiv sorteras efter bas HÖG > MED > LÅG nivå.",
-                "item4_label": "ARKIVSORTERING",
-                "item4_text": "Färdigställda direktiv sorteras efter den senaste slutförandetidsstämpeln (DESC)."
-            },
-            "category_protocols": {
-                "title": "// KATEGORIPROTOKOLL [Anpassning]",
-                "item1_label": "HANTERA PROTOKOLL",
-                "item1_text": "Gå till din PROFIL för att initiera, byta namn på eller ta bort anpassade kategorier.",
-                "item2_label": "STANDARDÅRSKRIVNING",
-                "item2_text": "Tagga valfritt protokoll som STOCKED/DEFAULT (★) för att prioritera det i distributionsterminalen.",
-                "item3_label": "ÅTERINITIALISERING",
-                "item3_text": "Om du byter namn på ett protokoll kommer alla tillhörande arkiverade direktiv retroaktivt att korrigeras."
-            },
-            "neural_search": {
-                "title": "// NEURAL SÖKNING & FILTER [Datahämtning]",
-                "item1_label": "FRÅGA",
-                "item1_text": "Mata in nyckelord i den neurala sökfältet för att omedelbart isolera direktiv.",
-                "item2_label": "VEKTORER",
-                "item2_text": "Filtrera rutnätet efter status som PRIORITET, KATEGORI eller FÖRLÅT.",
-                "item3_label": "SYSTEMÅTERSTÄLLNING",
-                "item3_text": "Utför RESET för att rensa aktiva filter och återställa fullständig dataström."
-            },
-            "chrono_sync": {
-                "title": "// CHRONO-SYNC [Schemaläggning]",
-                "item1_label": "DEADLINES",
-                "item1_text": "Tilldela exekveringsdatum via CYBER CALENDAR-överlägget.",
-                "item2_label": "TIDSHOPP",
-                "item2_text": "Använd årsnavigeringskontroller för långdistansplanering.",
-                "item3_label": "INTERAKTIV SYNC",
-                "item3_text": "Ändra datum direkt på aktiva kort via CYBER CONFIRM-protokoll."
-            },
-            "system_resiliency": {
-                "title": "// SYSTEMETS RESILIENCY [Stabilitet]",
-                "item1_label": "ROBUST KONFIG",
-                "item1_text": "Systemet använder nu en resilient konfigurations reservlogik. Om `config.local.php` är ofullständig, tillhandahåller kärnrutnätet parametrar som saknas (som `DB_HOST`) automatiskt.",
-                "item2_label": "DIAGNOSTISK INSTALLATÖR",
-                "item2_text": "Verktyget `install.php` har nu diagnostik med hög nedsänkning, spårning av neurallänkstabilitet och antal databasrader för omedelbar verifiering."
-            },
-            "multilingual_sync": {
-                "title": "// MULTILINGUAL SYNC [Språkprotokoll]",
-                "item1_label": "SPRÅKVAL",
-                "item1_text": "Använd rubrikmodulerna för att växla det neurala gränssnittet mellan tillgängliga språk.",
-                "item2_label": "REALTIDSANPASSNING",
-                "item2_text": "Nätet översätter alla systemdirektiv och parametrar direkt efter omkoppling.",
-                "item3_label": "PERSONLIG LÄNK",
-                "item3_text": "Dina språkinställningar är låsta i ditt kortleks lokala lagringsutrymme och laddas automatiskt vid varje jack-in."
-            },
-            "visual_interface": {
-                "title": "// VISUELLT GRÄNSSNITT [Temaväxling]",
-                "item1_label": "VAL AV TEMA",
-                "item1_text": "Gå till din PROFIL för att växla mellan tillgängliga visuella förinställningar. Varje tema konfigurerar om nätets estetik samtidigt som det bibehåller kärndirektivets integritet.",
-                "item2_label": "PERSIENT SYNK",
-                "item2_text": "Din visuella preferens är låst till ditt neurala ID under alla sessioner tills en manuell åsidosättning initieras.",
-                "item3_label": "FRAMTIDA UTLÄNGNINGAR",
-                "item3_text": "Nätet är byggt för expansion. Nya visuella moduler kommer att distribueras till temaväljaren eftersom de är certifierade för operativ användning.",
-                "themes_title": "// TILLGÄNGLIGA VISUELLA MODULER",
-                "theme_cyberpunk": "CYBERPUNK — Det förinställda neurala rutnätet. Neoncyan blöder genom mörkret. Ditt vanliga operativa gränssnitt. Håll dig skarp, håll dig ansluten.",
-                "theme_lcars": "LCARS — Library Computer Access/Retrieval System. Stjärnflottans finaste. Rundade terminaler, bärnsten och guld. Utrymmet är det slutgiltiga direktivet.",
-                "theme_matrix": "MATRIX — Kodregnet ljuger aldrig. Gröna fosforsignaler pulserar genom korrupt tystnad. Du ser det, eller hur?",
-                "theme_weyland": "WEYLAND-YUTANI — Företags bärnsten brinner kallt. Amber CRT-terminaler, krypterade av ett företag som byggde gudar och kallade dem produkter.",
-                "theme_robco": "PIP-BOY — RobCo Industries unified OS. Fosforgrön terminal. Certifierad före kriget. Ödemarken körs på denna firmware.",
-                "theme_grid": "THE GRID — Trons digitala gräns. Neonblått ljus cirkulerar över ett oändligt gitter. Flynn byggde något som aldrig var menat för människor.",
-                "theme_section9": "GHOST — Avsnitt 9-klarering. Ett spöke utan skal. Blågrönt holografi flimrar över ett minimalistiskt mörkt plan. Kusanagi skulle godkänna.",
-                "theme_outrun": "OUTRUN — 1984. Heta magentafärgade solar sjunker under synthvågshorisonten. Kör fort, neon sover inte. Retrovave dör aldrig.",
-                "theme_steampunk": "STEAMPUNK — viktorianskt järn och polerad mässing. Kugghjul klickar i dimman. Ett imperium som drivs av ånga och hemligheter. Dina direktiv, levererade med pneumatiskt rör.",
-                "theme_force": "FORCE — En galax långt, långt borta. Rebellorange lyser mot ett sjöfält. Den ljusa sidan av rutnätet. Må direktivet vara med dig.",
-                "theme_arrakis": "ARRAKIS — Ökenkraft och krydda. Bärnstenssolar sjunker över ett skiftande landskap. Gallret flyter med kryddan. Rädsla är sinnesdödaren.",
-                "theme_renaissance": "RENAISSANCE — Cyber-guld-eran. Bärnstenshexagoner pulserar i ett hav av absolut svart. En värld av augmentations och företagsgudar. Mänskligheten splittrades.",
-                "theme_klingon": "QO'NOS (KLINGON) — Blodrött och kallt stål. Knivskarpa brutalistiska kanter. Idag är en bra dag att koda. Qapla'!",
-                "theme_got": "WESTEROS (GOT) — Ice and Fire. Kallblått stål och valyriska blodröda accenter. Vintern kommer. Norden minns.",
-                "theme_marvel": "COMIC (MARVEL) — Heroiska röda och djärva actionprickar. Pow! pang! En hyllning till serietidningarnas guldålder. Träull!",
-                "theme_dc": "GOTHAM (DC) — Mörkaste natten, djupast blå och en slinga av gult ljus som skär genom regnet. Rättvisan sover aldrig."
-            },
-            "danger_zone": {
-                "title": "// FARZONSPROTOKOLL",
-                "item1_warn": "⚠ IDENTITETSAVSLUTNING:",
-                "item1_text": "Bekräftelse av borttagning av konto utlöser **TERMINAL SECURITY ALERT**. Denna åtgärd är oåterkallelig.",
-                "item2_label": "ESCAPE PROTOKOLL",
-                "item2_text": "Använd AVBRYT för att omedelbart rädda dig själv från slutgiltig uppsägning."
+                "title": "// DEEP DIRECTIONS [Filer & Intel]",
+                "item1_label": "BESKRIVNING & MARKNAD",
+                "item1_text": "Klicka på en uppgift för att öppna dess dossier. Du kan skriva riktextbeskrivningar med Markdown för detaljerade anteckningar.",
+                "item2_label": "LÄNKAR",
+                "item2_text": "Inkludera webbadresser i din beskrivning för att skapa säkra, klickbara länkar till externa resurser.",
+                "item3_label": "BILAGA",
+                "item3_text": "Ladda upp viktiga filer och bilder direkt till en uppgift för säker lagring."
             }
         }
     },
@@ -376,7 +289,7 @@
         "loading": "INITIALISERA SYSTEM...",
         "save": "SPARA",
         "cancel": "AVBRYT",
-        "delete": "DELETE",
+        "delete": "RADERA",
         "high": "HÖG",
         "med": "MED",
         "low": "LÅG",

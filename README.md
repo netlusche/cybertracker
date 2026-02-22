@@ -289,16 +289,9 @@ Run the installer via your browser:
     *   **Password**: `password`
     *   **Important**: Log in and change this password immediately!
 
-#### 6. Optional: Install Test Data
-To create a test user 'Alicia' with 250 tasks for performance testing:
-1.  Run the test installer: `https://yourdomain.com/tasks/api/install_test_user.php` (or via CLI: `php api/install_test_user.php`).
-2.  **Login**: `Alicia` / `password`.
-3.  **Security Warning**: Delete `api/install_test_user.php` immediately after use.
-
-#### 7. Cleanup
+#### 6. Cleanup
 Delete ALL installation and diagnostic scripts from the server after the grid is stable:
 - `api/install.php`
-- `api/install_test_user.php` (if used)
 - `api/migrate_2fa.php` / `api/migrate_2fa_v2.php` (if used)
 
 ---

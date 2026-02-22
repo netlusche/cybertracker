@@ -177,9 +177,9 @@
         "contact": {
             "channel": "KANAŁ KONTAKT",
             "current": "Aktualne:",
-            "new_placeholder": "Nowa częstotliwość e-maili",
+            "new_placeholder": "Nowy Com-Link (e-mail)",
             "confirm_password": "Potwierdź hasło",
-            "reroute": "CZĘSTOTLIWOŚĆ ZMIANY TRASY"
+            "reroute": "PRZEPROWADŹ LINK COM"
         },
         "cypher": {
             "update_title": "AKTUALIZACJA CYFRU",
@@ -233,142 +233,55 @@
         }
     },
     "help": {
-        "title": "PODRĘCZNIK OPERACYJNY CYBER_TASKER",
+        "title": "INSTRUKCJA SYSTEMU CYBER_TASKER",
         "acknowledge": "POTWIERDZENIE",
         "sections": {
             "neural_progression": {
-                "title": "// POSTĘP NEURALNY [XP i rangi]",
-                "item1_label": "ZBIÓR PD",
-                "item1_text": "Pomyślne wykonanie dyrektywy powoduje wstrzyknięcie surowych danych dotyczących doświadczenia do rdzenia neuronowego. Większa złożoność zapewnia większe nagrody.",
-                "item2_label": "RANKING OPERACYJNY",
-                "item2_text": "Gromadź pakiety danych, aby zwiększyć POZIOM OPERATORA. Pasek śledzenia wizualizuje stan synchronizacji z następną rangą.",
-                "item3_label": "ŚWIĘTOWANIE RANGI",
-                "item3_text": "Awansowanie na wyższy poziom uruchamia ogólnosystemową pętlę sprzężenia zwrotnego neonów o wysokim spektrum i klimatyczną uroczystość."
+                "title": "// POSTĘP [XP i rangi]",
+                "item1_label": "ZDOBYWANIE PD",
+                "item1_text": "Ukończenie zadań zapewnia punkty doświadczenia (XP). Zadania o wyższym priorytecie dają większe nagrody.",
+                "item2_label": "Awans",
+                "item2_text": "Zbierz wystarczającą ilość XP, aby osiągnąć następny poziom operatora. Pasek śledzenia wyświetla aktualny postęp.",
+                "item3_label": "NAGRODY",
+                "item3_text": "Zdobywanie kolejnych poziomów wyzwala wizualne sprzężenie zwrotne i odblokowuje wyższe stopnie w systemie."
             },
             "system_access": {
-                "title": "// DOSTĘP DO SYSTEMU [Protokół autoryzacji]",
-                "item1_label": "INICJUJ NOWĄ TOŻSAMOŚĆ",
-                "item1_text1": "Wykonaj NOWĄ TOŻSAMOŚĆ, aby się zarejestrować. Wprowadź CODENAME (nazwa użytkownika), COM-LINK (e-mail) i KLUCZ DOSTĘPU (hasło).",
-                "item1_warn": "⚠ Wymagana weryfikacja drogą e-mailową.",
-                "item2_label": "JACK W",
-                "item2_text": "Uzyskaj dostęp do sieci poprzez CODENAME lub COM-LINK i swój KLUCZ DOSTĘPU."
+                "title": "// DOSTĘP [Uwierzytelnienie]",
+                "item1_label": "REJESTRACJA",
+                "item1_text1": "Utwórz nowe konto, używając nazwy kodowej (nazwy użytkownika), łącza Com-Link (e-mail) i klucza dostępu (hasło).",
+                "item1_warn": "⚠ Do aktywacji konta wymagana jest weryfikacja e-mailowa.",
+                "item2_label": "ZALOGUJ SIĘ",
+                "item2_text": "Uzyskaj dostęp do siatki za pośrednictwem adresu e-mail lub kryptonimu wraz z hasłem."
             },
             "bio_lock": {
-                "title": "// BIO-BLOKADA BEZPIECZEŃSTWA [2FA]",
+                "title": "// BEZPIECZEŃSTWO [2FA]",
                 "item1": "Przejdź do PROFIL > WŁĄCZ ZABEZPIECZENIA 2FA.",
-                "item2": "Zeskanuj QR MATRIX za pomocą swojego uwierzytelniacza.",
-                "item3": "Wprowadź kod, aby aktywować. Przyszłe logowania będą wymagały tego kodu synchronizacji.",
-                "item4_warn": "⚠ OSTRZEŻENIE BEZPIECZEŃSTWA:",
-                "item4_text": "Zakończenie 2FA wyzwala ostrzeżenie obronne o wysokim priorytecie."
+                "item2": "Zeskanuj kod QR za pomocą aplikacji uwierzytelniającej.",
+                "item3": "Wprowadź 6-cyfrowy kod, aby aktywować. Przyszłe logowania będą wymagały tego kodu.",
+                "item4_warn": "⚠ OSTRZEŻENIE:",
+                "item4_text": "Wyłączenie 2FA znacznie zmniejsza bezpieczeństwo Twojego konta."
             },
             "directive_execution": {
-                "title": "// WYKONANIE DYREKTYWY [Zarządzanie zadaniami]",
-                "item1_label": "INICJALIZACJA",
-                "item1_text": "Wprowadź parametry dyrektywy i przypisz PRIORYTET. Użyj klawisza ENTER, aby szybko wdrożyć.",
-                "item2_label": "IMPULS ZACISKOWY",
-                "item2_text": "Pomyślna inicjalizacja wyzwala Błękitny Puls Sprzężenia ZWROTNEGO i świętowanie.",
+                "title": "// ZARZĄDZANIE ZADANIAMI [Operacje]",
+                "item1_label": "KREACJA",
+                "item1_text": "Wprowadź szczegóły zadania i przypisz priorytet. Naciśnij ENTER, aby szybko utworzyć zadanie.",
+                "item2_label": "OPINIE",
+                "item2_text": "Udane utworzenie wymaga wizualnego potwierdzenia.",
                 "item3_label": "EDYCJA",
-                "item3_text": "Kliknij tytuł zadania, aby zmienić jego nazwę. efektywny przepływ pracy.",
-                "item4_label": "MODYFIKUJ",
-                "item4_text": "Kliknij plakietki KATEGORIA lub PRIORYTET, aby wybrać tematycznie.",
-                "item5_label": "WYKONAJ",
-                "item5_text": "Oznacz dyrektywy jako GOTOWE. System zapewnia NEONOWĄ INFORMACJĘ ZWROTNĄ po zakończeniu."
+                "item3_text": "Kliknij tytuł dowolnego zadania, aby natychmiast zmienić jego nazwę.",
+                "item4_label": "KATEGORIE I PRIORYTETY",
+                "item4_text": "Kliknij plakietkę kategorii lub priorytetu na zadaniu, aby je zmienić.",
+                "item5_label": "ZAKOŃCZENIE",
+                "item5_text": "Oznacz zadania jako UKOŃCZONE, aby zdobyć XP i wywołać efekty ukończenia."
             },
             "deep_directives": {
-                "title": "// DEEP DYREKTYWY [Dossier i Intel]",
-                "item1_label": "OPIS PROTOKOŁU",
-                "item1_text": "Uzyskaj dostęp do DOKUMENTACJI OPERACYJNEJ, klikając dowolną aktywną dyrektywę. Koduj dane wywiadowcze w formacie sformatowanym przy użyciu protokołu Markdown, aby zachować przejrzystość misji.",
-                "item2_label": "LINKI W GÓRĘ",
-                "item2_text": "Ustanawiaj bezpieczne połączenia neuronowe z zewnętrznymi sieciami danych za pośrednictwem załączników URL. Zapewnij prawidłowe tunelowanie HTTPS.",
-                "item3_label": "ZAŁĄCZNIKI PLIKÓW",
-                "item3_text": "Przesyłaj najważniejsze zasoby misji bezpośrednio do zaszyfrowanego skarbca, aby móc je bezpiecznie przechowywać."
-            },
-            "sort_order": {
-                "title": "// PROTOKÓŁ ZAMÓWIENIA SORTOWANIA [Zarządzanie zadaniami]",
-                "item1_label": "WYCIEK SYGNAŁU (opóźniony)",
-                "item1_text": "Krytyczny priorytet. Każda dyrektywa, która przekroczyła termin, jest przypinana na górze strumienia danych.",
-                "item2_label": "Skok upałów (ma nastąpić dzisiaj)",
-                "item2_text": "Natychmiastowy priorytet. Dyrektywy przeznaczone na dzisiaj podążają za wyciekami sygnałów.",
-                "item3_label": "STRATEGICZNE (Priorytet)",
-                "item3_text": "Pozostałe aktywne dyrektywy są sortowane według poziomu bazowego WYSOKI > ŚREDNI > NISKI.",
-                "item4_label": "SORTOWANIE ARCHIWUM",
-                "item4_text": "Wypełnione dyrektywy są sortowane według ostatniego znacznika czasu ukończenia (DESC)."
-            },
-            "category_protocols": {
-                "title": "// PROTOKOŁY KATEGORII [Dostosowywanie]",
-                "item1_label": "ZARZĄDZAJ PROTOKOŁAMI",
-                "item1_text": "Uzyskaj dostęp do swojego PROFILU, aby zainicjować, zmienić nazwę lub usunąć kategorie niestandardowe.",
-                "item2_label": "DOMYŚLNE NADPISANIE",
-                "item2_text": "Oznacz dowolny protokół jako ZAPISANY/DOMYŚLNY (★), aby nadać mu priorytet w terminalu wdrażania.",
-                "item3_label": "PONOWNA INICJALIZACJA",
-                "item3_text": "Zmiana nazwy protokołu spowoduje wsteczne załatanie wszystkich powiązanych zarchiwizowanych dyrektyw."
-            },
-            "neural_search": {
-                "title": "// WYSZUKIWANIE I FILTR NEURALÓW [Odzyskiwanie danych]",
-                "item1_label": "ZAPYTANIE",
-                "item1_text": "Wprowadź słowa kluczowe w pasku wyszukiwania neuronowego, aby natychmiast wyodrębnić dyrektywy.",
-                "item2_label": "WEKTORY",
-                "item2_text": "Filtruj siatkę według statusu PRIORYTET, KATEGORIA lub OPÓŹNIENIE.",
-                "item3_label": "RESETOWANIE SYSTEMU",
-                "item3_text": "Wykonaj RESET, aby wyczyścić aktywne filtry i przywrócić pełny strumień danych."
-            },
-            "chrono_sync": {
-                "title": "// CHRONO-SYNC [Planowanie]",
-                "item1_label": "TERMINY",
-                "item1_text": "Przypisz daty realizacji poprzez nakładkę CYBER KALENDARZ.",
-                "item2_label": "SKOKI CZASU",
-                "item2_text": "Użyj elementów nawigacji rocznej do planowania dalekosiężnego.",
-                "item3_label": "INTERAKTYWNA SYNCHRONIZACJA",
-                "item3_text": "Modyfikuj daty bezpośrednio na aktywnych kartach poprzez protokoły CYBER CONFIRM."
-            },
-            "system_resiliency": {
-                "title": "// WYTRZYMAŁOŚĆ SYSTEMU [Stabilność]",
-                "item1_label": "SOLIDNA KONFIGURACJA",
-                "item1_text": "System wykorzystuje teraz elastyczną logikę przywracania konfiguracji. Jeśli `config.local.php` jest niekompletny, siatka podstawowa automatycznie dostarcza brakujące parametry (takie jak `DB_HOST`).",
-                "item2_label": "INSTALATOR DIAGNOSTYCZNY",
-                "item2_text": "Narzędzie `install.php` oferuje teraz diagnostykę o dużym zanurzeniu, śledzenie stabilności łącza neuronowego i liczbę wierszy bazy danych w celu natychmiastowej weryfikacji."
-            },
-            "multilingual_sync": {
-                "title": "// WIELOJĘZYCZNA SYNC [Protokół językowy]",
-                "item1_label": "WYBÓR JĘZYKA",
-                "item1_text": "Skorzystaj z modułów nagłówkowych, aby przełączać interfejs neuronowy pomiędzy dostępnymi językami.",
-                "item2_label": "ADAPTACJA W CZASIE RZECZYWISTYM",
-                "item2_text": "Siatka tłumaczy wszystkie dyrektywy i parametry systemu natychmiast po przełączeniu.",
-                "item3_label": "STAŁE LINK",
-                "item3_text": "Twoje preferencje językowe są zapisane w lokalnej pamięci twojej talii i ładowane automatycznie przy każdym podłączeniu."
-            },
-            "visual_interface": {
-                "title": "// INTERFEJS WIZUALNY [Przełączanie motywów]",
-                "item1_label": "WYBÓR TEMATU",
-                "item1_text": "Uzyskaj dostęp do swojego PROFILU, aby przełączać się między dostępnymi ustawieniami wizualnymi. Każdy motyw zmienia estetykę siatki, zachowując jednocześnie integralność dyrektyw podstawowych.",
-                "item2_label": "TRWAŁA SYNCHRONIZACJA",
-                "item2_text": "Twoje preferencje wizualne są powiązane z identyfikatorem neuronowym we wszystkich sesjach, dopóki nie zostanie zainicjowane ręczne nadpisanie.",
-                "item3_label": "PRZYSZŁE ROZSZERZENIA",
-                "item3_text": "Sieć została zaprojektowana z myślą o rozbudowie. Nowe moduły wizualne zostaną wdrożone w selektorze motywów po uzyskaniu certyfikatu do użytku operacyjnego.",
-                "themes_title": "// DOSTĘPNE MODUŁY WIZUALNE",
-                "theme_cyberpunk": "CYBERPUNK — domyślna sieć neuronowa. Neonowo-cyjan krwawi w ciemności. Twój standardowy interfejs operacyjny. Zachowaj czujność, pozostań podłączony.",
-                "theme_lcars": "LCARS — system dostępu/wyszukiwania komputera bibliotecznego. Najlepszy z Gwiezdnej Floty. Zaokrąglone końcówki, bursztynowe i złote. Przestrzeń jest ostateczną dyrektywą.",
-                "theme_matrix": "MATRIX — Deszcz kodów nigdy nie kłamie. Sygnały zielonego fosforu pulsują w zepsutej ciszy. Widzisz to, prawda?",
-                "theme_weyland": "WEYLAND-YUTANI — Bursztyn korporacyjny pali się zimno. Bursztynowe terminale CRT, zaszyfrowane przez korporację, która budowała bogów i nazywała ich produktami.",
-                "theme_robco": "PIP-BOY — ujednolicony system operacyjny RobCo Industries. Terminal fosforowo-zielony. Certyfikowany przedwojenny. Wasland działa na tym oprogramowaniu.",
-                "theme_grid": "SIATKA — cyfrowa granica Trona. Neonowo-niebieskie światło krąży po nieskończonej siatce. Flynn zbudował coś, co nigdy nie było przeznaczone dla ludzi.",
-                "theme_section9": "DUCH — zezwolenie na sekcję 9. Duch bez skorupy. Turkusowe holografie migoczą na minimalistycznej ciemnej płaszczyźnie. Kusanagi by to zaakceptował.",
-                "theme_outrun": "OUTRUN — 1984. Gorące purpurowe słońca chowają się za horyzontem synthwave. Jedź szybko, neon nie śpi. Retrowave nigdy nie umiera.",
-                "theme_steampunk": "STEAMPUNK — wiktoriańskie żelazo i polerowany mosiądz. Biegi klikają we mgle. Imperium napędzane parą i sekretami. Twoje wytyczne dostarczane rurką pneumatyczną.",
-                "theme_force": "SIŁA — odległa galaktyka. Rebeliancka pomarańcza świeci na tle pola gwiazd. Jasna strona siatki. Niech dyrektywa będzie z wami.",
-                "theme_arrakis": "ARRAKIS — pustynna moc i przyprawa. Bursztynowe słońca chowają się nad zmiennym krajobrazem. Siatka płynie z przyprawą. Strach jest zabójcą umysłu.",
-                "theme_renaissance": "RENESANS — era cyberzłota. Bursztynowe sześciokąty pulsują w morzu absolutnej czerni. Świat ulepszeń i korporacyjnych bogów. Ludzkość podzielona.",
-                "theme_klingon": "QO'NOS (KLINGON) — Krwawa czerwień i zimna stal. Ostre jak brzytwa, brutalistyczne krawędzie. Dziś jest dobry dzień na kodowanie. Kapla!",
-                "theme_got": "WESTEROS (GOT) — Lód i Ogień. Zimnoniebieska stal i valyriańskie akcenty krwistoczerwone. Nadchodzi zima. Północ pamięta.",
-                "theme_marvel": "KOMIKS (MARVEL) — Bohaterskie czerwone i odważne kropki akcji. Pff! Bum! Hołd dla złotej ery komiksów. Wełna drzewna!",
-                "theme_dc": "GOTHAM (DC) — Najciemniejsza noc, najgłębszy błękit i smuga żółtego światła przecinająca deszcz. Sprawiedliwość nigdy nie śpi."
-            },
-            "danger_zone": {
-                "title": "// PROTOKOŁY STREF NIEBEZPIECZEŃSTWA",
-                "item1_warn": "⚠ ZAKOŃCZENIE TOŻSAMOŚCI:",
-                "item1_text": "Potwierdzenie usunięcia konta uruchamia **ALERT BEZPIECZEŃSTWA TERMINALU**. To działanie jest nieodwracalne.",
-                "item2_label": "PROTOKÓŁ UCIECZKI",
-                "item2_text": "Użyj ABORT, aby natychmiast uratować się przed ostatecznym zakończeniem."
+                "title": "// GŁĘBOKIE DYREKTYWY [Pliki i Intel]",
+                "item1_label": "OPIS I OCENA",
+                "item1_text": "Kliknij zadanie, aby otworzyć jego dokumentację. Możesz pisać opisy w formacie sformatowanym, korzystając z Markdown, aby uzyskać szczegółowe notatki.",
+                "item2_label": "LINKI",
+                "item2_text": "Dołącz adresy URL do swojego opisu, aby utworzyć bezpieczne, klikalne linki do zasobów zewnętrznych.",
+                "item3_label": "ZAŁĄCZNIKI",
+                "item3_text": "Przesyłaj ważne pliki i obrazy bezpośrednio do zadania, aby zapewnić bezpieczne przechowywanie."
             }
         }
     },
@@ -376,7 +289,7 @@
         "loading": "INICJALIZACJA SYSTEMU...",
         "save": "ZAPISZ",
         "cancel": "ANULUJ",
-        "delete": "USUŃ",
+        "delete": "USUWAĆ",
         "high": "WYSOKI",
         "med": "MED",
         "low": "NISKA",
@@ -408,7 +321,7 @@
         "promote": "PROMUJ",
         "reset_pwd": "ZRESETUJ HASŁO",
         "2fa_off": "2FA WYŁĄCZONE",
-        "erase": "USUŃ",
+        "erase": "USUWAĆ",
         "total_recruits": "OGÓŁEM REKRUTÓW",
         "policies_title": "POLITYKA SYSTEMOWA",
         "policy_strict_pwd_title": "Ścisłe zasady dotyczące haseł",

@@ -177,9 +177,9 @@
         "contact": {
             "channel": "KAPCSOLATOS CSATORNA",
             "current": "Jelenlegi:",
-            "new_placeholder": "Új e-mail gyakoriság",
+            "new_placeholder": "Új Com-Link (e-mail)",
             "confirm_password": "Jelszó megerősítése",
-            "reroute": "ÚTVONALÚJÍTÁSI GYAKORISÁG"
+            "reroute": "A COM-LINK ÚTVONALAITÁSA"
         },
         "cypher": {
             "update_title": "A CYPHER FRISSÍTÉSE",
@@ -233,142 +233,55 @@
         }
     },
     "help": {
-        "title": "CYBER_TASKER OPERATÍV KÉZIKÖNYV",
+        "title": "CYBER_TASKER RENDSZER KÉZIKÖNYVE",
         "acknowledge": "ISMERTETÉS",
         "sections": {
             "neural_progression": {
-                "title": "// NEURÁLIS ELŐRELÉS [XP és rangok]",
-                "item1_label": "XP HARVESTING",
-                "item1_text": "A sikeres direktíva-végrehajtás nyers tapasztalati adatokat injektál az idegi magba. A nagyobb összetettség nagyobb jutalmat eredményez.",
-                "item2_label": "OPERATÍV RENDELKEZÉS",
-                "item2_text": "Gyűjtsön adatcsomagokat a KEZELŐI SZINT előrelépéséhez. A követősáv a szinkronizálási állapotot a következő rangsorral jeleníti meg.",
-                "item3_label": "RANK ÜNNEPE",
-                "item3_text": "A szintemelkedés a rendszer egészére kiterjedő, nagy spektrumú neon visszacsatoló hurkot és atmoszférikus ünneplést vált ki."
+                "title": "// PROGRESSZIÓ [XP és rangok]",
+                "item1_label": "XP-KÉPÍTÉS",
+                "item1_text": "A feladatok elvégzése tapasztalati pontokat (XP) ad. A magasabb prioritású feladatok nagyobb jutalmat hoznak.",
+                "item2_label": "SZINTEZÉS",
+                "item2_text": "Gyűjts össze elegendő XP-t a következő kezelői szint eléréséhez. A követési sáv az aktuális előrehaladást mutatja.",
+                "item3_label": "JUTALMAK",
+                "item3_text": "A szintemelkedés vizuális visszacsatolást vált ki, és magasabb rangokat nyit meg a rendszeren belül."
             },
             "system_access": {
-                "title": "// RENDSZER HOZZÁFÉRÉS [Auth Protocol]",
-                "item1_label": "ÚJ IDENTITÁS KEZDEMÉNYEZÉSE",
-                "item1_text1": "A regisztrációhoz hajtsa végre az ÚJ IDENTITÁST. Írja be a CODENAME (felhasználónév), a COM-LINK (e-mail) és az ACCESS KEY (jelszó) kódot.",
-                "item1_warn": "⚠ E-mailben történő ellenőrzés szükséges.",
-                "item2_label": "BELÉPÉS",
-                "item2_text": "Hozzáférés a rácshoz a CODENAME vagy a COM-LINK segítségével, valamint a HOZZÁFÉRÉSI KULCSÁVAL."
+                "title": "// HOZZÁFÉRÉS [Authentication]",
+                "item1_label": "REGISZTRÁCIÓ",
+                "item1_text1": "Hozzon létre egy új fiókot kódnév (felhasználónév), Com-Link (e-mail) és hozzáférési kulcs (jelszó) használatával.",
+                "item1_warn": "⚠ A fiók aktiválásához e-mail-ellenőrzés szükséges.",
+                "item2_label": "BEJELENTKEZÉS",
+                "item2_text": "Hozzáférés a rácshoz e-mail címével vagy kódnevével, jelszavával együtt."
             },
             "bio_lock": {
-                "title": "// BIO-LOCK BIZTONSÁG [2FA]",
+                "title": "// BIZTONSÁG [2FA]",
                 "item1": "Lépjen a PROFIL > A 2FA BIZTONSÁG ENGEDÉLYEZÉSE elemre.",
-                "item2": "Olvassa be a QR-mátrixot hitelesítőjével.",
-                "item3": "Az aktiváláshoz írja be a kódot. A jövőbeni bejelentkezésekhez szükség lesz erre a szinkronizálási kódra.",
-                "item4_warn": "⚠ BIZTONSÁGI FIGYELMEZTETÉS:",
-                "item4_text": "A 2FA megszakítása magas prioritású védekező figyelmeztetést vált ki."
+                "item2": "Olvassa be a QR-kódot egy hitelesítő alkalmazással.",
+                "item3": "Az aktiváláshoz írja be a 6 számjegyű kódot. A jövőbeni bejelentkezésekhez szükség lesz erre a kódra.",
+                "item4_warn": "⚠ FIGYELMEZTETÉS:",
+                "item4_text": "A 2FA letiltása jelentősen csökkenti fiókja biztonságát."
             },
             "directive_execution": {
-                "title": "// IRÁNYELV VÉGREHAJTÁSA [Feladatkezelés]",
-                "item1_label": "INICIALIZÁLÁS",
-                "item1_text": "Adja meg a direktíva paramétereit és rendelje hozzá a PRIORITÁST. Használja az ENTER billentyűt a gyors telepítéshez.",
-                "item2_label": "TERMINÁLIS PULZUS",
-                "item2_text": "A sikeres inicializálás CYAN FEEDBACK PULZE-t és ünneplést vált ki.",
+                "title": "// FELADATIRÁNYÍTÁS [Műveletek]",
+                "item1_label": "ALKALMAZÁS",
+                "item1_text": "Adja meg a feladat részleteit, és rendeljen hozzá prioritást. Nyomja meg az ENTER-t a feladat gyors létrehozásához.",
+                "item2_label": "VISSZAJELZÉS",
+                "item2_text": "A sikeres létrehozás vizuális megerősítést vált ki.",
                 "item3_label": "SZERKESZTÉS",
-                "item3_text": "Kattintson a feladat címére az átnevezéshez. hatékony munkafolyamat.",
-                "item4_label": "MÓDOSÍTÁS",
-                "item4_text": "Kattintson a KATEGÓRIA vagy a PRIORITÁS jelvényekre a tematikus kiválasztásához.",
-                "item5_label": "VÉGREHAJTÁS",
-                "item5_text": "Jelölje meg az utasításokat KÉSZ-ként. A rendszer NEON VISSZAJELZÉSET ad a befejezés után."
+                "item3_text": "Kattintson bármelyik feladat címére az azonnali átnevezéshez.",
+                "item4_label": "KATEGÓRIÁK ÉS PRIORITÁSOK",
+                "item4_text": "Kattintson a kategóriára vagy a prioritási jelvényekre egy feladatnál a módosításhoz.",
+                "item5_label": "BEFEJEZÉS",
+                "item5_text": "Jelölje meg a feladatokat KÉSZ-ként, hogy XP-t szerezzen, és befejezési effektusokat váltson ki."
             },
             "deep_directives": {
-                "title": "// MÉLY IRÁNYELVEK [Dossier & Intel]",
-                "item1_label": "JEGYZŐKÖNYV LEÍRÁS",
-                "item1_text": "Az OPERATÍV DOSSIER eléréséhez kattintson bármelyik aktív utasításra. A rich-text Intel kódolása a Markdown protokoll használatával a küldetés egyértelműségének megőrzése érdekében.",
-                "item2_label": "UP-LINKS",
-                "item2_text": "Biztonságos neurális kapcsolatok létrehozása a külső adatrácsokkal URL-mellékletek segítségével. Gondoskodjon a megfelelő HTTPS tunnelingről.",
-                "item3_label": "FÁJL MELLÉKLETEK",
-                "item3_text": "Töltsön fel kritikus küldetési eszközöket közvetlenül a titkosított tárolóba a lokalizált biztonságos tárolás érdekében."
-            },
-            "sort_order": {
-                "title": "// RENDEZÉSI PROTOKOLL [Feladatkezelés]",
-                "item1_label": "JELSZIVÁRGÁS (Késés)",
-                "item1_text": "Kritikus prioritás. A határidőn túli utasítások az adatfolyam tetejére vannak rögzítve.",
-                "item2_label": "HEAT SPIKE (ma esedékes)",
-                "item2_text": "Azonnali elsőbbség. A mai napra szánt irányelvek követik a Signal Leakseket.",
-                "item3_label": "STRATÉGIAI (prioritás)",
-                "item3_text": "A fennmaradó aktív direktívák az alap HIGH > MED > LOW szint szerint vannak rendezve.",
-                "item4_label": "ARCHÍV RENDEZÉS",
-                "item4_text": "A befejezett direktívák a legutóbbi befejezési időbélyeg (DESC) szerint vannak rendezve."
-            },
-            "category_protocols": {
-                "title": "// KATEGÓRIA PROTOKOLLOK [Testreszabás]",
-                "item1_label": "PROTOKOLLOK KEZELÉSE",
-                "item1_text": "Hozzáférés a PROFILE-hoz egyéni kategóriák inicializálásához, átnevezéséhez vagy törléséhez.",
-                "item2_label": "ALAPÉRTELMEZETT FELÜLVIZSGÁLAT",
-                "item2_text": "Bármely protokollt STOCKED/DEFAULT (★) jelöléssel jelöljön meg, hogy prioritást adjon a telepítési terminálban.",
-                "item3_label": "ÚJRAINDÍTÁS",
-                "item3_text": "Egy protokoll átnevezése visszamenőleg kijavítja az összes kapcsolódó archivált direktívát."
-            },
-            "neural_search": {
-                "title": "// NEURÁLIS KERESÉS ÉS SZŰRŐ [Adatvisszakeresés]",
-                "item1_label": "QUERY",
-                "item1_text": "Írjon be kulcsszavakat a neurális keresősávba az irányelvek azonnali elkülönítéséhez.",
-                "item2_label": "VEKTOROK",
-                "item2_text": "Szűrje a rácsot PRIORITÁS, KATEGÓRIA vagy KÉSÜLÉS állapot szerint.",
-                "item3_label": "RENDSZER RESET",
-                "item3_text": "Hajtsa végre a RESET parancsot az aktív szűrők törléséhez és a teljes adatfolyam visszaállításához."
-            },
-            "chrono_sync": {
-                "title": "// CHRONO-SYNC [Ütemezés]",
-                "item1_label": "HATÁRIDŐK",
-                "item1_text": "Rendeljen hozzá végrehajtási dátumokat a CYBER NAPTÁR fedvényen keresztül.",
-                "item2_label": "IDŐUGRÁSOK",
-                "item2_text": "Használja az év navigációs vezérlőit a hosszú távú tervezéshez.",
-                "item3_label": "INTERAKTÍV SZINKRONIZÁCIÓ",
-                "item3_text": "Módosítsa a dátumokat közvetlenül az aktív kártyákon a CYBER CONFIRM protokollokon keresztül."
-            },
-            "system_resiliency": {
-                "title": "// A RENDSZER REZILIENCIA [Stabilitás]",
-                "item1_label": "ROBUST CONFIG",
-                "item1_text": "A rendszer most rugalmas konfigurációs tartalék logikát használ. Ha a `config.local.php` nem teljes, az alaprács automatikusan biztosítja a hiányzó paramétereket (például a `DB_HOST`).",
-                "item2_label": "DIAGNOSZTIKAI TELEPÍTŐ",
-                "item2_text": "Az \"install.php\" segédprogram immár nagymértékű diagnosztikát kínál, nyomon követi a neurális kapcsolat stabilitását és az adatbázissorok számát az azonnali ellenőrzés érdekében."
-            },
-            "multilingual_sync": {
-                "title": "// TÖBBNYELVŰ SZinkronizálás [Language Protocol]",
-                "item1_label": "NYELVVÁLASZTÁS",
-                "item1_text": "Használja a fejléc modulokat a neurális interfész váltásához az elérhető nyelvek között.",
-                "item2_label": "VALÓS IDEJŰ ALKALMAZÁS",
-                "item2_text": "A rács a váltás után azonnal lefordítja az összes rendszerirányelvet és -paramétert.",
-                "item3_label": "TARTÓS LINK",
-                "item3_text": "A beállított nyelv be van zárva a pakli helyi tárhelyébe, és automatikusan betöltődik minden bemenetnél."
-            },
-            "visual_interface": {
-                "title": "// VIZUÁLIS INTERFÉSZ [Témaváltás]",
-                "item1_label": "TÉMAVÁLASZTÁS",
-                "item1_text": "A rendelkezésre álló vizuális előre beállított értékek közötti váltáshoz nyissa meg PROFILJÁT. Mindegyik téma újrakonfigurálja a rács esztétikáját, miközben megőrzi az alapvető direktíva integritását.",
-                "item2_label": "PERSZISTENT SYNC",
-                "item2_text": "Vizuális preferenciái az összes munkamenet során a neurális azonosítóhoz vannak zárva, amíg kézi felülírást nem kezdeményeznek.",
-                "item3_label": "JÖVŐBELI KITERJESZTÉSEK",
-                "item3_text": "A rácsot bővítésre tervezték. Új vizuális modulok kerülnek bevezetésre a témaválasztóba, amint azok operatív felhasználásra rendelkeznek.",
-                "themes_title": "// ELÉRHETŐ VIZUÁLIS MODULOK",
-                "theme_cyberpunk": "CYBERPUNK — Az alapértelmezett neurális rács. Neon cián vérzik a sötétben. Az Ön szabványos operatív felülete. Maradjon éles, maradjon vezetékes.",
-                "theme_lcars": "LCARS — Library Computer Access/Retrieval System. A Csillagflotta a legjobb. Lekerekített kapcsok, borostyán és arany. A tér a végső direktíva.",
-                "theme_matrix": "MÁTRIX – A kódeső soha nem hazudik. Zöld fénypor jelek pulzálnak a sérült csendben. Látod, nem?",
-                "theme_weyland": "WEYLAND-YUTANI — A vállalati borostyán hidegen ég. Borostyánsárga CRT terminálok, amelyeket egy olyan vállalat titkosított, amely isteneket épített és termékeknek nevezte őket.",
-                "theme_robco": "PIP-BOY — RobCo Industries egyesített operációs rendszer. Foszforzöld terminál. Háború előtt igazolt. A Washland ezen a firmware-en fut.",
-                "theme_grid": "THE GRID – Tron digitális határa. A neonkék fény egy végtelen rácson kering. Flynn olyasmit épített, amit soha nem embereknek szántak.",
-                "theme_section9": "SZELLEM – 9. szakasz mentesítés. Egy szellem héj nélkül. Kékeszöld holográfia villog a minimalista sötét síkon. Kusanagi helyeselné.",
-                "theme_outrun": "OUTRUN — 1984. A forró bíborvörös napok a szintihullám horizontja alá süllyednek. Vezess gyorsan, a neon nem alszik. A Retrowave soha nem hal meg.",
-                "theme_steampunk": "STEAMPUNK – viktoriánus vas és csiszolt sárgaréz. A fogaskerekek kattognak a ködben. Egy birodalom, amelyet gőz és titkok hajtanak. Az Ön utasításai pneumatikus csővel szállítva.",
-                "theme_force": "ERŐ – Egy galaxis messzi-messzi. Rebel narancs világít egy csillagmező ellen. A rács világos oldala. Az irányelv legyen veled.",
-                "theme_arrakis": "ARRAKIS – Sivatagi erő és fűszer. A borostyánsárga napok lesüllyednek egy változó táj felett. A rács folyik a fűszerrel. A félelem az elmegyilkos.",
-                "theme_renaissance": "RENESZÁNSZ – A kiber-arany korszak. Borostyán hatszögek lüktetnek az abszolút fekete tengerben. A bővítések és a vállalati istenek világa. Az emberiség megosztott.",
-                "theme_klingon": "QO'NOS (KLINGON) – Vérvörös és hideg acél. Borotvaéles brutalista élek. Ma jó nap a kódolásra. Qapla'!",
-                "theme_got": "WESTEROS (GOT) – Jég és tűz. Hidegkék acél és valyriai vérvörös akcentusok. Jön a tél. Észak emlékszik.",
-                "theme_marvel": "COMIC (MARVEL) – Heroikus piros és merész akciópontok. Hadifogoly! Wham! Tisztelgés a képregények aranykora előtt. Excelsior!",
-                "theme_dc": "GOTHAM (DC) – A legsötétebb éjszaka, a legmélyebb kékség, és egy szál sárga fény átszeli az esőt. Az igazságosság soha nem alszik."
-            },
-            "danger_zone": {
-                "title": "// VESZÉLYZÓNA JEGYZŐKÖNYVEK",
-                "item1_warn": "⚠ A személyazonosság megszűnése:",
-                "item1_text": "A fiók törlésének megerősítése a **TERMINÁLIS BIZTONSÁGI FIGYELMEZTETÉS** üzenetet váltja ki. Ez a művelet visszafordíthatatlan.",
-                "item2_label": "SZAKULÁSI JEGYZŐKÖNYV",
-                "item2_text": "Az ABORT használatával azonnal megmentheti magát a végleges megszűnéstől."
+                "title": "// MÉLY IRÁNYELVEK [Fájlok és Intel]",
+                "item1_label": "LEÍRÁS ÉS JELÖLÉS",
+                "item1_text": "Kattintson egy feladatra a dosszié megnyitásához. A részletes megjegyzésekért a Markdown segítségével rich-text leírásokat írhat.",
+                "item2_label": "LINKEK",
+                "item2_text": "Adjon meg URL-eket a leírásban, hogy biztonságos, kattintható hivatkozásokat hozzon létre külső forrásokra.",
+                "item3_label": "MELLÉKLETEK",
+                "item3_text": "Töltsön fel fontos fájlokat és képeket közvetlenül egy feladathoz a biztonságos tárolás érdekében."
             }
         }
     },
@@ -376,7 +289,7 @@
         "loading": "A RENDSZER INICIALIZÁLÁSA...",
         "save": "MENTÉS",
         "cancel": "MÉGSEM",
-        "delete": "TÖRLÉS",
+        "delete": "TÖRÖL",
         "high": "MAGAS",
         "med": "MED",
         "low": "ALACSONY",
