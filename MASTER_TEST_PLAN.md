@@ -207,6 +207,34 @@ The suite has been hardened against "flakiness" using the following patterns:
 
 ---
 
-## 📊 Structured Test Reporting
-
 Every execution run generates a `test_report.md` tracking pass/fail rates, backend logs, and browser recordings as proof of work.
+
+---
+
+## 📅 test-suite-08: Release 2.2 Features
+
+### TS-08.1: Dashboard Limit Adjustment [AUTOMATED]
+- **Scenario**: Validate pagination sizes on the global stream.
+- **Validation**: Ensure that exactly 25 items are rendered per page per `US-2.2.1`.
+
+### TS-08.2: Password Confirmation Protection [MANUAL]
+- **Scenario**: Attempt to reset a password or update the cypher inside the profile with a heavily mismatched confirmation string.
+- **Validation**: The system blocks the API transmission and visually flags the fields with pink/red neon borders.
+
+### TS-08.3: Chrono-Sync Calendar Operability [MANUAL]
+- **Scenario**: Open the CALENDAR module via the main header and click on an active directive mapped to a date.
+- **Validation**: 
+  - Calendar successfully isolates tasks with a valid `due_date`.
+  - Clicking on a task safely unmounts the calendar view, spawning the Directive Dossier overlay.
+  - Closing the dossier auto-restores the Calendar state cleanly.
+
+### TS-08.4: Dossier Formatting Checks [AUTOMATED]
+- **Scenario**: Edit the Dossier Title inline, and write `# Header 1` and `## Header 2` in the Protocol descriptions.
+- **Validation**: Titles securely update via API immediately, and headers are styled consistently with the local cyber-theme layout without overflowing containers. (Includes checks for headers without spaces like `#Überschrift`).
+
+### TS-08.5: Dossier Field Editing (Dropdowns) [MANUAL]
+- **Scenario**: Open the Directive Dossier and modify the `due_date`, `priority`, and `category`.
+- **Validation**: 
+  - Priority and Category open customized `CyberSelect` dropdown menus with options matching the environment.
+  - Priority and Due Date trigger the highest `z-index` `CyberConfirm` modals, blocking background interaction until validated.
+  - Category changes update instantly. All field changes persist out to the main dashboard reliably without needing a hard refresh.

@@ -422,6 +422,30 @@
         "disable_2fa_failed": "2FA Qaw' Qaw'"
     },
     "calendar": {
-        "clear_date": "jaj pagh"
+        "title": "CHRONO-SYNC // CALENDAR",
+        "clear_date": "jaj pagh",
+        "months": {
+            "0": "JANUARY",
+            "1": "FEBRUARY",
+            "2": "MARCH",
+            "3": "APRIL",
+            "4": "MAY",
+            "5": "JUNE",
+            "6": "JULY",
+            "7": "AUGUST",
+            "8": "SEPTEMBER",
+            "9": "OCTOBER",
+            "10": "NOVEMBER",
+            "11": "DECEMBER"
+        },
+        "days": {
+            "0": "SUN",
+            "1": "MON",
+            "2": "TUE",
+            "3": "WED",
+            "4": "THU",
+            "5": "FRI",
+            "6": "SAT"
+        }
     }
 }

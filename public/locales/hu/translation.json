@@ -8,7 +8,8 @@
         "system_help": "RENDSZER SEGÍTSÉG",
         "admin": "ADMIN",
         "profile": "PROFIL",
-        "logout": "KIJELENTKEZÉS"
+        "logout": "KIJELENTKEZÉS",
+        "calendar": "NAPTÁR"
     },
     "auth": {
         "title": "NETRUNNER LOGIN",
@@ -66,7 +67,8 @@
             "2fa_disabled": "Biztonsági protokollok [2FA] letiltva.",
             "email_2fa_activated": "A 2FA e-mail sikeresen aktiválva.",
             "2fa_enabled": "Integritási protokoll [2FA] aktiválva.",
-            "input_required": "BEADÁS KÖTELEZŐ // KÖTELEZŐ MEZŐ"
+            "input_required": "BEADÁS KÖTELEZŐ // KÖTELEZŐ MEZŐ",
+            "password_mismatch": "HIBA: A JELSZAVAK NEM egyeznek."
         },
         "alerts": {
             "id_established": "MEGÁLLAPÍTOTT AZONOSSÁG",
@@ -78,7 +80,8 @@
         "placeholders": {
             "recovery_email": "COM-LINK (EMAIL) HELYREÁLLÍTÁSHOZ",
             "access_code": "BELÉPŐKÓD",
-            "new_pwd": "ÚJ PWD"
+            "new_pwd": "ÚJ PWD",
+            "confirm_new_pwd": "ÚJ PWD MEGERŐSÍTÉSE"
         },
         "static": {
             "verification_title": "AZONOSSÁG ELLENŐRZÉSE",
@@ -185,7 +188,8 @@
             "update_title": "A CYPHER FRISSÍTÉSE",
             "current_placeholder": "Jelenlegi jelszó",
             "new_placeholder": "Új jelszó",
-            "execute": "FRISSÍTÉS VÉGREHAJTÁSA"
+            "execute": "FRISSÍTÉS VÉGREHAJTÁSA",
+            "confirm_new_placeholder": "Erősítse meg az új jelszót"
         },
         "danger": {
             "title": "VESZÉLYZÓNA",
@@ -319,7 +323,9 @@
                 "item2_label": "IDŐUGRÁSOK",
                 "item2_text": "Használja az év navigációs vezérlőit a hosszú távú tervezéshez.",
                 "item3_label": "INTERAKTÍV SZINKRONIZÁCIÓ",
-                "item3_text": "Módosítsa a dátumokat közvetlenül az aktív kártyákon a CYBER CONFIRM protokollokon keresztül."
+                "item3_text": "Módosítsa a dátumokat közvetlenül az aktív kártyákon a CYBER CONFIRM protokollokon keresztül.",
+                "item4_label": "GLOBÁLIS NAPTÁR",
+                "item4_text": "A fő kronológiát a felső fejlécen keresztül érheti el, hogy megtekinthesse az összes ütemezett direktívát, és közvetlenül érintkezzen a dokumentációikkal."
             },
             "system_resiliency": {
                 "title": "// A RENDSZER REZILIENCIA [Stabilitás]",
@@ -426,6 +432,30 @@
         "disable_2fa_failed": "Nem sikerült letiltani a 2FA"
     },
     "calendar": {
-        "clear_date": "DÁTUM TÖRLÉSE"
+        "clear_date": "DÁTUM TÖRLÉSE",
+        "title": "CHRONO-SYNC // NAPTÁR",
+        "months": {
+            "0": "JANUÁR",
+            "1": "FEBRUÁR",
+            "2": "MÁRCIUS",
+            "3": "ÁPRILIS",
+            "4": "MÁJUS",
+            "5": "JÚNIUS",
+            "6": "JÚLIUS",
+            "7": "AUGUSZTUS",
+            "8": "SZEPTEMBER",
+            "9": "OKTÓBER",
+            "10": "NOVEMBER",
+            "11": "DECEMBER"
+        },
+        "days": {
+            "0": "VAP",
+            "1": "MON",
+            "2": "TUE",
+            "3": "SZED",
+            "4": "Cs.",
+            "5": "FRI",
+            "6": "ÜLT"
+        }
     }
 }

@@ -35,16 +35,19 @@ const LanguageSwitcher = () => {
         { code: 'sv', label: 'SV', fullName: 'Svenska' },
         { code: 'no', label: 'NO', fullName: 'Norsk' },
         { code: 'fi', label: 'FI', fullName: 'Suomi' },
-        { code: 'hu', label: 'HU', fullName: 'Magyar' },
         { code: 'pl', label: 'PL', fullName: 'Polski' },
         { code: 'pt', label: 'PT', fullName: 'Português' },
         { code: 'el', label: 'EL', fullName: 'Ελληνικά' },
         { code: 'ru', label: 'RU', fullName: 'Русский' },
         { code: 'uk', label: 'UK', fullName: 'Українська' },
-        { code: 'he', label: 'HE', fullName: 'עברית' },
         { code: 'zh', label: 'ZH', fullName: '中文' },
+        { code: 'ja', label: 'JA', fullName: '日本語' },
+        { code: 'ko', label: 'KO', fullName: '한국어' },
+        { code: 'hi', label: 'HI', fullName: 'हिन्दी' },
+        { code: 'tr', label: 'TR', fullName: 'Türkçe' },
+        { code: 'vi', label: 'VI', fullName: 'Tiếng Việt' },
         { code: 'tlh', label: 'TLH', fullName: 'tlhIngan Hol' }
-    ];
+    ].sort((a, b) => a.fullName.localeCompare(b.fullName));
 
     // Fallback to 'de' if code is not found
     const currentLang = languages.find(l => l.code === i18n.language) || languages.find(l => l.code === 'de');

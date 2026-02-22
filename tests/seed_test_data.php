@@ -90,6 +90,19 @@ foreach ($directives as $d) {
     // attachments argument corresponds to the 6th mapped param, which is `files` in db for file uploads
     $stmtTask->execute([$adminId, $d[0], $d[1], $d[2], $d[3], $files, $d[4]]);
 }
+
+// 1.2 Inject 50 dummy directives for Admin_Alpha pagination test
+echo "   [+] Injecting 50 directives for Admin_Alpha pagination test...\n";
+for ($i = 1; $i <= 50; $i++) {
+    $title = "Admin Pagination Directive No. " . str_pad($i, 2, '0', STR_PAD_LEFT);
+    $priority = ($i % 3) + 1;
+    $status = 0;
+    $category = "Security";
+    $points = 10;
+    $dueDate = date('Y-m-d H:i:s', strtotime("+" . ($i % 10) . " days"));
+    $stmtTask->execute([$adminId, $title, $category, $priority, $points, null, 'Dummy padding task for pagination tests...']);
+}
+
 echo "   [V] Initial Admin security directives deployed.\n\n";
 
 // 2. Create Op_Beta (With TOTP 2FA)

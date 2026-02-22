@@ -8,7 +8,8 @@
         "system_help": "SYSTEMHJÆLP",
         "admin": "ADMIN",
         "profile": "PROFIL",
-        "logout": "LOGUD"
+        "logout": "LOGUD",
+        "calendar": "KALENDER"
     },
     "auth": {
         "title": "NETRUNNER LOGIN",
@@ -66,7 +67,8 @@
             "2fa_disabled": "Sikkerhedsprotokoller [2FA] deaktiveret.",
             "email_2fa_activated": "E-mail 2FA blev aktiveret.",
             "2fa_enabled": "Integritetsprotokol [2FA] aktiveret.",
-            "input_required": "INPUT PÅKRÆVET // OBLIGATORISK FELT"
+            "input_required": "INPUT PÅKRÆVET // OBLIGATORISK FELT",
+            "password_mismatch": "FEJL: ADGANGSKODE KOMMER IKKE OVER."
         },
         "alerts": {
             "id_established": "IDENTITET ETABLERET",
@@ -78,7 +80,8 @@
         "placeholders": {
             "recovery_email": "COM-LINK (EMAIL) TIL GENDANNELSE",
             "access_code": "ADGANGSKODE",
-            "new_pwd": "NY PWD"
+            "new_pwd": "NY PWD",
+            "confirm_new_pwd": "BEKRÆFT NY PWD"
         },
         "static": {
             "verification_title": "IDENTITETSVERIFIKATION",
@@ -185,7 +188,8 @@
             "update_title": "OPDATERING CYPHER",
             "current_placeholder": "Nuværende adgangskode",
             "new_placeholder": "Ny adgangskode",
-            "execute": "UDFØR OPDATERING"
+            "execute": "UDFØR OPDATERING",
+            "confirm_new_placeholder": "Bekræft ny adgangskode"
         },
         "danger": {
             "title": "FAREZONE",
@@ -319,7 +323,9 @@
                 "item2_label": "TIDSHOP",
                 "item2_text": "Brug års navigationskontroller til langdistanceplanlægning.",
                 "item3_label": "INTERAKTIV SYNC",
-                "item3_text": "Rediger datoer direkte på aktive kort via CYBER CONFIRM-protokoller."
+                "item3_text": "Rediger datoer direkte på aktive kort via CYBER CONFIRM-protokoller.",
+                "item4_label": "GLOBAL KALENDER",
+                "item4_text": "Få adgang til masterkronologien via Top Header for at se alle planlagte direktiver og grænseflade direkte med deres dossierer."
             },
             "system_resiliency": {
                 "title": "// SYSTEMETS RESILIENCE [Stabilitet]",
@@ -426,6 +432,30 @@
         "disable_2fa_failed": "Kunne ikke deaktivere 2FA"
     },
     "calendar": {
-        "clear_date": "RYD DATO"
+        "clear_date": "RYD DATO",
+        "title": "CHRONO-SYNC // KALENDER",
+        "months": {
+            "0": "JANUAR",
+            "1": "FEBRUAR",
+            "2": "MARTS",
+            "3": "APRIL",
+            "4": "MAJ",
+            "5": "JUNI",
+            "6": "JULI",
+            "7": "AUGUST",
+            "8": "SEPTEMBER",
+            "9": "OKTOBER",
+            "10": "NOVEMBER",
+            "11": "DECEMBER"
+        },
+        "days": {
+            "0": "SOL",
+            "1": "MAN",
+            "2": "TUE",
+            "3": "ON",
+            "4": "THU",
+            "5": "FRI",
+            "6": "SAT"
+        }
     }
 }

@@ -23,14 +23,14 @@ test.describe('Deep Directives & Dossier Flow', () => {
         await taskCard.getByRole('button', { name: /DETAILS/i }).click();
 
         // Use more specific selector for the modal title to avoid strict mode violation
-        const modalTitle = page.locator('.card-cyber h2').filter({ hasText: /DOSSIER/i });
+        const modalTitle = page.locator('div').filter({ hasText: /DIRECTIVE DOSSIER:/i }).first();
         await expect(modalTitle).toBeVisible({ timeout: 5000 });
 
         // 3. Enter Edit mode (Click on default description text)
         await page.click('text=No description provided');
 
         // 4. Add Description (Markdown) - Verify Multiline
-        const description = '## SECURITY PROTOCOL\n**Level 5** clearance required. *Confidential*.';
+        const description = '#Überschrift\n## SECURITY PROTOCOL\n**Level 5** clearance required. *Confidential*.';
         const textarea = page.locator('textarea');
         await expect(textarea).toBeVisible();
         await textarea.fill('First Line');
@@ -76,6 +76,8 @@ test.describe('Deep Directives & Dossier Flow', () => {
         const renderedDescription = page.locator('.markdown-body');
         await expect(renderedDescription).toBeVisible({ timeout: 5000 });
 
+        await expect(renderedDescription.locator('h1')).toContainText(/Überschrift/i);
+        await expect(renderedDescription.locator('h2')).toContainText(/SECURITY PROTOCOL/i);
         await expect(renderedDescription.locator('strong')).toContainText(/Level 5/i);
         await expect(renderedDescription.locator('em')).toContainText(/Confidential/i);
 
@@ -109,6 +111,8 @@ test.describe('Deep Directives & Dossier Flow', () => {
         await taskCardAfterReload.getByRole('button', { name: /DETAILS/i }).click();
 
         await expect(page.locator('.markdown-body')).toBeVisible({ timeout: 10000 });
+        await expect(page.locator('.markdown-body h1')).toContainText(/Überschrift/i);
+        await expect(page.locator('.markdown-body h2')).toContainText(/SECURITY PROTOCOL/i);
         await expect(page.locator('.markdown-body strong')).toContainText(/Level 5/i);
         await expect(page.locator('text=Persistent Link')).toBeVisible();
     });

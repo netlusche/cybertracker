@@ -64,5 +64,13 @@ This document provides a categorized overview of the user stories implemented in
 *   **Zero-Config Initialization**: As a system administrator, I want to deploy the application simply by uploading it and running an installer script, without needing to manually create database tables.
 *   **Agnostic Hosting**: As a system administrator, I want the application to work out-of-the-box on strict shared hosting environments (e.g., STRATO Hosting Plus), regardless of whether it's deployed in the root domain, a subdomain, or a subdirectory.
 *   **Cross-Database Feature Parity**: As a system administrator, I want to ensure advanced features (like Deep Directive JSON attachments) are 100% compatible across SQLite, MySQL, and MariaDB, ensuring I am never locked into a specific database engine.
-*   **Self-Locking Installer**: As a system administrator, I want the installer script to automatically lock itself once an admin account is created, preventing unauthorized resets.
 *   **Platform Diagnostics**: As a system administrator, I want the installer to provide immediate feedback on server compatibility (PHP version, SQLite/MySQL drivers, file write permissions).
+
+## 🚀 10. Release 2.2 Features
+*   **Dashboard Pagination (US-2.2.1)**: As an operative, I want the dashboard to paginate at 25 directives per page to ensure fast rendering and clean layouts.
+*   **Alphabetical Languages (US-2.2.2 & 2.2.11)**: As an operative, I want the language selector to strictly sort by alphabetical order to intuitively locate the correct localization link.
+*   **Dossier Visual Triage (US-2.2.3 & 2.2.4)**: As an operative, I want visual clarity in the Directive Dossier through title wrapping and markdown header parsing for complex operational documentation.
+*   **Dossier Inline Edits (US-2.2.9)**: As an operative, I want to edit directive titles directly within the Dossier modal without jumping out, saving critical time.
+*   **Password Confirmation (US-2.2.5 & 2.2.6)**: As an operative, I want to be prompted to confirm a new password during profile updates and password resets to prevent accidentally locking myself out.
+*   **Chrono-Sync Calendar (US-2.2.7 & 2.2.8)**: As an operative, I want to access a central calendar to visualize all outstanding directives mapped against their deadlines.
+*   **Dossier Field Editing (US-2.2.12)**: As an operative, I want the ability to view and modify my `due_date`, `priority`, and `category` directly inside the Directive Dossier overlay via interactive dropdowns for rapid organization.

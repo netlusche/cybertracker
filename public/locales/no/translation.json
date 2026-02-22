@@ -8,7 +8,8 @@
         "system_help": "SYSTEMHJELP",
         "admin": "ADMIN",
         "profile": "PROFIL",
-        "logout": "LOGG UT"
+        "logout": "LOGG UT",
+        "calendar": "KALENDER"
     },
     "auth": {
         "title": "NETRUNNER LOGG PÅ",
@@ -66,7 +67,8 @@
             "2fa_disabled": "Sikkerhetsprotokoller [2FA] deaktivert.",
             "email_2fa_activated": "E-post 2FA er aktivert.",
             "2fa_enabled": "Integritetsprotokoll [2FA] aktivert.",
-            "input_required": "INNGANG KREVES // OBLIGATORISK FELT"
+            "input_required": "INNGANG KREVES // OBLIGATORISK FELT",
+            "password_mismatch": "FEIL: PASSORD SAMMER IKKE."
         },
         "alerts": {
             "id_established": "IDENTITET ETABLERT",
@@ -78,7 +80,8 @@
         "placeholders": {
             "recovery_email": "COM-LINK (EMAIL) FOR GJENOPPRETTING",
             "access_code": "TILGANGSKODE",
-            "new_pwd": "NY PWD"
+            "new_pwd": "NY PWD",
+            "confirm_new_pwd": "BEKREFT NY PWD"
         },
         "static": {
             "verification_title": "IDENTITETSVERIFIKASJON",
@@ -185,7 +188,8 @@
             "update_title": "OPPDATERING CYPHER",
             "current_placeholder": "Nåværende passord",
             "new_placeholder": "Nytt passord",
-            "execute": "UTFØR OPPDATERING"
+            "execute": "UTFØR OPPDATERING",
+            "confirm_new_placeholder": "Bekreft nytt passord"
         },
         "danger": {
             "title": "FARESONE",
@@ -319,7 +323,9 @@
                 "item2_label": "TIDSHOPP",
                 "item2_text": "Bruk årsnavigasjonskontroller for langdistanseplanlegging.",
                 "item3_label": "INTERAKTIV SYNC",
-                "item3_text": "Endre datoer direkte på aktive kort via CYBER CONFIRM-protokoller."
+                "item3_text": "Endre datoer direkte på aktive kort via CYBER CONFIRM-protokoller.",
+                "item4_label": "GLOBAL KALENDER",
+                "item4_text": "Få tilgang til hovedkronologien via toppteksten for å se alle planlagte direktiver og grensesnitt direkte med deres dossierer."
             },
             "system_resiliency": {
                 "title": "// SYSTEMEFFEKTIGHET [Stabilitet]",
@@ -426,6 +432,30 @@
         "disable_2fa_failed": "Kunne ikke deaktivere 2FA"
     },
     "calendar": {
-        "clear_date": "SLETT DATO"
+        "clear_date": "SLETT DATO",
+        "title": "CHRONO-SYNC // KALENDER",
+        "months": {
+            "0": "JANUAR",
+            "1": "FEBRUAR",
+            "2": "MARS",
+            "3": "APRIL",
+            "4": "MAI",
+            "5": "JUNI",
+            "6": "JULI",
+            "7": "AUGUST",
+            "8": "SEPTEMBER",
+            "9": "OKTOBER",
+            "10": "NOVEMBER",
+            "11": "DESEMBER"
+        },
+        "days": {
+            "0": "SOL",
+            "1": "MAN",
+            "2": "TUE",
+            "3": "ON",
+            "4": "THU",
+            "5": "FRI",
+            "6": "SAT"
+        }
     }
 }

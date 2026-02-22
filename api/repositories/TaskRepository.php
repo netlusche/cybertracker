@@ -78,6 +78,14 @@ class TaskRepository extends Repository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getCalendarTasks(int $userId): array
+    {
+        $sql = "SELECT id, title, due_date, status, priority, category, points_value, description FROM tasks WHERE user_id = ? AND status = 0 AND due_date IS NOT NULL ORDER BY due_date ASC";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$userId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getTaskById(int $taskId, int $userId)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM tasks WHERE id = ? AND user_id = ?");

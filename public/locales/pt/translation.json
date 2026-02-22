@@ -8,7 +8,8 @@
         "system_help": "AJUDA DO SISTEMA",
         "admin": "ADMINISTRAÇÃO",
         "profile": "PERFIL",
-        "logout": "SAIR"
+        "logout": "SAIR",
+        "calendar": "CALENDÁRIO"
     },
     "auth": {
         "title": "LOGIN DO NETRUNNER",
@@ -66,7 +67,8 @@
             "2fa_disabled": "Protocolos de segurança [2FA] desativados.",
             "email_2fa_activated": "E-mail 2FA ativado com sucesso.",
             "2fa_enabled": "Protocolo de integridade [2FA] ativado.",
-            "input_required": "INFORMAÇÃO OBRIGATÓRIA // CAMPO OBRIGATÓRIO"
+            "input_required": "INFORMAÇÃO OBRIGATÓRIA // CAMPO OBRIGATÓRIO",
+            "password_mismatch": "ERRO: AS SENHAS NÃO CORRESPONDEM."
         },
         "alerts": {
             "id_established": "IDENTIDADE ESTABELECIDA",
@@ -78,7 +80,8 @@
         "placeholders": {
             "recovery_email": "COM-LINK (EMAIL) PARA RECUPERAÇÃO",
             "access_code": "CÓDIGO DE ACESSO",
-            "new_pwd": "NOVA PCD"
+            "new_pwd": "NOVA PCD",
+            "confirm_new_pwd": "CONFIRMAR NOVA PWD"
         },
         "static": {
             "verification_title": "VERIFICAÇÃO DE IDENTIDADE",
@@ -185,7 +188,8 @@
             "update_title": "ATUALIZAR CIFRA",
             "current_placeholder": "Senha atual",
             "new_placeholder": "Nova senha",
-            "execute": "EXECUTAR ATUALIZAÇÃO"
+            "execute": "EXECUTAR ATUALIZAÇÃO",
+            "confirm_new_placeholder": "Confirme a nova senha"
         },
         "danger": {
             "title": "ZONA DE PERIGO",
@@ -319,7 +323,9 @@
                 "item2_label": "SALTOS NO TEMPO",
                 "item2_text": "Use controles de navegação anual para planejamento de longo prazo.",
                 "item3_label": "SINCRONIZAÇÃO INTERATIVA",
-                "item3_text": "Modifique datas diretamente nos cartões ativos através dos protocolos CYBER CONFIRM."
+                "item3_text": "Modifique datas diretamente nos cartões ativos através dos protocolos CYBER CONFIRM.",
+                "item4_label": "CALENDÁRIO GLOBAL",
+                "item4_text": "Acesse a cronologia master através do Top Header para visualizar todas as diretivas agendadas e interagir diretamente com seus Dossiês."
             },
             "system_resiliency": {
                 "title": "// RESILIÊNCIA DO SISTEMA [Estabilidade]",
@@ -426,6 +432,30 @@
         "disable_2fa_failed": "Falha ao desativar 2FA"
     },
     "calendar": {
-        "clear_date": "LIMPAR DATA"
+        "clear_date": "LIMPAR DATA",
+        "title": "CHRONO-SYNC // CALENDÁRIO",
+        "months": {
+            "0": "JANEIRO",
+            "1": "FEVEREIRO",
+            "2": "MARÇO",
+            "3": "ABRIL",
+            "4": "MAIO",
+            "5": "JUNHO",
+            "6": "JULHO",
+            "7": "AGOSTO",
+            "8": "SETEMBRO",
+            "9": "OUTUBRO",
+            "10": "NOVEMBRO",
+            "11": "DEZEMBRO"
+        },
+        "days": {
+            "0": "SOL",
+            "1": "SEG",
+            "2": "TER",
+            "3": "QUA",
+            "4": "QUI",
+            "5": "SEX",
+            "6": "SENTADO"
+        }
     }
 }

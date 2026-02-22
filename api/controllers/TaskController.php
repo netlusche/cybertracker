@@ -8,7 +8,7 @@ class TaskController extends Controller
         $this->requireAuth();
 
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 50;
+        $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 25;
         $offset = ($page - 1) * $limit;
 
         $search = $_GET['search'] ?? '';
@@ -28,6 +28,13 @@ class TaskController extends Controller
                 'total_pages' => $limit > 0 ? ceil($totalParam / $limit) : 1
             ]
         ]);
+    }
+
+    public function calendar()
+    {
+        $this->requireAuth();
+        $tasks = $this->taskRepo->getCalendarTasks($this->userId);
+        $this->jsonResponse($tasks);
     }
 
     public function store()

@@ -5,7 +5,7 @@ import CyberConfirm from './CyberConfirm';
 import CyberCalendar from './CyberCalendar';
 import DirectiveModal from './DirectiveModal';
 
-const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendarTaskId, setActiveCalendarTaskId }) => {
+const TaskCard = ({ task, categories, onToggleStatus, onUpdateTask, onDelete, activeCalendarTaskId, setActiveCalendarTaskId }) => {
     const { t } = useTranslation();
     const [isEditing, setIsEditing] = React.useState(false);
     const [editTitle, setEditTitle] = React.useState(task.title);
@@ -63,12 +63,13 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
         3: 'LOW',
     };
 
-    const categories = ['Work', 'Private', 'Health', 'Finance', 'Hobby'];
-
     const handleCycleCategory = async () => {
         if (task.status == 1) return; // Prevent editing done tasks
-        const currentIndex = categories.indexOf(task.category);
-        const nextCategory = categories[(currentIndex + 1) % categories.length];
+        const getName = (c) => c.name || c;
+        const validCategories = Array.isArray(categories) && categories.length > 0 ? categories : [{ name: task.category }];
+        const currentIndex = validCategories.findIndex(c => getName(c) === task.category);
+        const nextIndex = (currentIndex + 1) % validCategories.length;
+        const nextCategory = getName(validCategories[nextIndex]);
         await onUpdateTask(task, { category: nextCategory });
     };
 
@@ -344,6 +345,7 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
             {showDossier && (
                 <DirectiveModal
                     task={task}
+                    categories={categories}
                     onClose={() => setShowDossier(false)}
                     onUpdate={onUpdateTask}
                 />

@@ -8,7 +8,8 @@
         "system_help": "SYSTEMHILFE",
         "admin": "ADMIN",
         "profile": "PROFIL",
-        "logout": "Abmelden"
+        "logout": "Abmelden",
+        "calendar": "KALENDER"
     },
     "auth": {
         "title": "NETRUNNER-LOGIN",
@@ -66,7 +67,8 @@
             "2fa_disabled": "Sicherheitsprotokolle [2FA] deaktiviert.",
             "email_2fa_activated": "E-Mail 2FA erfolgreich aktiviert.",
             "2fa_enabled": "Integritätsprotokoll [2FA] aktiviert.",
-            "input_required": "EINGABE ERFORDERLICH // PFLICHTFELD"
+            "input_required": "EINGABE ERFORDERLICH // PFLICHTFELD",
+            "password_mismatch": "FEHLER: PASSWÖRTER stimmen nicht überein."
         },
         "alerts": {
             "id_established": "IDENTITÄT FESTGESTELLT",
@@ -78,7 +80,8 @@
         "placeholders": {
             "recovery_email": "COM-LINK (E-MAIL) ZUR WIEDERHERSTELLUNG",
             "access_code": "ZUGANGSCODE",
-            "new_pwd": "NEUES PWD"
+            "new_pwd": "NEUES PWD",
+            "confirm_new_pwd": "NEUES PWD BESTÄTIGEN"
         },
         "static": {
             "verification_title": "IDENTITÄTSVERIFIZIERUNG",
@@ -150,7 +153,7 @@
             "protocols": "KATEGORIEPROTOKOLLE",
             "default": "STANDARD",
             "set_default": "Als Standard festlegen",
-            "rename": "",
+            "rename": "Umbenennen",
             "delete": "umbenennen Löschen Sie",
             "new_protocol_placeholder": "NEUER PROTOKOLLNAME",
             "add": "HINZUFÜGEN"
@@ -185,7 +188,8 @@
             "update_title": "CYPHER AKTUALISIEREN",
             "current_placeholder": "Aktuelles Passwort",
             "new_placeholder": "Neues Passwort",
-            "execute": "UPDATE AUSFÜHREN"
+            "execute": "UPDATE AUSFÜHREN",
+            "confirm_new_placeholder": "Bestätigen Sie das neue Passwort"
         },
         "danger": {
             "title": "GEFAHRENBEREICH",
@@ -319,7 +323,9 @@
                 "item2_label": "ZEITSPRINGE",
                 "item2_text": "Verwenden Sie Steuerelemente für die Jahresnavigation für eine langfristige Planung.",
                 "item3_label": "INTERAKTIVE SYNCHRONISATION",
-                "item3_text": "Ändern Sie Daten direkt auf aktiven Karten über CYBER CONFIRM-Protokolle."
+                "item3_text": "Ändern Sie Daten direkt auf aktiven Karten über CYBER CONFIRM-Protokolle.",
+                "item4_label": "GLOBALER KALENDER",
+                "item4_text": "Greifen Sie über die obere Kopfzeile auf die Hauptchronologie zu, um alle geplanten Anweisungen anzuzeigen und direkt mit ihren Dossiers zu interagieren."
             },
             "system_resiliency": {
                 "title": "// SYSTEMRESILIENZ [Stabilität]",
@@ -426,6 +432,30 @@
         "disable_2fa_failed": "2FA konnte nicht deaktiviert werden"
     },
     "calendar": {
-        "clear_date": "KLARE DATUM"
+        "clear_date": "KLARE DATUM",
+        "title": "CHRONO-SYNC // KALENDER",
+        "months": {
+            "0": "JANUAR",
+            "1": "FEBRUAR",
+            "2": "MÄRZ",
+            "3": "APRIL",
+            "4": "MAI",
+            "5": "JUNI",
+            "6": "JULI",
+            "7": "AUGUST",
+            "8": "SEPTEMBER",
+            "9": "OKTOBER",
+            "10": "NOVEMBER",
+            "11": "DEZEMBER"
+        },
+        "days": {
+            "0": "SONNE",
+            "1": "MO",
+            "2": "DIENSTAG",
+            "3": "MI",
+            "4": "DO",
+            "5": "FR",
+            "6": "SA"
+        }
     }
 }

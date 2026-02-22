@@ -8,7 +8,8 @@
         "system_help": "SYSTEEMHULP",
         "admin": "BEHEERDER",
         "profile": "PROFIEL",
-        "logout": "UITLOGGEN"
+        "logout": "UITLOGGEN",
+        "calendar": "KALENDER"
     },
     "auth": {
         "title": "NETRUNNER AANMELDEN",
@@ -66,7 +67,8 @@
             "2fa_disabled": "Beveiligingsprotocollen [2FA] uitgeschakeld.",
             "email_2fa_activated": "E-mail 2FA succesvol geactiveerd.",
             "2fa_enabled": "Integriteitsprotocol [2FA] geactiveerd.",
-            "input_required": "INVOER VEREIST // VERPLICHT VELD"
+            "input_required": "INVOER VEREIST // VERPLICHT VELD",
+            "password_mismatch": "FOUT: WACHTWOORDEN KOMEN NIET OVEREEN."
         },
         "alerts": {
             "id_established": "IDENTITEIT VASTGESTELD",
@@ -78,7 +80,8 @@
         "placeholders": {
             "recovery_email": "COM-LINK (E-MAIL) VOOR HERSTEL",
             "access_code": "TOEGANGSCODE",
-            "new_pwd": "NIEUWE PWD"
+            "new_pwd": "NIEUWE PWD",
+            "confirm_new_pwd": "BEVESTIG NIEUWE PWD"
         },
         "static": {
             "verification_title": "IDENTITEITSVERIFICATIE",
@@ -185,7 +188,8 @@
             "update_title": "UPDATE CYPHER",
             "current_placeholder": "Huidig ​​wachtwoord",
             "new_placeholder": "Nieuw wachtwoord",
-            "execute": "UPDATE UITVOEREN"
+            "execute": "UPDATE UITVOEREN",
+            "confirm_new_placeholder": "Bevestig nieuw wachtwoord"
         },
         "danger": {
             "title": "GEVAARZONE",
@@ -319,7 +323,9 @@
                 "item2_label": "TIJDSPRINGEN",
                 "item2_text": "Gebruik jaarnavigatieknoppen voor langetermijnplanning.",
                 "item3_label": "INTERACTIEVE SYNC",
-                "item3_text": "Wijzig datums rechtstreeks op actieve kaarten via CYBER CONFIRM-protocollen."
+                "item3_text": "Wijzig datums rechtstreeks op actieve kaarten via CYBER CONFIRM-protocollen.",
+                "item4_label": "WERELDWIJDE KALENDER",
+                "item4_text": "Krijg toegang tot de masterchronologie via de Top Header om alle geplande richtlijnen te bekijken en rechtstreeks met hun dossiers te communiceren."
             },
             "system_resiliency": {
                 "title": "// SYSTEEMVEERKRACHT [Stabiliteit]",
@@ -426,6 +432,30 @@
         "disable_2fa_failed": "Kan 2FA"
     },
     "calendar": {
-        "clear_date": "niet uitschakelen DUIDELIJKE DATUM"
+        "clear_date": "niet uitschakelen DUIDELIJKE DATUM",
+        "title": "CHRONO-SYNC // KALENDER",
+        "months": {
+            "0": "JANUARI",
+            "1": "FEBRUARI",
+            "2": "MAART",
+            "3": "APRIL",
+            "4": "MEI",
+            "5": "JUNI",
+            "6": "JULI",
+            "7": "AUGUSTUS",
+            "8": "SEPTEMBER",
+            "9": "OKTOBER",
+            "10": "NOVEMBER",
+            "11": "DECEMBER"
+        },
+        "days": {
+            "0": "ZON",
+            "1": "MA",
+            "2": "DI",
+            "3": "WO",
+            "4": "DO",
+            "5": "VRIJ",
+            "6": "ZA"
+        }
     }
 }

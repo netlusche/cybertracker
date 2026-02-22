@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import SystemModal from './ui/SystemModal';
 import CyberButton from './ui/CyberButton';
 
-const CyberConfirm = ({ message, onConfirm, onCancel, variant = 'primary', title }) => {
+const CyberConfirm = ({ message, onConfirm, onCancel, variant = 'primary', title, zIndex }) => {
     const { t } = useTranslation();
     const displayTitle = title || t('common.attention');
 
@@ -16,6 +16,7 @@ const CyberConfirm = ({ message, onConfirm, onCancel, variant = 'primary', title
             hideCloseBtn={true}
             allowScroll={false}
             className="animate-pulse-slow"
+            zIndex={zIndex}
         >
             <div className="flex flex-col items-center text-center space-y-6 mt-4">
                 <div className={`w-16 h-16 border-2 flex items-center justify-center rounded-sm animate-bounce 

@@ -8,7 +8,8 @@
         "system_help": "SYSTEMHJÄLP",
         "admin": "ADMIN",
         "profile": "PROFIL",
-        "logout": "LOGGA UT"
+        "logout": "LOGGA UT",
+        "calendar": "KALENDER"
     },
     "auth": {
         "title": "NETRUNNER LOGIN",
@@ -66,7 +67,8 @@
             "2fa_disabled": "Säkerhetsprotokoll [2FA] inaktiverat.",
             "email_2fa_activated": "E-post 2FA har aktiverats.",
             "2fa_enabled": "Integritetsprotokoll [2FA] aktiverat.",
-            "input_required": "INPUT KRÄVS // OBLIGATORISKT FÄLT"
+            "input_required": "INPUT KRÄVS // OBLIGATORISKT FÄLT",
+            "password_mismatch": "FEL: LÖSENORD stämmer INTE."
         },
         "alerts": {
             "id_established": "IDENTITET FASTSTÄLLD",
@@ -78,7 +80,8 @@
         "placeholders": {
             "recovery_email": "COM-LINK (EMAIL) FÖR ÅTERSTÄLLNING",
             "access_code": "ÅTKOMSTKOD",
-            "new_pwd": "NY PWD"
+            "new_pwd": "NY PWD",
+            "confirm_new_pwd": "BEKRÄFTA NY PWD"
         },
         "static": {
             "verification_title": "IDENTITETSVERIFIKATION",
@@ -185,7 +188,8 @@
             "update_title": "UPPDATERA CYPHER",
             "current_placeholder": "Aktuellt lösenord",
             "new_placeholder": "Nytt lösenord",
-            "execute": "UTFÖR UPPDATERING"
+            "execute": "UTFÖR UPPDATERING",
+            "confirm_new_placeholder": "Bekräfta nytt lösenord"
         },
         "danger": {
             "title": "RISKZON",
@@ -319,7 +323,9 @@
                 "item2_label": "TIDSHOPP",
                 "item2_text": "Använd årsnavigeringskontroller för långdistansplanering.",
                 "item3_label": "INTERAKTIV SYNC",
-                "item3_text": "Ändra datum direkt på aktiva kort via CYBER CONFIRM-protokoll."
+                "item3_text": "Ändra datum direkt på aktiva kort via CYBER CONFIRM-protokoll.",
+                "item4_label": "GLOBAL KALENDER",
+                "item4_text": "Få tillgång till huvudkronologin via den övre rubriken för att se alla schemalagda direktiv och gränssnitt direkt med deras handlingar."
             },
             "system_resiliency": {
                 "title": "// SYSTEMETS RESILIENCY [Stabilitet]",
@@ -426,6 +432,30 @@
         "disable_2fa_failed": "Det gick inte att inaktivera 2FA"
     },
     "calendar": {
-        "clear_date": "RADERA DATUM"
+        "clear_date": "RADERA DATUM",
+        "title": "CHRONO-SYNC // KALENDER",
+        "months": {
+            "0": "JANUARI",
+            "1": "FEBRUARI",
+            "2": "MARS",
+            "3": "APRIL",
+            "4": "MAJ",
+            "5": "JUNI",
+            "6": "JULI",
+            "7": "AUGUSTI",
+            "8": "SEPTEMBER",
+            "9": "OKTOBER",
+            "10": "NOVEMBER",
+            "11": "DECEMBER"
+        },
+        "days": {
+            "0": "SOL",
+            "1": "MÅN",
+            "2": "TUE",
+            "3": "ON",
+            "4": "THU",
+            "5": "FRI",
+            "6": "SAT"
+        }
     }
 }
