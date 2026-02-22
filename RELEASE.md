@@ -1,3 +1,38 @@
+# CyberTasker v2.1.3 - Installer Session Timing Hotfix
+
+**Release Date:** 2026-02-22
+
+A critical backend patch to unblock database schema updates during fresh installations on rigid shared hosting environments.
+
+## 🩹 Hotfixes
+*   **Session Initialization Timing:** Relocated the `session_start()` sequence in `api/install.php` to the absolute top of the execution flow. This prevents premature HTML header declarations from blocking the mandatory session cookies required to authenticate the administrator lock.
+
+---
+
+# CyberTasker v2.1.2 - Strato Path Routing Hotfix
+
+**Release Date:** 2026-02-22
+
+A backend session routing patch to resolve "ACCESS DENIED" login failures on specific Linux hosting providers that isolate directory paths.
+
+## 🩹 Hotfixes
+*   **Root Domain Cookies:** Injected explicit `session_set_cookie_params(['path' => '/']);` directives into `api/csrf.php` and `api/install.php`. This forces restrictive PHP environments to share the active administrator login cookie uniformly across the frontend (`/tasks/`) and the API execution layer (`/tasks/api/`).
+
+---
+
+# CyberTasker v2.1.1 - Firefox Parity & Schema Evolution
+
+**Release Date:** 2026-02-21
+
+A stability patch focusing on deployment automation and visual parity across rendering engines.
+
+## 🩹 Hotfixes
+*   **Firefox Scrollbar Support:** Injected native W3C `scrollbar-color` CSS properties into the global theme architecture, restoring custom scrollbar visual aesthetics specifically within the Mozilla Firefox rendering engine.
+*   **Firefox Alpha Compositing:** Implemented `@supports (-moz-appearance:none)` CSS overrides to dynamically brighten the Matrix and Klingon ambient grid animations, compensating for Firefox's uniquely darker geometric alpha-blending models.
+*   **Schema Evolution:** Modernized `api/install.php` to dynamically verify and append missing `files` and `description` columns to existing `tasks` tables across both SQLite and MariaDB dialects without requiring a destructive wipe.
+
+---
+
 # CyberTasker v2.1.0 - Deep Directives & Global Localization
 
 **Release Date:** 2026-02-22

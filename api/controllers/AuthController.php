@@ -129,7 +129,8 @@ class AuthController extends Controller
                     'theme' => $user['theme'],
                     'stats' => $stats
                 ],
-                'csrf_token' => $_SESSION['csrf_token']
+                'csrf_token' => $_SESSION['csrf_token'],
+                'installer_url' => ($user['role'] === 'admin') ? FRONTEND_URL . '/api/install.php?token=' . $_SESSION['csrf_token'] : null
             ]);
         }
         else {
