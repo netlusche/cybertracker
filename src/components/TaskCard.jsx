@@ -242,8 +242,12 @@ const TaskCard = ({ task, onToggleStatus, onUpdateTask, onDelete, activeCalendar
                         )}
 
                         {task.description && !isEditing && (
-                            <div className="mb-2 line-clamp-2">
-                                <p className="text-xs text-gray-400 font-mono opacity-80">
+                            <div
+                                className="mb-2 line-clamp-2 cursor-pointer group/preview px-1 -mx-1 rounded hover:bg-white/5 transition-colors"
+                                onClick={() => setShowDossier(true)}
+                                title={t('tasks.dossier.title')}
+                            >
+                                <p className="text-xs text-gray-400 font-mono opacity-80 group-hover/preview:opacity-100 group-hover/preview:text-cyber-primary transition-colors">
                                     {task.description.length > 256 ? task.description.substring(0, 256) + '...' : task.description}
                                 </p>
                             </div>
