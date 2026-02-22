@@ -60,6 +60,7 @@ $router->post('auth/resend_email_2fa', [AuthController::class , 'resendEmail2fa'
 
 // --- Task Routes ---
 $router->get('tasks', [TaskController::class , 'index']);
+$router->get('tasks/download', [TaskController::class , 'downloadFile']);
 $router->post('tasks', [TaskController::class , 'store']);
 $router->post('tasks/upload', [TaskController::class , 'uploadFiles']);
 $router->put('tasks', [TaskController::class , 'update']);
@@ -104,5 +105,4 @@ if (!in_array($route, $csrfExemptRoutes)) {
     verify_csrf_token();
 }
 
-$router->dispatch($method, $route);
 $router->dispatch($method, $route);

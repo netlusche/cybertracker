@@ -39,6 +39,12 @@ class Router
     public function dispatch(string $method, string $requestRoute): void
     {
         $requestRoute = trim($requestRoute, '/');
+        error_log("DISPATCHING: Method=$method, Route=$requestRoute");
+        foreach ($this->routes as $r) {
+            if ($r['path'] == 'tasks/download') {
+                error_log("FOUND tasks/download: Method=" . $r['method']);
+            }
+        }
 
         foreach ($this->routes as $route) {
             if ($route['method'] === $method && $route['path'] === $requestRoute) {
