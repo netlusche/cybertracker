@@ -73,7 +73,8 @@ const CalendarModal = ({ tasks, onClose, onOpenDossier }) => {
                 // Using local date string comparison can be tricky, but since we are matching YYYY-MM-DD
                 const dayTasks = calendarTasks.filter(t => {
                     if (!t.due_date) return false;
-                    const cleanDueDate = t.due_date.split('T')[0]; // Extract YYYY-MM-DD from '2025-02-18' or '2025-02-18 00:00:00'
+                    // Handle both ISO ('T') and MySQL (' ') datetime string formats
+                    const cleanDueDate = t.due_date.split('T')[0].split(' ')[0];
                     return cleanDueDate === dateStr;
                 });
 
