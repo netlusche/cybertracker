@@ -2,6 +2,12 @@
 // install.php
 // Universal Installer for both MySQL/MariaDB and SQLite with Diagnostics
 
+// Initialize session immediately before any HTML output to allow HTTP headers to transmit Session Cookies
+if (session_status() === PHP_SESSION_NONE) {
+    session_set_cookie_params(['path' => '/']);
+    session_start();
+}
+
 // Enable error reporting explicitly for installer troubleshooting
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -90,10 +96,6 @@ try {
     // To proceed with schema updates, the operative MUST be logged in as an Admin.
     if (tableExists($pdo, 'users')) {
         echo "System initialized ('users' table detected). Engaging Auto-Lock protocol.<br>\n";
-        if (session_status() === PHP_SESSION_NONE) {
-            session_set_cookie_params(['path' => '/']);
-            session_start();
-        }
 
         if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
             http_response_code(403);
