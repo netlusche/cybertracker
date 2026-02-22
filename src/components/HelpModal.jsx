@@ -151,6 +151,7 @@ const HelpModal = ({ onClose }) => {
                                         { key: 'force', color: '#cc4422' },
                                         { key: 'arrakis', color: '#d97706' },
                                         { key: 'renaissance', color: '#ffb000' },
+                                        { key: 'klingon', color: '#ff0000' }
                                     ].map(({ key, color }) => {
                                         const full = t(`help.sections.visual_interface.theme_${key}`, '');
                                         const dashIdx = full.indexOf(' — ');
