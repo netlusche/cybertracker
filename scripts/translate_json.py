@@ -76,5 +76,45 @@ def process_lang(lang_code, folder_name):
 for lang in TARGETS:
     process_lang(lang, lang if lang != 'zh-CN' else 'zh')
 
-print("All languages processed.")
-print("All languages processed.")
+print("\n--- KLINGON (tlh) VALIDATION ---")
+try:
+    with open("public/locales/tlh/translation.json", "r", encoding="utf-8") as f:
+        tlh_data = json.load(f)
+except FileNotFoundError:
+    tlh_data = {}
+
+missing_klingon = {}
+
+def check_missing_klingon(en_dict, tlh_dict, current_path=""):
+    for k, v in en_dict.items():
+        path = f"{current_path}.{k}" if current_path else k
+        if isinstance(v, dict):
+            if k not in tlh_dict or not isinstance(tlh_dict[k], dict):
+                tlh_dict[k] = {}
+            check_missing_klingon(v, tlh_dict[k], path)
+        elif isinstance(v, str):
+            if k not in tlh_dict or tlh_dict[k] == "":
+                missing_klingon[path] = v
+
+check_missing_klingon(base_data, tlh_data)
+
+if missing_klingon:
+    print("⚠️ WARNING: INCOMPLETE KLINGON (tlh) TRANSLATION DETECTED!")
+    print("Google Translate API does not support authentic Klingon (tlhIngan Hol).")
+    print("To avoid 'Schmalspur-Klingonisch', please ask your AI Assistant")
+    print("to natively translate the following missing English keys into Klingon:\n")
+    
+    out_dict = {}
+    for path, text in missing_klingon.items():
+        keys = path.split('.')
+        d = out_dict
+        for key in keys[:-1]:
+            d = d.setdefault(key, {})
+        d[keys[-1]] = text
+        
+    print(json.dumps(out_dict, indent=4))
+    print("\nPlease merge the AI's translation into public/locales/tlh/translation.json.")
+else:
+    print("Klingon (tlh) translation is fully synchronized! batlh!")
+
+print("\nAll languages processed.")
