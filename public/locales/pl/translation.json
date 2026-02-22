@@ -177,9 +177,9 @@
         "contact": {
             "channel": "KANAŁ KONTAKT",
             "current": "Aktualne:",
-            "new_placeholder": "Nowa częstotliwość e-maili",
+            "new_placeholder": "Nowy Com-Link (e-mail)",
             "confirm_password": "Potwierdź hasło",
-            "reroute": "CZĘSTOTLIWOŚĆ ZMIANY TRASY"
+            "reroute": "PRZEPROWADŹ LINK COM"
         },
         "cypher": {
             "update_title": "AKTUALIZACJA CYFRU",
@@ -233,55 +233,55 @@
         }
     },
     "help": {
-        "title": "PODRĘCZNIK OPERACYJNY CYBER_TASKER",
+        "title": "INSTRUKCJA SYSTEMU CYBER_TASKER",
         "acknowledge": "POTWIERDZENIE",
         "sections": {
             "neural_progression": {
-                "title": "// POSTĘP NEURALNY [XP i rangi]",
-                "item1_label": "ZBIÓR PD",
-                "item1_text": "Pomyślne wykonanie dyrektywy powoduje wstrzyknięcie surowych danych dotyczących doświadczenia do rdzenia neuronowego. Większa złożoność zapewnia większe nagrody.",
-                "item2_label": "RANKING OPERACYJNY",
-                "item2_text": "Gromadź pakiety danych, aby zwiększyć POZIOM OPERATORA. Pasek śledzenia wizualizuje stan synchronizacji z następną rangą.",
-                "item3_label": "ŚWIĘTOWANIE RANGI",
-                "item3_text": "Awansowanie na wyższy poziom uruchamia ogólnosystemową pętlę sprzężenia zwrotnego neonów o wysokim spektrum i klimatyczną uroczystość."
+                "title": "// POSTĘP [XP i rangi]",
+                "item1_label": "ZDOBYWANIE PD",
+                "item1_text": "Ukończenie zadań zapewnia punkty doświadczenia (XP). Zadania o wyższym priorytecie dają większe nagrody.",
+                "item2_label": "Awans",
+                "item2_text": "Zbierz wystarczającą ilość XP, aby osiągnąć następny poziom operatora. Pasek śledzenia wyświetla aktualny postęp.",
+                "item3_label": "NAGRODY",
+                "item3_text": "Zdobywanie kolejnych poziomów wyzwala wizualne sprzężenie zwrotne i odblokowuje wyższe stopnie w systemie."
             },
             "system_access": {
-                "title": "// DOSTĘP DO SYSTEMU [Protokół autoryzacji]",
-                "item1_label": "INICJUJ NOWĄ TOŻSAMOŚĆ",
-                "item1_text1": "Wykonaj NOWĄ TOŻSAMOŚĆ, aby się zarejestrować. Wprowadź CODENAME (nazwa użytkownika), COM-LINK (e-mail) i KLUCZ DOSTĘPU (hasło).",
-                "item1_warn": "⚠ Wymagana weryfikacja drogą e-mailową.",
-                "item2_label": "JACK W",
-                "item2_text": "Uzyskaj dostęp do sieci poprzez CODENAME lub COM-LINK i swój KLUCZ DOSTĘPU."
+                "title": "// DOSTĘP [Uwierzytelnienie]",
+                "item1_label": "REJESTRACJA",
+                "item1_text1": "Utwórz nowe konto, używając nazwy kodowej (nazwy użytkownika), łącza Com-Link (e-mail) i klucza dostępu (hasło).",
+                "item1_warn": "⚠ Do aktywacji konta wymagana jest weryfikacja e-mailowa.",
+                "item2_label": "ZALOGUJ SIĘ",
+                "item2_text": "Uzyskaj dostęp do siatki za pośrednictwem adresu e-mail lub kryptonimu wraz z hasłem."
             },
             "bio_lock": {
-                "title": "// BIO-BLOKADA BEZPIECZEŃSTWA [2FA]",
+                "title": "// BEZPIECZEŃSTWO [2FA]",
                 "item1": "Przejdź do PROFIL > WŁĄCZ ZABEZPIECZENIA 2FA.",
-                "item2": "Zeskanuj QR MATRIX za pomocą swojego uwierzytelniacza.",
-                "item3": "Wprowadź kod, aby aktywować. Przyszłe logowania będą wymagały tego kodu synchronizacji.",
-                "item4_warn": "⚠ OSTRZEŻENIE BEZPIECZEŃSTWA:",
-                "item4_text": "Zakończenie 2FA wyzwala ostrzeżenie obronne o wysokim priorytecie."
+                "item2": "Zeskanuj kod QR za pomocą aplikacji uwierzytelniającej.",
+                "item3": "Wprowadź 6-cyfrowy kod, aby aktywować. Przyszłe logowania będą wymagały tego kodu.",
+                "item4_warn": "⚠ OSTRZEŻENIE:",
+                "item4_text": "Wyłączenie 2FA znacznie zmniejsza bezpieczeństwo Twojego konta."
             },
             "directive_execution": {
-                "title": "// WYKONANIE DYREKTYWY [Zarządzanie zadaniami]",
-                "item1_label": "INICJALIZACJA",
-                "item1_text": "Wprowadź parametry dyrektywy i przypisz PRIORYTET. Użyj klawisza ENTER, aby szybko wdrożyć.",
-                "item2_label": "IMPULS ZACISKOWY",
-                "item2_text": "Pomyślna inicjalizacja wyzwala Błękitny Puls Sprzężenia ZWROTNEGO i świętowanie.",
+                "title": "// ZARZĄDZANIE ZADANIAMI [Operacje]",
+                "item1_label": "KREACJA",
+                "item1_text": "Wprowadź szczegóły zadania i przypisz priorytet. Naciśnij ENTER, aby szybko utworzyć zadanie.",
+                "item2_label": "OPINIE",
+                "item2_text": "Udane utworzenie wymaga wizualnego potwierdzenia.",
                 "item3_label": "EDYCJA",
-                "item3_text": "Kliknij tytuł zadania, aby zmienić jego nazwę. efektywny przepływ pracy.",
-                "item4_label": "MODYFIKUJ",
-                "item4_text": "Kliknij plakietki KATEGORIA lub PRIORYTET, aby wybrać tematycznie.",
-                "item5_label": "WYKONAJ",
-                "item5_text": "Oznacz dyrektywy jako GOTOWE. System zapewnia NEONOWĄ INFORMACJĘ ZWROTNĄ po zakończeniu."
+                "item3_text": "Kliknij tytuł dowolnego zadania, aby natychmiast zmienić jego nazwę.",
+                "item4_label": "KATEGORIE I PRIORYTETY",
+                "item4_text": "Kliknij plakietkę kategorii lub priorytetu na zadaniu, aby je zmienić.",
+                "item5_label": "ZAKOŃCZENIE",
+                "item5_text": "Oznacz zadania jako UKOŃCZONE, aby zdobyć XP i wywołać efekty ukończenia."
             },
             "deep_directives": {
-                "title": "// DEEP DYREKTYWY [Dossier i Intel]",
-                "item1_label": "OPIS PROTOKOŁU",
-                "item1_text": "Uzyskaj dostęp do DOKUMENTACJI OPERACYJNEJ, klikając dowolną aktywną dyrektywę. Koduj dane wywiadowcze w formacie sformatowanym przy użyciu protokołu Markdown, aby zachować przejrzystość misji.",
-                "item2_label": "LINKI W GÓRĘ",
-                "item2_text": "Ustanawiaj bezpieczne połączenia neuronowe z zewnętrznymi sieciami danych za pośrednictwem załączników URL. Zapewnij prawidłowe tunelowanie HTTPS.",
-                "item3_label": "ZAŁĄCZNIKI PLIKÓW",
-                "item3_text": "Przesyłaj najważniejsze zasoby misji bezpośrednio do zaszyfrowanego skarbca, aby móc je bezpiecznie przechowywać."
+                "title": "// GŁĘBOKIE DYREKTYWY [Pliki i Intel]",
+                "item1_label": "OPIS I OCENA",
+                "item1_text": "Kliknij zadanie, aby otworzyć jego dokumentację. Możesz pisać opisy w formacie sformatowanym, korzystając z Markdown, aby uzyskać szczegółowe notatki.",
+                "item2_label": "LINKI",
+                "item2_text": "Dołącz adresy URL do swojego opisu, aby utworzyć bezpieczne, klikalne linki do zasobów zewnętrznych.",
+                "item3_label": "ZAŁĄCZNIKI",
+                "item3_text": "Przesyłaj ważne pliki i obrazy bezpośrednio do zadania, aby zapewnić bezpieczne przechowywanie."
             },
             "sort_order": {
                 "title": "// PROTOKÓŁ ZAMÓWIENIA SORTOWANIA [Zarządzanie zadaniami]",
@@ -362,13 +362,6 @@
                 "theme_got": "WESTEROS (GOT) — Lód i Ogień. Zimnoniebieska stal i valyriańskie akcenty krwistoczerwone. Nadchodzi zima. Północ pamięta.",
                 "theme_marvel": "KOMIKS (MARVEL) — Bohaterskie czerwone i odważne kropki akcji. Pff! Bum! Hołd dla złotej ery komiksów. Wełna drzewna!",
                 "theme_dc": "GOTHAM (DC) — Najciemniejsza noc, najgłębszy błękit i smuga żółtego światła przecinająca deszcz. Sprawiedliwość nigdy nie śpi."
-            },
-            "danger_zone": {
-                "title": "// PROTOKOŁY STREF NIEBEZPIECZEŃSTWA",
-                "item1_warn": "⚠ ZAKOŃCZENIE TOŻSAMOŚCI:",
-                "item1_text": "Potwierdzenie usunięcia konta uruchamia **ALERT BEZPIECZEŃSTWA TERMINALU**. To działanie jest nieodwracalne.",
-                "item2_label": "PROTOKÓŁ UCIECZKI",
-                "item2_text": "Użyj ABORT, aby natychmiast uratować się przed ostatecznym zakończeniem."
             }
         }
     },

@@ -177,9 +177,9 @@
         "contact": {
             "channel": "联系渠道",
             "current": "当前：",
-            "new_placeholder": "新电子邮件频率",
+            "new_placeholder": "新 Com-Link（电子邮件）",
             "confirm_password": "确认密码",
-            "reroute": "重新路由频率"
+            "reroute": "重新路由 COM-LINK"
         },
         "cypher": {
             "update_title": "更新密码",
@@ -233,55 +233,55 @@
         }
     },
     "help": {
-        "title": "CYBER_TASKER 操作手册",
+        "title": "CYBER_TASKER 系统手册",
         "acknowledge": "确认",
         "sections": {
             "neural_progression": {
-                "title": "// 神经进展 [XP 和等级]",
-                "item1_label": "XP 收获",
-                "item1_text": "成功的指令执行会将原始经验数据注入您的神经核心。更高的复杂性会带来更大的回报。",
-                "item2_label": "操作排名",
-                "item2_text": "积累数据包以提高您的操作员水平。跟踪栏以可视化方式显示您与下一个排名的同步状态。",
-                "item3_label": "排名庆祝",
-                "item3_text": "升级会触发全系统的高光谱霓虹灯反馈循环和氛围庆祝。"
+                "title": "// 进度 [XP 和排名]",
+                "item1_label": "赚取 XP",
+                "item1_text": "完成任务可获得经验值 (XP)。优先级较高的任务会带来更大的回报。",
+                "item2_label": "升级",
+                "item2_text": "积累足够的经验值以达到下一个操作员级别。跟踪栏显示您当前的进度。",
+                "item3_label": "奖励",
+                "item3_text": "升级会触发视觉反馈并解锁系统内更高的等级。"
             },
             "system_access": {
-                "title": "// 系统访问[验证协议]",
-                "item1_label": "启动新身份",
-                "item1_text1": "执行NEW IDENTITY 进行注册。输入 CODENAME（用户名）、COM-LINK（电子邮件）和 ACCESS KEY（密码）。",
-                "item1_warn": "⚠ 需要通过电子邮件进行验证。",
-                "item2_label": "插入",
-                "item2_text": "通过 CODENAME 或 COM-LINK 以及您的访问密钥访问网格。"
+                "title": "// 访问[身份验证]",
+                "item1_label": "注册",
+                "item1_text1": "使用代号（用户名）、Com-Link（电子邮件）和访问密钥（密码）创建新帐户。",
+                "item1_warn": "⚠ 需要验证电子邮件才能激活帐户。",
+                "item2_label": "登录",
+                "item2_text": "通过您的电子邮件或代号以及密码访问网格。"
             },
             "bio_lock": {
-                "title": "// 生物锁安全 [2FA]",
+                "title": "// 安全 [2FA]",
                 "item1": "导航到配置文件 > 启用 2FA 安全。",
-                "item2": "使用身份验证器扫描 QR MATRIX。",
-                "item3": "输入激活码。将来的登录将需要此同步代码。",
-                "item4_warn": "⚠ 安全警报：",
-                "item4_text": "终止 2FA 会触发高优先级防御警告。"
+                "item2": "使用身份验证器应用程序扫描二维码。",
+                "item3": "输入 6 位数字代码进行激活。将来的登录将需要此代码。",
+                "item4_warn": "⚠ 警告：",
+                "item4_text": "禁用 2FA 会显着降低您的帐户安全性。"
             },
             "directive_execution": {
-                "title": "// 指令执行 [任务管理]",
-                "item1_label": "初始化",
-                "item1_text": "输入指令参数并分配优先级。使用 ENTER 进行快速部署。",
-                "item2_label": "终端脉冲",
-                "item2_text": "成功初始化会触发青色反馈脉冲和庆祝活动。",
+                "title": "// 任务管理[操作]",
+                "item1_label": "创造",
+                "item1_text": "输入您的任务详细信息并分配优先级。按 ENTER 快速创建任务。",
+                "item2_label": "反馈",
+                "item2_text": "成功的创作会触发视觉确认。",
                 "item3_label": "编辑",
-                "item3_text": "单击任务标题即可重命名。高效的工作流程。",
-                "item4_label": "修改",
-                "item4_text": "单击类别或优先级徽章进行主题选择。",
-                "item5_label": "执行",
-                "item5_text": "将指令标记为“完成”。完成后系统会提供霓虹灯反馈。"
+                "item3_text": "单击任何任务标题即可立即重命名。",
+                "item4_label": "类别和优先级",
+                "item4_text": "单击任务上的类别或优先级徽章即可更改它们。",
+                "item5_label": "完成",
+                "item5_text": "将任务标记为“完成”以赚取 XP 并触发完成效果。"
             },
             "deep_directives": {
-                "title": "// 深层指令 [档案和英特尔]",
-                "item1_label": "协议描述",
-                "item1_text": "通过单击任何活动指令来访问操作档案。使用 Markdown 协议对富文本情报进行编码，以保持任务的清晰度。",
-                "item2_label": "上行链接",
-                "item2_text": "通过 URL 附件建立与外部数据网格的安全神经连接。确保正确的 HTTPS 隧道。",
-                "item3_label": "文件附件",
-                "item3_text": "将关键任务资产直接上传到加密库中以进行本地化安全存储。"
+                "title": "// 深层指令 [文件和英特尔]",
+                "item1_label": "描述和降价",
+                "item1_text": "单击任务以打开其达析报告。您可以使用 Markdown 编写富文本描述以获取详细注释。",
+                "item2_label": "链接",
+                "item2_text": "在描述中包含 URL，以创建指向外部资源的安全、可点击的链接。",
+                "item3_label": "附件",
+                "item3_text": "将重要文件和图像直接上传到任务以进行安全存储。"
             },
             "sort_order": {
                 "title": "// 排序顺序协议 [任务管理]",
@@ -362,13 +362,6 @@
                 "theme_got": "维斯特洛（得到）——冰与火。冷蓝钢和瓦雷利亚血红色调。冬天来了。北方记得。",
                 "theme_marvel": "COMIC (MARVEL) — 英雄般的红色和大胆的动作圆点。噗！砰！向漫画黄金时代致敬。精益求精！",
                 "theme_dc": "哥谭（华盛顿）——最漆黑的夜晚，最深的蓝色，还有一丝黄光穿过雨丝。正义永不眠。"
-            },
-            "danger_zone": {
-                "title": "// 危险区域协议",
-                "item1_warn": "⚠ 身份终止：",
-                "item1_text": "确认帐户删除会触发**终端安全警报**。此操作是不可逆转的。",
-                "item2_label": "逃生协议",
-                "item2_text": "使用 ABORT 立即将自己从最终终止中解救出来。"
             }
         }
     },

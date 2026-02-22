@@ -177,9 +177,9 @@
         "contact": {
             "channel": "CONTACTKANAAL",
             "current": "Huidig:",
-            "new_placeholder": "Nieuwe e-mailfrequentie",
+            "new_placeholder": "Nieuwe Com-Link (e-mail)",
             "confirm_password": "Bevestig wachtwoord",
-            "reroute": "RE-ROUTE FREQUENTIE"
+            "reroute": "RE-ROUTE COM-LINK"
         },
         "cypher": {
             "update_title": "UPDATE CYPHER",
@@ -233,55 +233,55 @@
         }
     },
     "help": {
-        "title": "CYBER_TASKER OPERATIEVE HANDBOEK",
+        "title": "CYBER_TASKER SYSTEEMHANDLEIDING",
         "acknowledge": "BEVESTIG",
         "sections": {
             "neural_progression": {
-                "title": "// NEURALE VOORTGANG [XP en rangen]",
-                "item1_label": "XP OOGSTEN",
-                "item1_text": "Succesvolle uitvoering van richtlijnen injecteert ruwe ervaringsgegevens in uw neurale kern. Een hogere complexiteit levert grotere beloningen op.",
-                "item2_label": "OPERATIEVE RANGSTELLING",
-                "item2_text": "Verzamel datapakketten om uw OPERATORNIVEAU te verbeteren. De trackingbalk visualiseert uw synchronisatiestatus met de volgende rang.",
-                "item3_label": "RANK VIERING",
-                "item3_text": "Door een hoger niveau te bereiken, wordt een systeembrede neon-feedbacklus met hoog spectrum en een sfeervol feest geactiveerd."
+                "title": "// VOORTGANG [XP en rangen]",
+                "item1_label": "XP VERDIENEN",
+                "item1_text": "Het voltooien van taken levert Experience Points (XP) op. Taken met een hogere prioriteit leveren grotere beloningen op.",
+                "item2_label": "NIVEAU OMHOOG",
+                "item2_text": "Verzamel voldoende XP om het volgende operatorniveau te bereiken. De volgbalk geeft uw huidige voortgang weer.",
+                "item3_label": "BELONINGEN",
+                "item3_text": "Door een hoger niveau te bereiken, wordt visuele feedback geactiveerd en worden hogere rangen binnen het systeem ontgrendeld."
             },
             "system_access": {
-                "title": "// SYSTEEMTOEGANG [Auth-protocol]",
-                "item1_label": "INITIEER NIEUWE IDENTITEIT",
-                "item1_text1": "Voer NIEUWE IDENTITEIT uit om te registreren. Voer CODENAME (gebruikersnaam), COM-LINK (e-mail) en TOEGANGSSLEUTEL (wachtwoord) in.",
-                "item1_warn": "⚠ Verificatie vereist via e-mail.",
-                "item2_label": "JACK-IN",
-                "item2_text": "Toegang tot het netwerk via CODENAME of COM-LINK en uw TOEGANGSSLEUTEL."
+                "title": "// TOEGANG [Authenticatie]",
+                "item1_label": "REGISTRATIE",
+                "item1_text1": "Maak een nieuw account aan met behulp van een codenaam (gebruikersnaam), Com-Link (e-mail) en toegangssleutel (wachtwoord).",
+                "item1_warn": "⚠ E-mailverificatie is vereist om het account te activeren.",
+                "item2_label": "INLOGGEN",
+                "item2_text": "Toegang tot het netwerk via uw e-mailadres of codenaam samen met uw wachtwoord."
             },
             "bio_lock": {
-                "title": "// BIO-LOCK-BEVEILIGING [2FA]",
+                "title": "// BEVEILIGING [2FA]",
                 "item1": "Navigeer naar PROFIEL > 2FA-BEVEILIGING INSCHAKELEN.",
-                "item2": "Scan de QR MATRIX met uw authenticator.",
-                "item3": "Voer code in om te activeren. Bij toekomstige aanmeldingen is deze synchronisatiecode vereist.",
-                "item4_warn": "⚠ BEVEILIGINGSALARM:",
-                "item4_text": "Het beëindigen van 2FA activeert een defensieve waarschuwing met hoge prioriteit."
+                "item2": "Scan de QR-code met een authenticator-app.",
+                "item3": "Voer de 6-cijferige code in om te activeren. Bij toekomstige aanmeldingen is deze code vereist.",
+                "item4_warn": "⚠ WAARSCHUWING:",
+                "item4_text": "Als u 2FA uitschakelt, wordt uw accountbeveiliging aanzienlijk verminderd."
             },
             "directive_execution": {
-                "title": "// RICHTLIJN UITVOERING [Taakbeheer]",
-                "item1_label": "INITIALISEREN",
-                "item1_text": "Voer richtlijnparameters in en wijs PRIORITY toe. Gebruik ENTER voor snelle implementatie.",
-                "item2_label": "AANSLUITPULS",
-                "item2_text": "Succesvolle initialisatie veroorzaakt een CYAAN FEEDBACK PULSE en feest.",
-                "item3_label": "BEWERK",
-                "item3_text": "Klik op de taaktitel om de naam te wijzigen. efficiënte werkstroom.",
-                "item4_label": "WIJZIG",
-                "item4_text": "Klik op CATEGORIE- of PRIORITEIT-badges voor themaselectie.",
-                "item5_label": "UITVOEREN",
-                "item5_text": "Markeer richtlijnen als DONE. Het systeem biedt NEON FEEDBACK na voltooiing."
+                "title": "// TAAKBEHEER [Operaties]",
+                "item1_label": "CREATIE",
+                "item1_text": "Voer uw taakgegevens in en wijs een prioriteit toe. Druk op ENTER om de taak snel te maken.",
+                "item2_label": "FEEDBACK",
+                "item2_text": "Succesvolle creatie zorgt voor visuele bevestiging.",
+                "item3_label": "BEWERKEN",
+                "item3_text": "Klik op een taaktitel om deze onmiddellijk te hernoemen.",
+                "item4_label": "CATEGORIEËN & PRIORITEITEN",
+                "item4_text": "Klik op de categorie- of prioriteitsbadges van een taak om deze te wijzigen.",
+                "item5_label": "VOLTOOID",
+                "item5_text": "Markeer taken als KLAAR om XP te verdienen en voltooiingseffecten te activeren."
             },
             "deep_directives": {
-                "title": "// DIEPE RICHTLIJNEN [Dossier & Intel]",
-                "item1_label": "PROTOCOLBESCHRIJVING",
-                "item1_text": "U krijgt toegang tot het OPERATIEVE DOSSIER door op een actieve instructie te klikken. Codeer rich-text-informatie met behulp van het Markdown-protocol om de missie duidelijk te houden.",
-                "item2_label": "UPLINKS",
-                "item2_text": "Breng veilige neurale verbindingen tot stand met externe datanetwerken via URL-bijlagen. Zorg voor een goede HTTPS-tunneling.",
-                "item3_label": "BESTANDSBIJLAGEN",
-                "item3_text": "Upload kritieke missiemiddelen rechtstreeks naar de gecodeerde kluis voor gelokaliseerde, veilige opslag."
+                "title": "// DIEPE RICHTLIJNEN [Bestanden en Intel]",
+                "item1_label": "BESCHRIJVING & PRIJZEN",
+                "item1_text": "Klik op een taak om het bijbehorende dossier te openen. U kunt rich-text-beschrijvingen schrijven met Markdown voor gedetailleerde opmerkingen.",
+                "item2_label": "LINKS",
+                "item2_text": "Neem URL's op in uw beschrijving om veilige, klikbare links naar externe bronnen te maken.",
+                "item3_label": "BIJLAGEN",
+                "item3_text": "Upload belangrijke bestanden en afbeeldingen rechtstreeks naar een taak voor veilige opslag."
             },
             "sort_order": {
                 "title": "// SORTEERORDERPROTOCOL [Taakbeheer]",
@@ -362,13 +362,6 @@
                 "theme_got": "WESTEROS (GOT) — IJs en vuur. Koud blauw staal en Valyrian bloedrode accenten. De winter komt eraan. Het Noorden herinnert zich.",
                 "theme_marvel": "COMIC (MARVEL) — Heroïsche rode en opvallende actiepunten. Pow! Wham! Een eerbetoon aan de gouden eeuw van stripboeken. Excelsior!",
                 "theme_dc": "GOTHAM (DC) — Donkerste nacht, diepste blauw en een streepje geel licht dat door de regen snijdt. Justitie slaapt nooit."
-            },
-            "danger_zone": {
-                "title": "// GEVAARZONEPROTOCOLLEN",
-                "item1_warn": "⚠ IDENTITEITSBEËINDIGING:",
-                "item1_text": "Als u de verwijdering van een account bevestigt, wordt de **TERMINAL SECURITY ALERT** geactiveerd. Deze actie is onomkeerbaar.",
-                "item2_label": "ONTSNAPPROTOCOL",
-                "item2_text": "Gebruik ABORT om uzelf onmiddellijk te redden van definitieve beëindiging."
             }
         }
     },

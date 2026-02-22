@@ -1,6 +1,6 @@
-# CyberTasker Server Update Instructions (v2.0.4 → v2.1.3)
+# CyberTasker Server Update Instructions (v2.0.4 → v2.1.4)
 
-These instructions guide you through the update to **v2.1.3** (Deep Directives).
+These instructions guide you through the update to **v2.1.4** (Deep Directives).
 
 ## 1. Backup (MANDATORY)
 - **Files**: Backup your `api/config.php` and your database file (if using SQLite). Be sure to also back up any existing files in the `uploads/` directory to prevent data loss.

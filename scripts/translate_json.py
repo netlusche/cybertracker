@@ -4,6 +4,17 @@ import urllib.request
 import urllib.parse
 import time
 
+# ==============================================================================
+# CRITICAL TRANSLATION POLICY:
+# Google Translate relies entirely on the English (en/translation.json) baseline.
+# If the English source uses overly abstract cyberpunk jargon without context,
+# the resulting translations in the 14 other languages will be nonsensical.
+# 
+# RULE: Balance theme with clarity. E.g., Use "Re-route Com-Link (Email)" 
+# rather than just "Splice the Datalink".
+# Read TRANSLATION_GUIDELINES.md before adding new keys!
+# ==============================================================================
+
 TARGETS = ['da', 'sv', 'no', 'fi', 'hu', 'pl', 'pt', 'el', 'ru', 'zh-CN', 'de', 'es', 'fr', 'nl', 'it']
 KLINGON = 'tlh'
 
@@ -76,30 +87,45 @@ def process_lang(lang_code, folder_name):
 for lang in TARGETS:
     process_lang(lang, lang if lang != 'zh-CN' else 'zh')
 
-# Handle Klingon (tlh) - just a fun translation of key phrases, leaving the rest in english
-print("Translating Klingon (tlh)...")
-import copy
-klingon_data = copy.deepcopy(base_data)
-# hardcoded klingon replacements for fun
-klingon_dict = {
-    "header.title": "QaQ",
-    "header.subtitle": "ta'",
-    "header.operative": "SuvwI'",
-    "header.logout": "megh",
-    "auth.new_identity": "chu' pong",
-    "auth.jack_in": "yIghoH",
-    "tasks.active_directives": "yIn ta'mey",
-    "tasks.new_directive": "chu' ta'",
-    "common.loading": "yIloStaH...",
-    "common.save": "choD",
-    "common.cancel": "qIl",
-    "common.delete": "Qaw'"
-}
-for path, val in klingon_dict.items():
-    set_nested_value(klingon_data, path, val)
+print("\n--- KLINGON (tlh) VALIDATION ---")
+try:
+    with open("public/locales/tlh/translation.json", "r", encoding="utf-8") as f:
+        tlh_data = json.load(f)
+except FileNotFoundError:
+    tlh_data = {}
 
-os.makedirs("public/locales/tlh", exist_ok=True)
-with open("public/locales/tlh/translation.json", "w", encoding="utf-8") as f:
-    json.dump(klingon_data, f, ensure_ascii=False, indent=4)
-print("Saved tlh.")
-print("All languages processed.")
+missing_klingon = {}
+
+def check_missing_klingon(en_dict, tlh_dict, current_path=""):
+    for k, v in en_dict.items():
+        path = f"{current_path}.{k}" if current_path else k
+        if isinstance(v, dict):
+            if k not in tlh_dict or not isinstance(tlh_dict[k], dict):
+                tlh_dict[k] = {}
+            check_missing_klingon(v, tlh_dict[k], path)
+        elif isinstance(v, str):
+            if k not in tlh_dict or tlh_dict[k] == "":
+                missing_klingon[path] = v
+
+check_missing_klingon(base_data, tlh_data)
+
+if missing_klingon:
+    print("⚠️ WARNING: INCOMPLETE KLINGON (tlh) TRANSLATION DETECTED!")
+    print("Google Translate API does not support authentic Klingon (tlhIngan Hol).")
+    print("To avoid 'Schmalspur-Klingonisch', please ask your AI Assistant")
+    print("to natively translate the following missing English keys into Klingon:\n")
+    
+    out_dict = {}
+    for path, text in missing_klingon.items():
+        keys = path.split('.')
+        d = out_dict
+        for key in keys[:-1]:
+            d = d.setdefault(key, {})
+        d[keys[-1]] = text
+        
+    print(json.dumps(out_dict, indent=4))
+    print("\nPlease merge the AI's translation into public/locales/tlh/translation.json.")
+else:
+    print("Klingon (tlh) translation is fully synchronized! batlh!")
+
+print("\nAll languages processed.")

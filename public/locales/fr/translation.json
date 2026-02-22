@@ -177,9 +177,9 @@
         "contact": {
             "channel": "CANAL DE CONTACT",
             "current": "Actuel :",
-            "new_placeholder": "Nouvelle fréquence d'e-mail",
+            "new_placeholder": "Nouveau Com-Link (E-mail)",
             "confirm_password": "Confirmer le mot de passe",
-            "reroute": "FRÉQUENCE DE RÉACHEMINEMENT"
+            "reroute": "RE-ROUTER COM-LINK"
         },
         "cypher": {
             "update_title": "MISE À JOUR DU CHIFFRE",
@@ -233,55 +233,55 @@
         }
     },
     "help": {
-        "title": "MANUEL OPÉRATIONNEL CYBER_TASKER",
+        "title": "MANUEL DU SYSTÈME CYBER_TASKER",
         "acknowledge": "RECONNAISSANCE",
         "sections": {
             "neural_progression": {
-                "title": "// PROGRESSION NEURONALE [XP et rangs]",
-                "item1_label": "RÉCOLTE XP",
-                "item1_text": "L’exécution réussie d’une directive injecte des données d’expérience brutes dans votre noyau neuronal. Une complexité plus élevée génère de plus grandes récompenses.",
-                "item2_label": "CLASSEMENT OPÉRATIONNEL",
-                "item2_text": "Accumulez des paquets de données pour faire progresser votre NIVEAU D'OPÉRATEUR. La barre de suivi visualise votre statut de synchronisation avec le classement suivant.",
-                "item3_label": "CÉLÉBRATION DU RANG",
-                "item3_text": "La mise à niveau déclenche une boucle de rétroaction au néon à haut spectre à l'échelle du système et une célébration atmosphérique."
+                "title": "// PROGRESSION [XP et rangs]",
+                "item1_label": "GAGNER DE L'XP",
+                "item1_text": "L'accomplissement de tâches confère des points d'expérience (XP). Les tâches plus prioritaires rapportent de plus grandes récompenses.",
+                "item2_label": "MISE À NIVEAU",
+                "item2_text": "Accumulez suffisamment d'XP pour atteindre le niveau d'opérateur suivant. La barre de suivi affiche votre progression actuelle.",
+                "item3_label": "RÉCOMPENSES",
+                "item3_text": "La mise à niveau déclenche un retour visuel et débloque des rangs plus élevés au sein du système."
             },
             "system_access": {
-                "title": "// ACCÈS AU SYSTÈME [Protocole d'authentification]",
-                "item1_label": "INITIER UNE NOUVELLE IDENTITÉ",
-                "item1_text1": "Exécutez NEW IDENTITY pour vous inscrire. Saisissez CODENAME (nom d'utilisateur), COM-LINK (e-mail) et ACCESS KEY (mot de passe).",
-                "item1_warn": "⚠ Vérification requise par e-mail.",
-                "item2_label": "JACK IN",
-                "item2_text": "Accédez à la grille via CODENAME ou COM-LINK et votre CLÉ D'ACCÈS."
+                "title": "// ACCÈS [Authentification]",
+                "item1_label": "INSCRIPTION",
+                "item1_text1": "Créez un nouveau compte en utilisant un nom de code (nom d'utilisateur), Com-Link (e-mail) et une clé d'accès (mot de passe).",
+                "item1_warn": "⚠ Une vérification par e-mail est requise pour activer le compte.",
+                "item2_label": "CONNEXION",
+                "item2_text": "Accédez à la grille via votre e-mail ou votre nom de code avec votre mot de passe."
             },
             "bio_lock": {
-                "title": "// SÉCURITÉ BIO-LOCK [2FA]",
+                "title": "// SÉCURITÉ [2FA]",
                 "item1": "Accédez à PROFIL > ACTIVER LA SÉCURITÉ 2FA.",
-                "item2": "Scannez le QR MATRIX avec votre authentifiant.",
-                "item3": "Saisissez le code à activer. Les futures connexions nécessiteront ce code de synchronisation.",
-                "item4_warn": "⚠ ALERTE DE SÉCURITÉ :",
-                "item4_text": "La fin de 2FA déclenche un avertissement défensif hautement prioritaire."
+                "item2": "Scannez le code QR avec une application d'authentification.",
+                "item3": "Entrez le code à 6 chiffres pour l'activer. Les futures connexions nécessiteront ce code.",
+                "item4_warn": "⚠ AVERTISSEMENT :",
+                "item4_text": "La désactivation de 2FA réduit considérablement la sécurité de votre compte."
             },
             "directive_execution": {
-                "title": "// EXÉCUTION DE DIRECTIVE [Gestion des tâches]",
-                "item1_label": "INITIALISER",
-                "item1_text": "Saisissez les paramètres de la directive et attribuez la PRIORITÉ. Utilisez ENTER pour un déploiement rapide.",
-                "item2_label": "IMPULSION TERMINALE",
-                "item2_text": "Une initialisation réussie déclenche une IMPULSION DE RÉTROACTION CYAN et une célébration.",
-                "item3_label": "MODIFIER",
-                "item3_text": "Cliquez sur le titre de la tâche à renommer. flux de travail efficace.",
-                "item4_label": "MODIFIER",
-                "item4_text": "Cliquez sur les badges CATÉGORIE ou PRIORITÉ pour une sélection thématique.",
-                "item5_label": "EXÉCUTER",
-                "item5_text": "Marquez les directives comme TERMINÉE. Le système fournit un FEEDBACK NEON une fois terminé."
+                "title": "// GESTION DES TÂCHES [Opérations]",
+                "item1_label": "CRÉATION",
+                "item1_text": "Entrez les détails de votre tâche et attribuez une priorité. Appuyez sur ENTRÉE pour créer la tâche rapidement.",
+                "item2_label": "RÉTROACTION",
+                "item2_text": "Une création réussie déclenche une confirmation visuelle.",
+                "item3_label": "ÉDITION",
+                "item3_text": "Cliquez sur n’importe quel titre de tâche pour le renommer instantanément.",
+                "item4_label": "CATÉGORIES ET PRIORITÉS",
+                "item4_text": "Cliquez sur les badges de catégorie ou de priorité d'une tâche pour les modifier.",
+                "item5_label": "ACHEVEMENT",
+                "item5_text": "Marquez les tâches comme TERMINÉES pour gagner de l'XP et déclencher des effets d'achèvement."
             },
             "deep_directives": {
-                "title": "// DIRECTIVES PROFONDES [Dossier & Intel]",
-                "item1_label": "DESCRIPTION DU PROTOCOLE",
-                "item1_text": "Accédez au DOSSIER OPÉRATIF en cliquant sur n’importe quelle directive active. Encodez les informations en texte enrichi à l’aide du protocole Markdown pour maintenir la clarté de la mission.",
-                "item2_label": "LIENS HAUT",
-                "item2_text": "Établissez des connexions neuronales sécurisées aux grilles de données externes via des pièces jointes URL. Assurez-vous d’un tunnelage HTTPS approprié.",
-                "item3_label": "PIÈCES PIÈCES DE FICHIERS",
-                "item3_text": "Téléchargez les ressources critiques de la mission directement dans le coffre-fort crypté pour un stockage sécurisé localisé."
+                "title": "// DIRECTIVES PROFONDES [Fichiers & Intel]",
+                "item1_label": "DESCRIPTION ET MARQUES",
+                "item1_text": "Cliquez sur une tâche pour ouvrir son dossier. Vous pouvez rédiger des descriptions en texte enrichi à l'aide de Markdown pour des notes détaillées.",
+                "item2_label": "LIENS",
+                "item2_text": "Incluez des URL dans votre description pour créer des liens sécurisés et cliquables vers des ressources externes.",
+                "item3_label": "PIÈCES JOINTES",
+                "item3_text": "Téléchargez des fichiers et des images importants directement dans une tâche pour un stockage sécurisé."
             },
             "sort_order": {
                 "title": "// PROTOCOLE D'ORDRE DE TRI [Gestion des tâches]",
@@ -362,13 +362,6 @@
                 "theme_got": "WESTEROS (GOT) – Glace et feu. Acier bleu froid et accents rouge sang valyrien. L'hiver arrive. Le Nord s'en souvient.",
                 "theme_marvel": "COMIC (MARVEL) — Points d'action héroïques rouges et audacieux. Pouah ! Pan! Un hommage à l'âge d'or de la bande dessinée. Excelsior!",
                 "theme_dc": "GOTHAM (DC) – La nuit la plus sombre, le bleu le plus profond et un éclat de lumière jaune traversant la pluie. La justice ne dort jamais."
-            },
-            "danger_zone": {
-                "title": "// PROTOCOLES DE ZONES DANGEREUSES",
-                "item1_warn": "⚠ CESSATION D'IDENTITÉ :",
-                "item1_text": "La confirmation de la suppression du compte déclenche l'**ALERTE DE SÉCURITÉ DU TERMINAL**. Cette action est irréversible.",
-                "item2_label": "PROTOCOLE D'ÉVASION",
-                "item2_text": "Utilisez ABORT pour vous sauver immédiatement de la résiliation définitive."
             }
         }
     },

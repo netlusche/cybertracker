@@ -177,9 +177,9 @@
         "contact": {
             "channel": "KONTAKTKANAL",
             "current": "Aktuell:",
-            "new_placeholder": "Neue E-Mail-Häufigkeit",
+            "new_placeholder": "Neuer Com-Link (E-Mail)",
             "confirm_password": "Passwort bestätigen",
-            "reroute": "RUTE-HÄUFIGKEIT"
+            "reroute": "COM-LINK ÄNDERN"
         },
         "cypher": {
             "update_title": "CYPHER AKTUALISIEREN",
@@ -233,55 +233,55 @@
         }
     },
     "help": {
-        "title": "CYBER_TASKER OPERATIVHANDBUCH",
+        "title": "CYBER_TASKER SYSTEMHANDBUCH",
         "acknowledge": "BESTÄTIGEN",
         "sections": {
             "neural_progression": {
-                "title": "// NEURALER FORTSCHRITT [XP & Ränge]",
-                "item1_label": "XP-ERNTE",
-                "item1_text": "Durch die erfolgreiche Ausführung der Anweisung werden rohe Erfahrungsdaten in Ihren neuronalen Kern eingespeist. Höhere Komplexität führt zu größeren Belohnungen.",
-                "item2_label": "OPERATIVES RANGLISTE",
-                "item2_text": "Sammeln Sie Datenpakete, um Ihr OPERATOR-NIVEAU zu verbessern. Die Tracking-Leiste visualisiert Ihren Synchronisierungsstatus mit dem nächsten Rang.",
-                "item3_label": "RANGFEIER",
-                "item3_text": "Das Aufsteigen löst eine systemweite Neon-Feedbackschleife mit hohem Spektrum und eine stimmungsvolle Feier aus."
+                "title": "// FORTSCHRITT [XP & Ränge]",
+                "item1_label": "XP VERDIENEN",
+                "item1_text": "Durch das Abschließen von Aufgaben erhältst du Erfahrungspunkte (XP). Aufgaben mit höherer Priorität bringen größere Belohnungen.",
+                "item2_label": "AUFNIVEAU",
+                "item2_text": "Sammeln Sie genügend XP, um die nächste Bedienerstufe zu erreichen. Die Trackingleiste zeigt Ihren aktuellen Fortschritt an.",
+                "item3_label": "BELOHNUNGEN",
+                "item3_text": "Das Aufsteigen löst ein visuelles Feedback aus und schaltet höhere Ränge im System frei."
             },
             "system_access": {
-                "title": "// SYSTEMZUGRIFF [Auth-Protokoll]",
-                "item1_label": "NEUE IDENTITÄT INITIIEREN",
-                "item1_text1": "Führen Sie NEW IDENTITY aus, um sich zu registrieren. Geben Sie CODENAME (Benutzername), COM-LINK (E-Mail) und ACCESS KEY (Passwort) ein.",
-                "item1_warn": "⚠ Verifizierung per E-Mail erforderlich.",
-                "item2_label": "EINBUCHSEN",
-                "item2_text": "Greifen Sie über CODENAME oder COM-LINK und Ihren ZUGRIFFSSCHLÜSSEL auf das Raster zu."
+                "title": "// ACCESS [Authentifizierung]",
+                "item1_label": "REGISTRIERUNG",
+                "item1_text1": "Erstellen Sie ein neues Konto mit einem Codenamen (Benutzername), einem Com-Link (E-Mail) und einem Zugriffsschlüssel (Passwort).",
+                "item1_warn": "⚠ Zur Aktivierung des Kontos ist eine E-Mail-Bestätigung erforderlich.",
+                "item2_label": "ANMELDEN",
+                "item2_text": "Greifen Sie über Ihre E-Mail-Adresse oder Ihren Codenamen zusammen mit Ihrem Passwort auf das Raster zu."
             },
             "bio_lock": {
-                "title": "// BIO-LOCK-SICHERHEIT [2FA]",
+                "title": "// SICHERHEIT [2FA]",
                 "item1": "Navigieren Sie zu PROFIL > 2FA-SICHERHEIT AKTIVIEREN.",
-                "item2": "Scannen Sie die QR-MATRIX mit Ihrem Authentifikator.",
-                "item3": "Geben Sie den Code zur Aktivierung ein. Zukünftige Anmeldungen erfordern diesen Synchronisierungscode.",
-                "item4_warn": "⚠ SICHERHEITSWARNUNG:",
-                "item4_text": "Das Beenden von 2FA löst eine Abwehrwarnung mit hoher Priorität aus."
+                "item2": "Scannen Sie den QR-Code mit einer Authentifizierungs-App.",
+                "item3": "Geben Sie zur Aktivierung den 6-stelligen Code ein. Für zukünftige Anmeldungen ist dieser Code erforderlich.",
+                "item4_warn": "⚠ ACHTUNG:",
+                "item4_text": "Die Deaktivierung von 2FA verringert die Sicherheit Ihres Kontos erheblich."
             },
             "directive_execution": {
-                "title": "// RICHTLINIENAUSFÜHRUNG [Aufgabenverwaltung]",
-                "item1_label": "INITIALISIEREN",
-                "item1_text": "Geben Sie die Parameter der Direktive ein und weisen Sie PRIORITÄT zu. Verwenden Sie die EINGABETASTE für eine schnelle Bereitstellung.",
-                "item2_label": "KLEMMENPULS",
-                "item2_text": "Eine erfolgreiche Initialisierung löst einen CYAN-FEEDBACK-PULSE und eine Feier aus.",
-                "item3_label": "BEARBEITEN",
-                "item3_text": "Klicken Sie zum Umbenennen auf den Aufgabentitel. effizienter Arbeitsablauf.",
-                "item4_label": "ÄNDERN",
-                "item4_text": "Klicken Sie für die Themenauswahl auf die Abzeichen KATEGORIE oder PRIORITÄT.",
-                "item5_label": "AUSFÜHREN",
-                "item5_text": "Markieren Sie Anweisungen als FERTIG. Das System gibt nach Abschluss NEON-FEEDBACK."
+                "title": "// AUFGABENVERWALTUNG [Operationen]",
+                "item1_label": "SCHÖPFUNG",
+                "item1_text": "Geben Sie Ihre Aufgabendetails ein und weisen Sie eine Priorität zu. Drücken Sie die EINGABETASTE, um die Aufgabe schnell zu erstellen.",
+                "item2_label": "FEEDBACK",
+                "item2_text": "Eine erfolgreiche Erstellung löst eine visuelle Bestätigung aus.",
+                "item3_label": "BEARBEITUNG",
+                "item3_text": "Klicken Sie auf einen Aufgabentitel, um ihn sofort umzubenennen.",
+                "item4_label": "KATEGORIEN & PRIORITÄTEN",
+                "item4_text": "Klicken Sie auf die Kategorie- oder Prioritätsabzeichen einer Aufgabe, um diese zu ändern.",
+                "item5_label": "ABSCHLUSS",
+                "item5_text": "Markieren Sie Aufgaben als erledigt, um XP zu verdienen und Abschlusseffekte auszulösen."
             },
             "deep_directives": {
-                "title": "// DEEP DIRECTIVES [Dossier & Intel]",
-                "item1_label": "PROTOKOLLBESCHREIBUNG",
-                "item1_text": "Greifen Sie auf das OPERATIVE DOSSIER zu, indem Sie auf eine aktive Anweisung klicken. Kodieren Sie Rich-Text-Informationen mithilfe des Markdown-Protokolls, um die Klarheit der Mission zu gewährleisten.",
-                "item2_label": "UP-LINKS",
-                "item2_text": "Stellen Sie über URL-Anhänge sichere neuronale Verbindungen zu externen Datengittern her. Sorgen Sie für ordnungsgemäßes HTTPS-Tunneling.",
-                "item3_label": "DATEINANHÄNGE",
-                "item3_text": "Laden Sie wichtige Missionsressourcen direkt in den verschlüsselten Tresor hoch, um eine lokale, sichere Speicherung zu ermöglichen."
+                "title": "// DEEP DIRECTIVES [Files & Intel]",
+                "item1_label": "BESCHREIBUNG & MARKDOWN",
+                "item1_text": "Klicken Sie auf eine Aufgabe, um deren Dossier zu öffnen. Sie können mit Markdown Rich-Text-Beschreibungen für detaillierte Notizen schreiben.",
+                "item2_label": "LINKS",
+                "item2_text": "Fügen Sie URLs in Ihre Beschreibung ein, um sichere, anklickbare Links zu externen Ressourcen zu erstellen.",
+                "item3_label": "ANHÄNGE",
+                "item3_text": "Laden Sie wichtige Dateien und Bilder zur sicheren Speicherung direkt in eine Aufgabe hoch."
             },
             "sort_order": {
                 "title": "// SORT ORDER PROTOCOL [Aufgabenverwaltung]",
@@ -362,13 +362,6 @@
                 "theme_got": "WESTEROS (GOT) – Eis und Feuer. Kaltblauer Stahl und valyrische blutrote Akzente. Der Winter kommt. Der Norden erinnert sich.",
                 "theme_marvel": "COMIC (MARVEL) – Heroische rote und auffällige Action-Punkte. Puh! Wham! Eine Hommage an das goldene Zeitalter der Comics. Holzwolle!",
                 "theme_dc": "GOTHAM (DC) – Dunkelste Nacht, tiefstes Blau und ein gelber Lichtstreifen, der durch den Regen schneidet. Gerechtigkeit schläft nie."
-            },
-            "danger_zone": {
-                "title": "// GEFAHRENZONENPROTOKOLLE",
-                "item1_warn": "⚠ IDENTITÄTSKÜNDIGUNG:",
-                "item1_text": "Durch die Bestätigung der Kontolöschung wird die **TERMINAL-SICHERHEITSWARNUNG** ausgelöst. Diese Aktion ist irreversibel.",
-                "item2_label": "Escape-Protokoll",
-                "item2_text": "Verwenden Sie ABORT, um sich sofort vor dem endgültigen Abbruch zu retten."
             }
         }
     },
@@ -404,8 +397,8 @@
         "never": "NIEMALS",
         "joined_label": "JO",
         "login_label": "LG",
-        "downgrade": "DOWNGRADE",
-        "promote": "FÖRDERN",
+        "downgrade": "DEGRADIEREN",
+        "promote": "BEFÖRDERN",
         "reset_pwd": "PWD ZURÜCKSETZEN",
         "2fa_off": "2FA AUS",
         "erase": "LÖSCHEN",

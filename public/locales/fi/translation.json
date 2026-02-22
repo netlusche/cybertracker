@@ -4,7 +4,7 @@
         "subtitle": "TASKER",
         "operative": "OPERATIIVINEN",
         "unknown": "TUNTEMATON",
-        "admin_clearance": "[JÄRJESTELMÄNVALVOJAN LUKU]",
+        "admin_clearance": "[JÄRJESTELMÄNVALVOJA]",
         "system_help": "JÄRJESTELMÄOHJE",
         "admin": "JÄRJESTELMÄNVALVOJA",
         "profile": "PROFIILI",
@@ -177,9 +177,9 @@
         "contact": {
             "channel": "OTA YHTEYTTÄ KANAVAAN",
             "current": "Nykyinen:",
-            "new_placeholder": "Uusi sähköpostitiheys",
+            "new_placeholder": "Uusi Com-Link (sähköposti)",
             "confirm_password": "Vahvista salasana",
-            "reroute": "UUDELLEEN REITTITAAJUUS"
+            "reroute": "UUDELLEEN REITTIÄ COM-LINK"
         },
         "cypher": {
             "update_title": "PÄIVITYS CYPHER",
@@ -233,55 +233,55 @@
         }
     },
     "help": {
-        "title": "CYBER_TASKER OPERATIIVINEN KÄSIKIRJA",
+        "title": "CYBER_TASKER JÄRJESTELMÄOPAS",
         "acknowledge": "KIITOS",
         "sections": {
             "neural_progression": {
-                "title": "// NEURAALINEN EDISTYMINEN [XP & Ranks]",
-                "item1_label": "XP-POINTA",
-                "item1_text": "Onnistunut käskyn suorittaminen ruiskuttaa raakaa kokemustietoa hermoytimeen. Korkeampi monimutkaisuus tuottaa enemmän palkintoja.",
-                "item2_label": "OPERATIIVINEN SIJOITUS",
-                "item2_text": "Kerää datapaketteja OPERAATTORIN TASON edentämiseksi. Seurantapalkki visualisoi synkronoinnin tilan seuraavan sijoituksen kanssa.",
-                "item3_label": "RANK-JUHLAT",
-                "item3_text": "Tasojen nostaminen laukaisee järjestelmän laajuisen korkeataajuisen neonpalautesilmukan ja tunnelmallisen juhlan."
+                "title": "// EDISTYMINEN [XP & Ranks]",
+                "item1_label": "ansaitsee XP",
+                "item1_text": "Tehtävien suorittaminen antaa kokemuspisteitä (XP). Korkeamman prioriteetin tehtävät tuottavat enemmän palkintoja.",
+                "item2_label": "TASON YLÖS",
+                "item2_text": "Kerää tarpeeksi XP:tä päästäksesi seuraavalle operaattoritasolle. Seurantapalkki näyttää nykyisen etenemisesi.",
+                "item3_label": "PALKKIOT",
+                "item3_text": "Tasojen nostaminen laukaisee visuaalisen palautteen ja vapauttaa korkeampia rivejä järjestelmässä."
             },
             "system_access": {
-                "title": "// JÄRJESTELMÄKÄYTTÖ [Auth Protocol]",
-                "item1_label": "ALOITTAA UUSI IDENTITEETTI",
-                "item1_text1": "Suorita UUSI IDENTITY rekisteröityäksesi. Syötä CODENAME (käyttäjänimi), COM-LINK (sähköposti) ja ACCESS KEY (salasana).",
-                "item1_warn": "⚠ Vahvistus vaaditaan sähköpostitse.",
-                "item2_label": "JACK IN",
-                "item2_text": "Käytä verkkoa CODENAME- tai COM-LINK-yhteyden ja PÄÄSY-AVAIN kautta."
+                "title": "// PÄÄSY [Todennus]",
+                "item1_label": "REKISTERÖINTI",
+                "item1_text1": "Luo uusi tili käyttämällä koodinimeä (käyttäjätunnus), Com-Linkkiä (sähköposti) ja pääsyavainta (salasanaa).",
+                "item1_warn": "⚠ Tilin aktivointi edellyttää sähköpostivahvistusta.",
+                "item2_label": "KIRJAUDU",
+                "item2_text": "Pääset ruudukkoon sähköpostisi tai koodinimesi ja salasanasi avulla."
             },
             "bio_lock": {
-                "title": "// BIOLUKKO-TURVOT [2FA]",
+                "title": "// TURVALLISUUS [2FA]",
                 "item1": "Siirry kohtaan PROFIILI > OTA 2FA SECURITY KÄYTTÖÖN.",
-                "item2": "Skannaa QR MATRIX autentikaattorillasi.",
-                "item3": "Aktivoi syötä koodi. Tulevat kirjautumiset vaativat tämän synkronointikoodin.",
-                "item4_warn": "⚠ TURVAVAROITUS:",
-                "item4_text": "2FA:n lopettaminen laukaisee korkean prioriteetin puolustusvaroituksen."
+                "item2": "Skannaa QR-koodi todennussovelluksella.",
+                "item3": "Aktivoi syötä 6-numeroinen koodi. Tulevat kirjautumiset vaativat tämän koodin.",
+                "item4_warn": "⚠ VAROITUS:",
+                "item4_text": "2FA:n poistaminen käytöstä heikentää tilisi turvallisuutta merkittävästi."
             },
             "directive_execution": {
-                "title": "// DIREKTIIVI SUORITUS [Task Management]",
-                "item1_label": "ALUSTAA",
-                "item1_text": "Syötä ohjeparametrit ja määritä PRIORITY. Käytä ENTER-näppäintä nopeaan käyttöönottoon.",
-                "item2_label": "TERMINAALIPULSSI",
-                "item2_text": "Onnistunut alustus laukaisee SYAANI PALAUTEPULSSI ja juhlan.",
-                "item3_label": "EDIT",
-                "item3_text": "Napsauta tehtävän otsikkoa nimetäksesi uudelleen. tehokas työnkulku.",
-                "item4_label": "MUOKKAA",
-                "item4_text": "Valitse teemavalinta napsauttamalla LUOKKA- tai PRIORITY-merkkejä.",
-                "item5_label": "SUORITA",
-                "item5_text": "Merkitse käskyt VALMIS. Järjestelmä antaa NEON-PALAUTETTA valmistuttuaan."
+                "title": "// TEHTÄVIEN HALLINTA [Toiminnot]",
+                "item1_label": "LUOMINEN",
+                "item1_text": "Anna tehtäväsi tiedot ja aseta prioriteetti. Luo tehtävä nopeasti painamalla ENTER.",
+                "item2_label": "PALAUTE",
+                "item2_text": "Onnistunut luominen käynnistää visuaalisen vahvistuksen.",
+                "item3_label": "EDITOIMINTA",
+                "item3_text": "Napsauta mitä tahansa tehtävän otsikkoa nimetäksesi sen uudelleen välittömästi.",
+                "item4_label": "KATEGORIAT JA PRIORITEETIT",
+                "item4_text": "Napsauta tehtävän luokkaa tai prioriteettimerkkejä muuttaaksesi niitä.",
+                "item5_label": "TÄYTYMINEN",
+                "item5_text": "Merkitse tehtävät valmiiksi ansaitaksesi XP:n ja käynnistääksesi valmistumistehosteet."
             },
             "deep_directives": {
-                "title": "// SYVÄDIREKTIIVIT [Asiakirja & Intel]",
-                "item1_label": "PÖYTÄKIRJA KUVAUS",
-                "item1_text": "Avaa OPERATIIVINEN ASIAKIRJA napsauttamalla mitä tahansa aktiivista ohjetta. Koodaa rich-text intel Markdown-protokollan avulla tehtävän selkeyden ylläpitämiseksi.",
-                "item2_label": "YLÖSLINKIT",
-                "item2_text": "Luo turvalliset hermoyhteydet ulkoisiin dataverkkoihin URL-liitteiden avulla. Varmista oikea HTTPS-tunnelointi.",
+                "title": "// SYVÄDIREKTIIVIT [Files & Intel]",
+                "item1_label": "KUVAUS & MERKINTÄ",
+                "item1_text": "Napsauta tehtävää avataksesi sen aineiston. Voit kirjoittaa rich-text-kuvauksia käyttämällä Markdownia yksityiskohtaisten huomautusten saamiseksi.",
+                "item2_label": "LINKIT",
+                "item2_text": "Sisällytä URL-osoitteita kuvaukseen luodaksesi suojattuja, klikattavia linkkejä ulkoisiin resursseihin.",
                 "item3_label": "LIITTEET",
-                "item3_text": "Lataa kriittiset tehtäväresurssit suoraan salattuun varastoon paikallista suojattua tallennustilaa varten."
+                "item3_text": "Lataa tärkeät tiedostot ja kuvat suoraan tehtävään suojattua tallennusta varten."
             },
             "sort_order": {
                 "title": "// LAJITTELUTILAUSPROTOKOLLA [Task Management]",
@@ -362,13 +362,6 @@
                 "theme_got": "WESTEROS (GOT) - Jää ja tuli. Kylmänsinistä terästä ja Valyrian verenpunaisia ​​aksentteja. Talvi on tulossa. Pohjoinen muistaa.",
                 "theme_marvel": "COMIC (MARVEL) – Sankarillisia punaisia ​​ja rohkeita toimintapisteitä. Pow! Wham! Kunnianosoitus sarjakuvien kultakaudelle. Erinomainen!",
                 "theme_dc": "GOTHAM (DC) - Pimein yö, syvin sininen ja keltaista valoa leikkaava sateen läpi. Oikeus ei koskaan nuku."
-            },
-            "danger_zone": {
-                "title": "// VAARAVYÖHYKKEEN PÖYTÄKIRJAT",
-                "item1_warn": "⚠ IDENTITEETIN PÄÄTTYMINEN:",
-                "item1_text": "Tilin poistamisen vahvistaminen laukaisee **TERMINAL SECURITY ALERT** -ilmoituksen. Tämä toimenpide on peruuttamaton.",
-                "item2_label": "PAKOPROTOKOLLA",
-                "item2_text": "Käytä ABORTia pelastaaksesi itsesi välittömästi lopulliselta päättymiseltä."
             }
         }
     },

@@ -177,9 +177,9 @@
         "contact": {
             "channel": "CANALE DI CONTATTO",
             "current": "Corrente:",
-            "new_placeholder": "Nuova frequenza email",
+            "new_placeholder": "Nuovo collegamento Com (e-mail)",
             "confirm_password": "Conferma password",
-            "reroute": "FREQUENZA DI RIROTTA"
+            "reroute": "REINSTRADAMENTO COM-LINK"
         },
         "cypher": {
             "update_title": "AGGIORNAMENTO CIFRA",
@@ -233,55 +233,55 @@
         }
     },
     "help": {
-        "title": "MANUALE OPERATIVO CYBER_TASKER",
+        "title": "MANUALE DEL SISTEMA CYBER_TASKER",
         "acknowledge": "RICONOSCIUTO",
         "sections": {
             "neural_progression": {
-                "title": "// PROGRESSIONE NEURALE [XP e gradi]",
-                "item1_label": "RACCOLTA XP",
-                "item1_text": "L'esecuzione corretta della direttiva inserisce dati grezzi sull'esperienza nel tuo nucleo neurale. Una maggiore complessità produce maggiori ricompense.",
-                "item2_label": "CLASSIFICA OPERATIVA",
-                "item2_text": "Accumula pacchetti di dati per avanzare al tuo LIVELLO OPERATORE. La barra di tracciamento visualizza lo stato di sincronizzazione con il livello successivo.",
-                "item3_label": "CELEBRAZIONE DEL RANGO",
-                "item3_text": "Salire di livello innesca un ciclo di feedback al neon ad alto spettro a livello di sistema e una celebrazione atmosferica."
+                "title": "// PROGRESSIONE [XP e gradi]",
+                "item1_label": "GUADAGNARE XP",
+                "item1_text": "Il completamento delle attività garantisce punti esperienza (XP). I compiti con priorità più alta producono ricompense maggiori.",
+                "item2_label": "SALIRE DI LIVELLO",
+                "item2_text": "Accumula abbastanza XP per raggiungere il livello operatore successivo. La barra di monitoraggio mostra i tuoi progressi attuali.",
+                "item3_label": "PREMI",
+                "item3_text": "Salire di livello attiva un feedback visivo e sblocca gradi più alti all'interno del sistema."
             },
             "system_access": {
-                "title": "// ACCESSO AL SISTEMA [Protocollo di autenticazione]",
-                "item1_label": "INIZIA UNA NUOVA IDENTITÀ",
-                "item1_text1": "Eseguire NUOVA IDENTITÀ per registrarsi. Immettere CODENAME (nome utente), COM-LINK (e-mail) e CHIAVE DI ACCESSO (password).",
-                "item1_warn": "⚠ Verifica richiesta via email.",
-                "item2_label": "PRESA IN",
-                "item2_text": "Accedi alla griglia tramite CODENAME o COM-LINK e la tua CHIAVE DI ACCESSO."
+                "title": "// ACCESSO [Autenticazione]",
+                "item1_label": "REGISTRAZIONE",
+                "item1_text1": "Crea un nuovo account utilizzando un nome in codice (nome utente), Com-Link (e-mail) e chiave di accesso (password).",
+                "item1_warn": "⚠ Per attivare l'account è necessaria la verifica dell'e-mail.",
+                "item2_label": "ACCEDI",
+                "item2_text": "Accedi alla griglia tramite la tua email o nome in codice insieme alla tua password."
             },
             "bio_lock": {
-                "title": "// SICUREZZA BIO-LOCK [2FA]",
+                "title": "// SICUREZZA [2FA]",
                 "item1": "Passare a PROFILO > ABILITA SICUREZZA 2FA.",
-                "item2": "Scansiona la QR MATRIX con il tuo autenticatore.",
-                "item3": "Inserisci il codice per attivare. Gli accessi futuri richiederanno questo codice di sincronizzazione.",
-                "item4_warn": "⚠ AVVISO DI SICUREZZA:",
-                "item4_text": "La conclusione della 2FA attiva un avviso difensivo ad alta priorità."
+                "item2": "Scansiona il codice QR con un'app di autenticazione.",
+                "item3": "Inserisci il codice di 6 cifre per attivare. Gli accessi futuri richiederanno questo codice.",
+                "item4_warn": "⚠ ATTENZIONE:",
+                "item4_text": "La disattivazione della 2FA riduce in modo significativo la sicurezza del tuo account."
             },
             "directive_execution": {
-                "title": "// ESECUZIONE DIRETTIVA [Gestione attività]",
-                "item1_label": "INIZIALIZZA",
-                "item1_text": "Immettere i parametri della direttiva e assegnare la PRIORITÀ. Utilizzare INVIO per una distribuzione rapida.",
-                "item2_label": "IMPULSO TERMINALE",
-                "item2_text": "L'inizializzazione riuscita innesca un IMPULSO DI FEEDBACK CIANO e una celebrazione.",
-                "item3_label": "MODIFICA",
-                "item3_text": "Fare clic sul titolo dell'attività da rinominare. flusso di lavoro efficiente.",
-                "item4_label": "MODIFICA",
-                "item4_text": "Fai clic sui badge CATEGORIA o PRIORITÀ per la selezione del tema.",
-                "item5_label": "ESEGUIRE",
-                "item5_text": "Contrassegna le direttive come FATE. Il sistema fornisce FEEDBACK NEON al termine."
+                "title": "// GESTIONE DELLE COMPITI [Operazioni]",
+                "item1_label": "CREAZIONE",
+                "item1_text": "Inserisci i dettagli della tua attività e assegna una priorità. Premere INVIO per creare rapidamente l'attività.",
+                "item2_label": "RISPOSTA",
+                "item2_text": "La creazione riuscita attiva la conferma visiva.",
+                "item3_label": "REDAZIONE",
+                "item3_text": "Fai clic sul titolo di qualsiasi attività per rinominarla immediatamente.",
+                "item4_label": "CATEGORIE E PRIORITÀ",
+                "item4_text": "Fai clic sulla categoria o sui badge di priorità su un'attività per modificarli.",
+                "item5_label": "COMPLETAMENTO",
+                "item5_text": "Contrassegna le attività come FATTE per guadagnare XP e attivare gli effetti di completamento."
             },
             "deep_directives": {
-                "title": "// DIRETTIVE PROFONDE [Dossier e informazioni]",
-                "item1_label": "DESCRIZIONE DEL PROTOCOLLO",
-                "item1_text": "Accedi al DOSSIER OPERATIVO cliccando su una qualsiasi direttiva attiva. Codifica informazioni in formato rich-text utilizzando il protocollo Markdown per mantenere la chiarezza della missione.",
-                "item2_label": "LINK UP",
-                "item2_text": "Stabilisci connessioni neurali sicure a griglie di dati esterne tramite allegati URL. Garantire il corretto tunneling HTTPS.",
-                "item3_label": "FILE ALLEGATI",
-                "item3_text": "Carica le risorse cruciali della missione direttamente nel deposito crittografato per l'archiviazione sicura localizzata."
+                "title": "// DIRETTIVE PROFONDE [File e Intel]",
+                "item1_label": "DESCRIZIONE E RIMBORSO",
+                "item1_text": "Fare clic su un'attività per aprire il relativo dossier. Puoi scrivere descrizioni ricche di testo utilizzando Markdown per note dettagliate.",
+                "item2_label": "LINK",
+                "item2_text": "Includi gli URL nella descrizione per creare collegamenti sicuri e selezionabili a risorse esterne.",
+                "item3_label": "ALLEGATI",
+                "item3_text": "Carica file e immagini importanti direttamente in un'attività per l'archiviazione sicura."
             },
             "sort_order": {
                 "title": "// PROTOCOLLO ORDINE DI ORDINAMENTO [Gestione attività]",
@@ -362,13 +362,6 @@
                 "theme_got": "WESTEROS (GOT) — Ghiaccio e fuoco. Acciaio blu freddo e accenti rosso sangue di Valyria. L'inverno sta arrivando. Il Nord ricorda.",
                 "theme_marvel": "FUMETTO (MARVEL) — Punti rossi eroici e azioni audaci. Pow! Wham! Un omaggio all'epoca d'oro dei fumetti. Eccellente!",
                 "theme_dc": "GOTHAM (DC) — Notte più buia, blu più profondo e un frammento di luce gialla che taglia la pioggia. La giustizia non dorme mai."
-            },
-            "danger_zone": {
-                "title": "// PROTOCOLLI ZONE PERICOLOSE",
-                "item1_warn": "⚠ TERMINAZIONE DELL'IDENTITÀ:",
-                "item1_text": "La conferma dell'eliminazione dell'account attiva l'**AVVISO DI SICUREZZA DEL TERMINALE**. Questa azione è irreversibile.",
-                "item2_label": "PROTOCOLLO DI FUGA",
-                "item2_text": "Usa ABORT per salvarti immediatamente dalla risoluzione definitiva."
             }
         }
     },

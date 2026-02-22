@@ -177,9 +177,9 @@
         "contact": {
             "channel": "CONTACT CHANNEL",
             "current": "Current:",
-            "new_placeholder": "New Email Frequency",
+            "new_placeholder": "New Com-Link (Email)",
             "confirm_password": "Confirm Password",
-            "reroute": "RE-ROUTE FREQUENCY"
+            "reroute": "RE-ROUTE COM-LINK"
         },
         "cypher": {
             "update_title": "UPDATE CYPHER",
@@ -233,55 +233,55 @@
         }
     },
     "help": {
-        "title": "CYBER_TASKER OPERATIVE HANDBOOK",
+        "title": "CYBER_TASKER SYSTEM MANUAL",
         "acknowledge": "ACKNOWLEDGE",
         "sections": {
             "neural_progression": {
-                "title": "// NEURAL PROGRESSION [XP & Ranks]",
-                "item1_label": "XP HARVESTING",
-                "item1_text": "Successful directive execution injects raw Experience Data into your neural core. Higher complexity yields greater rewards.",
-                "item2_label": "OPERATIVE RANKING",
-                "item2_text": "Accumulate data packets to advance your OPERATOR LEVEL. Tracking bar visualizes your sync status with the next rank.",
-                "item3_label": "RANK CELEBRATION",
-                "item3_text": "Leveling up triggers a system-wide high-spectrum neon feedback loop and atmospheric celebration."
+                "title": "// PROGRESSION [XP & Ranks]",
+                "item1_label": "EARNING XP",
+                "item1_text": "Completing tasks grants Experience Points (XP). Higher priority tasks yield greater rewards.",
+                "item2_label": "LEVELING UP",
+                "item2_text": "Accumulate enough XP to reach the next operator level. The tracking bar displays your current progression.",
+                "item3_label": "REWARDS",
+                "item3_text": "Leveling up triggers visual feedback and unlocks higher ranks within the system."
             },
             "system_access": {
-                "title": "// SYSTEM ACCESS [Auth Protocol]",
-                "item1_label": "INITIATE NEW IDENTITY",
-                "item1_text1": "Execute NEW IDENTITY to register. Input CODENAME (username), COM-LINK (email), and ACCESS KEY (password).",
-                "item1_warn": "⚠ Verification required via email.",
-                "item2_label": "JACK IN",
-                "item2_text": "Access the grid via CODENAME or COM-LINK and your ACCESS KEY."
+                "title": "// ACCESS [Authentication]",
+                "item1_label": "REGISTRATION",
+                "item1_text1": "Create a new account using a Codename (Username), Com-Link (Email), and Access Key (Password).",
+                "item1_warn": "⚠ Email verification is required to activate the account.",
+                "item2_label": "LOGIN",
+                "item2_text": "Access the grid via your email or codename along with your password."
             },
             "bio_lock": {
-                "title": "// BIO-LOCK SECURITY [2FA]",
+                "title": "// SECURITY [2FA]",
                 "item1": "Navigate to PROFILE > ENABLE 2FA SECURITY.",
-                "item2": "Scan the QR MATRIX with your authenticator.",
-                "item3": "Input code to activate. Future logins will require this sync code.",
-                "item4_warn": "⚠ SECURITY ALERT:",
-                "item4_text": "Terminating 2FA triggers a high-priority defensive warning."
+                "item2": "Scan the QR code with an authenticator app.",
+                "item3": "Enter the 6-digit code to activate. Future logins will require this code.",
+                "item4_warn": "⚠ WARNING:",
+                "item4_text": "Disabling 2FA reduces your account security significantly."
             },
             "directive_execution": {
-                "title": "// DIRECTIVE EXECUTION [Task Management]",
-                "item1_label": "INITIALIZE",
-                "item1_text": "Input directive parameters and assign PRIORITY. Use ENTER for rapid deployment.",
-                "item2_label": "TERMINAL PULSE",
-                "item2_text": "Successful initialization triggers a CYAN FEEDBACK PULSE and celebration.",
-                "item3_label": "EDIT",
-                "item3_text": "Click task title to rename. efficient workflow.",
-                "item4_label": "MODIFY",
-                "item4_text": "Click CATEGORY or PRIORITY badges for themed selection.",
-                "item5_label": "EXECUTE",
-                "item5_text": "Mark directives as DONE. System provides NEON FEEDBACK upon completion."
+                "title": "// TASK MANAGEMENT [Operations]",
+                "item1_label": "CREATION",
+                "item1_text": "Enter your task details and assign a priority. Press ENTER to create the task quickly.",
+                "item2_label": "FEEDBACK",
+                "item2_text": "Successful creation triggers visual confirmation.",
+                "item3_label": "EDITING",
+                "item3_text": "Click on any task title to rename it instantly.",
+                "item4_label": "CATEGORIES & PRIORITIES",
+                "item4_text": "Click the category or priority badges on a task to change them.",
+                "item5_label": "COMPLETION",
+                "item5_text": "Mark tasks as DONE to earn XP and trigger completion effects."
             },
             "deep_directives": {
-                "title": "// DEEP DIRECTIVES [Dossier & Intel]",
-                "item1_label": "PROTOCOL DESCRIPTION",
-                "item1_text": "Access the OPERATIVE DOSSIER by clicking any active directive. Encode rich-text intel using the Markdown protocol to maintain mission clarity.",
-                "item2_label": "UP-LINKS",
-                "item2_text": "Establish secure neural connections to external data grids via URL attachments. Ensure proper HTTPS tunneling.",
-                "item3_label": "FILE ATTACHMENTS",
-                "item3_text": "Upload critical mission assets directly into the encrypted vault for localized secure storage."
+                "title": "// DEEP DIRECTIVES [Files & Intel]",
+                "item1_label": "DESCRIPTION & MARKDOWN",
+                "item1_text": "Click on a task to open its dossier. You can write rich-text descriptions using Markdown for detailed notes.",
+                "item2_label": "LINKS",
+                "item2_text": "Include URLs in your description to create secure, clickable links to external resources.",
+                "item3_label": "ATTACHMENTS",
+                "item3_text": "Upload important files and images directly to a task for secure storage."
             },
             "sort_order": {
                 "title": "// SORT ORDER PROTOCOL [Task Management]",
@@ -362,13 +362,6 @@
                 "theme_got": "WESTEROS (GOT) — Ice and Fire. Cold blue steel and Valyrian blood red accents. Winter is coming. The North remembers.",
                 "theme_marvel": "COMIC (MARVEL) — Heroic red and bold action dots. Pow! Wham! A tribute to the golden age of comic books. Excelsior!",
                 "theme_dc": "GOTHAM (DC) — Darkest night, deepest blue, and a sliver of yellow light cutting through the rain. Justice never sleeps."
-            },
-            "danger_zone": {
-                "title": "// DANGER ZONE PROTOCOLS",
-                "item1_warn": "⚠ IDENTITY TERMINATION:",
-                "item1_text": "Confirming account deletion triggers the **TERMINAL SECURITY ALERT**. This action is irreversible.",
-                "item2_label": "ESCAPE PROTOCOL",
-                "item2_text": "Use ABORT to immediately rescue yourself from final termination."
             }
         }
     },

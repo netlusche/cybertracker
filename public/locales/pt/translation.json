@@ -177,9 +177,9 @@
         "contact": {
             "channel": "CANAL DE CONTATO",
             "current": "Atual:",
-            "new_placeholder": "Nova frequência de e-mail",
+            "new_placeholder": "Novo Com-Link (E-mail)",
             "confirm_password": "Confirmar senha",
-            "reroute": "FREQUÊNCIA DE REROTA"
+            "reroute": "REROTA COM-LINK"
         },
         "cypher": {
             "update_title": "ATUALIZAR CIFRA",
@@ -233,55 +233,55 @@
         }
     },
     "help": {
-        "title": "MANUAL DE OPERAÇÃO DO CYBER_TASKER",
+        "title": "MANUAL DO SISTEMA CYBER_TASKER",
         "acknowledge": "RECONHECIMENTO",
         "sections": {
             "neural_progression": {
-                "title": "// PROGRESSÃO NEURAL [XP e Classificações]",
-                "item1_label": "COLHEITA XP",
-                "item1_text": "A execução bem-sucedida da diretiva injeta dados de experiência brutos em seu núcleo neural. Maior complexidade gera maiores recompensas.",
-                "item2_label": "CLASSIFICAÇÃO OPERATÓRIA",
-                "item2_text": "Acumule pacotes de dados para avançar seu NÍVEL DE OPERADOR. A barra de rastreamento visualiza seu status de sincronização com a próxima classificação.",
-                "item3_label": "CELEBRAÇÃO DE CLASSIFICAÇÃO",
-                "item3_text": "Subir de nível aciona um ciclo de feedback de néon de alto espectro em todo o sistema e uma celebração atmosférica."
+                "title": "// PROGRESSÃO [XP e classificações]",
+                "item1_label": "GANHAR XP",
+                "item1_text": "A conclusão de tarefas concede Pontos de Experiência (XP). Tarefas de maior prioridade geram maiores recompensas.",
+                "item2_label": "SUBINDO DE NÍVEL",
+                "item2_text": "Acumule XP suficiente para alcançar o próximo nível de operador. A barra de rastreamento exibe sua progressão atual.",
+                "item3_label": "RECOMPENSAS",
+                "item3_text": "Subir de nível aciona feedback visual e desbloqueia classificações mais altas no sistema."
             },
             "system_access": {
-                "title": "// ACESSO AO SISTEMA [Protocolo de autenticação]",
-                "item1_label": "INICIAR NOVA IDENTIDADE",
-                "item1_text1": "Execute NOVA IDENTIDADE para se registrar. Insira CODENAME (nome de usuário), COM-LINK (e-mail) e ACCESS KEY (senha).",
-                "item1_warn": "⚠ Verificação necessária por e-mail.",
-                "item2_label": "ENTRADA",
-                "item2_text": "Acesse a grade via CODENAME ou COM-LINK e sua CHAVE DE ACESSO."
+                "title": "// ACESSO [Autenticação]",
+                "item1_label": "INSCRIÇÃO",
+                "item1_text1": "Crie uma nova conta usando um Codename (Nome de usuário), Com-Link (E-mail) e Chave de acesso (Senha).",
+                "item1_warn": "⚠ A verificação de e-mail é necessária para ativar a conta.",
+                "item2_label": "ENTRAR",
+                "item2_text": "Acesse a grade através do seu e-mail ou codinome junto com sua senha."
             },
             "bio_lock": {
-                "title": "// SEGURANÇA BIO-LOCK [2FA]",
+                "title": "// SEGURANÇA [2FA]",
                 "item1": "Navegue até PERFIL > ATIVAR SEGURANÇA 2FA.",
-                "item2": "Digitalize o QR MATRIX com seu autenticador.",
-                "item3": "Insira o código para ativar. Logins futuros exigirão este código de sincronização.",
-                "item4_warn": "⚠ ALERTA DE SEGURANÇA:",
-                "item4_text": "O encerramento do 2FA aciona um aviso defensivo de alta prioridade."
+                "item2": "Digitalize o código QR com um aplicativo autenticador.",
+                "item3": "Digite o código de 6 dígitos para ativar. Logins futuros exigirão este código.",
+                "item4_warn": "⚠ AVISO:",
+                "item4_text": "Desativar o 2FA reduz significativamente a segurança da sua conta."
             },
             "directive_execution": {
-                "title": "// EXECUÇÃO DE DIRETIVAS [Gerenciamento de Tarefas]",
-                "item1_label": "INICIALIZAR",
-                "item1_text": "Insira os parâmetros da diretiva e atribua PRIORIDADE. Use ENTER para implantação rápida.",
-                "item2_label": "PULSO TERMINAL",
-                "item2_text": "A inicialização bem-sucedida aciona um PULSO DE FEEDBACK CIANO e uma celebração.",
-                "item3_label": "EDITAR",
-                "item3_text": "Clique no título da tarefa para renomear. fluxo de trabalho eficiente.",
-                "item4_label": "MODIFICAR",
-                "item4_text": "Clique nos emblemas CATEGORIA ou PRIORIDADE para seleção temática.",
-                "item5_label": "EXECUTAR",
-                "item5_text": "Marque as diretivas como CONCLUÍDAS. O sistema fornece NEON FEEDBACK após a conclusão."
+                "title": "// GERENCIAMENTO DE TAREFAS [Operações]",
+                "item1_label": "CRIAÇÃO",
+                "item1_text": "Insira os detalhes da sua tarefa e atribua uma prioridade. Pressione ENTER para criar a tarefa rapidamente.",
+                "item2_label": "FEEDBACK",
+                "item2_text": "A criação bem-sucedida aciona a confirmação visual.",
+                "item3_label": "EDIÇÃO",
+                "item3_text": "Clique em qualquer título de tarefa para renomeá-la instantaneamente.",
+                "item4_label": "CATEGORIAS E PRIORIDADES",
+                "item4_text": "Clique nos emblemas de categoria ou prioridade em uma tarefa para alterá-los.",
+                "item5_label": "CONCLUSÃO",
+                "item5_text": "Marque as tarefas como CONCLUÍDAS para ganhar XP e ativar efeitos de conclusão."
             },
             "deep_directives": {
-                "title": "// DIRETIVAS PROFUNDAS [Dossiê & Intel]",
-                "item1_label": "DESCRIÇÃO DO PROTOCOLO",
-                "item1_text": "Acesse o DOSSIÊ OPERACIONAL clicando em qualquer diretiva ativa. Codifique informações em rich text usando o protocolo Markdown para manter a clareza da missão.",
-                "item2_label": "LINKS PARA CIMA",
-                "item2_text": "Estabeleça conexões neurais seguras com grades de dados externas por meio de anexos de URL. Garanta o tunelamento HTTPS adequado.",
-                "item3_label": "ANEXOS DE ARQUIVOS",
-                "item3_text": "Carregue ativos de missão crítica diretamente no cofre criptografado para armazenamento seguro localizado."
+                "title": "// DIRETIVAS PROFUNDAS [Arquivos e Intel]",
+                "item1_label": "DESCRIÇÃO E MARCAÇÃO",
+                "item1_text": "Clique em uma tarefa para abrir seu dossiê. Você pode escrever descrições em rich text usando Markdown para notas detalhadas.",
+                "item2_label": "LIGAÇÕES",
+                "item2_text": "Inclua URLs em sua descrição para criar links seguros e clicáveis ​​para recursos externos.",
+                "item3_label": "ANEXOS",
+                "item3_text": "Carregue arquivos e imagens importantes diretamente em uma tarefa para armazenamento seguro."
             },
             "sort_order": {
                 "title": "// PROTOCOLO DE ORDEM DE CLASSIFICAÇÃO [Gerenciamento de Tarefas]",
@@ -362,13 +362,6 @@
                 "theme_got": "WESTEROS (GOT) — Gelo e Fogo. Aço azul frio e detalhes em vermelho sangue valiriano. O inverno está chegando. O Norte lembra.",
                 "theme_marvel": "COMIC (MARVEL) — Heroicos pontos de ação vermelhos e ousados. Prisioneiro de guerra! Uau! Uma homenagem à era de ouro dos quadrinhos. Excelsior!",
                 "theme_dc": "GOTHAM (DC) – Noite mais escura, azul mais profundo e um raio de luz amarela cortando a chuva. A justiça nunca dorme."
-            },
-            "danger_zone": {
-                "title": "// PROTOCOLOS DE ZONAS DE PERIGO",
-                "item1_warn": "⚠ RESCISÃO DE IDENTIDADE:",
-                "item1_text": "A confirmação da exclusão da conta aciona o **ALERTA DE SEGURANÇA TERMINAL**. Esta ação é irreversível.",
-                "item2_label": "PROTOCOLO DE ESCAPE",
-                "item2_text": "Use ABORT para resgatar-se imediatamente do encerramento final."
             }
         }
     },
