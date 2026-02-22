@@ -91,6 +91,7 @@ try {
     if (tableExists($pdo, 'users')) {
         echo "System initialized ('users' table detected). Engaging Auto-Lock protocol.<br>\n";
         if (session_status() === PHP_SESSION_NONE) {
+            session_set_cookie_params(['path' => '/']);
             session_start();
         }
 

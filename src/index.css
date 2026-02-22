@@ -1413,7 +1413,7 @@ body.theme-steampunk .input-cyber:focus {
 
 /* 13. Klingon - Grinding Steel */
 .theme-klingon .cyber-grid {
-  background-image: repeating-linear-gradient(45deg, rgba(10, 1, 1, 0.8) 25%, transparent 25%, transparent 75%, rgba(10, 1, 1, 0.8) 75%, rgba(10, 1, 1, 0.8)), repeating-linear-gradient(45deg, rgba(10, 1, 1, 0.8) 25%, rgba(5, 0, 0, 0.8) 25%, rgba(5, 0, 0, 0.8) 75%, rgba(10, 1, 1, 0.8) 75%, rgba(10, 1, 1, 0.8)) !important;
+  background-image: repeating-linear-gradient(45deg, rgba(255, 0, 0, 0.05) 25%, transparent 25%, transparent 75%, rgba(255, 0, 0, 0.05) 75%, rgba(255, 0, 0, 0.05)), repeating-linear-gradient(45deg, rgba(255, 0, 0, 0.05) 25%, rgba(10, 0, 0, 0.5) 25%, rgba(10, 0, 0, 0.5) 75%, rgba(255, 0, 0, 0.05) 75%, rgba(255, 0, 0, 0.05)) !important;
   background-size: 30px 30px !important;
   animation: grind-steel 30s linear infinite;
   opacity: 0.8 !important;
@@ -1483,6 +1483,105 @@ body.theme-steampunk .input-cyber:focus {
   100% {
     background-position: 0 100vh;
   }
+}
+
+/* ========================================================================= */
+/* FIREFOX NATIVE SCROLLBAR SUPPORT                                          */
+/* ========================================================================= */
+.theme-lcars,
+.theme-lcars .custom-scrollbar {
+  scrollbar-color: #ff9c00 #000;
+  scrollbar-width: thin;
+}
+
+.theme-matrix,
+.theme-matrix .custom-scrollbar {
+  scrollbar-color: #00ff41 #030804;
+  scrollbar-width: thin;
+}
+
+.theme-weyland,
+.theme-weyland .custom-scrollbar {
+  scrollbar-color: #ffb000 #050505;
+  scrollbar-width: thin;
+}
+
+.theme-cyberpunk,
+.theme-cyberpunk .custom-scrollbar {
+  scrollbar-color: #ff00ff #0a0a0a;
+  scrollbar-width: thin;
+}
+
+.theme-steampunk,
+.theme-steampunk .custom-scrollbar {
+  scrollbar-color: #d4af37 #2c1e16;
+  scrollbar-width: thin;
+}
+
+.theme-robco,
+.theme-robco .custom-scrollbar {
+  scrollbar-color: #00ff00 #051005;
+  scrollbar-width: thin;
+}
+
+.theme-grid,
+.theme-grid .custom-scrollbar {
+  scrollbar-color: #00ffff #000510;
+  scrollbar-width: thin;
+}
+
+.theme-section9,
+.theme-section9 .custom-scrollbar {
+  scrollbar-color: #ffffff #000000;
+  scrollbar-width: thin;
+}
+
+.theme-outrun,
+.theme-outrun .custom-scrollbar {
+  scrollbar-color: #00ffff #0a0014;
+  scrollbar-width: thin;
+}
+
+.theme-force,
+.theme-force .custom-scrollbar {
+  scrollbar-color: #00f0ff #000a14;
+  scrollbar-width: thin;
+}
+
+.theme-arrakis,
+.theme-arrakis .custom-scrollbar {
+  scrollbar-color: #e67e22 #1a0f05;
+  scrollbar-width: thin;
+}
+
+.theme-renaissance,
+.theme-renaissance .custom-scrollbar {
+  scrollbar-color: #d4af37 #0a0a0a;
+  scrollbar-width: thin;
+}
+
+.theme-klingon,
+.theme-klingon .custom-scrollbar {
+  scrollbar-color: #ff0000 #1a0000;
+  scrollbar-width: thin;
+}
+
+.theme-got,
+.theme-got .custom-scrollbar {
+  scrollbar-color: #8cb8cc #111a24;
+  scrollbar-width: thin;
+}
+
+.theme-marvel,
+.theme-marvel .custom-scrollbar {
+  scrollbar-color: #e62429 #111111;
+  scrollbar-width: thin;
+}
+
+.theme-dc,
+.theme-dc .custom-scrollbar {
+  scrollbar-color: #005ce6 #04040a;
+  scrollbar-width: thin;
 }
 
 /* ==========================================================================
@@ -1701,4 +1800,18 @@ body.theme-steampunk .input-cyber:focus {
 
 .theme-dc .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #0073e6;
+}
+
+/* ========================================================================= */
+/* FIREFOX-SPECIFIC OPTICAL ADJUSTMENTS                                      */
+/* ========================================================================= */
+@supports (-moz-appearance:none) {
+  .theme-matrix .cyber-grid {
+    opacity: 0.65 !important;
+  }
+
+  .theme-klingon .cyber-grid {
+    background-image: repeating-linear-gradient(45deg, rgba(255, 0, 0, 0.08) 25%, transparent 25%, transparent 75%, rgba(255, 0, 0, 0.08) 75%, rgba(255, 0, 0, 0.08)), repeating-linear-gradient(45deg, rgba(255, 0, 0, 0.08) 25%, rgba(20, 0, 0, 0.6) 25%, rgba(20, 0, 0, 0.6) 75%, rgba(255, 0, 0, 0.08) 75%, rgba(255, 0, 0, 0.08)) !important;
+    opacity: 0.9 !important;
+  }
 }

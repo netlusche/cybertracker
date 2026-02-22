@@ -2,6 +2,7 @@
 // api/csrf.php
 if (session_status() === PHP_SESSION_NONE) {
     // Relying on standard OS/PHP temp directory for sessions for maximum shared host compatibility
+    session_set_cookie_params(['path' => '/']);
     session_start();
 }
 
