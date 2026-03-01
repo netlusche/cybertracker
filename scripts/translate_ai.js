@@ -135,7 +135,7 @@ async function translateWithGoogle(targetLang, payload) {
         try {
           // Add a minor delay to avoid rate-limiting
           await new Promise(r => setTimeout(r, 200));
-          const res = await translate(obj[key], { to: targetLang });
+          const res = await translate(obj[key], { to: targetLang, forceTo: true });
           obj[key] = res.text;
         } catch (err) {
           console.error(`Google Translate Error on key [${key}]:`, err.message);

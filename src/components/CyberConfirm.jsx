@@ -38,7 +38,7 @@ const CyberConfirm = ({ message, onConfirm, onCancel, variant = 'primary', title
                         [ {t('common.abort')} ]
                     </CyberButton>
                     <CyberButton data-testid="confirm-button" variant={variant} className="flex-1" onClick={onConfirm}>
-                        {t('common.jack_in')}
+                        {t('common.confirm')}
                     </CyberButton>
                 </div>
             </div>

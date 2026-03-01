@@ -151,7 +151,7 @@ const TaskForm = ({ onAddTask, categoryRefreshTrigger, categories = [], prefillD
                     </div>
 
                     <div className="flex items-center gap-2 border border-cyber-gray/30 p-1 rounded">
-                        <span className="text-xs text-cyber-primary">{t('tasks.recurrence')}:</span>
+                        <span className="text-xs text-cyber-primary">{t('tasks.recurrence_cycle')}:</span>
                         <CyberSelect
                             value={recurrenceInterval}
                             onChange={setRecurrenceInterval}

@@ -12,9 +12,6 @@ class TaskRepository extends Repository
         if ($completed) {
             $where[] = "status = 1";
         }
-        else {
-            $where[] = "status = 0";
-        }
 
         if ($search) {
             $where[] = "title LIKE ?";

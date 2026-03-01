@@ -14,7 +14,7 @@ test.describe('Dashboard Quality of Life Features (Release 2.4)', () => {
         // 1. Check pills exist and test filtering
         const overduePill = page.getByRole('button', { name: /Overdue/i });
         const highPrioPill = page.getByRole('button', { name: /High Prio/i });
-        const clearPill = page.getByRole('button', { name: /Clear All/i });
+        const clearPill = page.getByRole('button', { name: /Reset/i });
 
         await expect(overduePill).toBeVisible();
         await expect(highPrioPill).toBeVisible();
@@ -156,10 +156,14 @@ test.describe('Dashboard Quality of Life Features (Release 2.4)', () => {
         const statusToggle = newTask.locator('button', { hasText: '○' }).first();
         await statusToggle.click();
 
-        // Wait for it to disappear from the default "active" view
-        await expect(page.locator('.card-cyber').filter({ hasText: 'Completed Filter Test Directive' })).toHaveCount(0, { timeout: 10000 });
+        // Wait for it to disappear from the default "active" view (BUGFIX 2.7.0: It SHOULD NOT disappear anymore, it should stay visible but grayed out!)
+        await expect(page.locator('.card-cyber').filter({ hasText: 'Completed Filter Test Directive' })).toBeVisible({ timeout: 10000 });
 
-        // Now activate the "Completed" filter pill
+        // Assert it has the '✓' badge now
+        const statusToggleCompleted = newTask.locator('button', { hasText: '✓' }).first();
+        await expect(statusToggleCompleted).toBeVisible();
+
+        // Now activate the "Completed" filter pill to ensure it ONLY shows completed
         const completedPill = page.getByRole('button', { name: 'Completed', exact: true });
         await expect(completedPill).toBeVisible();
         await completedPill.click();
@@ -176,8 +180,65 @@ test.describe('Dashboard Quality of Life Features (Release 2.4)', () => {
         const purgeBtn = page.getByRole('button', { name: /Purge/i });
         await expect(purgeBtn).toBeVisible();
 
-        // Cleanup: Click the completed pill again to toggle it off, reverting to active task view
+        // Cleanup: Click the completed pill again to toggle it off, reverting to ALL tasks view
         await completedPill.click();
+
+        // Assert it is still visible because default view shows everything now
+        await expect(page.locator('.card-cyber').filter({ hasText: 'Completed Filter Test Directive' })).toBeVisible({ timeout: 10000 });
+
+        // Final Cleanup
+        const deleteCompletedBtn = filteredCompletedTask.locator('button', { hasText: '⏏' }).first();
+        await deleteCompletedBtn.click();
+        await page.getByTestId('confirm-button').click();
         await expect(page.locator('.card-cyber').filter({ hasText: 'Completed Filter Test Directive' })).toHaveCount(0, { timeout: 10000 });
+    });
+
+    test('should allow filtering by Category and returning to All Categories (Bugfix)', async ({ page }) => {
+        // Create a new task with a specific random name to avoid collisions
+        const uniqueTitle = `Category Test ${Date.now()}`;
+        const taskInput = page.locator('#new-directive-input');
+
+        // 1. Create task
+        await taskInput.fill(uniqueTitle);
+        await page.getByRole('button', { name: /Add/i }).click();
+
+        const newTask = page.locator('.card-cyber').filter({ hasText: uniqueTitle }).first();
+        await expect(newTask).toBeVisible({ timeout: 10000 });
+
+        // 2. Change its category to "Personal"
+        const trigger = newTask.locator('div[role="button"]').first();
+        await trigger.click();
+
+        const dropdownList = page.locator('ul[role="listbox"]').last();
+        await expect(dropdownList).toBeVisible();
+        await dropdownList.locator('.cursor-pointer').filter({ hasText: 'Personal' }).click();
+
+        // Wait for backend to save
+        await page.waitForTimeout(1000);
+
+        // 3. Filter the dashboard by a DIFFERENT category (e.g., "Work")
+        const mainCategoryFilter = page.locator('.flex-col.md\\:flex-row').locator('div[role="button"]').first();
+        await mainCategoryFilter.click();
+
+        const mainDropdownList = page.locator('ul[role="listbox"]').last();
+        await expect(mainDropdownList).toBeVisible();
+        await mainDropdownList.locator('.cursor-pointer').filter({ hasText: 'Work' }).click();
+
+        // 4. Assert the task DISAPPEARS
+        await expect(page.locator('.card-cyber').filter({ hasText: uniqueTitle })).toHaveCount(0, { timeout: 10000 });
+
+        // 5. Filter the dashboard back to "All Categories" (The bug we fixed!)
+        await mainCategoryFilter.click();
+        await expect(mainDropdownList).toBeVisible();
+        await mainDropdownList.locator('.cursor-pointer').filter({ hasText: 'All Categories' }).click();
+
+        // 6. Assert the task REAPPEARS
+        await expect(page.locator('.card-cyber').filter({ hasText: uniqueTitle }).first()).toBeVisible({ timeout: 10000 });
+
+        // Cleanup
+        const deleteBtn = newTask.locator('button', { hasText: '⏏' }).first();
+        await deleteBtn.click();
+        await page.getByTestId('confirm-button').click();
+        await expect(page.locator('.card-cyber').filter({ hasText: uniqueTitle })).toHaveCount(0, { timeout: 10000 });
     });
 });

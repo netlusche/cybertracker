@@ -117,3 +117,9 @@ This document provides a categorized overview of the user stories implemented in
 *   **Automated Ghost Purge (US-2.6.1.3 & 2.6.1.4)**: As an administrator, I want to automatically delete unverified accounts and inactive accounts (based on retention years) to maintain database hygiene before major upgrades.
 *   **Thematic Admin Modals (US-2.6.1.5)**: As an administrator, I want critical destruction actions (like deleting a user) to trigger warning modals that strictly respect my currently selected aesthetic theme.
 *   **Completed Filter Pill (US-2.6.1.6)**: As an operative, I want a dedicated quick-filter pill to instantly display only my completed directives in a paginated grid.
+
+## 🚀 16. Release 2.7 Features (The AI Localization Update)
+*   **AI Translation Script (US-2.7.1)**: As a system maintainer, I want an AI-driven script powered by the Gemini API to rapidly translate new English UI strings into all 23 other languages natively preserving cyberpunk context.
+*   **Graceful API Fallback (US-2.7.1b)**: As a sysadmin, I want the translation script to cleanly fall back to a basic Google Translate API if the Gemini token is missing or rate-limited to ensure CI pipelines never break.
+*   **Incremental Translation (US-2.7.3)**: As a localization manager, I want the translation sync tool to only target *missing* keys by default, so it never overwrites manual human translations or custom fixes (like Klingon strings).
+*   **Unified Filter UX (US-2.7.4)**: As an operative, I want a single, unambiguous "Reset" button for all active dashboard filters to reduce visual clutter and translation duplication.

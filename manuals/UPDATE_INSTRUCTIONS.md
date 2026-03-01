@@ -1,3 +1,26 @@
+# CyberTasker Server Update Instructions (v2.6.1 → v2.7.0)
+
+These instructions guide you through the update to **v2.7.0** (The AI Localization Update).
+
+## 1. Backup (MANDATORY)
+- **Files**: Backup your `api/config.php` and your database file (if using SQLite). Be sure to also back up any existing files in the `uploads/` directory.
+
+## 2. Deploy Files
+1.  Upload the contents of the `dist` folder to your server.
+    > [!CAUTION]
+    > **CRITICAL SECURITY WARNING FOR MACOS USERS**: macOS Finder hides files starting with a dot (like `.htaccess`) by default. If you simply drag the visible files to your FTP client, the `.htaccess` files **will be left behind**, exposing your database and uploads to the public web! 
+    > Press `Cmd` + `Shift` + `.` in Finder to reveal hidden files, and ensure `.htaccess` in `api/` and `api/uploads/` are successfully transferred to your web server.
+2.  **Overwrite all files** EXCEPT `api/config.php` and your database file.
+
+## 3. Database Update
+**No database schema changes are required** if updating from v2.6.1.
+
+## 4. Verify Update
+1.  **Unified Filters**: Verify that the Operative Dashboard only displays one single "RESET" button on the right side of the filter matrix.
+2.  **Language Verification**: Switch your system language to any of the 24 supported languages and verify that all UI elements, including filter buttons, adapt correctly.
+
+---
+
 # CyberTasker Server Update Instructions (v2.6.0 → v2.6.1)
 
 These instructions guide you through the update to **v2.6.1** (The Admin & QoL Polish).

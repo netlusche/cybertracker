@@ -542,7 +542,7 @@ const DirectiveModal = ({ task, categories, onClose, onUpdate, onDuplicate }) =>
                             <div className="flex items-center gap-2 font-mono text-base px-3 py-1.5 border border-gray-700/50 rounded bg-black/20">
                                 <span className="text-cyber-primary xp-text">⟲</span>
                                 <span className="text-xs font-bold text-gray-500 uppercase tracking-widest mr-1">
-                                    {t('tasks.recurrence')}:
+                                    {t('tasks.recurrence_cycle')}:
                                 </span>
                                 <div className="w-28">
                                     <CyberSelect

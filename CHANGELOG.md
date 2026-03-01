@@ -2,8 +2,20 @@
 
 All notable changes to this project will be documented in this file. The format is based on the system's aesthetic release history.
 
-# CyberTasker 2.6.1 (The Admin & QoL Polish)
+# CyberTasker 2.7.0 (The AI Localization Update)
 
+### 🌍 Global Deep-Translation Engine
+*   **AI-Driven Localization**: Integrated a robust translation pipeline (`scripts/translate_ai.js`) powered by the Gemini API, enabling fully context-aware, thematic translations across all 23 supported languages simultaneously.
+*   **Automated Fallback Protocols**: The translation engine automatically degrades gracefully to a standard Google Translate API proxy if the primary AI link is severed or rate-limited, ensuring zero downtime in continuous integration.
+*   **Incremental CI/CD Sync**: The localization engine now strictly operates in "Delta Mode" automatically, scanning only for missing translation keys to preserve manual overrides (like Klingon grammar) and minimize API token consumption.
+
+### ✨ Tactile UI Polish
+*   **Unified Filter Reset**: Consolidated redundant filter reset controls on the Operative Dashboard into a single, globally responsive "RESET" button to streamline internationalization and reduce cognitive load.
+*   **Alert Box Clarity**: Re-localized all internal `CyberConfirm` dialog prompts to universally use clear, unambiguous "Confirm" language rather than stylized jargon, preventing operational confusion in critical destructive actions.
+
+---
+
+# CyberTasker 2.6.1 (The Admin & QoL Polish)
 ### 🕵️‍♂️ Flotten-Administration 
 *   **Database Maintenance**: Administrators can now physically purge "Ghost Accounts" (unverified > 14 days) and "Inactive Accounts" (no login > 1, 2, 5, 10, or 11 years) directly from the Administration Console.
 *   **UX Consistency**: Deletion confirmations inside the Admin Panel now strictly use the standardized `CyberConfirm` themed modal.

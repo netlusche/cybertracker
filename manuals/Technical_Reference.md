@@ -1,4 +1,4 @@
-# CyberTasker v2.6.1 - Technical Reference
+# CyberTasker v2.7.0 - Technical Reference
 
 ![CyberTasker Logo](images/cybertasker_logo_horizontal.png)
 

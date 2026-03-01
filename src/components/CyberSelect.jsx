@@ -32,8 +32,11 @@ const CyberSelect = ({ value, onChange, options, label, className = "", wrapperC
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    const selectedOption = options.find(opt => (opt.value || opt) === value);
-    const displayValue = selectedOption ? (selectedOption.label || selectedOption.name || selectedOption) : label || t('common.select');
+    const resolveValue = (opt) => opt?.value !== undefined ? opt.value : (opt?.name !== undefined ? opt.name : opt);
+    const resolveLabel = (opt) => opt?.label !== undefined ? opt.label : (opt?.name !== undefined ? opt.name : opt);
+
+    const selectedOption = options.find(opt => resolveValue(opt) === value);
+    const displayValue = selectedOption ? resolveLabel(selectedOption) : label || t('common.select');
 
     return (
         <div className={`relative ${className}`} ref={containerRef}>
@@ -70,8 +73,8 @@ const CyberSelect = ({ value, onChange, options, label, className = "", wrapperC
                     className="absolute z-[1000] w-full mt-1 bg-black border border-cyber-primary shadow-xl max-h-60 overflow-y-auto backdrop-blur-xl transform-gpu bg-opacity-95 rounded-sm"
                 >
                     {options.map((opt, idx) => {
-                        const optValue = opt.value || opt.name || opt;
-                        const optLabel = opt.label || opt.name || opt;
+                        const optValue = resolveValue(opt);
+                        const optLabel = resolveLabel(opt);
                         const isSelected = optValue === value;
 
                         return (
