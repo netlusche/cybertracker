@@ -57,25 +57,12 @@ Release 2.8 dient als finales "Aufpolieren" der Agenten-Erfahrung vor dem große
 
 ---
 
-### US-2.8.5: E-Mail Dispatcher mit iCal-Anhang
-**Als** Agent, der viel unterwegs ist,
-**möchte ich** eine Profil-Option (Toggle) aktivieren können, die mir neu erstellte Direktiven automatisch als E-Mail an meine Registrierungs-Adresse schickt – inklusive Titel, Beschreibung und einer `.ics` Kalenderdatei (falls ein Fälligkeitsdatum gesetzt ist),
-**damit** ich wichtige Aufgaben direkt in meinen nativen Geräte-Kalender (Outlook/Apple) übernehmen kann.
+### US-2.8.5: Live Calendar WebFeed (WebCal)
+**Als** Power-User & Agent, der viel unterwegs ist,
+**möchte ich** einen dynamischen, geheimen URL-Link (WebCal Feed) in meinem Profil generieren und kopieren können,
+**damit** ich CyberTasker direkt in meinen Google Calendar oder Apple Calendar einhängen kann und sich anstehende Direktiven (inkl. Dossier-Text und Fälligkeitsdatum) vollautomatisch auf mein Smartphone synchronisieren.
 
 **Akzeptanzkriterien:**
-- [ ] User-Settings / Profile Modal enthält einen Toggle: "Auto-Dispatch Directives via Comlink (E-Mail)".
-- [ ] Das Backend (`TaskController.php`) prüft beim `createTask()`, ob diese Option aktiv ist und löst bei Bedarf einen Mail-Versand aus.
-- [ ] Die E-Mail enthält den Task-Titel als Betreff und das Dossier im Body.
-- [ ] Wenn ein `due_date` existiert, generiert PHP on-the-fly eine valide `.ics` Datei und hängt sie an die E-Mail an.
-- [ ] (Sicherheits-Empfehlung: Updates sollten *nicht* automatisch E-Mails auslösen, um Spam zu vermeiden, sondern z.B. nur manuell über einen "Send"-Button auf der Task-Karte getriggert werden können).
-
----
-
-### US-2.8.6 (Bonus Option): Live Calendar WebFeed (WebCal)
-**Als** Power-User
-**möchte ich** statt manueller `.ics` E-Mail-Anhänge lieber einen dynamischen Link (URL) in meinem Profil generieren können,
-**damit** ich CyberTasker als "WebCal-Abonnement" direkt in meinen Google Calendar oder Apple Calendar einhängen kann und sich Updates (Verschiebungen von Deadlines) automatisch auf meinem Smartphone synchronisieren.
-
-**Akzeptanzkriterien:**
-- [ ] Ein `api/calendar_feed.php` Endpunkt, der anhand eines sicheren, benutzerspezifischen Tokens alle aktiven Tasks des Users abfragt und on-the-fly als kombinierten `text/calendar` (iCalendar) Stream ausgibt.
-- [ ] Im Profile-Modal wird dieser private URL-Link zum Kopieren angeboten.
+- [ ] User-Settings / Profile Modal enthält einen Bereich für den "WebCal Comlink".
+- [ ] Ein `api/calendar_feed.php` Endpunkt, der anhand eines sicheren, benutzerspezifischen Tokens (in der Datenbank hinterlegt oder via JWT generiert) alle aktiven Tasks des Users abfragt.
+- [ ] Der Endpunkt gibt die Daten on-the-fly als kombinierten `text/calendar` (iCalendar / `.ics`) Stream aus, der von externen Kalender-Apps gelesen werden kann.
