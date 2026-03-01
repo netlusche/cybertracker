@@ -156,10 +156,14 @@ test.describe('Dashboard Quality of Life Features (Release 2.4)', () => {
         const statusToggle = newTask.locator('button', { hasText: '○' }).first();
         await statusToggle.click();
 
-        // Wait for it to disappear from the default "active" view
-        await expect(page.locator('.card-cyber').filter({ hasText: 'Completed Filter Test Directive' })).toHaveCount(0, { timeout: 10000 });
+        // Wait for it to disappear from the default "active" view (BUGFIX 2.7.0: It SHOULD NOT disappear anymore, it should stay visible but grayed out!)
+        await expect(page.locator('.card-cyber').filter({ hasText: 'Completed Filter Test Directive' })).toBeVisible({ timeout: 10000 });
 
-        // Now activate the "Completed" filter pill
+        // Assert it has the '✓' badge now
+        const statusToggleCompleted = newTask.locator('button', { hasText: '✓' }).first();
+        await expect(statusToggleCompleted).toBeVisible();
+
+        // Now activate the "Completed" filter pill to ensure it ONLY shows completed
         const completedPill = page.getByRole('button', { name: 'Completed', exact: true });
         await expect(completedPill).toBeVisible();
         await completedPill.click();
@@ -176,8 +180,16 @@ test.describe('Dashboard Quality of Life Features (Release 2.4)', () => {
         const purgeBtn = page.getByRole('button', { name: /Purge/i });
         await expect(purgeBtn).toBeVisible();
 
-        // Cleanup: Click the completed pill again to toggle it off, reverting to active task view
+        // Cleanup: Click the completed pill again to toggle it off, reverting to ALL tasks view
         await completedPill.click();
+
+        // Assert it is still visible because default view shows everything now
+        await expect(page.locator('.card-cyber').filter({ hasText: 'Completed Filter Test Directive' })).toBeVisible({ timeout: 10000 });
+
+        // Final Cleanup
+        const deleteCompletedBtn = filteredCompletedTask.locator('button', { hasText: '⏏' }).first();
+        await deleteCompletedBtn.click();
+        await page.getByTestId('confirm-button').click();
         await expect(page.locator('.card-cyber').filter({ hasText: 'Completed Filter Test Directive' })).toHaveCount(0, { timeout: 10000 });
     });
 
