@@ -27,6 +27,7 @@ Release 2.8 dient als finales "Aufpolieren" der Agenten-Erfahrung vor dem große
 - [ ] Das Raster der Tasks wird durch eine einzige, maximierte "Hero Card" im Zentrum des Bildschirms ersetzt.
 - [ ] Angezeigt wird automatisch die Aufgabe aus der regulären View mit der aktuell höchsten Priorität und dem dringendsten Datum.
 - [ ] Die Hero Card enthält einen massiven "COMPLETE" Button sowie einen "SKIP / NEXT" Button, um zur zweitwichtigsten Aufgabe zu springen.
+- [ ] **QA**: Ein Playwright E2E Test stellt sicher, dass der Toggle funktioniert und die Focus-Card isoliert dargestellt wird.
 
 ---
 
@@ -43,6 +44,7 @@ Release 2.8 dient als finales "Aufpolieren" der Agenten-Erfahrung vor dem große
   - [ ] Alle markierten Tasks löschen (mit einem einzigen CyberConfirm).
   - [ ] Option: Einer massenhaft ausgewählten Kategorie zuweisen.
 - [ ] Das Backend (`TaskController.php`) muss erweitert werden, um Arrays von IDs zu verarbeiten (Bulk Update / Bulk Delete).
+- [ ] **QA**: Eine neue Suite an Playwright E2E Tests validiert den Multi-Select-Workflow und die Statusänderungen/Löschungen im Bulk.
 
 ---
 
@@ -66,3 +68,4 @@ Release 2.8 dient als finales "Aufpolieren" der Agenten-Erfahrung vor dem große
 - [ ] User-Settings / Profile Modal enthält einen Bereich für den "WebCal Comlink".
 - [ ] Ein `api/calendar_feed.php` Endpunkt, der anhand eines sicheren, benutzerspezifischen Tokens (in der Datenbank hinterlegt oder via JWT generiert) alle aktiven Tasks des Users abfragt.
 - [ ] Der Endpunkt gibt die Daten on-the-fly als kombinierten `text/calendar` (iCalendar / `.ics`) Stream aus, der von externen Kalender-Apps gelesen werden kann.
+- [ ] **QA**: Ein Playwright E2E Test prüft, dass der URL-Link im UI existiert und der Feed-Endpoint den korrekten `text/calendar` Datentyp ausspuckt.
