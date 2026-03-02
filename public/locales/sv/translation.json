@@ -11,7 +11,9 @@
         "logout": "LOGGA UT",
         "calendar": "KALENDER",
         "focus_enter": "FOKUS",
-        "focus_exit": "AVSLUTA FOKUS"
+        "focus_exit": "AVSLUTA FOKUS",
+        "focus_enter_tooltip": "Gå in i fokusläge",
+        "focus_exit_tooltip": "Avsluta fokusläge"
     },
     "auth": {
         "title": "NETRUNNER-INLOGGNING",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "Inga brådskande direktiv väntar i den nuvarande uppfattningen.",
         "focus_active": "[ FOKUSLÄGE AKTIVT ]",
         "focus_executing": "UTFÖR...",
-        "focus_skip": "HOPPA över / NÄSTA"
+        "focus_skip": "HOPPA över / NÄSTA",
+        "focus_complete_tooltip": "Markera direktivet som färdigt",
+        "focus_skip_tooltip": "Gå vidare till nästa brådskande direktiv"
     },
     "dashboard": {
         "operator_level": "OPERATÖRSNIVÅ",

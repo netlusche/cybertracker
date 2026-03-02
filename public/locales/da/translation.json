@@ -11,7 +11,9 @@
         "logout": "LOG UD",
         "calendar": "KALENDER",
         "focus_enter": "FOKUS",
-        "focus_exit": "AFSLUT FOKUS"
+        "focus_exit": "AFSLUT FOKUS",
+        "focus_enter_tooltip": "Gå ind i fokustilstand",
+        "focus_exit_tooltip": "Afslut fokustilstand"
     },
     "auth": {
         "title": "NETRUNNER LOGIN",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "Ingen afventende presserende direktiver i den nuværende visning.",
         "focus_active": "[ FOKUS TILSTAND AKTIV ]",
         "focus_executing": "UDFØRER...",
-        "focus_skip": "SKIP / NÆSTE"
+        "focus_skip": "SKIP / NÆSTE",
+        "focus_complete_tooltip": "Marker direktivet som afsluttet",
+        "focus_skip_tooltip": "Gå videre til næste presserende direktiv"
     },
     "dashboard": {
         "operator_level": "OPERATØRNIVEAU",

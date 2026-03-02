@@ -11,7 +11,9 @@
         "logout": "ВИЙТИ",
         "calendar": "КАЛЕНДАР",
         "focus_enter": "ФОКУС",
-        "focus_exit": "ВИХІД З ФОКУСУ"
+        "focus_exit": "ВИХІД З ФОКУСУ",
+        "focus_enter_tooltip": "Увійдіть у режим фокусування",
+        "focus_exit_tooltip": "Вийти з режиму фокусування"
     },
     "auth": {
         "title": "ВХІД НЕТРАНЕРА",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "У поточному перегляді немає термінових вказівок.",
         "focus_active": "[РЕЖИМ ФОКУСУВАННЯ АКТИВНИЙ]",
         "focus_executing": "ВИКОНАННЯ...",
-        "focus_skip": "ПРОПУСТИТИ / ДАЛІ"
+        "focus_skip": "ПРОПУСТИТИ / ДАЛІ",
+        "focus_complete_tooltip": "Позначити директиву як виконану",
+        "focus_skip_tooltip": "Перейти до наступної термінової вказівки"
     },
     "dashboard": {
         "operator_level": "РІВЕНЬ ОПЕРАТИВНИКА",

@@ -11,7 +11,9 @@
         "logout": "CERRAR SESIÓN",
         "calendar": "CALENDARIO",
         "focus_enter": "ENFOCAR",
-        "focus_exit": "SALIR DEL ENFOQUE"
+        "focus_exit": "SALIR DEL ENFOQUE",
+        "focus_enter_tooltip": "Ingrese al modo de enfoque",
+        "focus_exit_tooltip": "Salir del modo de enfoque"
     },
     "auth": {
         "title": "INICIO DE SESIÓN NETRUNNER",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "En la opinión actual no hay directivas urgentes pendientes.",
         "focus_active": "[MODO DE ENFOQUE ACTIVO]",
         "focus_executing": "EJECUTANDO...",
-        "focus_skip": "SALTAR / SIGUIENTE"
+        "focus_skip": "SALTAR / SIGUIENTE",
+        "focus_complete_tooltip": "Marcar directiva como completada",
+        "focus_skip_tooltip": "Saltar a la siguiente directiva urgente"
     },
     "dashboard": {
         "operator_level": "NIVEL DE OPERATIVO",

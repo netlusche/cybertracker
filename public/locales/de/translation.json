@@ -11,7 +11,9 @@
         "logout": "ABMELDEN",
         "calendar": "KALENDER",
         "focus_enter": "FOKUS",
-        "focus_exit": "FOKUS VERLASSEN"
+        "focus_exit": "FOKUS VERLASSEN",
+        "focus_enter_tooltip": "Rufen Sie den Fokusmodus auf",
+        "focus_exit_tooltip": "Verlassen Sie den Fokusmodus"
     },
     "auth": {
         "title": "NETRUNNER-LOGIN",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "Aus heutiger Sicht sind keine dringenden Weisungen ausstehend.",
         "focus_active": "[ FOKUSMODUS AKTIV ]",
         "focus_executing": "AUSFÜHREN...",
-        "focus_skip": "ÜBERSPRINGEN / WEITER"
+        "focus_skip": "ÜBERSPRINGEN / WEITER",
+        "focus_complete_tooltip": "Richtlinie als abgeschlossen markieren",
+        "focus_skip_tooltip": "Fahren Sie mit der nächsten dringenden Anweisung fort"
     },
     "dashboard": {
         "operator_level": "OPERATOR-LEVEL",

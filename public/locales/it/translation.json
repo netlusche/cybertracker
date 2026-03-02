@@ -11,7 +11,9 @@
         "logout": "LOGOUT",
         "calendar": "CALENDARIO",
         "focus_enter": "MESSA A FUOCO",
-        "focus_exit": "ESCI DAL FUOCO"
+        "focus_exit": "ESCI DAL FUOCO",
+        "focus_enter_tooltip": "Accedi alla modalità di messa a fuoco",
+        "focus_exit_tooltip": "Uscire dalla modalità di messa a fuoco"
     },
     "auth": {
         "title": "ACCESSO NETRUNNER",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "Nessuna direttiva urgente in sospeso nella visualizzazione attuale.",
         "focus_active": "[MODALITÀ FUOCO ATTIVA]",
         "focus_executing": "ESECUZIONE...",
-        "focus_skip": "SALTA / AVANTI"
+        "focus_skip": "SALTA / AVANTI",
+        "focus_complete_tooltip": "Contrassegna la direttiva come completata",
+        "focus_skip_tooltip": "Passa alla prossima direttiva urgente"
     },
     "dashboard": {
         "operator_level": "LIVELLO OPERATIVO",

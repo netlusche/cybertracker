@@ -11,7 +11,9 @@
         "logout": "התנתקות",
         "calendar": "לוח שנה",
         "focus_enter": "מוֹקֵד",
-        "focus_exit": "יציאה מפוקוס"
+        "focus_exit": "יציאה מפוקוס",
+        "focus_enter_tooltip": "היכנס למצב פוקוס",
+        "focus_exit_tooltip": "צא ממצב פוקוס"
     },
     "auth": {
         "title": "כניסת נטראנר",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "אין הנחיות דחופות בתצוגה הנוכחית.",
         "focus_active": "[מצב פוקוס פעיל]",
         "focus_executing": "מְבַצֵעַ...",
-        "focus_skip": "דלג על / הבא"
+        "focus_skip": "דלג על / הבא",
+        "focus_complete_tooltip": "סמן את ההוראה כמושלמה",
+        "focus_skip_tooltip": "דלג להנחיה הדחופה הבאה"
     },
     "dashboard": {
         "operator_level": "רמת מפעיל",

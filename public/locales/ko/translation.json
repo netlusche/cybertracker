@@ -11,7 +11,9 @@
         "logout": "로그아웃",
         "calendar": "캘린더",
         "focus_enter": "집중하다",
-        "focus_exit": "포커스 종료"
+        "focus_exit": "포커스 종료",
+        "focus_enter_tooltip": "집중 모드 들어가기",
+        "focus_exit_tooltip": "초점 모드 종료"
     },
     "auth": {
         "title": "넷러너 로그인",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "현재 보기에는 보류 중인 긴급 지시가 없습니다.",
         "focus_active": "[ 초점 모드 활성화 ]",
         "focus_executing": "실행 중...",
-        "focus_skip": "건너뛰기 / 다음"
+        "focus_skip": "건너뛰기 / 다음",
+        "focus_complete_tooltip": "지시문을 완료로 표시",
+        "focus_skip_tooltip": "다음 긴급 지시로 건너뛰기"
     },
     "dashboard": {
         "operator_level": "요원 레벨",

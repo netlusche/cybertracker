@@ -11,7 +11,9 @@
         "logout": "注销",
         "calendar": "日历",
         "focus_enter": "重点",
-        "focus_exit": "退出焦点"
+        "focus_exit": "退出焦点",
+        "focus_enter_tooltip": "进入对焦模式",
+        "focus_exit_tooltip": "退出对焦模式"
     },
     "auth": {
         "title": "网络跑者登录",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "当前视图中没有待处理的紧急指令。",
         "focus_active": "[ 对焦模式激活 ]",
         "focus_executing": "正在执行...",
-        "focus_skip": "跳过/下一个"
+        "focus_skip": "跳过/下一个",
+        "focus_complete_tooltip": "将指令标记为已完成",
+        "focus_skip_tooltip": "跳至下一个紧急指令"
     },
     "dashboard": {
         "operator_level": "操作员等级",

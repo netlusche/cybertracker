@@ -11,7 +11,9 @@
         "logout": "DÉCONNEXION",
         "calendar": "CALENDRIER",
         "focus_enter": "SE CONCENTRER",
-        "focus_exit": "QUITTER LE FOCUS"
+        "focus_exit": "QUITTER LE FOCUS",
+        "focus_enter_tooltip": "Passer en mode mise au point",
+        "focus_exit_tooltip": "Quitter le mode de mise au point"
     },
     "auth": {
         "title": "CONNEXION NETRUNNER",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "Aucune directive urgente en attente dans la vue actuelle.",
         "focus_active": "[MODE DE MISE AU POINT ACTIF]",
         "focus_executing": "EXÉCUTION...",
-        "focus_skip": "SAUTER / SUIVANT"
+        "focus_skip": "SAUTER / SUIVANT",
+        "focus_complete_tooltip": "Marquer la directive comme complétée",
+        "focus_skip_tooltip": "Passer à la prochaine directive urgente"
     },
     "dashboard": {
         "operator_level": "NIVEAU D'OPÉRATEUR",

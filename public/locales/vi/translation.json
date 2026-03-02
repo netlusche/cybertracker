@@ -11,7 +11,9 @@
         "logout": "ĐĂNG XUẤT",
         "calendar": "LỊCH",
         "focus_enter": "TẬP TRUNG",
-        "focus_exit": "THOÁT TẬP TRUNG"
+        "focus_exit": "THOÁT TẬP TRUNG",
+        "focus_enter_tooltip": "Vào Chế độ lấy nét",
+        "focus_exit_tooltip": "Thoát Chế độ lấy nét"
     },
     "auth": {
         "title": "ĐĂNG NHẬP NETRUNNER",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "Không có chỉ thị khẩn cấp nào đang chờ xử lý trong chế độ xem hiện tại.",
         "focus_active": "[ CHẾ ĐỘ TẬP TRUNG HOẠT ĐỘNG ]",
         "focus_executing": "THỰC HIỆN...",
-        "focus_skip": "BỎ QUA / TIẾP THEO"
+        "focus_skip": "BỎ QUA / TIẾP THEO",
+        "focus_complete_tooltip": "Đánh dấu chỉ thị là đã hoàn thành",
+        "focus_skip_tooltip": "Chuyển sang chỉ thị khẩn cấp tiếp theo"
     },
     "dashboard": {
         "operator_level": "CẤP ĐỘ ĐẶC VỤ",

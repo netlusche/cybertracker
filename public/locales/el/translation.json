@@ -11,7 +11,9 @@
         "logout": "ΑΠΟΣΥΝΔΕΣΗ",
         "calendar": "ΗΜΕΡΟΛΟΓΙΟ",
         "focus_enter": "ΕΣΤΙΑ",
-        "focus_exit": "ΕΞΟΔΟΣ ΕΣΤΙΑΣΗ"
+        "focus_exit": "ΕΞΟΔΟΣ ΕΣΤΙΑΣΗ",
+        "focus_enter_tooltip": "Μπείτε στη λειτουργία εστίασης",
+        "focus_exit_tooltip": "Έξοδος από τη λειτουργία εστίασης"
     },
     "auth": {
         "title": "ΣΥΝΔΕΣΗ NETRUNNER",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "Δεν εκκρεμούν επείγουσες οδηγίες στην τρέχουσα προβολή.",
         "focus_active": "[ ΛΕΙΤΟΥΡΓΙΑ ΕΣΤΙΑΣΗΣ ΕΝΕΡΓΗ ]",
         "focus_executing": "ΕΚΤΕΛΕΣΗ...",
-        "focus_skip": "SKIP / NEXT"
+        "focus_skip": "SKIP / NEXT",
+        "focus_complete_tooltip": "Επισημάνετε την οδηγία ως ολοκληρωμένη",
+        "focus_skip_tooltip": "Μετάβαση στην επόμενη επείγουσα οδηγία"
     },
     "dashboard": {
         "operator_level": "ΕΠΙΠΕΔΟ ΠΡΑΚΤΟΡΑ",

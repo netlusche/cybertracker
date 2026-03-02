@@ -11,7 +11,9 @@
         "logout": "ÇIKIŞ",
         "calendar": "TAKVİM",
         "focus_enter": "ODAK",
-        "focus_exit": "ODAKTAN ÇIK"
+        "focus_exit": "ODAKTAN ÇIK",
+        "focus_enter_tooltip": "Odak Moduna Girin",
+        "focus_exit_tooltip": "Odak Modundan Çık"
     },
     "auth": {
         "title": "NETRUNNER GİRİŞİ",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "Mevcut görünümde bekleyen acil talimat yok.",
         "focus_active": "[ ODAKLAMA MODU AKTİF ]",
         "focus_executing": "UYGULANIYOR...",
-        "focus_skip": "ATLA / SONRAKİ"
+        "focus_skip": "ATLA / SONRAKİ",
+        "focus_complete_tooltip": "Yönergeyi tamamlandı olarak işaretle",
+        "focus_skip_tooltip": "Bir sonraki acil direktife atla"
     },
     "dashboard": {
         "operator_level": "OPERATÖR SEVİYESİ",

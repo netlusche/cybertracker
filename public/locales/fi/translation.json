@@ -11,7 +11,9 @@
         "logout": "KIRJAUDU ULOS",
         "calendar": "KALENTERI",
         "focus_enter": "FOCUS",
-        "focus_exit": "POISTU FOCUSISTA"
+        "focus_exit": "POISTU FOCUSISTA",
+        "focus_enter_tooltip": "Siirry tarkennustilaan",
+        "focus_exit_tooltip": "Poistu tarkennustilasta"
     },
     "auth": {
         "title": "NETRUNNER-KIRJAUDU",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "Ei kiireellisiä ohjeita vireillä nykyisessä näkymässä.",
         "focus_active": "[ TARKENNUSTILA AKTIIVINEN ]",
         "focus_executing": "SUORITTAA...",
-        "focus_skip": "OHITA / SEURAAVA"
+        "focus_skip": "OHITA / SEURAAVA",
+        "focus_complete_tooltip": "Merkitse ohje suoritetuksi",
+        "focus_skip_tooltip": "Siirry seuraavaan kiireelliseen ohjeeseen"
     },
     "dashboard": {
         "operator_level": "OPERAATTORITASO",

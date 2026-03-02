@@ -11,7 +11,9 @@
         "logout": "WYLOGUJ",
         "calendar": "KALENDARZ",
         "focus_enter": "CENTRUM",
-        "focus_exit": "WYJDŹ Z FOCUSU"
+        "focus_exit": "WYJDŹ Z FOCUSU",
+        "focus_enter_tooltip": "Wejdź w tryb skupienia",
+        "focus_exit_tooltip": "Wyjdź z trybu ostrości"
     },
     "auth": {
         "title": "LOGOWANIE NETRUNNERA",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "W obecnym ujęciu brak pilnych dyrektyw oczekujących na rozpatrzenie.",
         "focus_active": "[TRYB OSTROŚCI AKTYWNY]",
         "focus_executing": "WYKONYWANIE...",
-        "focus_skip": "POMIŃ / DALEJ"
+        "focus_skip": "POMIŃ / DALEJ",
+        "focus_complete_tooltip": "Oznacz dyrektywę jako ukończoną",
+        "focus_skip_tooltip": "Przejdź do następnej pilnej dyrektywy"
     },
     "dashboard": {
         "operator_level": "POZIOM OPERATORA",

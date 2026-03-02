@@ -11,7 +11,9 @@
         "logout": "लॉगआउट",
         "calendar": "कैलेंडर",
         "focus_enter": "केंद्र",
-        "focus_exit": "फोकस से बाहर निकलें"
+        "focus_exit": "फोकस से बाहर निकलें",
+        "focus_enter_tooltip": "फ़ोकस मोड दर्ज करें",
+        "focus_exit_tooltip": "फोकस मोड से बाहर निकलें"
     },
     "auth": {
         "title": "नेट रनर लॉगिन",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "वर्तमान दृष्टि से कोई भी आवश्यक निर्देश लंबित नहीं है।",
         "focus_active": "[फोकस मोड सक्रिय]",
         "focus_executing": "क्रियान्वयन...",
-        "focus_skip": "छोड़ें/अगला"
+        "focus_skip": "छोड़ें/अगला",
+        "focus_complete_tooltip": "निर्देश को पूर्ण के रूप में चिह्नित करें",
+        "focus_skip_tooltip": "अगले अत्यावश्यक निर्देश पर जाएँ"
     },
     "dashboard": {
         "operator_level": "ऑपरेटर स्तर",

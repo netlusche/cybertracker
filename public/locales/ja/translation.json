@@ -11,7 +11,9 @@
         "logout": "ログアウト",
         "calendar": "カレンダー",
         "focus_enter": "集中",
-        "focus_exit": "出口フォーカス"
+        "focus_exit": "出口フォーカス",
+        "focus_enter_tooltip": "フォーカスモードに入る",
+        "focus_exit_tooltip": "フォーカスモードを終了する"
     },
     "auth": {
         "title": "ネットランナーログイン",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "現在のビューには保留中の緊急ディレクティブはありません。",
         "focus_active": "[ フォーカスモードアクティブ ]",
         "focus_executing": "実行中...",
-        "focus_skip": "スキップ/次へ"
+        "focus_skip": "スキップ/次へ",
+        "focus_complete_tooltip": "ディレクティブを完了としてマークする",
+        "focus_skip_tooltip": "次の緊急指示にスキップします"
     },
     "dashboard": {
         "operator_level": "オペレーターレベル",

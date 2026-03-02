@@ -11,7 +11,9 @@
         "logout": "UITLOGGEN",
         "calendar": "KALENDER",
         "focus_enter": "FOCUS",
-        "focus_exit": "VERLAAT FOCUS"
+        "focus_exit": "VERLAAT FOCUS",
+        "focus_enter_tooltip": "Ga naar de focusmodus",
+        "focus_exit_tooltip": "Verlaat de focusmodus"
     },
     "auth": {
         "title": "NETRUNNER LOGIN",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "In de huidige visie zijn er geen urgente richtlijnen in behandeling.",
         "focus_active": "[ FOCUSMODUS ACTIEF ]",
         "focus_executing": "UITVOEREN...",
-        "focus_skip": "OVERSLAAN / VOLGENDE"
+        "focus_skip": "OVERSLAAN / VOLGENDE",
+        "focus_complete_tooltip": "Markeer de richtlijn als voltooid",
+        "focus_skip_tooltip": "Ga naar de volgende urgente richtlijn"
     },
     "dashboard": {
         "operator_level": "OPERATOR NIVEAU",

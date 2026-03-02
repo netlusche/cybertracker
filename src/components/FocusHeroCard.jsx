@@ -208,6 +208,7 @@ const FocusHeroCard = ({
                                 : 'bg-transparent text-cyber-success border-cyber-success hover:bg-cyber-success hover:text-black hover:shadow-[0_0_20px_var(--theme-success)]'
                             }
                         `}
+                        data-tooltip-content={t('tasks.focus_complete_tooltip', 'Mark directive as completed')}
                     >
                         {isCompleting ? t('tasks.focus_executing') : t('tasks.mark_done')}
                     </button>
@@ -216,6 +217,7 @@ const FocusHeroCard = ({
                         onClick={onSkip}
                         disabled={isCompleting || isSkipping}
                         className="sm:w-1/3 py-6 text-xl font-bold uppercase tracking-wider bg-transparent text-cyber-primary border border-cyber-primary hover:bg-cyber-primary hover:text-black opacity-80 hover:opacity-100 transition-colors"
+                        data-tooltip-content={t('tasks.focus_skip_tooltip', 'Skip to the next urgent directive')}
                     >
                         {t('tasks.focus_skip')}
                     </button>

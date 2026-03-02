@@ -11,7 +11,9 @@
         "logout": "QAW QIJ",
         "calendar": "WA'MAHMEY",
         "focus_enter": "FOCUS",
-        "focus_exit": "EXIT FOCUS"
+        "focus_exit": "EXIT FOCUS",
+        "focus_enter_tooltip": "Enter Focus Mode",
+        "focus_exit_tooltip": "Exit Focus Mode"
     },
     "auth": {
         "title": "GHOM'EL QAW",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "No urgent directives pending in the current view.",
         "focus_active": "[ FOCUS MODE ACTIVE ]",
         "focus_executing": "EXECUTING...",
-        "focus_skip": "SKIP / NEXT"
+        "focus_skip": "SKIP / NEXT",
+        "focus_complete_tooltip": "Mark directive as completed",
+        "focus_skip_tooltip": "Skip to the next urgent directive"
     },
     "dashboard": {
         "operator_level": "VANGWI' TLHOB",

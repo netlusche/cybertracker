@@ -11,7 +11,9 @@
         "logout": "KIJELENTKEZÉS",
         "calendar": "NAPTÁR",
         "focus_enter": "FÓKUSZ",
-        "focus_exit": "EXIT FOCUS"
+        "focus_exit": "EXIT FOCUS",
+        "focus_enter_tooltip": "Lépjen be a Fókusz módba",
+        "focus_exit_tooltip": "Lépjen ki a fókusz módból"
     },
     "auth": {
         "title": "NETRUNNER BEJELENTKEZÉS",
@@ -310,7 +312,9 @@
         "focus_no_urgent": "A jelenlegi nézetben nincsenek függőben lévő sürgős utasítások.",
         "focus_active": "[ FÓKUSZ MÓD AKTÍV ]",
         "focus_executing": "VÉGREHAJTÓ...",
-        "focus_skip": "UGRÁS / KÖVETKEZŐ"
+        "focus_skip": "UGRÁS / KÖVETKEZŐ",
+        "focus_complete_tooltip": "Az utasítás megjelölése befejezettként",
+        "focus_skip_tooltip": "Ugrás a következő sürgős irányelvre"
     },
     "dashboard": {
         "operator_level": "OPERÁTOR SZINT",

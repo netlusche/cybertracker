@@ -11,7 +11,9 @@
     "logout": "LOGOUT",
     "calendar": "CALENDAR",
     "focus_enter": "FOCUS",
-    "focus_exit": "EXIT FOCUS"
+    "focus_enter_tooltip": "Enter Focus Mode",
+    "focus_exit": "EXIT FOCUS",
+    "focus_exit_tooltip": "Exit Focus Mode"
   },
   "auth": {
     "title": "NETRUNNER LOGIN",
@@ -228,7 +230,9 @@
     "focus_no_urgent": "No urgent directives pending in the current view.",
     "focus_active": "[ FOCUS MODE ACTIVE ]",
     "focus_executing": "EXECUTING...",
+    "focus_complete_tooltip": "Mark directive as completed",
     "focus_skip": "SKIP / NEXT",
+    "focus_skip_tooltip": "Skip to the next urgent directive",
     "duplicate": "DUPLICATE",
     "active_directives": "ACTIVE DIRECTIVES",
     "no_directives": "NO ACTIVE DIRECTIVES",
