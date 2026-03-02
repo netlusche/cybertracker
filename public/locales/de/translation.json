@@ -314,7 +314,8 @@
         "focus_executing": "AUSFÜHREN...",
         "focus_skip": "ÜBERSPRINGEN / WEITER",
         "focus_complete_tooltip": "Richtlinie als abgeschlossen markieren",
-        "focus_skip_tooltip": "Fahren Sie mit der nächsten dringenden Anweisung fort"
+        "focus_skip_tooltip": "Fahren Sie mit der nächsten dringenden Anweisung fort",
+        "focus_no_telemetry": "[KEINE ZUSÄTZLICHE TELEMETRIE]"
     },
     "dashboard": {
         "operator_level": "OPERATOR-LEVEL",

@@ -314,7 +314,8 @@
         "focus_executing": "UYGULANIYOR...",
         "focus_skip": "ATLA / SONRAKİ",
         "focus_complete_tooltip": "Yönergeyi tamamlandı olarak işaretle",
-        "focus_skip_tooltip": "Bir sonraki acil direktife atla"
+        "focus_skip_tooltip": "Bir sonraki acil direktife atla",
+        "focus_no_telemetry": "[ EK TELEMETRİ YOK ]"
     },
     "dashboard": {
         "operator_level": "OPERATÖR SEVİYESİ",

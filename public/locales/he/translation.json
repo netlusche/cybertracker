@@ -314,7 +314,8 @@
         "focus_executing": "מְבַצֵעַ...",
         "focus_skip": "דלג על / הבא",
         "focus_complete_tooltip": "סמן את ההוראה כמושלמה",
-        "focus_skip_tooltip": "דלג להנחיה הדחופה הבאה"
+        "focus_skip_tooltip": "דלג להנחיה הדחופה הבאה",
+        "focus_no_telemetry": "[ללא טלמטריה נוספת]"
     },
     "dashboard": {
         "operator_level": "רמת מפעיל",

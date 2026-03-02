@@ -314,7 +314,8 @@
         "focus_executing": "実行中...",
         "focus_skip": "スキップ/次へ",
         "focus_complete_tooltip": "ディレクティブを完了としてマークする",
-        "focus_skip_tooltip": "次の緊急指示にスキップします"
+        "focus_skip_tooltip": "次の緊急指示にスキップします",
+        "focus_no_telemetry": "[追加のテレメトリは不要]"
     },
     "dashboard": {
         "operator_level": "オペレーターレベル",

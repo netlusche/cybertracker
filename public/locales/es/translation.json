@@ -314,7 +314,8 @@
         "focus_executing": "EJECUTANDO...",
         "focus_skip": "SALTAR / SIGUIENTE",
         "focus_complete_tooltip": "Marcar directiva como completada",
-        "focus_skip_tooltip": "Saltar a la siguiente directiva urgente"
+        "focus_skip_tooltip": "Saltar a la siguiente directiva urgente",
+        "focus_no_telemetry": "[SIN TELEMETRÍA ADICIONAL]"
     },
     "dashboard": {
         "operator_level": "NIVEL DE OPERATIVO",

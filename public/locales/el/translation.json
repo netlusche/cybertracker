@@ -314,7 +314,8 @@
         "focus_executing": "ΕΚΤΕΛΕΣΗ...",
         "focus_skip": "SKIP / NEXT",
         "focus_complete_tooltip": "Επισημάνετε την οδηγία ως ολοκληρωμένη",
-        "focus_skip_tooltip": "Μετάβαση στην επόμενη επείγουσα οδηγία"
+        "focus_skip_tooltip": "Μετάβαση στην επόμενη επείγουσα οδηγία",
+        "focus_no_telemetry": "[ ΟΧΙ ΕΠΙΠΛΕΟΝ ΤΗΛΕΜΕΤΡΙΑ ]"
     },
     "dashboard": {
         "operator_level": "ΕΠΙΠΕΔΟ ΠΡΑΚΤΟΡΑ",

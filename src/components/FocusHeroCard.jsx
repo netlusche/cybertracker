@@ -179,7 +179,7 @@ const FocusHeroCard = ({
 
                         {/* Fallback space filler if empty */}
                         {(!task.subroutines_json && task.notes_count == 0 && !task.attachments && !task.files) && (
-                            <span className="text-gray-500 font-mono text-xs italic">[ NO ADDITIONAL TELEMETRY ]</span>
+                            <span className="text-gray-500 font-mono text-xs italic">{t('tasks.focus_no_telemetry', '[ NO ADDITIONAL TELEMETRY ]')}</span>
                         )}
                     </div>
 

@@ -229,6 +229,7 @@
     "focus_all_caught_up": "ALL CAUGHT UP",
     "focus_no_urgent": "No urgent directives pending in the current view.",
     "focus_active": "[ FOCUS MODE ACTIVE ]",
+    "focus_no_telemetry": "[ NO ADDITIONAL TELEMETRY ]",
     "focus_executing": "EXECUTING...",
     "focus_complete_tooltip": "Mark directive as completed",
     "focus_skip": "SKIP / NEXT",

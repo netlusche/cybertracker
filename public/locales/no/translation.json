@@ -314,7 +314,8 @@
         "focus_executing": "UTFØRER...",
         "focus_skip": "HOPPE OVER / NESTE",
         "focus_complete_tooltip": "Merk direktivet som fullført",
-        "focus_skip_tooltip": "Gå videre til neste presserende direktiv"
+        "focus_skip_tooltip": "Gå videre til neste presserende direktiv",
+        "focus_no_telemetry": "[ INGEN EKSTRA TELEMETRI ]"
     },
     "dashboard": {
         "operator_level": "OPERATØRNIVÅ",

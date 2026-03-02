@@ -314,7 +314,8 @@
         "focus_executing": "EXECUÇÃO...",
         "focus_skip": "Pular/PRÓXIMO",
         "focus_complete_tooltip": "Marcar a diretiva como concluída",
-        "focus_skip_tooltip": "Pular para a próxima diretriz urgente"
+        "focus_skip_tooltip": "Pular para a próxima diretriz urgente",
+        "focus_no_telemetry": "[SEM TELEMETRIA ADICIONAL]"
     },
     "dashboard": {
         "operator_level": "NÍVEL DE OPERADOR",

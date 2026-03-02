@@ -314,7 +314,8 @@
         "focus_executing": "正在执行...",
         "focus_skip": "跳过/下一个",
         "focus_complete_tooltip": "将指令标记为已完成",
-        "focus_skip_tooltip": "跳至下一个紧急指令"
+        "focus_skip_tooltip": "跳至下一个紧急指令",
+        "focus_no_telemetry": "[ 无需额外遥测 ]"
     },
     "dashboard": {
         "operator_level": "操作员等级",

@@ -314,7 +314,8 @@
         "focus_executing": "VÉGREHAJTÓ...",
         "focus_skip": "UGRÁS / KÖVETKEZŐ",
         "focus_complete_tooltip": "Az utasítás megjelölése befejezettként",
-        "focus_skip_tooltip": "Ugrás a következő sürgős irányelvre"
+        "focus_skip_tooltip": "Ugrás a következő sürgős irányelvre",
+        "focus_no_telemetry": "[ NINCS TOVÁBBI TELEMETRIA ]"
     },
     "dashboard": {
         "operator_level": "OPERÁTOR SZINT",

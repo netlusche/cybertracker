@@ -314,7 +314,8 @@
         "focus_executing": "WYKONYWANIE...",
         "focus_skip": "POMIŃ / DALEJ",
         "focus_complete_tooltip": "Oznacz dyrektywę jako ukończoną",
-        "focus_skip_tooltip": "Przejdź do następnej pilnej dyrektywy"
+        "focus_skip_tooltip": "Przejdź do następnej pilnej dyrektywy",
+        "focus_no_telemetry": "[BEZ DODATKOWEJ TELEMETRII]"
     },
     "dashboard": {
         "operator_level": "POZIOM OPERATORA",

@@ -314,7 +314,8 @@
         "focus_executing": "ESECUZIONE...",
         "focus_skip": "SALTA / AVANTI",
         "focus_complete_tooltip": "Contrassegna la direttiva come completata",
-        "focus_skip_tooltip": "Passa alla prossima direttiva urgente"
+        "focus_skip_tooltip": "Passa alla prossima direttiva urgente",
+        "focus_no_telemetry": "[ NESSUNA TELEMETRIA AGGIUNTIVA ]"
     },
     "dashboard": {
         "operator_level": "LIVELLO OPERATIVO",

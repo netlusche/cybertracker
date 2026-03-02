@@ -314,7 +314,8 @@
         "focus_executing": "EXÉCUTION...",
         "focus_skip": "SAUTER / SUIVANT",
         "focus_complete_tooltip": "Marquer la directive comme complétée",
-        "focus_skip_tooltip": "Passer à la prochaine directive urgente"
+        "focus_skip_tooltip": "Passer à la prochaine directive urgente",
+        "focus_no_telemetry": "[ PAS DE TÉLÉMÉTRIE SUPPLÉMENTAIRE ]"
     },
     "dashboard": {
         "operator_level": "NIVEAU D'OPÉRATEUR",

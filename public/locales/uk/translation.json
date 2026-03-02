@@ -314,7 +314,8 @@
         "focus_executing": "ВИКОНАННЯ...",
         "focus_skip": "ПРОПУСТИТИ / ДАЛІ",
         "focus_complete_tooltip": "Позначити директиву як виконану",
-        "focus_skip_tooltip": "Перейти до наступної термінової вказівки"
+        "focus_skip_tooltip": "Перейти до наступної термінової вказівки",
+        "focus_no_telemetry": "[ БЕЗ ДОДАТКОВОЇ ТЕЛЕМЕТРІЇ ]"
     },
     "dashboard": {
         "operator_level": "РІВЕНЬ ОПЕРАТИВНИКА",

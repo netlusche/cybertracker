@@ -314,7 +314,8 @@
         "focus_executing": "THỰC HIỆN...",
         "focus_skip": "BỎ QUA / TIẾP THEO",
         "focus_complete_tooltip": "Đánh dấu chỉ thị là đã hoàn thành",
-        "focus_skip_tooltip": "Chuyển sang chỉ thị khẩn cấp tiếp theo"
+        "focus_skip_tooltip": "Chuyển sang chỉ thị khẩn cấp tiếp theo",
+        "focus_no_telemetry": "[ KHÔNG CÓ ĐO LƯỜNG BỔ SUNG ]"
     },
     "dashboard": {
         "operator_level": "CẤP ĐỘ ĐẶC VỤ",
