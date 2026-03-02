@@ -9,7 +9,9 @@
         "admin": "管理者",
         "profile": "プロフィール",
         "logout": "ログアウト",
-        "calendar": "カレンダー"
+        "calendar": "カレンダー",
+        "focus_enter": "集中",
+        "focus_exit": "出口フォーカス"
     },
     "auth": {
         "title": "ネットランナーログイン",
@@ -303,7 +305,12 @@
         "status_open": "開ける",
         "status_in_progress": "進行中",
         "status_under_review": "検討中",
-        "status_completed": "完了しました"
+        "status_completed": "完了しました",
+        "focus_all_caught_up": "すべてが捕まった",
+        "focus_no_urgent": "現在のビューには保留中の緊急ディレクティブはありません。",
+        "focus_active": "[ フォーカスモードアクティブ ]",
+        "focus_executing": "実行中...",
+        "focus_skip": "スキップ/次へ"
     },
     "dashboard": {
         "operator_level": "オペレーターレベル",

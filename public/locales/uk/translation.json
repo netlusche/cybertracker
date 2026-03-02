@@ -9,7 +9,9 @@
         "admin": "АДМІН",
         "profile": "ПРОФІЛЬ",
         "logout": "ВИЙТИ",
-        "calendar": "КАЛЕНДАР"
+        "calendar": "КАЛЕНДАР",
+        "focus_enter": "ФОКУС",
+        "focus_exit": "ВИХІД З ФОКУСУ"
     },
     "auth": {
         "title": "ВХІД НЕТРАНЕРА",
@@ -303,7 +305,12 @@
         "status_open": "ВІДЧИНЕНО",
         "status_in_progress": "В ПРОЦЕСІ",
         "status_under_review": "НА ПЕРЕГЛЯДІ",
-        "status_completed": "ЗАВЕРШЕНО"
+        "status_completed": "ЗАВЕРШЕНО",
+        "focus_all_caught_up": "ВСЕ НАДОГНАНО",
+        "focus_no_urgent": "У поточному перегляді немає термінових вказівок.",
+        "focus_active": "[РЕЖИМ ФОКУСУВАННЯ АКТИВНИЙ]",
+        "focus_executing": "ВИКОНАННЯ...",
+        "focus_skip": "ПРОПУСТИТИ / ДАЛІ"
     },
     "dashboard": {
         "operator_level": "РІВЕНЬ ОПЕРАТИВНИКА",

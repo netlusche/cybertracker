@@ -9,7 +9,9 @@
         "admin": "ADMIN",
         "profile": "PROFIEL",
         "logout": "UITLOGGEN",
-        "calendar": "KALENDER"
+        "calendar": "KALENDER",
+        "focus_enter": "FOCUS",
+        "focus_exit": "VERLAAT FOCUS"
     },
     "auth": {
         "title": "NETRUNNER LOGIN",
@@ -303,7 +305,12 @@
         "status_open": "OPEN",
         "status_in_progress": "IN UITVOERING",
         "status_under_review": "ONDER BEOORDELING",
-        "status_completed": "VOLTOOID"
+        "status_completed": "VOLTOOID",
+        "focus_all_caught_up": "ALLEN GEVANGEN",
+        "focus_no_urgent": "In de huidige visie zijn er geen urgente richtlijnen in behandeling.",
+        "focus_active": "[ FOCUSMODUS ACTIEF ]",
+        "focus_executing": "UITVOEREN...",
+        "focus_skip": "OVERSLAAN / VOLGENDE"
     },
     "dashboard": {
         "operator_level": "OPERATOR NIVEAU",

@@ -9,7 +9,9 @@
         "admin": "ADMIN",
         "profile": "PROFIL",
         "logout": "WYLOGUJ",
-        "calendar": "KALENDARZ"
+        "calendar": "KALENDARZ",
+        "focus_enter": "CENTRUM",
+        "focus_exit": "WYJDŹ Z FOCUSU"
     },
     "auth": {
         "title": "LOGOWANIE NETRUNNERA",
@@ -303,7 +305,12 @@
         "status_open": "OTWARTE",
         "status_in_progress": "W TOKU",
         "status_under_review": "W PRZEGLĄDZIE",
-        "status_completed": "ZAKOŃCZONY"
+        "status_completed": "ZAKOŃCZONY",
+        "focus_all_caught_up": "WSZYSCY ZADBANI",
+        "focus_no_urgent": "W obecnym ujęciu brak pilnych dyrektyw oczekujących na rozpatrzenie.",
+        "focus_active": "[TRYB OSTROŚCI AKTYWNY]",
+        "focus_executing": "WYKONYWANIE...",
+        "focus_skip": "POMIŃ / DALEJ"
     },
     "dashboard": {
         "operator_level": "POZIOM OPERATORA",

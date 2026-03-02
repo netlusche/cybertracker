@@ -9,7 +9,9 @@
         "admin": "ADMIN",
         "profile": "PROFIL",
         "logout": "DÉCONNEXION",
-        "calendar": "CALENDRIER"
+        "calendar": "CALENDRIER",
+        "focus_enter": "SE CONCENTRER",
+        "focus_exit": "QUITTER LE FOCUS"
     },
     "auth": {
         "title": "CONNEXION NETRUNNER",
@@ -303,7 +305,12 @@
         "status_open": "OUVRIR",
         "status_in_progress": "EN COURS",
         "status_under_review": "EN RÉVISION",
-        "status_completed": "COMPLÉTÉ"
+        "status_completed": "COMPLÉTÉ",
+        "focus_all_caught_up": "TOUS ATTAQUES",
+        "focus_no_urgent": "Aucune directive urgente en attente dans la vue actuelle.",
+        "focus_active": "[MODE DE MISE AU POINT ACTIF]",
+        "focus_executing": "EXÉCUTION...",
+        "focus_skip": "SAUTER / SUIVANT"
     },
     "dashboard": {
         "operator_level": "NIVEAU D'OPÉRATEUR",

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import TaskCard from './components/TaskCard';
+import FocusHeroCard from './components/FocusHeroCard';
 import TaskForm from './components/TaskForm';
 import TaskFilters from './components/TaskFilters';
 import LevelBar from './components/LevelBar';
@@ -60,6 +61,83 @@ function App() {
   const [activeCalendarTaskId, setActiveCalendarTaskId] = useState(null);
   const [taskPrefill, setTaskPrefill] = useState(null);
   const [showPurgeConfirm, setShowPurgeConfirm] = useState(false);
+  const [isFocusMode, setIsFocusMode] = useState(false);
+  const [dossierContext, setDossierContext] = useState(null);
+  const [focusSkipIndex, setFocusSkipIndex] = useState(0);
+  const [focusAnimatingNext, setFocusAnimatingNext] = useState(false);
+  const [focusCompleting, setFocusCompleting] = useState(false);
+
+  // Advanced Task Sorting for Focus Mode
+  const getFocusTask = () => {
+    // 1. Filter out completed tasks
+    const openTasks = [...tasks].filter(t => t.status == 0);
+
+    // We intentionally re-sort for Focus mode to guarantee absolute determinism
+    // which the dashboard (created_at DESC) doesn't strictly follow for identical priorities
+    openTasks.sort((a, b) => {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const aIsOverdue = a.due_date && new Date(a.due_date) < today;
+      const bIsOverdue = b.due_date && new Date(b.due_date) < today;
+
+      if (aIsOverdue && !bIsOverdue) return -1;
+      if (!aIsOverdue && bIsOverdue) return 1;
+
+      if (a.priority !== b.priority) {
+        return a.priority - b.priority;
+      }
+
+      if (a.due_date && !b.due_date) return -1;
+      if (!a.due_date && b.due_date) return 1;
+      if (a.due_date && b.due_date) {
+        const dateDiff = new Date(a.due_date) - new Date(b.due_date);
+        if (dateDiff !== 0) return dateDiff;
+      }
+
+      // Tie-breaker: Oldest created first (smaller ID) for predictable queue
+      return a.id - b.id;
+    });
+
+    // 2. Apply skip index
+    if (focusSkipIndex >= openTasks.length) {
+      if (openTasks.length > 0) {
+        setFocusSkipIndex(0);
+        return openTasks[0];
+      }
+      return null;
+    }
+
+    return openTasks[focusSkipIndex];
+  };
+
+  const focusTask = getFocusTask();
+
+  const handleFocusSkip = () => {
+    setFocusAnimatingNext(true);
+    setTimeout(() => {
+      setFocusSkipIndex(prev => prev + 1);
+      setFocusAnimatingNext(false);
+    }, 300); // match animation duration
+  };
+
+  const handleFocusComplete = async () => {
+    if (!focusTask || focusCompleting) return;
+
+    setFocusCompleting(true);
+    try {
+      await handleToggleStatus(focusTask);
+      // Wait for the complete animation before rendering the next suitable task
+      setTimeout(() => {
+        setFocusCompleting(false);
+        // We do NOT increment the skip index here, because the completed task is
+        // removed from the openTasks array automatically, shifting the next task right under us at the same index
+      }, 500);
+    } catch (err) {
+      console.error("Focus mode complete error", err);
+      setFocusCompleting(false);
+    }
+  };
 
   useEffect(() => {
     checkAuth();
@@ -139,7 +217,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-cyber-black text-white p-4 md:p-8 font-mono relative overflow-hidden">
+    <div className="min-h-screen p-4 md:p-8 font-mono relative overflow-hidden">
       {/* Background Grid */}
       <div className="fixed inset-0 pointer-events-none opacity-10 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] cyber-grid"></div>
 
@@ -201,7 +279,7 @@ function App() {
                   </span>
                 )}
                 {!['lcars', 'robco', 'grid', 'section9', 'outrun', 'steampunk', 'force', 'arrakis', 'renaissance', 'klingon'].includes(theme) && (
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyber-primary to-cyber-secondary drop-shadow-[0_0_5px_var(--theme-primary)]">
+                  <span className={`bg-clip-text text-transparent bg-gradient-to-r ${isFocusMode ? 'from-white to-gray-300 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]' : 'from-cyber-primary to-cyber-secondary drop-shadow-[0_0_5px_var(--theme-primary)]'}`}>
                     {t('header.title')}<span className="text-white">{t('header.subtitle')}</span>
                   </span>
                 )}
@@ -223,36 +301,77 @@ function App() {
           </div>
 
           <div className={`flex w-full lg:w-auto lg:ml-auto lg:flex-shrink-0 justify-start lg:justify-end ${theme === 'lcars' ? 'flex-col items-start lg:items-end gap-1' : 'flex-wrap items-center gap-2'}`}>
-            {theme !== 'lcars' && <LanguageSwitcher />}
+            {theme !== 'lcars' && !isFocusMode && <LanguageSwitcher />}
 
             {user && (
               <div className="flex flex-wrap lg:flex-nowrap gap-2">
-                <button onClick={() => setShowHelp(true)} className={`text-[10px] md:text-xs transition-colors whitespace-nowrap ${theme === 'lcars' ? 'bg-cyber-primary text-black font-bold uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white px-2 py-1 rounded'}`} data-tooltip-content={t('header.system_help')}>
-                  {t('header.system_help')}
+                {!isFocusMode && (
+                  <>
+                    <button onClick={() => setShowHelp(true)} className={`text-[10px] md:text-xs transition-colors whitespace-nowrap ${theme === 'lcars' ? 'bg-cyber-primary text-black font-bold uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white px-2 py-1 rounded'}`} data-tooltip-content={t('header.system_help')}>
+                      {t('header.system_help')}
+                    </button>
+                    <button data-testid="calendar-btn" onClick={() => setShowCalendar(true)} className={`text-[10px] md:text-xs transition-colors whitespace-nowrap ${theme === 'lcars' ? 'bg-cyber-primary text-black font-bold uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-cyber-primary/50 text-cyber-primary hover:bg-cyber-primary hover:text-black px-2 py-1 rounded'}`} data-tooltip-content={t('tooltip.calendar', 'Calendar')}>
+                      {t('header.calendar')}
+                    </button>
+                    <button data-testid="profile-btn" onClick={() => setShowProfile(true)} className={`text-[10px] md:text-xs transition-colors whitespace-nowrap ${theme === 'lcars' ? 'bg-cyber-primary text-black font-bold uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-cyber-primary/50 text-cyber-primary hover:bg-cyber-primary hover:text-black px-2 py-1 rounded'}`} data-tooltip-content={t('tooltip.settings', 'Settings')}>
+                      {t('header.profile')}
+                    </button>
+                  </>
+                )}
+                <button
+                  data-testid="focus-btn"
+                  onClick={() => {
+                    setIsFocusMode(!isFocusMode);
+                    setFocusSkipIndex(0);
+                  }}
+                  className={`text-[10px] md:text-xs transition-colors font-bold whitespace-nowrap ${isFocusMode
+                    ? (theme === 'lcars' ? 'bg-white text-black uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'bg-cyber-primary text-black px-4 py-1.5 rounded shadow-[0_0_15px_var(--theme-primary)] hover:bg-opacity-80 uppercase tracking-widest')
+                    : (theme === 'lcars' ? 'border-2 border-cyber-primary text-cyber-primary uppercase rounded-full px-4 py-1.5 hover:bg-cyber-primary hover:text-black' : 'border border-cyber-primary text-cyber-primary hover:bg-cyber-primary hover:text-black px-2 py-1 rounded shadow-[0_0_5px_var(--theme-primary)] hover:shadow-[0_0_15px_var(--theme-primary)]')
+                    }`}
+                  data-tooltip-content={t('header.focus_mode', 'Focus Mode (Zen)')}
+                >
+                  {isFocusMode ? t('header.focus_exit', 'EXIT FOCUS') : t('header.focus_enter', 'FOCUS')}
                 </button>
-                <button data-testid="calendar-btn" onClick={() => setShowCalendar(true)} className={`text-[10px] md:text-xs transition-colors whitespace-nowrap ${theme === 'lcars' ? 'bg-cyber-primary text-black font-bold uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-cyber-primary/50 text-cyber-primary hover:bg-cyber-primary hover:text-black px-2 py-1 rounded'}`} data-tooltip-content={t('tooltip.calendar', 'Calendar')}>
-                  {t('header.calendar')}
-                </button>
-                <button data-testid="profile-btn" onClick={() => setShowProfile(true)} className={`text-[10px] md:text-xs transition-colors whitespace-nowrap ${theme === 'lcars' ? 'bg-cyber-primary text-black font-bold uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-cyber-primary/50 text-cyber-primary hover:bg-cyber-primary hover:text-black px-2 py-1 rounded'}`} data-tooltip-content={t('tooltip.settings', 'Settings')}>
-                  {t('header.profile')}
-                </button>
-                {user.role === 'admin' && (
+                {!isFocusMode && user.role === 'admin' && (
                   <button data-testid="admin-btn" onClick={() => setShowAdmin(true)} className={`text-[10px] md:text-xs transition-colors font-bold whitespace-nowrap ${theme === 'lcars' ? 'bg-cyber-primary text-black uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-cyber-primary/50 text-cyber-primary hover:bg-cyber-primary hover:text-black px-2 py-1 rounded'}`} data-tooltip-content={t('header.admin')}>
                     {t('header.admin')}
                   </button>
                 )}
-                <button data-testid="logout-btn" onClick={handleFullLogout} className={`text-[10px] md:text-xs transition-colors whitespace-nowrap ${theme === 'lcars' ? 'bg-[#ffaa00] text-black font-bold uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-cyber-danger/50 text-cyber-danger hover:bg-cyber-danger hover:text-white px-2 py-1 rounded'}`} data-tooltip-content={t('tooltip.logout', 'Logout')}>
-                  {t('header.logout')}
-                </button>
+                {!isFocusMode && (
+                  <button data-testid="logout-btn" onClick={handleFullLogout} className={`text-[10px] md:text-xs transition-colors whitespace-nowrap ${theme === 'lcars' ? 'bg-[#ffaa00] text-black font-bold uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-cyber-danger/50 text-cyber-danger hover:bg-cyber-danger hover:text-white px-2 py-1 rounded'}`} data-tooltip-content={t('tooltip.logout', 'Logout')}>
+                    {t('header.logout')}
+                  </button>
+                )}
               </div>
             )}
 
-            {theme === 'lcars' && <LanguageSwitcher />}
+            {theme === 'lcars' && !isFocusMode && <LanguageSwitcher />}
           </div>
         </header>
 
         {!user ? (
           <AuthForm onLogin={handleLogin} />
+        ) : isFocusMode ? (
+          <>
+            {/* Overlay to focus the user (uses the native theme background heavily obscured, matching light/dark correctly) */}
+            <div className="fixed inset-0 bg-cyber-bg/95 z-40 pointer-events-none"></div>
+
+            <div className="flex items-center justify-center min-h-[70vh] relative z-50 w-full text-left">
+              <div className="w-full">
+                <FocusHeroCard
+                  task={focusTask}
+                  categories={categories}
+                  taskStatuses={taskStatuses}
+                  onToggleStatus={handleFocusComplete}
+                  onUpdateTask={handleUpdateTask}
+                  onSkip={handleFocusSkip}
+                  onOpenDossier={setShowDossierForTask}
+                  isSkipping={focusAnimatingNext}
+                  isCompleting={focusCompleting}
+                />
+              </div>
+            </div>
+          </>
         ) : (
           <>
             <LevelBar
@@ -386,6 +505,7 @@ function App() {
           onClose={() => setShowCalendar(false)}
           onOpenDossier={(task) => {
             setShowCalendar(false); // hide calendar temporarily
+            setDossierContext('calendar');
             setShowDossierForTask(task);
           }}
         />
@@ -407,12 +527,15 @@ function App() {
           }}
           onDuplicate={(task) => {
             setTaskPrefill({ ...task, timestamp: Date.now() });
-            setShowDossierForTask(null);
-            setShowCalendar(false); // Make sure calendar is closed if it was behind it
+            setShowDossierForTask(null); // Keep calendar closed since we jump to creation
+            setDossierContext(null);
           }}
           onClose={() => {
             setShowDossierForTask(null);
-            setShowCalendar(true); // Bring back calendar!
+            if (dossierContext === 'calendar') {
+              setShowCalendar(true); // Bring back calendar!
+            }
+            setDossierContext(null);
           }}
         />
       )}

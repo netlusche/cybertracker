@@ -9,7 +9,9 @@
         "admin": "מנהל",
         "profile": "פרופיל",
         "logout": "התנתקות",
-        "calendar": "לוח שנה"
+        "calendar": "לוח שנה",
+        "focus_enter": "מוֹקֵד",
+        "focus_exit": "יציאה מפוקוס"
     },
     "auth": {
         "title": "כניסת נטראנר",
@@ -303,7 +305,12 @@
         "status_open": "לִפְתוֹחַ",
         "status_in_progress": "בתהליך",
         "status_under_review": "תחת סקירה",
-        "status_completed": "הושלם"
+        "status_completed": "הושלם",
+        "focus_all_caught_up": "כולם נתפסו",
+        "focus_no_urgent": "אין הנחיות דחופות בתצוגה הנוכחית.",
+        "focus_active": "[מצב פוקוס פעיל]",
+        "focus_executing": "מְבַצֵעַ...",
+        "focus_skip": "דלג על / הבא"
     },
     "dashboard": {
         "operator_level": "רמת מפעיל",

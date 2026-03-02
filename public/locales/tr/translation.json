@@ -9,7 +9,9 @@
         "admin": "YÖNETİCİ",
         "profile": "PROFİL",
         "logout": "ÇIKIŞ",
-        "calendar": "TAKVİM"
+        "calendar": "TAKVİM",
+        "focus_enter": "ODAK",
+        "focus_exit": "ODAKTAN ÇIK"
     },
     "auth": {
         "title": "NETRUNNER GİRİŞİ",
@@ -303,7 +305,12 @@
         "status_open": "AÇIK",
         "status_in_progress": "DEVAM ETMEKTE",
         "status_under_review": "İNCELENİYOR",
-        "status_completed": "TAMAMLANMIŞ"
+        "status_completed": "TAMAMLANMIŞ",
+        "focus_all_caught_up": "HEPSİ YAKALANDI",
+        "focus_no_urgent": "Mevcut görünümde bekleyen acil talimat yok.",
+        "focus_active": "[ ODAKLAMA MODU AKTİF ]",
+        "focus_executing": "UYGULANIYOR...",
+        "focus_skip": "ATLA / SONRAKİ"
     },
     "dashboard": {
         "operator_level": "OPERATÖR SEVİYESİ",

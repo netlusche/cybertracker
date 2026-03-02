@@ -9,7 +9,9 @@
         "admin": "एडमिन",
         "profile": "प्रोफ़ाइल",
         "logout": "लॉगआउट",
-        "calendar": "कैलेंडर"
+        "calendar": "कैलेंडर",
+        "focus_enter": "केंद्र",
+        "focus_exit": "फोकस से बाहर निकलें"
     },
     "auth": {
         "title": "नेट रनर लॉगिन",
@@ -303,7 +305,12 @@
         "status_open": "खुला",
         "status_in_progress": "प्रगति पर है",
         "status_under_review": "समीक्षा के अंतर्गत",
-        "status_completed": "पुरा होना"
+        "status_completed": "पुरा होना",
+        "focus_all_caught_up": "सारी जानकारी प्राप्त",
+        "focus_no_urgent": "वर्तमान दृष्टि से कोई भी आवश्यक निर्देश लंबित नहीं है।",
+        "focus_active": "[फोकस मोड सक्रिय]",
+        "focus_executing": "क्रियान्वयन...",
+        "focus_skip": "छोड़ें/अगला"
     },
     "dashboard": {
         "operator_level": "ऑपरेटर स्तर",

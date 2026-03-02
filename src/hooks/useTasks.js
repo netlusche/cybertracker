@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { apiFetch } from '../utils/api';
 import { triggerNeonConfetti } from '../utils/confetti';
 import { useTheme } from '../utils/ThemeContext';
@@ -10,6 +10,7 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
     const [categories, setCategories] = useState([]);
     const [taskStatuses, setTaskStatuses] = useState([]);
     const [statusRefreshTrigger, setStatusRefreshTrigger] = useState(0);
+    const [delayedRefresh, setDelayedRefresh] = useState(0);
     const { theme } = useTheme();
 
     const [filters, setFilters] = useState({
@@ -83,6 +84,12 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
         }
     }, [user, filters, onUnauthorized]);
 
+    useEffect(() => {
+        if (delayedRefresh > 0) {
+            fetchTasks(pagination.currentPage);
+        }
+    }, [delayedRefresh, fetchTasks, pagination.currentPage]);
+
     const handleAddTask = useCallback(async (newTask) => {
         try {
             const res = await apiFetch('api/index.php?route=tasks', {
@@ -105,7 +112,7 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
             const newWorkflowStatus = newStatus === 1 ? 'completed' : 'open';
 
             setTasks(prev => prev.map(t =>
-                t.id === task.id ? { ...t, status: newStatus, workflow_status: newWorkflowStatus } : t
+                t.id == task.id ? { ...t, status: newStatus, workflow_status: newWorkflowStatus } : t
             ));
 
             const res = await apiFetch('api/index.php?route=tasks', {
@@ -116,7 +123,7 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
 
             if (res.ok) {
                 setTimeout(() => {
-                    fetchTasks(pagination.currentPage);
+                    setDelayedRefresh(prev => prev + 1);
                 }, 2000);
 
                 if (newStatus === 1) {

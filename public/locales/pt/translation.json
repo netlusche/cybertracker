@@ -9,7 +9,9 @@
         "admin": "ADMIN",
         "profile": "PERFIL",
         "logout": "SAIR",
-        "calendar": "CALENDÁRIO"
+        "calendar": "CALENDÁRIO",
+        "focus_enter": "FOCO",
+        "focus_exit": "SAIR DO FOCO"
     },
     "auth": {
         "title": "LOGIN NETRUNNER",
@@ -303,7 +305,12 @@
         "status_open": "ABRIR",
         "status_in_progress": "EM ANDAMENTO",
         "status_under_review": "EM REVISÃO",
-        "status_completed": "CONCLUÍDA"
+        "status_completed": "CONCLUÍDA",
+        "focus_all_caught_up": "TODOS PEGADOS",
+        "focus_no_urgent": "Nenhuma diretiva urgente pendente na visão atual.",
+        "focus_active": "[MODO FOCO ATIVO]",
+        "focus_executing": "EXECUÇÃO...",
+        "focus_skip": "Pular/PRÓXIMO"
     },
     "dashboard": {
         "operator_level": "NÍVEL DE OPERADOR",

@@ -9,7 +9,9 @@
         "admin": "ΔΙΑΧΕΙΡΙΣΤΗΣ",
         "profile": "ΠΡΟΦΙΛ",
         "logout": "ΑΠΟΣΥΝΔΕΣΗ",
-        "calendar": "ΗΜΕΡΟΛΟΓΙΟ"
+        "calendar": "ΗΜΕΡΟΛΟΓΙΟ",
+        "focus_enter": "ΕΣΤΙΑ",
+        "focus_exit": "ΕΞΟΔΟΣ ΕΣΤΙΑΣΗ"
     },
     "auth": {
         "title": "ΣΥΝΔΕΣΗ NETRUNNER",
@@ -303,7 +305,12 @@
         "status_open": "ΑΝΟΙΧΤΟ",
         "status_in_progress": "ΣΕ ΕΞΕΛΙΞΗ",
         "status_under_review": "ΥΠΟ ΕΞΕΤΑΣΗ",
-        "status_completed": "ΟΛΟΚΛΗΡΩΘΗΚΕ ΤΟ"
+        "status_completed": "ΟΛΟΚΛΗΡΩΘΗΚΕ ΤΟ",
+        "focus_all_caught_up": "ΠΛΗΡΩΣΕ ΟΛΟΙ",
+        "focus_no_urgent": "Δεν εκκρεμούν επείγουσες οδηγίες στην τρέχουσα προβολή.",
+        "focus_active": "[ ΛΕΙΤΟΥΡΓΙΑ ΕΣΤΙΑΣΗΣ ΕΝΕΡΓΗ ]",
+        "focus_executing": "ΕΚΤΕΛΕΣΗ...",
+        "focus_skip": "SKIP / NEXT"
     },
     "dashboard": {
         "operator_level": "ΕΠΙΠΕΔΟ ΠΡΑΚΤΟΡΑ",

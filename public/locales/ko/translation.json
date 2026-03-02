@@ -9,7 +9,9 @@
         "admin": "관리자",
         "profile": "프로필",
         "logout": "로그아웃",
-        "calendar": "캘린더"
+        "calendar": "캘린더",
+        "focus_enter": "집중하다",
+        "focus_exit": "포커스 종료"
     },
     "auth": {
         "title": "넷러너 로그인",
@@ -303,7 +305,12 @@
         "status_open": "열려 있는",
         "status_in_progress": "진행 중",
         "status_under_review": "검토중",
-        "status_completed": "완전한"
+        "status_completed": "완전한",
+        "focus_all_caught_up": "모두 잡았다",
+        "focus_no_urgent": "현재 보기에는 보류 중인 긴급 지시가 없습니다.",
+        "focus_active": "[ 초점 모드 활성화 ]",
+        "focus_executing": "실행 중...",
+        "focus_skip": "건너뛰기 / 다음"
     },
     "dashboard": {
         "operator_level": "요원 레벨",

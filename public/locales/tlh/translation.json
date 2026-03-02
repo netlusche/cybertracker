@@ -9,7 +9,9 @@
         "admin": "ADMIN",
         "profile": "VANGWI' TLHOB",
         "logout": "QAW QIJ",
-        "calendar": "WA'MAHMEY"
+        "calendar": "WA'MAHMEY",
+        "focus_enter": "FOCUS",
+        "focus_exit": "EXIT FOCUS"
     },
     "auth": {
         "title": "GHOM'EL QAW",
@@ -303,7 +305,12 @@
         "status_open": "OPEN",
         "status_in_progress": "IN PROGRESS",
         "status_under_review": "UNDER REVIEW",
-        "status_completed": "COMPLETED"
+        "status_completed": "COMPLETED",
+        "focus_all_caught_up": "ALL CAUGHT UP",
+        "focus_no_urgent": "No urgent directives pending in the current view.",
+        "focus_active": "[ FOCUS MODE ACTIVE ]",
+        "focus_executing": "EXECUTING...",
+        "focus_skip": "SKIP / NEXT"
     },
     "dashboard": {
         "operator_level": "VANGWI' TLHOB",

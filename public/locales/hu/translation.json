@@ -9,7 +9,9 @@
         "admin": "ADMIN",
         "profile": "PROFIL",
         "logout": "KIJELENTKEZÉS",
-        "calendar": "NAPTÁR"
+        "calendar": "NAPTÁR",
+        "focus_enter": "FÓKUSZ",
+        "focus_exit": "EXIT FOCUS"
     },
     "auth": {
         "title": "NETRUNNER BEJELENTKEZÉS",
@@ -303,7 +305,12 @@
         "status_open": "NYITOTT",
         "status_in_progress": "FOLYAMATBAN VAN",
         "status_under_review": "FELÜLVIZSGÁLAT ALATT",
-        "status_completed": "ELKÉSZÜLT"
+        "status_completed": "ELKÉSZÜLT",
+        "focus_all_caught_up": "MINDEN ELFOGADTA",
+        "focus_no_urgent": "A jelenlegi nézetben nincsenek függőben lévő sürgős utasítások.",
+        "focus_active": "[ FÓKUSZ MÓD AKTÍV ]",
+        "focus_executing": "VÉGREHAJTÓ...",
+        "focus_skip": "UGRÁS / KÖVETKEZŐ"
     },
     "dashboard": {
         "operator_level": "OPERÁTOR SZINT",

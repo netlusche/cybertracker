@@ -151,21 +151,20 @@ test.describe('Directive Management Pagination', () => {
         const checkBtn = taskCard.locator('button[data-tooltip-content="Mark Done"], button[data-tooltip-content="Mark as DONE"]');
         await checkBtn.click();
 
-        // Wait a bit for the async update to finish, the task will disappear from the 'active' list
+        // Wait a bit for the async update to finish, the task will remain visible but grayed out
         await page.waitForTimeout(1000);
 
-        // Clear search to reset state
-        await searchInput.fill('');
-        await searchInput.press('Enter');
-        await page.waitForTimeout(500);
 
-        // Find the generated active task
+        // Find the generated active task (and the grayed out completed one)
         const activeTasks = page.locator('.card-cyber').filter({ hasText: uniqueTitle });
-        await expect(activeTasks).toHaveCount(1);
+        await expect(activeTasks).toHaveCount(2);
+
+        // Wait for potential background refresh to replace DOM
+        await page.waitForTimeout(2000);
 
         // Clean up the active task
-        await activeTasks.nth(0).hover();
-        await activeTasks.nth(0).locator('button[data-tooltip-content="Delete Task"], button[data-tooltip-content="Delete"]').click();
+        await activeTasks.nth(0).hover({ force: true });
+        await activeTasks.nth(0).locator('button[data-tooltip-content="Delete Task"], button[data-tooltip-content="Delete"]').click({ force: true });
         await page.getByTestId('confirm-button').click();
         await expect(page.getByTestId('confirm-button')).not.toBeVisible();
 
@@ -188,6 +187,11 @@ test.describe('Directive Management Pagination', () => {
 
         // Clean up: Clear search and completed filter
         await completedPill.click();
+        await searchInput.fill('');
+        await searchInput.press('Enter');
+        await page.waitForTimeout(500);
+
+        // Clear search to reset state at the very end
         await searchInput.fill('');
         await searchInput.press('Enter');
         await page.waitForTimeout(500);
@@ -240,12 +244,13 @@ test.describe('Directive Management Pagination', () => {
         const checkBtn = taskCard.locator('button[data-tooltip-content="Mark Done"], button[data-tooltip-content="Mark as DONE"]');
         await checkBtn.click();
 
-        // Wait a bit for the async update to finish, the task disappears
+        // Wait a bit for the async update to finish, the task becomes grayed out
         await page.waitForTimeout(1000);
 
-        // Find the generated active task (there shouldn't be one)
+        // Find the task (there should only be ONE, the completed one, because it shouldn't duplicate)
         const activeTasks = page.locator('.card-cyber').filter({ hasText: uniqueTitle });
-        await expect(activeTasks).toHaveCount(0);
+        await expect(activeTasks).toHaveCount(1);
+        await expect(activeTasks.first()).toHaveClass(/opacity-50/);
 
         // Activate Completed Pill to see the completed task
         const completedPill = page.getByRole('button', { name: 'Completed', exact: true });

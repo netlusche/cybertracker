@@ -56,8 +56,8 @@ class TaskRepository extends Repository
                 ORDER BY 
                 status ASC,
                 CASE 
-                    WHEN status = 0 AND due_date < ? THEN 0
-                    WHEN status = 0 AND due_date = ? THEN 1
+                    WHEN status = 0 AND due_date IS NOT NULL AND due_date != '' AND DATE(due_date) < ? THEN 0
+                    WHEN status = 0 AND due_date IS NOT NULL AND due_date != '' AND DATE(due_date) = ? THEN 1
                     ELSE 2
                 END ASC,
                 priority ASC,

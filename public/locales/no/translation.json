@@ -9,7 +9,9 @@
         "admin": "ADMIN",
         "profile": "PROFIL",
         "logout": "LOGG UT",
-        "calendar": "KALENDER"
+        "calendar": "KALENDER",
+        "focus_enter": "FOKUS",
+        "focus_exit": "AVSLUTT FOKUS"
     },
     "auth": {
         "title": "NETRUNNER PÅLOGGING",
@@ -303,7 +305,12 @@
         "status_open": "ÅPNE",
         "status_in_progress": "PÅGÅR",
         "status_under_review": "UNDER VURDERING",
-        "status_completed": "FERDIG"
+        "status_completed": "FERDIG",
+        "focus_all_caught_up": "ALLE FÅTT OPP",
+        "focus_no_urgent": "Ingen hastedirektiver venter i gjeldende visning.",
+        "focus_active": "[ FOKUSMODUS AKTIV ]",
+        "focus_executing": "UTFØRER...",
+        "focus_skip": "HOPPE OVER / NESTE"
     },
     "dashboard": {
         "operator_level": "OPERATØRNIVÅ",

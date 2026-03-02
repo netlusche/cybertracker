@@ -9,7 +9,9 @@
     "admin": "ADMIN",
     "profile": "PROFILE",
     "logout": "LOGOUT",
-    "calendar": "CALENDAR"
+    "calendar": "CALENDAR",
+    "focus_enter": "FOCUS",
+    "focus_exit": "EXIT FOCUS"
   },
   "auth": {
     "title": "NETRUNNER LOGIN",
@@ -222,6 +224,11 @@
     }
   },
   "tasks": {
+    "focus_all_caught_up": "ALL CAUGHT UP",
+    "focus_no_urgent": "No urgent directives pending in the current view.",
+    "focus_active": "[ FOCUS MODE ACTIVE ]",
+    "focus_executing": "EXECUTING...",
+    "focus_skip": "SKIP / NEXT",
     "duplicate": "DUPLICATE",
     "active_directives": "ACTIVE DIRECTIVES",
     "no_directives": "NO ACTIVE DIRECTIVES",

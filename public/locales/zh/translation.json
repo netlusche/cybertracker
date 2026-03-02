@@ -9,7 +9,9 @@
         "admin": "管理员",
         "profile": "个人资料",
         "logout": "注销",
-        "calendar": "日历"
+        "calendar": "日历",
+        "focus_enter": "重点",
+        "focus_exit": "退出焦点"
     },
     "auth": {
         "title": "网络跑者登录",
@@ -303,7 +305,12 @@
         "status_open": "打开",
         "status_in_progress": "进行中",
         "status_under_review": "正在审查中",
-        "status_completed": "完全的"
+        "status_completed": "完全的",
+        "focus_all_caught_up": "都被追上来了",
+        "focus_no_urgent": "当前视图中没有待处理的紧急指令。",
+        "focus_active": "[ 对焦模式激活 ]",
+        "focus_executing": "正在执行...",
+        "focus_skip": "跳过/下一个"
     },
     "dashboard": {
         "operator_level": "操作员等级",

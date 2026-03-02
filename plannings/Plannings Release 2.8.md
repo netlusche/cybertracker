@@ -32,6 +32,21 @@ Release 2.8 dient als finales "Aufpolieren" der Agenten-Erfahrung vor dem große
 
 ---
 
+### US-2.8.3: Dossier Notes
+**Als** koordinierter Agent
+**möchte ich** zeitgestempelte Notizen zum Dossier einer Direktive hinzufügen können,
+**damit** ich den Fortschritt, wichtige Entscheidungen oder Blocker chronologisch protokollieren kann, ohne die ursprüngliche Task-Beschreibung zerstören zu müssen.
+
+**Akzeptanzkriterien:**
+- [ ] Im Dossier Modal wird ein neuer Bereich "Notes" (o.ä.) integriert.
+- [ ] Neue Notizen speichern den Verfasser (`user_id`), die Task-Zuordnung (`task_id`), den Text und den Zeitstempel (`created_at`).
+- [ ] Notizen werden optisch klar abgetrennt untereinander dargestellt, wobei der Name des Autors und der Zeitstempel sichtbar über dem Feld stehen.
+- [ ] Eine Notiz kann vom Autor nachträglich bearbeitet (`updated_at` wird modifiziert) oder gelöscht werden.
+- [ ] Backend: Neue DB-Tabelle `task_notes` zur Speicherung.
+- [ ] Backend: CRUD Endpunkt(e) zur Verwaltung der Notizen.
+- [ ] **QA**: Playwright E2E Test für das Hinzufügen, Editieren und Löschen von Dossier Notizen.
+---
+
 ### US-2.8.4: Agent Focus Mode ("Zen Mode")
 **Als** überforderter Operative
 **möchte ich** alle unwichtigen UI-Elemente und Nebenaufgaben per Knopfdruck ausblenden können,
@@ -42,7 +57,8 @@ Release 2.8 dient als finales "Aufpolieren" der Agenten-Erfahrung vor dem große
 - [ ] Bei Aktivierung verschwinden alle Elemente, Filter, Pills und alle unwichtigen HUD-Elemente. Nur der Toggle-Button selbst, bleibt erhalten, um wieder zurückschalten zu können.
 - [ ] Das Raster der Tasks wird durch eine einzige, maximierte "Hero Card" im Zentrum des Bildschirms ersetzt.
 - [ ] Angezeigt wird automatisch die Aufgabe aus der regulären View mit der aktuell höchsten Priorität und dem dringendsten Datum.
-- [ ] Die Hero Card enthält einen massiven "COMPLETE" Button sowie einen "SKIP / NEXT" Button, um zur zweitwichtigsten Aufgabe zu springen.
+- [ ] Die Hero Card enthält ein Dropdown, um den Status der Task ändern zu können.
+- [ ]  Außerdem einen massiven "COMPLETE" Button sowie einen "SKIP / NEXT" Button, um zur zweitwichtigsten Aufgabe zu springen.
 - [ ] **QA**: Ein Playwright E2E Test stellt sicher, dass der Toggle funktioniert und die Focus-Card isoliert dargestellt wird.
 
 ---
@@ -86,18 +102,3 @@ Release 2.8 dient als finales "Aufpolieren" der Agenten-Erfahrung vor dem große
 - [ ] Der Endpunkt gibt die Daten on-the-fly als kombinierten `text/calendar` (iCalendar / `.ics`) Stream aus, der von externen Kalender-Apps gelesen werden kann.
 - [ ] **QA**: Ein Playwright E2E Test prüft, dass der URL-Link im UI existiert und der Feed-Endpoint den korrekten `text/calendar` Datentyp ausspuckt.
 
----
-
-### US-2.8.3: Dossier Notes
-**Als** koordinierter Agent
-**möchte ich** zeitgestempelte Notizen zum Dossier einer Direktive hinzufügen können,
-**damit** ich den Fortschritt, wichtige Entscheidungen oder Blocker chronologisch protokollieren kann, ohne die ursprüngliche Task-Beschreibung zerstören zu müssen.
-
-**Akzeptanzkriterien:**
-- [ ] Im Dossier Modal wird ein neuer Bereich "Notes" (o.ä.) integriert.
-- [ ] Neue Notizen speichern den Verfasser (`user_id`), die Task-Zuordnung (`task_id`), den Text und den Zeitstempel (`created_at`).
-- [ ] Notizen werden optisch klar abgetrennt untereinander dargestellt, wobei der Name des Autors und der Zeitstempel sichtbar über dem Feld stehen.
-- [ ] Eine Notiz kann vom Autor nachträglich bearbeitet (`updated_at` wird modifiziert) oder gelöscht werden.
-- [ ] Backend: Neue DB-Tabelle `task_notes` zur Speicherung.
-- [ ] Backend: CRUD Endpunkt(e) zur Verwaltung der Notizen.
-- [ ] **QA**: Playwright E2E Test für das Hinzufügen, Editieren und Löschen von Dossier Notizen.

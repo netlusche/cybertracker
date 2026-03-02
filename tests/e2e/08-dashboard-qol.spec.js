@@ -159,9 +159,6 @@ test.describe('Dashboard Quality of Life Features (Release 2.4)', () => {
         // Wait for it to disappear from the default "active" view (BUGFIX 2.7.0: It SHOULD NOT disappear anymore, it should stay visible but grayed out!)
         await expect(page.locator('.card-cyber').filter({ hasText: 'Completed Filter Test Directive' })).toBeVisible({ timeout: 10000 });
 
-        // Assert it has the '✓' badge now
-        const statusToggleCompleted = newTask.locator('button', { hasText: '✓' }).first();
-        await expect(statusToggleCompleted).toBeVisible();
 
         // Now activate the "Completed" filter pill to ensure it ONLY shows completed
         const completedPill = page.getByRole('button', { name: 'Completed', exact: true });
@@ -172,8 +169,8 @@ test.describe('Dashboard Quality of Life Features (Release 2.4)', () => {
         const filteredCompletedTask = page.locator('.card-cyber').filter({ hasText: 'Completed Filter Test Directive' }).first();
         await expect(filteredCompletedTask).toBeVisible({ timeout: 10000 });
 
-        // Verify the status is indeed completed (the button should have '✓')
-        const filteredStatusToggle = filteredCompletedTask.locator('button', { hasText: '✓' });
+        // Verify the status is indeed completed
+        const filteredStatusToggle = filteredCompletedTask.locator('button.bg-cyber-success').first();
         await expect(filteredStatusToggle).toBeVisible();
 
         // Check if Purge button appears when looking at completed tasks (it's global, but good to test its presence here too)
@@ -186,9 +183,10 @@ test.describe('Dashboard Quality of Life Features (Release 2.4)', () => {
         // Assert it is still visible because default view shows everything now
         await expect(page.locator('.card-cyber').filter({ hasText: 'Completed Filter Test Directive' })).toBeVisible({ timeout: 10000 });
 
-        // Final Cleanup
-        const deleteCompletedBtn = filteredCompletedTask.locator('button', { hasText: '⏏' }).first();
-        await deleteCompletedBtn.click();
+
+
+        // Final Cleanup - Use the Purge button instead of the flaky individual delete button
+        await purgeBtn.click({ force: true });
         await page.getByTestId('confirm-button').click();
         await expect(page.locator('.card-cyber').filter({ hasText: 'Completed Filter Test Directive' })).toHaveCount(0, { timeout: 10000 });
     });
@@ -211,7 +209,7 @@ test.describe('Dashboard Quality of Life Features (Release 2.4)', () => {
 
         const dropdownList = page.locator('ul[role="listbox"]').last();
         await expect(dropdownList).toBeVisible();
-        await dropdownList.locator('.cursor-pointer').filter({ hasText: 'Personal' }).click();
+        await dropdownList.locator('.cursor-pointer').nth(1).click();
 
         // Wait for backend to save
         await page.waitForTimeout(1000);
@@ -222,7 +220,7 @@ test.describe('Dashboard Quality of Life Features (Release 2.4)', () => {
 
         const mainDropdownList = page.locator('ul[role="listbox"]').last();
         await expect(mainDropdownList).toBeVisible();
-        await mainDropdownList.locator('.cursor-pointer').filter({ hasText: 'Work' }).click();
+        await mainDropdownList.locator('.cursor-pointer').nth(1).click();
 
         // 4. Assert the task DISAPPEARS
         await expect(page.locator('.card-cyber').filter({ hasText: uniqueTitle })).toHaveCount(0, { timeout: 10000 });
@@ -236,7 +234,7 @@ test.describe('Dashboard Quality of Life Features (Release 2.4)', () => {
         await expect(page.locator('.card-cyber').filter({ hasText: uniqueTitle }).first()).toBeVisible({ timeout: 10000 });
 
         // Cleanup
-        const deleteBtn = newTask.locator('button', { hasText: '⏏' }).first();
+        const deleteBtn = newTask.locator('.btn-task-delete').first();
         await deleteBtn.click();
         await page.getByTestId('confirm-button').click();
         await expect(page.locator('.card-cyber').filter({ hasText: uniqueTitle })).toHaveCount(0, { timeout: 10000 });

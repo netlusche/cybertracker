@@ -367,6 +367,122 @@ body,
   border-width: 2px !important;
 }
 
+/* Ensure theme preview cards maintain their specific fonts despite global wildcard overrides */
+.theme-preview-card * {
+  font-family: inherit;
+  /* Allow the specific font classes on the card to cascade down */
+}
+
+/* Explicit font families for preview cards with high specificity to beat body.theme-* * !important */
+.theme-preview-card.theme-lcars,
+.theme-preview-card.theme-lcars * {
+  font-family: 'Antonio', sans-serif !important;
+}
+
+.theme-preview-card.theme-matrix,
+.theme-preview-card.theme-matrix * {
+  font-family: 'VT323', monospace !important;
+}
+
+.theme-preview-card.theme-weyland,
+.theme-preview-card.theme-weyland * {
+  font-family: 'Share Tech Mono', monospace !important;
+}
+
+.theme-preview-card.theme-robco,
+.theme-preview-card.theme-robco * {
+  font-family: 'VT323', monospace !important;
+}
+
+.theme-preview-card.theme-grid,
+.theme-preview-card.theme-grid * {
+  font-family: 'Orbitron', sans-serif !important;
+}
+
+.theme-preview-card.theme-section9,
+.theme-preview-card.theme-section9 * {
+  font-family: 'Outfit', sans-serif !important;
+}
+
+.theme-preview-card.theme-outrun,
+.theme-preview-card.theme-outrun * {
+  font-family: 'Righteous', cursive !important;
+}
+
+.theme-preview-card.theme-steampunk,
+.theme-preview-card.theme-steampunk * {
+  font-family: 'IM Fell English', 'Cinzel', Georgia, serif !important;
+}
+
+.theme-preview-card.theme-force,
+.theme-preview-card.theme-force * {
+  font-family: 'Rajdhani', sans-serif !important;
+}
+
+.theme-preview-card.theme-arrakis,
+.theme-preview-card.theme-arrakis * {
+  font-family: 'Cinzel', serif !important;
+}
+
+.theme-preview-card.theme-renaissance,
+.theme-preview-card.theme-renaissance * {
+  font-family: 'Michroma', sans-serif !important;
+  letter-spacing: -0.03em !important;
+}
+
+.theme-preview-card.theme-klingon,
+.theme-preview-card.theme-klingon * {
+  font-family: 'Wallpoet', sans-serif !important;
+}
+
+.theme-preview-card.theme-got,
+.theme-preview-card.theme-got * {
+  font-family: 'Cinzel Decorative', serif !important;
+}
+
+.theme-preview-card.theme-marvel,
+.theme-preview-card.theme-marvel * {
+  font-family: 'Bangers', cursive !important;
+}
+
+.theme-preview-card.theme-dc,
+.theme-preview-card.theme-dc * {
+  font-family: 'Anton', sans-serif !important;
+}
+
+.theme-preview-card.theme-computerwelt,
+.theme-preview-card.theme-computerwelt * {
+  font-family: 'IBM Plex Mono', monospace !important;
+}
+
+.theme-preview-card.theme-mensch-maschine,
+.theme-preview-card.theme-mensch-maschine * {
+  font-family: 'Antonio', sans-serif !important;
+}
+
+.theme-preview-card.theme-neon-syndicate,
+.theme-preview-card.theme-neon-syndicate * {
+  font-family: 'Righteous', cursive !important;
+}
+
+.theme-preview-card.theme-megacorp-executive,
+.theme-preview-card.theme-megacorp-executive * {
+  font-family: 'Inter', sans-serif !important;
+}
+
+.theme-preview-card.theme-cyberpunk,
+.theme-preview-card.theme-cyberpunk * {
+  font-family: 'Courier New', Courier, monospace !important;
+}
+
+/* Also protect against background overrides from global wildcards */
+.theme-preview-card {
+  /* Reset some CSS variables inside the preview card if they are being polluted */
+  --shadow-primary: none;
+  --shadow-secondary: none;
+  --shadow-accent: none;
+}
+
 /* -----------------------------------------
    NEW THEME BACKGROUNDS & EFFECTS
    ----------------------------------------- */

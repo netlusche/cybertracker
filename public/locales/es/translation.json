@@ -9,7 +9,9 @@
         "admin": "ADMIN",
         "profile": "PERFIL",
         "logout": "CERRAR SESIÓN",
-        "calendar": "CALENDARIO"
+        "calendar": "CALENDARIO",
+        "focus_enter": "ENFOCAR",
+        "focus_exit": "SALIR DEL ENFOQUE"
     },
     "auth": {
         "title": "INICIO DE SESIÓN NETRUNNER",
@@ -303,7 +305,12 @@
         "status_open": "ABIERTA",
         "status_in_progress": "EN CURSO",
         "status_under_review": "EN REVISIÓN",
-        "status_completed": "TERMINADA"
+        "status_completed": "TERMINADA",
+        "focus_all_caught_up": "TODOS ATRAPADOS",
+        "focus_no_urgent": "En la opinión actual no hay directivas urgentes pendientes.",
+        "focus_active": "[MODO DE ENFOQUE ACTIVO]",
+        "focus_executing": "EJECUTANDO...",
+        "focus_skip": "SALTAR / SIGUIENTE"
     },
     "dashboard": {
         "operator_level": "NIVEL DE OPERATIVO",

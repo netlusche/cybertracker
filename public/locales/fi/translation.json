@@ -9,7 +9,9 @@
         "admin": "ADMIN",
         "profile": "PROFIILI",
         "logout": "KIRJAUDU ULOS",
-        "calendar": "KALENTERI"
+        "calendar": "KALENTERI",
+        "focus_enter": "FOCUS",
+        "focus_exit": "POISTU FOCUSISTA"
     },
     "auth": {
         "title": "NETRUNNER-KIRJAUDU",
@@ -303,7 +305,12 @@
         "status_open": "AVATA",
         "status_in_progress": "KÄYNNISSÄ",
         "status_under_review": "TARKASTELUN ALALLA",
-        "status_completed": "VALMIS"
+        "status_completed": "VALMIS",
+        "focus_all_caught_up": "KAIKKI TAPAHTUI",
+        "focus_no_urgent": "Ei kiireellisiä ohjeita vireillä nykyisessä näkymässä.",
+        "focus_active": "[ TARKENNUSTILA AKTIIVINEN ]",
+        "focus_executing": "SUORITTAA...",
+        "focus_skip": "OHITA / SEURAAVA"
     },
     "dashboard": {
         "operator_level": "OPERAATTORITASO",

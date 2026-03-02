@@ -9,7 +9,9 @@
         "admin": "QUẢN TRỊ",
         "profile": "HỒ SƠ",
         "logout": "ĐĂNG XUẤT",
-        "calendar": "LỊCH"
+        "calendar": "LỊCH",
+        "focus_enter": "TẬP TRUNG",
+        "focus_exit": "THOÁT TẬP TRUNG"
     },
     "auth": {
         "title": "ĐĂNG NHẬP NETRUNNER",
@@ -303,7 +305,12 @@
         "status_open": "MỞ",
         "status_in_progress": "ĐANG TIẾN HÀNH",
         "status_under_review": "ĐANG XEM XÉT",
-        "status_completed": "HOÀN THÀNH"
+        "status_completed": "HOÀN THÀNH",
+        "focus_all_caught_up": "TẤT CẢ BẮT BUỘC",
+        "focus_no_urgent": "Không có chỉ thị khẩn cấp nào đang chờ xử lý trong chế độ xem hiện tại.",
+        "focus_active": "[ CHẾ ĐỘ TẬP TRUNG HOẠT ĐỘNG ]",
+        "focus_executing": "THỰC HIỆN...",
+        "focus_skip": "BỎ QUA / TIẾP THEO"
     },
     "dashboard": {
         "operator_level": "CẤP ĐỘ ĐẶC VỤ",

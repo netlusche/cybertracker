@@ -9,7 +9,9 @@
         "admin": "ADMIN",
         "profile": "PROFIL",
         "logout": "ABMELDEN",
-        "calendar": "KALENDER"
+        "calendar": "KALENDER",
+        "focus_enter": "FOKUS",
+        "focus_exit": "FOKUS VERLASSEN"
     },
     "auth": {
         "title": "NETRUNNER-LOGIN",
@@ -303,7 +305,12 @@
         "status_open": "OFFEN",
         "status_in_progress": "IM GANGE",
         "status_under_review": "IN ÜBERPRÜFUNG",
-        "status_completed": "VOLLENDET"
+        "status_completed": "VOLLENDET",
+        "focus_all_caught_up": "Alles aufgeholt",
+        "focus_no_urgent": "Aus heutiger Sicht sind keine dringenden Weisungen ausstehend.",
+        "focus_active": "[ FOKUSMODUS AKTIV ]",
+        "focus_executing": "AUSFÜHREN...",
+        "focus_skip": "ÜBERSPRINGEN / WEITER"
     },
     "dashboard": {
         "operator_level": "OPERATOR-LEVEL",

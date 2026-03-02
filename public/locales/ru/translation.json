@@ -9,7 +9,9 @@
         "admin": "АДМИН",
         "profile": "ПРОФИЛЬ",
         "logout": "ВЫХОД",
-        "calendar": "КАЛЕНДАРЬ"
+        "calendar": "КАЛЕНДАРЬ",
+        "focus_enter": "ФОКУС",
+        "focus_exit": "ВЫХОД ФОКУСА"
     },
     "auth": {
         "title": "ВХОД НЕТРАННЕРА",
@@ -303,7 +305,12 @@
         "status_open": "ОТКРЫТЬ",
         "status_in_progress": "В ХОДЕ ВЫПОЛНЕНИЯ",
         "status_under_review": "НА РАССМОТРЕНИИ",
-        "status_completed": "ЗАВЕРШЕННЫЙ"
+        "status_completed": "ЗАВЕРШЕННЫЙ",
+        "focus_all_caught_up": "ВСЕ ПОНЯТЫ",
+        "focus_no_urgent": "В настоящее время никаких срочных указаний не ожидается.",
+        "focus_active": "[РЕЖИМ ФОКУСИРОВКИ АКТИВЕН]",
+        "focus_executing": "ВЫПОЛНЯЕМ...",
+        "focus_skip": "ПРОПУСТИТЬ/ДАЛЕЕ"
     },
     "dashboard": {
         "operator_level": "УРОВЕНЬ ОПЕРАТИВНИКА",
