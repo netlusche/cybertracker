@@ -98,7 +98,7 @@ const SortableSubroutine = ({
 };
 
 
-const DirectiveModal = ({ task, categories, taskStatuses = [], onClose, onUpdate, onDuplicate }) => {
+const DirectiveModal = ({ task, user, categories, taskStatuses = [], onClose, onUpdate, onDuplicate }) => {
     const { t } = useTranslation();
     const { theme } = useTheme();
     const fileInputRef = useRef(null);
@@ -120,6 +120,13 @@ const DirectiveModal = ({ task, categories, taskStatuses = [], onClose, onUpdate
     // Sub-routines state
     const [subroutines, setSubroutines] = useState([]);
     const [newSubroutine, setNewSubroutine] = useState('');
+
+    // Notes state
+    const [notes, setNotes] = useState([]);
+    const [newNote, setNewNote] = useState('');
+    const [editingNoteId, setEditingNoteId] = useState(null);
+    const [editNoteText, setEditNoteText] = useState('');
+    const [isNotesLoading, setIsNotesLoading] = useState(false);
 
     const sensors = useSensors(
         useSensor(PointerSensor, {
@@ -186,6 +193,26 @@ const DirectiveModal = ({ task, categories, taskStatuses = [], onClose, onUpdate
         document.addEventListener('keydown', handleEscape);
         return () => document.removeEventListener('keydown', handleEscape);
     }, [onClose]);
+
+    // Fetch notes for this task
+    useEffect(() => {
+        if (!task || !task.id) return;
+        const fetchNotes = async () => {
+            setIsNotesLoading(true);
+            try {
+                const response = await apiFetch(`api/index.php?route=tasks/notes&task_id=${task.id}`);
+                const data = await response.json();
+                if (Array.isArray(data)) {
+                    setNotes(data);
+                }
+            } catch (err) {
+                console.error("Failed to fetch notes:", err);
+            } finally {
+                setIsNotesLoading(false);
+            }
+        };
+        fetchNotes();
+    }, [task?.id]);
 
     const handleSave = async (updatedTitle = title, updatedDesc = description, updatedLinks = tempLinks, updatedFiles = files, updatedSubroutines = subroutines) => {
         setIsSaving(true);
@@ -423,6 +450,80 @@ const DirectiveModal = ({ task, categories, taskStatuses = [], onClose, onUpdate
         const newFiles = files.filter((_, i) => i !== index);
         setFiles(newFiles);
         handleSave(title, description, tempLinks, newFiles, subroutines);
+    };
+
+    // --- Notes Methods ---
+    const addNote = async () => {
+        if (!newNote.trim()) return;
+        setIsNotesLoading(true);
+        try {
+            const response = await apiFetch('api/index.php?route=tasks/notes', {
+                method: 'POST',
+                body: JSON.stringify({ task_id: task.id, note_text: newNote })
+            });
+            const createdNote = await response.json();
+            if (createdNote && createdNote.id) {
+                setNotes([...notes, createdNote]);
+                setNewNote('');
+                if (onUpdate) {
+                    onUpdate(task, { notes_count: (task.notes_count || 0) + 1 });
+                }
+            }
+        } catch (err) {
+            console.error("Failed to add note:", err);
+        } finally {
+            setIsNotesLoading(false);
+        }
+    };
+
+    const startEditingNote = (note) => {
+        setEditingNoteId(note.id);
+        setEditNoteText(note.note_text);
+    };
+
+    const cancelEditingNote = () => {
+        setEditingNoteId(null);
+        setEditNoteText('');
+    };
+
+    const saveEditedNote = async () => {
+        if (!editNoteText.trim() || !editingNoteId) return;
+        setIsNotesLoading(true);
+        try {
+            const response = await apiFetch('api/index.php?route=tasks/notes', {
+                method: 'PUT',
+                body: JSON.stringify({ id: editingNoteId, note_text: editNoteText })
+            });
+            const updatedNote = await response.json();
+            if (updatedNote && updatedNote.id) {
+                setNotes(notes.map(n => n.id === updatedNote.id ? updatedNote : n));
+                setEditingNoteId(null);
+            }
+        } catch (err) {
+            console.error("Failed to update note:", err);
+        } finally {
+            setIsNotesLoading(false);
+        }
+    };
+
+    const deleteNote = async (noteId) => {
+        setIsNotesLoading(true);
+        try {
+            const response = await apiFetch(`api/index.php?route=tasks/notes&id=${noteId}`, {
+                method: 'DELETE'
+            });
+            const result = await response.json();
+            if (result.success) {
+                setNotes(notes.filter(n => n.id !== noteId));
+                if (onUpdate) {
+                    onUpdate(task, { notes_count: Math.max(0, (task.notes_count || 0) - 1) });
+                }
+            }
+        } catch (err) {
+            console.error("Failed to delete note:", err);
+        } finally {
+            setIsNotesLoading(false);
+        }
     };
 
     const renderMarkdown = (text) => {
@@ -781,6 +882,77 @@ const DirectiveModal = ({ task, categories, taskStatuses = [], onClose, onUpdate
                                     <button onClick={(e) => { e.stopPropagation(); handleFileClick(); }} disabled={isUploading} className={`w-full border border-dashed border-cyber-secondary p-2 text-xs text-cyber-secondary hover:bg-cyber-secondary/10 transition-all uppercase ${isUploading ? 'opacity-50 animate-pulse' : ''}`}>
                                         {isUploading ? t('tasks.dossier.uploading_evidence', '[ UPLOADING EVIDENCE... ]') : t('tasks.dossier.attach_file', '+ ATTACH FILE')}
                                     </button>
+                                </div>
+                            </section>
+
+                            {/* Notes Section */}
+                            <section>
+                                <h3 className="text-cyber-success font-bold text-lg mb-3 uppercase tracking-wider flex items-center gap-2">
+                                    <span className="text-xl">📝</span> {t('tasks.dossier.notes_title', 'NOTES / LOGS')}
+                                </h3>
+                                <div className="space-y-4">
+                                    {isNotesLoading && notes.length === 0 && (
+                                        <div className="text-cyber-gray text-xs animate-pulse">[ FETCHING COMM LOGS... ]</div>
+                                    )}
+                                    {notes.length > 0 && (
+                                        <div className="space-y-3">
+                                            {notes.map(note => (
+                                                <div key={note.id} className="bg-black/40 border border-cyber-primary p-3 rounded group relative transition-all">
+                                                    <div className="flex justify-between items-center mb-2 border-b border-cyber-gray/30 pb-1">
+                                                        <span className="text-xs font-bold text-cyber-primary uppercase tracking-widest leading-none flex items-center gap-2">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3 h-3"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg>
+                                                            {note.username}
+                                                        </span>
+                                                        <span className="text-[10px] text-gray-500 font-mono flex items-center gap-2">
+                                                            {new Date(note.created_at).toLocaleString()}
+                                                            {note.updated_at !== note.created_at && (
+                                                                <span className="text-cyber-gray opacity-50 italic">(edited)</span>
+                                                            )}
+                                                            {/* Note Actions */}
+                                                            <div className="opacity-0 group-hover:opacity-100 transition-opacity ml-2 flex gap-1">
+                                                                {/* Edit button removed: Editing is now triggered by clicking the text */}
+                                                                <button onClick={(e) => { e.stopPropagation(); deleteNote(note.id); }} className="text-red-500 hover:text-white transition-colors" data-tooltip-content={t('tasks.dossier.delete_note', 'Delete Note')}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3 h-3"><path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg></button>
+                                                            </div>
+                                                        </span>
+                                                    </div>
+                                                    {editingNoteId === note.id ? (
+                                                        <div className="mt-2 text-sm text-gray-300 font-mono">
+                                                            <textarea autoFocus value={editNoteText} onChange={(e) => setEditNoteText(e.target.value)} className="w-full bg-black/60 border border-cyber-primary p-2 focus:outline-none min-h-[60px] text-sm text-white custom-scrollbar resize-none" />
+                                                            <div className="flex gap-2 justify-end mt-2">
+                                                                <button onClick={(e) => { e.stopPropagation(); cancelEditingNote(); }} className="text-xs px-2 py-1 text-gray-400 border border-gray-600 hover:text-white transition-colors">{t('common.cancel', 'CANCEL')}</button>
+                                                                <button onClick={(e) => { e.stopPropagation(); saveEditedNote(); }} className="text-xs px-2 py-1 bg-cyber-primary text-black font-bold hover:brightness-110 transition-colors uppercase">{t('common.save', 'SAVE')}</button>
+                                                            </div>
+                                                        </div>
+                                                    ) : (
+                                                        <div
+                                                            className={`text-sm text-gray-300 font-mono break-words whitespace-pre-wrap leading-relaxed ${note.user_id == user?.id ? 'cursor-text hover:bg-white/5 p-1 -m-1 rounded transition-colors' : ''}`}
+                                                            onClick={note.user_id == user?.id ? (e) => { e.stopPropagation(); startEditingNote(note); } : undefined}
+                                                            title={note.user_id == user?.id ? t('tasks.dossier.edit_note', 'Click to edit') : undefined}
+                                                        >
+                                                            {note.note_text}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {/* Add New Note */}
+                                    <div className="flex flex-col gap-2">
+                                        <textarea
+                                            value={newNote}
+                                            onChange={(e) => setNewNote(e.target.value)}
+                                            placeholder={t('tasks.dossier.new_note_placeholder', 'Transmit new intelligence log...')}
+                                            className="w-full bg-black/40 border border-cyber-gray p-3 text-sm font-mono focus:border-cyber-primary outline-none text-white transition-colors min-h-[80px] resize-none custom-scrollbar"
+                                        />
+                                        <button
+                                            onClick={(e) => { e.stopPropagation(); addNote(); }}
+                                            disabled={!newNote.trim() || isNotesLoading}
+                                            className="self-end bg-cyber-primary/20 text-cyber-primary border border-cyber-primary px-4 py-2 hover:bg-cyber-primary hover:text-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-bold uppercase text-xs tracking-widest"
+                                        >
+                                            {isNotesLoading ? t('tasks.dossier.processing_log', '[ TRANSMITTING... ]') : t('tasks.dossier.add_note', '+ APPEND LOG')}
+                                        </button>
+                                    </div>
                                 </div>
                             </section>
                         </div>

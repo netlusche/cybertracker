@@ -278,7 +278,14 @@
             "add_uplink": "+ AGGIUNGI UPLINK",
             "files": "FILE",
             "attach_file": "+ ALLEGA FILE",
-            "uploading_evidence": "[ CARICAMENTO PROVE... ]"
+            "uploading_evidence": "[ CARICAMENTO PROVE... ]",
+            "notes_title": "NOTE/LOG",
+            "empty_notes": "Nessun registro di intelligence disponibile. Avvia una nuova voce di registro.",
+            "edit_note": "Modifica nota",
+            "delete_note": "Elimina nota",
+            "new_note_placeholder": "Trasmetti nuovo registro di intelligence...",
+            "processing_log": "[ TRASMISSIONE... ]",
+            "add_note": "+ AGGIUNGI REGISTRO"
         },
         "filters": {
             "pills": {

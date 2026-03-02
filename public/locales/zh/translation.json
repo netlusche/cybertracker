@@ -278,7 +278,14 @@
             "add_uplink": "+ 添加上行链路",
             "files": "文件",
             "attach_file": "+ 附加文件",
-            "uploading_evidence": "[ 正在上传证据... ]"
+            "uploading_evidence": "[ 正在上传证据... ]",
+            "notes_title": "笔记/日志",
+            "empty_notes": "没有可用的情报日志。 启动新的日志条目。",
+            "edit_note": "编辑备注",
+            "delete_note": "删除注释",
+            "new_note_placeholder": "传输新的情报日志...",
+            "processing_log": "[正在传输...]",
+            "add_note": "+ 附加日志"
         },
         "filters": {
             "pills": {

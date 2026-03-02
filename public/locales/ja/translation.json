@@ -278,7 +278,14 @@
             "add_uplink": "+ アップリンク追加",
             "files": "ファイル",
             "attach_file": "+ ファイル添付",
-            "uploading_evidence": "[ 証拠アップロード中... ]"
+            "uploading_evidence": "[ 証拠アップロード中... ]",
+            "notes_title": "メモ/ログ",
+            "empty_notes": "利用可能なインテリジェンス ログはありません。 新しいログエントリを開始します。",
+            "edit_note": "メモの編集",
+            "delete_note": "メモの削除",
+            "new_note_placeholder": "新しい諜報ログを送信します...",
+            "processing_log": "[送信中...]",
+            "add_note": "+ ログを追加"
         },
         "filters": {
             "pills": {

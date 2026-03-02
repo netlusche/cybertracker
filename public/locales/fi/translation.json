@@ -278,7 +278,14 @@
             "add_uplink": "+ LISÄÄ YHTEYS",
             "files": "TIEDOSTOT",
             "attach_file": "+ LIITÄ TIEDOSTO",
-            "uploading_evidence": "[ LÄHETETÄÄN TODISTUSMATERIAALIA... ]"
+            "uploading_evidence": "[ LÄHETETÄÄN TODISTUSMATERIAALIA... ]",
+            "notes_title": "HUOMAUTUKSET / LOKIT",
+            "empty_notes": "Tiedustelulokeja ei ole saatavilla. Aloita uusi lokimerkintä.",
+            "edit_note": "Muokkaa huomautusta",
+            "delete_note": "Poista huomautus",
+            "new_note_placeholder": "Lähetä uusi tiedusteluloki...",
+            "processing_log": "[ LÄHETÄÄN... ]",
+            "add_note": "+ LISÄÄ LOKIA"
         },
         "filters": {
             "pills": {

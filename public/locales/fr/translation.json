@@ -278,7 +278,14 @@
             "add_uplink": "+ AJOUTER UPLINK",
             "files": "FICHIERS",
             "attach_file": "+ ATTACHER FICHIER",
-            "uploading_evidence": "[ TÉLÉCHARGEMENT DES PREUVES... ]"
+            "uploading_evidence": "[ TÉLÉCHARGEMENT DES PREUVES... ]",
+            "notes_title": "NOTES / JOURNAUX",
+            "empty_notes": "Aucun journal de renseignement disponible. Initiez une nouvelle entrée de journal.",
+            "edit_note": "Edit Note",
+            "delete_note": "Supprimer la note",
+            "new_note_placeholder": "Transmettre un nouveau journal de renseignement...",
+            "processing_log": "[ TRANSMETTRE... ]",
+            "add_note": "+ AJOUTER LE JOURNAL"
         },
         "filters": {
             "pills": {

@@ -52,7 +52,7 @@ class TaskRepository extends Repository
         $params = $build['params'];
 
         $today = date('Y-m-d');
-        $sql = "SELECT * FROM tasks WHERE $whereSql 
+        $sql = "SELECT tasks.*, (SELECT COUNT(*) FROM task_notes WHERE task_notes.task_id = tasks.id) as notes_count FROM tasks WHERE $whereSql 
                 ORDER BY 
                 status ASC,
                 CASE 
@@ -85,7 +85,7 @@ class TaskRepository extends Repository
     public function getCalendarTasks(int $userId): array
     {
         // Fetch all active calendar tasks, including those with recurrence
-        $sql = "SELECT id, title, due_date, status, priority, category, points_value, description, recurrence_interval, recurrence_end_date FROM tasks WHERE user_id = ? AND status = 0 AND due_date IS NOT NULL ORDER BY due_date ASC";
+        $sql = "SELECT tasks.id, tasks.title, tasks.due_date, tasks.status, tasks.priority, tasks.category, tasks.points_value, tasks.description, tasks.recurrence_interval, tasks.recurrence_end_date, (SELECT COUNT(*) FROM task_notes WHERE task_notes.task_id = tasks.id) as notes_count FROM tasks WHERE user_id = ? AND status = 0 AND due_date IS NOT NULL ORDER BY due_date ASC";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$userId]);
         $baseTasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -167,7 +167,7 @@ class TaskRepository extends Repository
 
     public function getTaskById(int $taskId, int $userId)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM tasks WHERE id = ? AND user_id = ?");
+        $stmt = $this->pdo->prepare("SELECT tasks.*, (SELECT COUNT(*) FROM task_notes WHERE task_notes.task_id = tasks.id) as notes_count FROM tasks WHERE id = ? AND user_id = ?");
         $stmt->execute([$taskId, $userId]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }

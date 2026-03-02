@@ -294,6 +294,7 @@ function App() {
                     <TaskCard
                       key={task.id}
                       task={task}
+                      user={user}
                       categories={categories}
                       taskStatuses={taskStatuses}
                       onToggleStatus={handleToggleStatus}
@@ -393,6 +394,7 @@ function App() {
       {showDossierForTask && (
         <DirectiveModal
           task={showDossierForTask}
+          user={user}
           categories={categories}
           onUpdate={async (task, updates) => {
             // Update the single task state in App context here

@@ -278,7 +278,14 @@
             "add_uplink": "+ QE'D QAW",
             "files": "FILES",
             "attach_file": "+ FILE QAW",
-            "uploading_evidence": "[ EVIDENCE QAW... ]"
+            "uploading_evidence": "[ EVIDENCE QAW... ]",
+            "notes_title": "NOTES / LOGS",
+            "empty_notes": "No intelligence logs available. Initiate a new log entry.",
+            "edit_note": "Edit Note",
+            "delete_note": "Delete Note",
+            "new_note_placeholder": "Transmit new intelligence log...",
+            "processing_log": "[ TRANSMITTING... ]",
+            "add_note": "+ APPEND LOG"
         },
         "filters": {
             "pills": {

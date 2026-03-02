@@ -278,7 +278,14 @@
             "add_uplink": "+ ADICIONAR UPLINK",
             "files": "ARQUIVOS",
             "attach_file": "+ ANEXAR ARQUIVO",
-            "uploading_evidence": "[ ENVIANDO EVIDÊNCIAS... ]"
+            "uploading_evidence": "[ ENVIANDO EVIDÊNCIAS... ]",
+            "notes_title": "NOTAS / REGISTROS",
+            "empty_notes": "Nenhum registro de inteligência disponível. Inicie uma nova entrada de log.",
+            "edit_note": "Editar nota",
+            "delete_note": "Excluir nota",
+            "new_note_placeholder": "Transmitir novo registro de inteligência...",
+            "processing_log": "[ TRANSMITINDO... ]",
+            "add_note": "+ ANEXAR LOG"
         },
         "filters": {
             "pills": {

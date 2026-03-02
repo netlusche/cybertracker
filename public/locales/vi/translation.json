@@ -278,7 +278,14 @@
             "add_uplink": "+ THÊM UPLINK",
             "files": "TỆP",
             "attach_file": "+ ĐÍNH KÈM TỆP",
-            "uploading_evidence": "[ ĐANG TẢI LÊN BẰNG CHỨNG... ]"
+            "uploading_evidence": "[ ĐANG TẢI LÊN BẰNG CHỨNG... ]",
+            "notes_title": "GHI CHÚ / NHẬT KÝ",
+            "empty_notes": "Không có nhật ký tình báo có sẵn. Bắt đầu một mục nhật ký mới.",
+            "edit_note": "Chỉnh sửa ghi chú",
+            "delete_note": "Xóa ghi chú",
+            "new_note_placeholder": "Truyền nhật ký tình báo mới...",
+            "processing_log": "[ ĐANG TRUYỀN... ]",
+            "add_note": "+ GỬI NHẬT KÝ"
         },
         "filters": {
             "pills": {

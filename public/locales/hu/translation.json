@@ -278,7 +278,14 @@
             "add_uplink": "+ FELTÖLTÉS HOZZÁADÁSA",
             "files": "FÁJLOK",
             "attach_file": "+ FÁJL CSATOLÁSA",
-            "uploading_evidence": "[ BIZONYÍTÉKOK FELTÖLTÉSE... ]"
+            "uploading_evidence": "[ BIZONYÍTÉKOK FELTÖLTÉSE... ]",
+            "notes_title": "JEGYZETEK / NAPLÓK",
+            "empty_notes": "Nem állnak rendelkezésre információs naplók. Új naplóbejegyzés kezdeményezése.",
+            "edit_note": "Jegyzet szerkesztése",
+            "delete_note": "Jegyzet törlése",
+            "new_note_placeholder": "Új információs napló továbbítása...",
+            "processing_log": "[ ADÁS... ]",
+            "add_note": "+ NAPLÓ Hozzáfűzése"
         },
         "filters": {
             "pills": {

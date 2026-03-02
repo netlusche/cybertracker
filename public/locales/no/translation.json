@@ -278,7 +278,14 @@
             "add_uplink": "+ LEGG TIL OPPLINK",
             "files": "FILER",
             "attach_file": "+ LEGG VED FIL",
-            "uploading_evidence": "[ LASTER OPP BEVIS... ]"
+            "uploading_evidence": "[ LASTER OPP BEVIS... ]",
+            "notes_title": "NOTER / LOGGER",
+            "empty_notes": "Ingen etterretningslogger tilgjengelig. Start en ny loggoppføring.",
+            "edit_note": "Rediger notat",
+            "delete_note": "Slett notat",
+            "new_note_placeholder": "Send ny etterretningslogg...",
+            "processing_log": "[SENDER...]",
+            "add_note": "+ LEGG TIL LOGG"
         },
         "filters": {
             "pills": {

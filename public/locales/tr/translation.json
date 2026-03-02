@@ -278,7 +278,14 @@
             "add_uplink": "+ YUKARI BAĞLANTI EKLE",
             "files": "DOSYALAR",
             "attach_file": "+ DOSYA EKLE",
-            "uploading_evidence": "[ KANIT YÜKLENİYOR... ]"
+            "uploading_evidence": "[ KANIT YÜKLENİYOR... ]",
+            "notes_title": "NOTLAR / KAYITLAR",
+            "empty_notes": "İstihbarat kaydı yok. Yeni bir günlük girişi başlatın.",
+            "edit_note": "Notu Düzenle",
+            "delete_note": "Notu Sil",
+            "new_note_placeholder": "Yeni istihbarat günlüğünü ilet...",
+            "processing_log": "[ AKTARILIYOR... ]",
+            "add_note": "+ GÜNLÜK EKLE"
         },
         "filters": {
             "pills": {

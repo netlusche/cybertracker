@@ -31,6 +31,11 @@ $pdo->exec("DELETE FROM user_categories");
 $pdo->exec("DELETE FROM user_stats");
 $pdo->exec("DELETE FROM user_task_statuses");
 $pdo->exec("DELETE FROM auth_logs");
+try {
+    $pdo->exec("DELETE FROM task_notes");
+}
+catch (Exception $e) {
+}
 // Remove ALL users to avoid unique constraint violations on email
 $pdo->exec("DELETE FROM users");
 
@@ -44,7 +49,7 @@ catch (Exception $e) {
 // For SQLite, reset auto-increment counters to ensure ID-based tests are stable
 if ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite') {
     try {
-        $pdo->exec("DELETE FROM sqlite_sequence WHERE name IN ('users', 'tasks', 'user_categories', 'user_task_statuses', 'user_stats', 'auth_logs')");
+        $pdo->exec("DELETE FROM sqlite_sequence WHERE name IN ('users', 'tasks', 'user_categories', 'user_task_statuses', 'user_stats', 'auth_logs', 'task_notes')");
     }
     catch (Exception $e) {
     // Table might not exist yet if fresh, ignore
@@ -57,6 +62,19 @@ if ($pdo->getAttribute(PDO::ATTR_DRIVER_NAME) === 'sqlite') {
     }
     catch (Exception $e) {
     // Columns might already exist
+    }
+
+    try {
+        $pdo->exec("CREATE TABLE IF NOT EXISTS task_notes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            task_id INTEGER NOT NULL,
+            user_id INTEGER NOT NULL,
+            note_text TEXT NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        )");
+    }
+    catch (Exception $e) {
     }
 }
 echo "Full database purge and schema patch complete.\n\n";

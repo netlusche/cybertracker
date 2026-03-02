@@ -34,6 +34,7 @@ require_once __DIR__ . '/controllers/AdminController.php';
 require_once __DIR__ . '/controllers/CategoryController.php';
 require_once __DIR__ . '/controllers/UserController.php';
 require_once __DIR__ . '/controllers/TaskStatusController.php';
+require_once __DIR__ . '/controllers/TaskNoteController.php';
 
 $router = new Router();
 
@@ -69,6 +70,12 @@ $router->post('tasks/upload', [TaskController::class , 'uploadFiles']);
 $router->put('tasks', [TaskController::class , 'update']);
 $router->delete('tasks', [TaskController::class , 'destroy']);
 $router->delete('tasks/bulk_delete_completed', [TaskController::class , 'bulkDeleteCompleted']);
+
+// --- Task Notes Routes ---
+$router->get('tasks/notes', [TaskNoteController::class , 'index']);
+$router->post('tasks/notes', [TaskNoteController::class , 'store']);
+$router->put('tasks/notes', [TaskNoteController::class , 'update']);
+$router->delete('tasks/notes', [TaskNoteController::class , 'destroy']);
 
 // --- Admin Routes ---
 $router->get('admin/users', [AdminController::class , 'listUsers']);

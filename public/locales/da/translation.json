@@ -278,7 +278,14 @@
             "add_uplink": "+ TILFØJ UPLINK",
             "files": "FILER",
             "attach_file": "+ VEDHÆFT FIL",
-            "uploading_evidence": "[ UPLOADER BEVISER... ]"
+            "uploading_evidence": "[ UPLOADER BEVISER... ]",
+            "notes_title": "NOTER / LOG",
+            "empty_notes": "Ingen efterretningslogfiler tilgængelige. Start en ny logindtastning.",
+            "edit_note": "Rediger note",
+            "delete_note": "Slet note",
+            "new_note_placeholder": "Send ny efterretningslog...",
+            "processing_log": "[SENDER...]",
+            "add_note": "+ TILFØJ LOG"
         },
         "filters": {
             "pills": {

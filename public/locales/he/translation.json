@@ -278,7 +278,14 @@
             "add_uplink": "+ הוסף העלאה",
             "files": "קבצים",
             "attach_file": "+ צרף קובץ",
-            "uploading_evidence": "[ מעלה ראיות... ]"
+            "uploading_evidence": "[ מעלה ראיות... ]",
+            "notes_title": "הערות / יומנים",
+            "empty_notes": "אין יומני מודיעין זמינים. התחל ערך יומן חדש.",
+            "edit_note": "ערוך הערה",
+            "delete_note": "מחק הערה",
+            "new_note_placeholder": "שלח יומן מודיעין חדש...",
+            "processing_log": "[משדר...]",
+            "add_note": "+ הוסף יומן"
         },
         "filters": {
             "pills": {

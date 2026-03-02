@@ -5,7 +5,7 @@ import CyberConfirm from './CyberConfirm';
 import CyberCalendar from './CyberCalendar';
 import DirectiveModal from './DirectiveModal';
 
-const TaskCard = ({ task, categories, taskStatuses = [], onToggleStatus, onUpdateTask, onDelete, activeCalendarTaskId, setActiveCalendarTaskId, onDuplicate }) => {
+const TaskCard = ({ task, user, categories, taskStatuses = [], onToggleStatus, onUpdateTask, onDelete, activeCalendarTaskId, setActiveCalendarTaskId, onDuplicate }) => {
     const { t } = useTranslation();
     const displayTitle = task.title?.startsWith('i18n:') ? t(task.title.replace('i18n:', '')) : task.title;
     const displayDesc = task.description?.startsWith('i18n:') ? t(task.description.replace('i18n:', '')) : task.description;
@@ -387,6 +387,16 @@ const TaskCard = ({ task, categories, taskStatuses = [], onToggleStatus, onUpdat
                                 }
                                 return null;
                             })()}
+
+                            {/* Notes Indicator */}
+                            {task.notes_count > 0 && (
+                                <div className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-black/40 border border-cyber-primary/20 text-xs text-cyber-primary font-mono" data-tooltip-content={t('tasks.dossier.notes_title', 'Notes')}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3 h-3">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                                    </svg>
+                                    <span className="font-bold">{task.notes_count}</span>
+                                </div>
+                            )}
                         </div>
                     </div>
 
@@ -450,6 +460,7 @@ const TaskCard = ({ task, categories, taskStatuses = [], onToggleStatus, onUpdat
             {showDossier && (
                 <DirectiveModal
                     task={task}
+                    user={user}
                     categories={categories}
                     taskStatuses={taskStatuses}
                     onClose={() => setShowDossier(false)}

@@ -283,7 +283,14 @@
       "add_uplink": "+ ADD UPLINK",
       "files": "FILES",
       "attach_file": "+ ATTACH FILE",
-      "uploading_evidence": "[ UPLOADING EVIDENCE... ]"
+      "uploading_evidence": "[ UPLOADING EVIDENCE... ]",
+      "notes_title": "NOTES / LOGS",
+      "empty_notes": "No intelligence logs available. Initiate a new log entry.",
+      "edit_note": "Edit Note",
+      "delete_note": "Delete Note",
+      "new_note_placeholder": "Transmit new intelligence log...",
+      "processing_log": "[ TRANSMITTING... ]",
+      "add_note": "+ APPEND LOG"
     },
     "filters": {
       "pills": {

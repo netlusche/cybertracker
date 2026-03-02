@@ -136,9 +136,19 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
 
     const handleUpdateTask = useCallback(async (task, updates) => {
         try {
+            // Optimistically update local state
             const body = typeof updates === 'string'
                 ? { id: task.id, title: updates }
                 : { id: task.id, ...updates };
+
+            setTasks(prev => prev.map(t =>
+                t.id == task.id ? { ...t, ...body } : t
+            ));
+
+            // If it's a UI-only update like a subquery count trigger, return early
+            if (updates && typeof updates === 'object' && Object.keys(updates).length === 1 && updates.notes_count !== undefined) {
+                return true;
+            }
 
             const res = await apiFetch('api/index.php?route=tasks', {
                 method: 'PUT',

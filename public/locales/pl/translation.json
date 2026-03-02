@@ -278,7 +278,14 @@
             "add_uplink": "+ DODAJ UPLINK",
             "files": "PLIKI",
             "attach_file": "+ ZAŁĄCZ PLIK",
-            "uploading_evidence": "[ PRZESYŁANIE DOWODÓW... ]"
+            "uploading_evidence": "[ PRZESYŁANIE DOWODÓW... ]",
+            "notes_title": "NOTATKI/LOGI",
+            "empty_notes": "Brak dostępnych dzienników wywiadowczych. Zainicjuj nowy wpis w dzienniku.",
+            "edit_note": "Edytuj notatkę",
+            "delete_note": "Usuń notatkę",
+            "new_note_placeholder": "Prześlij nowy dziennik wywiadowczy...",
+            "processing_log": "[ TRANSMISJA... ]",
+            "add_note": "+ DOŁĄCZ LOG"
         },
         "filters": {
             "pills": {

@@ -278,7 +278,14 @@
             "add_uplink": "+ AÑADIR ENLACE ASCENDENTE",
             "files": "ARCHIVOS",
             "attach_file": "+ ADJUNTAR ARCHIVO",
-            "uploading_evidence": "[ SUBIENDO EVIDENCIA... ]"
+            "uploading_evidence": "[ SUBIENDO EVIDENCIA... ]",
+            "notes_title": "NOTAS / REGISTROS",
+            "empty_notes": "No hay registros de inteligencia disponibles. Inicie una nueva entrada de registro.",
+            "edit_note": "Editar nota",
+            "delete_note": "Eliminar nota",
+            "new_note_placeholder": "Transmitir nuevo registro de inteligencia...",
+            "processing_log": "[ TRANSMITIENDO... ]",
+            "add_note": "+ AÑADIR REGISTRO"
         },
         "filters": {
             "pills": {

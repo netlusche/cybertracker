@@ -278,7 +278,14 @@
             "add_uplink": "+ LÄGG TILL UPPLÄNK",
             "files": "FILER",
             "attach_file": "+ BIFOGA FIL",
-            "uploading_evidence": "[ LADDAR UPP BEVIS... ]"
+            "uploading_evidence": "[ LADDAR UPP BEVIS... ]",
+            "notes_title": "ANMÄRKNINGAR / LOGGAR",
+            "empty_notes": "Inga underrättelseloggar tillgängliga. Initiera en ny loggpost.",
+            "edit_note": "Redigera anteckning",
+            "delete_note": "Ta bort anteckning",
+            "new_note_placeholder": "Överför ny underrättelselogg...",
+            "processing_log": "[ SÄNDAR... ]",
+            "add_note": "+ BILAGA LOGG"
         },
         "filters": {
             "pills": {

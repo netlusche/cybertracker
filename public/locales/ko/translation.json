@@ -278,7 +278,14 @@
             "add_uplink": "+ 업링크 추가",
             "files": "파일",
             "attach_file": "+ 파일 첨부",
-            "uploading_evidence": "[ 증거 업로드 중... ]"
+            "uploading_evidence": "[ 증거 업로드 중... ]",
+            "notes_title": "메모/로그",
+            "empty_notes": "사용 가능한 인텔리전스 로그가 없습니다. 새 로그 항목을 시작합니다.",
+            "edit_note": "메모 편집",
+            "delete_note": "메모 삭제",
+            "new_note_placeholder": "새로운 첩보기록 전송...",
+            "processing_log": "[ 전송 중... ]",
+            "add_note": "+ 로그 추가"
         },
         "filters": {
             "pills": {

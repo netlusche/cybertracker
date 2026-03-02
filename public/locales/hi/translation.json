@@ -278,7 +278,14 @@
             "add_uplink": "+ अपलिंक जोड़ें",
             "files": "फ़ाइलें",
             "attach_file": "+ फ़ाइल संलग्न करें",
-            "uploading_evidence": "[ साक्ष्य अपलोड हो रहा है... ]"
+            "uploading_evidence": "[ साक्ष्य अपलोड हो रहा है... ]",
+            "notes_title": "नोट्स/लॉग",
+            "empty_notes": "कोई खुफिया लॉग उपलब्ध नहीं है. एक नई लॉग प्रविष्टि आरंभ करें.",
+            "edit_note": "नोट संपादित करें",
+            "delete_note": "नोट हटाएँ",
+            "new_note_placeholder": "नया ख़ुफ़िया लॉग संचारित करें...",
+            "processing_log": "[प्रेषण...]",
+            "add_note": "+ लॉग जोड़ें"
         },
         "filters": {
             "pills": {

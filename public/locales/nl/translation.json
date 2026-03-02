@@ -278,7 +278,14 @@
             "add_uplink": "+ UPLINK TOEVOEGEN",
             "files": "BESTANDEN",
             "attach_file": "+ BESTAND BIJVOEGEN",
-            "uploading_evidence": "[ BEWIJS UPLOADEN... ]"
+            "uploading_evidence": "[ BEWIJS UPLOADEN... ]",
+            "notes_title": "OPMERKINGEN / LOGBOEK",
+            "empty_notes": "Geen inlichtingenlogboeken beschikbaar. Start een nieuwe logvermelding.",
+            "edit_note": "Notitie bewerken",
+            "delete_note": "Notitie verwijderen",
+            "new_note_placeholder": "Nieuw inlichtingenlogboek verzenden...",
+            "processing_log": "[ VERZENDEN... ]",
+            "add_note": "+ LOGBOEK TOEVOEGEN"
         },
         "filters": {
             "pills": {

@@ -278,7 +278,14 @@
             "add_uplink": "+ UPLINK HINZUFÜGEN",
             "files": "DATEIEN",
             "attach_file": "+ DATEI ANHÄNGEN",
-            "uploading_evidence": "[ BEWEISE HOCHLADEN... ]"
+            "uploading_evidence": "[ BEWEISE HOCHLADEN... ]",
+            "notes_title": "NOTIZEN / PROTOKOLLE",
+            "empty_notes": "Keine Geheimdienstprotokolle verfügbar. Initiieren Sie einen neuen Protokolleintrag.",
+            "edit_note": "Notiz bearbeiten",
+            "delete_note": "Notiz löschen",
+            "new_note_placeholder": "Neues Geheimdienstprotokoll übermitteln...",
+            "processing_log": "[ÜBERTRAGEN...]",
+            "add_note": "+ PROTOKOLL ANHÄNGEN"
         },
         "filters": {
             "pills": {

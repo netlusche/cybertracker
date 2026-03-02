@@ -277,6 +277,20 @@ try {
         $workflowMigrationNeeded = true;
     }
 
+    // --- TASK NOTES TABLE ---
+    $sqlTaskNotes = "CREATE TABLE IF NOT EXISTS task_notes (
+        id $autoIncrement,
+        task_id INT NOT NULL,
+        user_id INT NOT NULL,
+        note_text TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    )";
+    $pdo->exec($sqlTaskNotes);
+    echo "Table 'task_notes' check/create complete.<br>\n";
+
     // --- USER TASK STATUSES TABLE ---
     $sqlTaskStatuses = "CREATE TABLE IF NOT EXISTS user_task_statuses (
         id $autoIncrement,
