@@ -228,7 +228,8 @@ try {
         subroutines_json TEXT NULL,
         recurrence_interval VARCHAR(20) DEFAULT NULL,
         recurrence_end_date DATETIME DEFAULT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        workflow_status VARCHAR(50) DEFAULT 'open'
     )";
     $pdo->exec($sqlTasks);
     echo "Table 'tasks' check/create complete.<br>\n";
@@ -267,6 +268,32 @@ try {
     if (!columnExists($pdo, 'tasks', 'recurrence_end_date')) {
         $pdo->exec("ALTER TABLE tasks ADD COLUMN recurrence_end_date DATETIME DEFAULT NULL");
         echo "Column 'recurrence_end_date' added to tasks.<br>\n";
+    }
+
+    $workflowMigrationNeeded = false;
+    if (!columnExists($pdo, 'tasks', 'workflow_status')) {
+        $pdo->exec("ALTER TABLE tasks ADD COLUMN workflow_status VARCHAR(50) DEFAULT 'open'");
+        echo "Column 'workflow_status' added to tasks.<br>\n";
+        $workflowMigrationNeeded = true;
+    }
+
+    // --- USER TASK STATUSES TABLE ---
+    $sqlTaskStatuses = "CREATE TABLE IF NOT EXISTS user_task_statuses (
+        id $autoIncrement,
+        user_id INT NOT NULL,
+        name VARCHAR(50) NOT NULL,
+        is_system BOOLEAN DEFAULT 0,
+        sort_order INT DEFAULT 0,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    )";
+    $pdo->exec($sqlTaskStatuses);
+    echo "Table 'user_task_statuses' check/create complete.<br>\n";
+
+    // Migrate existing tasks if the column was just added
+    if ($workflowMigrationNeeded) {
+        // Set completed tasks to workflow_status = 'completed'
+        $pdo->exec("UPDATE tasks SET workflow_status = 'completed' WHERE status = 1");
+        echo "Migrated existing tasks to new workflow_status field.<br>\n";
     }
 
     // --- USER CATEGORIES TABLE ---
@@ -336,6 +363,13 @@ try {
         // Initialize Stats
         $stmtStats = $pdo->prepare("INSERT INTO user_stats (id, total_points, current_level, badges_json) VALUES (?, 0, 1, '[]')");
         $stmtStats->execute([$adminId]);
+
+        // Initialize Default Statuses
+        $stmtStatus = $pdo->prepare("INSERT INTO user_task_statuses (user_id, name, is_system, sort_order) VALUES (?, ?, ?, ?)");
+        $stmtStatus->execute([$adminId, 'open', 1, 1]);
+        $stmtStatus->execute([$adminId, 'in progress', 0, 2]);
+        $stmtStatus->execute([$adminId, 'under review', 0, 3]);
+        $stmtStatus->execute([$adminId, 'completed', 1, 4]);
 
         echo "Master Admin account '$adminUsername' created.<br>\n";
 
@@ -415,7 +449,7 @@ try {
     }
 
     echo "<h4>Installation/Update Final Verification:</h4>";
-    $tables = ['users', 'tasks', 'user_categories', 'user_stats', 'system_settings'];
+    $tables = ['users', 'tasks', 'user_categories', 'user_task_statuses', 'user_stats', 'system_settings'];
     foreach ($tables as $t) {
         $count = $pdo->query("SELECT COUNT(*) FROM $t")->fetchColumn();
         echo "Table '$t' row count: <b>$count</b><br>\n";

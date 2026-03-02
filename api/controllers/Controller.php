@@ -5,6 +5,7 @@ require_once __DIR__ . '/../repositories/UserRepository.php';
 require_once __DIR__ . '/../repositories/TaskRepository.php';
 require_once __DIR__ . '/../repositories/CategoryRepository.php';
 require_once __DIR__ . '/../repositories/AdminRepository.php';
+require_once __DIR__ . '/../repositories/TaskStatusRepository.php';
 
 class Controller
 {
@@ -15,6 +16,7 @@ class Controller
     protected TaskRepository $taskRepo;
     protected CategoryRepository $categoryRepo;
     protected AdminRepository $adminRepo;
+    protected TaskStatusRepository $taskStatusRepo;
 
     public function __construct()
     {
@@ -25,6 +27,7 @@ class Controller
         $this->taskRepo = new TaskRepository($this->pdo);
         $this->categoryRepo = new CategoryRepository($this->pdo);
         $this->adminRepo = new AdminRepository($this->pdo);
+        $this->taskStatusRepo = new TaskStatusRepository($this->pdo);
     }
 
     protected function jsonResponse(array $data, int $status = 200): void

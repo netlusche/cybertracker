@@ -241,6 +241,10 @@ class TaskController extends Controller
             $fields[] = 'recurrence_end_date = ?';
             $params[] = !empty($data['recurrence_end_date']) ? $data['recurrence_end_date'] : null;
         }
+        if (array_key_exists('workflow_status', $data)) {
+            $fields[] = 'workflow_status = ?';
+            $params[] = !empty($data['workflow_status']) ? $data['workflow_status'] : null;
+        }
 
         if (empty($fields)) {
             $this->jsonResponse(['message' => 'No changes']);

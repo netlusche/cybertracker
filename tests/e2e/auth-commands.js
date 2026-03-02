@@ -47,3 +47,39 @@ export async function loginAsAdmin(page) {
     // Wait for login to complete and dashboard to load
     await expect(page.getByTestId('profile-btn')).toBeVisible({ timeout: 20000 });
 }
+
+export async function loginAsTestUser(page) {
+    await page.context().clearCookies();
+    await page.addInitScript(() => {
+        window.localStorage.clear();
+        window.sessionStorage.clear();
+    });
+
+    await page.goto('/');
+
+    await expect(page.getByText(/INITIALIZING SYSTEM|SYSTEM INITIALISIERUNG/i)).not.toBeVisible({ timeout: 15000 });
+
+    if (await page.getByTestId('profile-btn').isVisible()) {
+        return;
+    }
+
+    const inputs = page.locator('form input:visible');
+    await expect(inputs.first()).toBeVisible({ timeout: 10000 });
+
+    const count = await inputs.count();
+
+    // Ensure we are in login mode (2 inputs)
+    if (count !== 2) {
+        await page.getByTestId('auth-toggle').click();
+        await expect(inputs).toHaveCount(2, { timeout: 10000 });
+    }
+
+    const visibleInputs = page.locator('form input:visible');
+    // Using one of the test users created by seed_test_data.php
+    await visibleInputs.nth(0).fill('Test_User_001');
+    await visibleInputs.nth(1).fill('Baseline_Pass_1!');
+    await page.locator('form button[type="submit"]').click();
+
+    await expect(page.locator('form button[type="submit"]')).not.toHaveText(/WORKING|BEZIG|CHARGEMENT|CARGANDO|CARICAMENTO/i, { timeout: 20000 });
+    await expect(page.getByTestId('profile-btn')).toBeVisible({ timeout: 20000 });
+}

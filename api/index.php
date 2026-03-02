@@ -33,6 +33,7 @@ require_once __DIR__ . '/controllers/TaskController.php';
 require_once __DIR__ . '/controllers/AdminController.php';
 require_once __DIR__ . '/controllers/CategoryController.php';
 require_once __DIR__ . '/controllers/UserController.php';
+require_once __DIR__ . '/controllers/TaskStatusController.php';
 
 $router = new Router();
 
@@ -87,6 +88,13 @@ $router->post('categories', [CategoryController::class , 'store']);
 $router->post('categories/set_default', [CategoryController::class , 'setDefault']);
 $router->put('categories', [CategoryController::class , 'update']);
 $router->delete('categories', [CategoryController::class , 'destroy']);
+
+// --- Task Status Routes ---
+$router->get('task_statuses', [TaskStatusController::class , 'index']);
+$router->post('task_statuses', [TaskStatusController::class , 'store']);
+$router->post('task_statuses/reorder', [TaskStatusController::class , 'reorder']);
+$router->put('task_statuses', [TaskStatusController::class , 'update']);
+$router->delete('task_statuses', [TaskStatusController::class , 'destroy']);
 
 // --- User Routes ---
 $router->get('user/stats', [UserController::class , 'getStats']);

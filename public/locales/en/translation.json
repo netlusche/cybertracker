@@ -143,7 +143,10 @@
       "fail_add_cat": "Failed to add category",
       "fail_rename_cat": "Failed to rename category",
       "fail_delete_cat": "Failed to delete category (Default one cannot be deleted if only one remains)",
-      "fail_set_default": "Failed to set default category"
+      "fail_set_default": "Failed to set default category",
+      "fail_add_status": "Failed to add status",
+      "fail_rename_status": "Failed to rename status",
+      "fail_delete_status": "Failed to delete status"
     },
     "alerts": {
       "security_alert": "SECURITY ALERT",
@@ -154,7 +157,9 @@
       "category_purge_confirm": "CATEGORY PURGE WILL VOID ALL ASSOCIATED DIRECTIVE VECTORS. PROCEED WITH DELETION?",
       "cypher_success": "CYPHER UPDATED",
       "cypher_confirm": "SECURITY CONFIRMATION",
-      "cypher_confirm_msg": "EXECUTE ACCESS KEY UPDATE PROTOCOL? THIS ACTION WILL REQUIRE RE-AUTHENTICATION."
+      "cypher_confirm_msg": "EXECUTE ACCESS KEY UPDATE PROTOCOL? THIS ACTION WILL REQUIRE RE-AUTHENTICATION.",
+      "status_purge": "STATUS PURGE",
+      "status_purge_confirm": "STATUS PURGE WILL VOID ALL ASSOCIATED DIRECTIVE STATES. PROCEED WITH DELETION?"
     },
     "categories": {
       "protocols": "CATEGORY PROTOCOLS",
@@ -165,6 +170,15 @@
       "new_protocol_placeholder": "NEW PROTOCOL NAME",
       "add": "ADD"
     },
+    "task_statuses": {
+      "title": "TASK STATUS PROTOCOLS",
+      "system": "SYSTEM",
+      "rename": "Rename",
+      "delete": "Delete",
+      "new_status_placeholder": "NEW STATUS NAME",
+      "add": "ADD"
+    },
+    "task_statuses_tab": "STATUS",
     "security": {
       "bio_lock": "BIO-LOCK SECURITY [2FA]",
       "protocols_active": "PROTOCOLS ACTIVE:",
@@ -231,6 +245,10 @@
       "yearly": "Yearly"
     },
     "status": "STATUS",
+    "status_open": "OPEN",
+    "status_in_progress": "IN PROGRESS",
+    "status_under_review": "UNDER REVIEW",
+    "status_completed": "COMPLETED",
     "details": "DETAILS",
     "page": "PAGE",
     "cycle_category": "Click to cycle category",

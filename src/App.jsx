@@ -41,6 +41,10 @@ function App() {
     categoryRefreshTrigger,
     refreshCategories,
     fetchCategories,
+    taskStatuses,
+    statusRefreshTrigger,
+    refreshTaskStatuses,
+    fetchTaskStatuses,
     fetchTasks,
     handleAddTask,
     handleToggleStatus,
@@ -65,8 +69,9 @@ function App() {
     if (user) {
       fetchTasks(1);
       fetchCategories();
+      fetchTaskStatuses();
     }
-  }, [user, filters, categoryRefreshTrigger, fetchTasks, fetchCategories]);
+  }, [user, filters, categoryRefreshTrigger, statusRefreshTrigger, fetchTasks, fetchCategories, fetchTaskStatuses]);
 
   // Global Keyboard Shortcuts (N and /)
   useEffect(() => {
@@ -290,6 +295,7 @@ function App() {
                       key={task.id}
                       task={task}
                       categories={categories}
+                      taskStatuses={taskStatuses}
                       onToggleStatus={handleToggleStatus}
                       onUpdateTask={handleUpdateTask}
                       onDelete={handleDelete}
@@ -360,6 +366,8 @@ function App() {
             checkAuth(true);
           }}
           onCategoryUpdate={refreshCategories}
+          taskStatuses={taskStatuses}
+          onStatusUpdate={refreshTaskStatuses}
         />
       )}
 

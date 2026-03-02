@@ -98,7 +98,7 @@ const SortableSubroutine = ({
 };
 
 
-const DirectiveModal = ({ task, categories, onClose, onUpdate, onDuplicate }) => {
+const DirectiveModal = ({ task, categories, taskStatuses = [], onClose, onUpdate, onDuplicate }) => {
     const { t } = useTranslation();
     const { theme } = useTheme();
     const fileInputRef = useRef(null);
@@ -276,6 +276,15 @@ const DirectiveModal = ({ task, categories, onClose, onUpdate, onDuplicate }) =>
             await onUpdate(task, { category: val });
         } catch (err) {
             console.error("Category update error:", err);
+        }
+    };
+
+    const handleWorkflowStatusChange = async (val) => {
+        if (!val) return;
+        try {
+            await onUpdate(task, { workflow_status: val });
+        } catch (err) {
+            console.error("Workflow status update error:", err);
         }
     };
 
@@ -606,6 +615,28 @@ const DirectiveModal = ({ task, categories, onClose, onUpdate, onDuplicate }) =>
                                     />
                                 </div>
                             </div>
+
+                            {taskStatuses && taskStatuses.length > 0 && (
+                                <div className="flex items-center gap-2 font-mono text-base px-3 py-1.5 border border-gray-700/50 rounded bg-black/20">
+                                    <span className="text-cyber-accent xp-text">🚦</span>
+                                    <span className="text-xs font-bold text-gray-500 uppercase tracking-widest mr-1">
+                                        {t('profile.task_statuses_tab', 'STATUS')}:
+                                    </span>
+                                    <div className="w-32">
+                                        <CyberSelect
+                                            value={task.workflow_status || 'open'}
+                                            onChange={handleWorkflowStatusChange}
+                                            options={taskStatuses.map(status => ({
+                                                value: status.name,
+                                                label: status.is_system ? t(`tasks.status_${status.name.toLowerCase().replace(' ', '_')}`, status.name) : status.name
+                                            }))}
+                                            neonColor="cyan"
+                                            className="text-[10px] font-bold h-7 uppercase tracking-wider"
+                                            disabled={task.status == 1}
+                                        />
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
                         <div className="space-y-8">

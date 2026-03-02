@@ -8,6 +8,8 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
     const [pagination, setPagination] = useState({ currentPage: 1, totalPages: 1, totalTasks: 0 });
     const [categoryRefreshTrigger, setCategoryRefreshTrigger] = useState(0);
     const [categories, setCategories] = useState([]);
+    const [taskStatuses, setTaskStatuses] = useState([]);
+    const [statusRefreshTrigger, setStatusRefreshTrigger] = useState(0);
     const { theme } = useTheme();
 
     const [filters, setFilters] = useState({
@@ -19,6 +21,7 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
     });
 
     const refreshCategories = useCallback(() => setCategoryRefreshTrigger(prev => prev + 1), []);
+    const refreshTaskStatuses = useCallback(() => setStatusRefreshTrigger(prev => prev + 1), []);
 
     const fetchCategories = useCallback(async () => {
         try {
@@ -31,6 +34,20 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
             }
         } catch (err) {
             console.error("Failed to fetch categories", err);
+        }
+    }, []);
+
+    const fetchTaskStatuses = useCallback(async () => {
+        try {
+            const res = await apiFetch('api/index.php?route=task_statuses');
+            if (res.ok) {
+                const data = await res.json();
+                if (Array.isArray(data)) {
+                    setTaskStatuses(data);
+                }
+            }
+        } catch (err) {
+            console.error("Failed to fetch task statuses", err);
         }
     }, []);
 
@@ -85,15 +102,16 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
     const handleToggleStatus = useCallback(async (task) => {
         try {
             const newStatus = task.status == 1 ? 0 : 1;
+            const newWorkflowStatus = newStatus === 1 ? 'completed' : 'open';
 
             setTasks(prev => prev.map(t =>
-                t.id === task.id ? { ...t, status: newStatus } : t
+                t.id === task.id ? { ...t, status: newStatus, workflow_status: newWorkflowStatus } : t
             ));
 
             const res = await apiFetch('api/index.php?route=tasks', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: task.id, status: newStatus }),
+                body: JSON.stringify({ id: task.id, status: newStatus, workflow_status: newWorkflowStatus }),
             });
 
             if (res.ok) {
@@ -163,6 +181,10 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
         categoryRefreshTrigger,
         refreshCategories,
         fetchCategories,
+        taskStatuses,
+        statusRefreshTrigger,
+        refreshTaskStatuses,
+        fetchTaskStatuses,
         fetchTasks,
         handleAddTask,
         handleToggleStatus,

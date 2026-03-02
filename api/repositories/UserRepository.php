@@ -93,6 +93,10 @@ class UserRepository extends Repository
             (?, 'Private', 1), (?, 'Work', 0), (?, 'Health', 0), (?, 'Finance', 0), (?, 'Hobby', 0)";
         $this->pdo->prepare($categoriesSql)->execute([$userId, $userId, $userId, $userId, $userId]);
 
+        $statusesSql = "INSERT INTO user_task_statuses (user_id, name, is_system, sort_order) VALUES 
+            (?, 'open', 1, 1), (?, 'in progress', 0, 2), (?, 'under review', 0, 3), (?, 'completed', 1, 4)";
+        $this->pdo->prepare($statusesSql)->execute([$userId, $userId, $userId, $userId]);
+
         $tasksSql = "INSERT INTO tasks (user_id, title, category, priority, points_value, description) VALUES 
             (?, 'Debug Neural Link Interface', 'Work', 2, 15, 'Connect to the mainframe and identify the latency issues in the temporal cortex bridge. The signal delay is currently at 45ms, which is unacceptable for live-fire operations. Check the primary optical relays.'),
             (?, 'Hack Coffee Machine Subnet', 'Work', 2, 15, 'The new Weyland-Yutani espresso machine on Level 4 has hardcoded DRM on the extra-dark roast. Bypass the authentication protocol and secure unlimited access.'),

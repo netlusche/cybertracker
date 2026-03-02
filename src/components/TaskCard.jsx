@@ -5,7 +5,7 @@ import CyberConfirm from './CyberConfirm';
 import CyberCalendar from './CyberCalendar';
 import DirectiveModal from './DirectiveModal';
 
-const TaskCard = ({ task, categories, onToggleStatus, onUpdateTask, onDelete, activeCalendarTaskId, setActiveCalendarTaskId, onDuplicate }) => {
+const TaskCard = ({ task, categories, taskStatuses = [], onToggleStatus, onUpdateTask, onDelete, activeCalendarTaskId, setActiveCalendarTaskId, onDuplicate }) => {
     const { t } = useTranslation();
     const displayTitle = task.title?.startsWith('i18n:') ? t(task.title.replace('i18n:', '')) : task.title;
     const displayDesc = task.description?.startsWith('i18n:') ? t(task.description.replace('i18n:', '')) : task.description;
@@ -164,6 +164,26 @@ const TaskCard = ({ task, categories, onToggleStatus, onUpdateTask, onDelete, ac
         setIsEditing(false);
     };
 
+    const handleWorkflowStatusChange = async (newStatus) => {
+        if (task.status == 1 || isConfirming.current) return;
+
+        // If they select "completed" from the dropdown, trigger the toggle logic 
+        // to get the confetti and XP, rather than just silently updating the string.
+        if (newStatus === 'completed') {
+            onToggleStatus(task);
+            return;
+        }
+
+        try {
+            isConfirming.current = true;
+            await onUpdateTask(task, { workflow_status: newStatus });
+        } catch (err) {
+            console.error("Workflow status update error:", err);
+        } finally {
+            isConfirming.current = false;
+        }
+    };
+
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             handleSave();
@@ -199,7 +219,7 @@ const TaskCard = ({ task, categories, onToggleStatus, onUpdateTask, onDelete, ac
                                 />
                             </div>
 
-                            <div className="w-24">
+                            <div className="w-[120px]">
                                 <CyberSelect
                                     value={String(task.priority)}
                                     onChange={handlePriorityChange}
@@ -214,6 +234,22 @@ const TaskCard = ({ task, categories, onToggleStatus, onUpdateTask, onDelete, ac
                                     disabled={task.status == 1}
                                 />
                             </div>
+
+                            {taskStatuses.length > 0 && (
+                                <div className="w-[140px]">
+                                    <CyberSelect
+                                        value={task.workflow_status || 'open'}
+                                        onChange={handleWorkflowStatusChange}
+                                        options={taskStatuses.map(status => ({
+                                            value: status.name,
+                                            label: status.is_system ? t(`tasks.status_${status.name.toLowerCase().replace(' ', '_')}`, status.name) : status.name
+                                        }))}
+                                        neonColor="cyan"
+                                        className="text-[9px] font-bold h-7 uppercase tracking-wider"
+                                        disabled={task.status == 1}
+                                    />
+                                </div>
+                            )}
                         </div>
 
                         {isEditing ? (
@@ -248,6 +284,7 @@ const TaskCard = ({ task, categories, onToggleStatus, onUpdateTask, onDelete, ac
                                 }}
                                 className={`text-lg font-bold text-white mb-1 cursor-pointer hover:text-cyber-primary transition-colors ${task.status == 1 ? 'line-through text-gray-400 pointer-events-none' : ''}`}
                                 data-tooltip-content={task.status != 1 ? t('tooltip.edit') : null}
+                                data-tooltip-pos="bottom"
                             >
                                 {displayTitle}
                             </h3>
@@ -269,7 +306,7 @@ const TaskCard = ({ task, categories, onToggleStatus, onUpdateTask, onDelete, ac
                         <div className="relative">
                             <div
                                 onClick={() => task.status != 1 && setActiveCalendarTaskId(isDatePickerOpen ? null : task.id)}
-                                className={`flex items-center gap-2 mb-2 font-mono text-base ${task.status != 1 ? 'cursor-pointer hover:bg-white/5 transition-colors p-1 -ml-1 rounded' : ''}`}
+                                className={`flex w-fit items-center gap-2 mb-2 font-mono text-base ${task.status != 1 ? 'cursor-pointer hover:bg-white/5 transition-colors p-1 -ml-1 rounded' : ''}`}
                                 data-tooltip-content={task.status != 1 ? t('tooltip.calendar') : null}
                             >
                                 <span className="text-cyber-secondary xp-text">🕒</span>
@@ -354,13 +391,15 @@ const TaskCard = ({ task, categories, onToggleStatus, onUpdateTask, onDelete, ac
                     </div>
 
                     <div className="flex flex-col gap-2 items-end">
-                        <button
-                            onClick={() => onToggleStatus(task)}
-                            className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors text-xl pb-0.5 ${task.status == 1 ? 'bg-cyber-success text-black' : 'bg-transparent border border-gray-500 hover:border-cyber-success hover:text-cyber-success'}`}
-                            data-tooltip-content={task.status == 1 ? t('tooltip.mark_todo') : t('tooltip.mark_done')}
-                        >
-                            {task.status == 1 ? '✓' : '○'}
-                        </button>
+                        <div className="flex gap-2 items-center">
+                            <button
+                                onClick={() => onToggleStatus(task)}
+                                className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors text-xl pb-0.5 ${task.status == 1 ? 'bg-cyber-success text-black' : 'bg-transparent border border-gray-500 hover:border-cyber-success hover:text-cyber-success'}`}
+                                data-tooltip-content={task.status == 1 ? t('tooltip.mark_todo') : t('tooltip.mark_done')}
+                            >
+                                {task.status == 1 ? '✓' : '○'}
+                            </button>
+                        </div>
 
                         <button
                             onClick={() => setShowDossier(true)}
@@ -412,6 +451,7 @@ const TaskCard = ({ task, categories, onToggleStatus, onUpdateTask, onDelete, ac
                 <DirectiveModal
                     task={task}
                     categories={categories}
+                    taskStatuses={taskStatuses}
                     onClose={() => setShowDossier(false)}
                     onUpdate={onUpdateTask}
                     onDuplicate={(t) => {

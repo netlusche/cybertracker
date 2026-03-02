@@ -49,7 +49,7 @@ const PasswordInput = ({ value, onChange, placeholder, className, required = fal
 
 
 
-const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate }) => {
+const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate, taskStatuses, onStatusUpdate }) => {
     const { t, i18n } = useTranslation();
     const { theme, setTheme } = useTheme();
     const modalRef = useRef(null);
@@ -487,6 +487,11 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
     const [editingCatId, setEditingCatId] = useState(null);
     const [editingCatName, setEditingCatName] = useState('');
 
+    // --- Task Status Management ---
+    const [newStatusName, setNewStatusName] = useState('');
+    const [editingStatusId, setEditingStatusId] = useState(null);
+    const [editingStatusName, setEditingStatusName] = useState('');
+
     useEffect(() => {
         loadCategories();
     }, []);
@@ -607,6 +612,147 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
         }
     };
 
+    const handleAddStatus = async (e) => {
+        e.preventDefault();
+        if (!newStatusName.trim()) return;
+        try {
+            const res = await apiFetch('api/index.php?route=task_statuses', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: newStatusName })
+            });
+            if (res.ok) {
+                setNewStatusName('');
+                if (onStatusUpdate) onStatusUpdate();
+            } else {
+                const data = await res.json();
+                setAlertModal({
+                    show: true,
+                    title: t('profile.alerts.security_alert'),
+                    message: data.error || 'Failed to add status',
+                    variant: 'pink'
+                });
+            }
+        } catch (err) {
+            setAlertModal({
+                show: true,
+                title: t('profile.alerts.security_alert'),
+                message: t('profile.messages.net_error'),
+                variant: 'pink'
+            });
+        }
+    };
+
+    const handleStartEditStatus = (status) => {
+        if (status.is_system) return;
+        setEditingStatusId(status.id);
+        setEditingStatusName(status.name);
+    };
+
+    const handleSaveRenameStatus = async (id) => {
+        if (!editingStatusName.trim()) return;
+        try {
+            const res = await apiFetch('api/index.php?route=task_statuses', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, name: editingStatusName })
+            });
+            if (res.ok) {
+                setEditingStatusId(null);
+                if (onStatusUpdate) onStatusUpdate();
+            } else {
+                const data = await res.json();
+                setAlertModal({
+                    show: true,
+                    title: t('profile.alerts.security_alert'),
+                    message: data.error || 'Failed to rename status',
+                    variant: 'pink'
+                });
+            }
+        } catch (err) {
+            setAlertModal({
+                show: true,
+                title: t('profile.alerts.security_alert'),
+                message: t('profile.messages.net_error'),
+                variant: 'pink'
+            });
+        }
+    };
+
+    const handleDeleteStatus = async (id) => {
+        setConfirmModal({
+            show: true,
+            title: t('profile.alerts.security_alert'),
+            variant: "purple",
+            message: t('profile.alerts.status_purge_confirm', 'Are you sure you want to delete this status? Tasks with this status will revert to OPEN.'),
+            onConfirm: async () => {
+                setConfirmModal({ show: false, message: '', onConfirm: null, title: '', variant: '' });
+                try {
+                    const res = await apiFetch(`api/index.php?route=task_statuses&id=${id}`, {
+                        method: 'DELETE'
+                    });
+                    if (res.ok) {
+                        if (onStatusUpdate) onStatusUpdate();
+                    } else {
+                        setAlertModal({
+                            show: true,
+                            title: t('profile.alerts.security_alert'),
+                            message: 'Failed to delete task status',
+                            variant: 'pink'
+                        });
+                    }
+                } catch (err) {
+                    setAlertModal({
+                        show: true,
+                        title: t('common.net_error'),
+                        message: t('profile.messages.net_error'),
+                        variant: 'pink'
+                    });
+                }
+            }
+        });
+    };
+
+    const handleMoveStatus = async (index, direction) => {
+        if (!taskStatuses) return;
+        const newStatuses = [...taskStatuses];
+
+        // Cannot move system status open/completed
+        if (newStatuses[index].is_system) return;
+
+        const targetIndex = index + direction;
+
+        if (targetIndex < 0 || targetIndex >= newStatuses.length) return;
+
+        // Don't swap past "open" (index 0) or "completed" (last element)
+        if (newStatuses[targetIndex].is_system) return;
+
+        // Swap the array elements
+        const temp = newStatuses[index];
+        newStatuses[index] = newStatuses[targetIndex];
+        newStatuses[targetIndex] = temp;
+
+        // Reassign sort_orders sequentially 
+        // Keep the same sort_orders but apply to the new arrangement
+        const updatedOrder = newStatuses.map((s, i) => ({
+            id: s.id,
+            sort_order: i + 1
+        }));
+
+        try {
+            const res = await apiFetch('api/index.php?route=task_statuses/reorder', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ order: updatedOrder })
+            });
+            if (res.ok) {
+                if (onStatusUpdate) onStatusUpdate();
+            }
+        } catch (err) {
+            console.error("Failed to reorder statuses", err);
+        }
+    };
+
     return (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm transform-gpu flex items-center justify-center z-50 p-4">
             <div ref={modalRef} className="card-cyber w-full max-w-lg border-cyber-primary shadow-cyber-primary relative max-h-[90vh] flex flex-col p-1 overflow-x-hidden">
@@ -721,6 +867,110 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                 </button>
                             </form>
                         </div>
+
+                        {/* Task Status Management */}
+                        {taskStatuses && (
+                            <div className="border border-cyber-accent/30 bg-cyber-accent/5 p-4 rounded">
+                                <h3 className="text-cyber-accent font-bold mb-3 flex items-center gap-2 tracking-widest text-sm">
+                                    <span>🚦</span> {t('profile.task_statuses_tab', 'WORKFLOW STATUSES')}
+                                </h3>
+
+                                <div className="space-y-2 mb-4 max-h-40 overflow-y-auto custom-scrollbar">
+                                    {taskStatuses.map((status, index) => (
+                                        <div key={status.id} className={`flex items-center justify-between p-2 rounded border ${status.is_system ? 'bg-black/80 border-gray-800' : 'bg-black/40 border-gray-700'}`}>
+                                            {editingStatusId === status.id ? (
+                                                <form
+                                                    onSubmit={(e) => {
+                                                        e.preventDefault();
+                                                        handleSaveRenameStatus(status.id);
+                                                    }}
+                                                    className="flex gap-2 w-full"
+                                                >
+                                                    <div className="relative flex-1">
+                                                        <input
+                                                            type="text"
+                                                            data-testid="edit-status-input"
+                                                            value={editingStatusName}
+                                                            onChange={(e) => handleInputChange(`edit_status_${status.id}`, e.target.value, setEditingStatusName)}
+                                                            onFocus={(e) => e.target.select()}
+                                                            onInvalid={(e) => handleInvalid(e, `edit_status_${status.id}`)}
+                                                            className={`input-cyber text-xs p-1 w-full input-normal-case ${validationErrors[`edit_status_${status.id}`] ? 'border-cyber-secondary shadow-cyber-secondary' : ''}`}
+                                                            autoFocus
+                                                            required
+                                                        />
+                                                        {validationErrors[`edit_status_${status.id}`] && (
+                                                            <div className="cyber-validation-bubble">
+                                                                {t('auth.messages.input_required')}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <button type="submit" className="text-cyber-success hover:text-green-400">✓</button>
+                                                    <button type="button" onClick={() => setEditingStatusId(null)} className="text-red-500 hover:text-red-400">✕</button>
+                                                </form>
+                                            ) : (
+                                                <>
+                                                    <div className="flex items-center gap-2">
+                                                        {status.is_system && (
+                                                            <span className="text-[10px] text-gray-500 font-mono w-4">🔒</span>
+                                                        )}
+                                                        {!status.is_system && (
+                                                            <div className="flex flex-col gap-1 w-4 mr-1">
+                                                                {index > 1 && (
+                                                                    <button onClick={() => handleMoveStatus(index, -1)} className="text-[8px] text-gray-500 hover:text-cyber-accent" data-tooltip-pos="right" data-tooltip-content={t('tooltip.move_up', 'Move Up')}>▲</button>
+                                                                )}
+                                                                {index < taskStatuses.length - 2 && (
+                                                                    <button onClick={() => handleMoveStatus(index, 1)} className="text-[8px] text-gray-500 hover:text-cyber-accent" data-tooltip-pos="right" data-tooltip-content={t('tooltip.move_down', 'Move Down')}>▼</button>
+                                                                )}
+                                                            </div>
+                                                        )}
+                                                        <span className={`${status.is_system ? 'text-gray-500' : 'text-gray-300'} font-mono text-sm uppercase tracking-widest`}>
+                                                            {status.is_system ? t(`tasks.status_${status.name.toLowerCase().replace(' ', '_')}`, status.name) : status.name}
+                                                        </span>
+                                                    </div>
+                                                    <div className="flex gap-2">
+                                                        {!status.is_system && (
+                                                            <>
+                                                                <button onClick={() => handleStartEditStatus(status)} className="text-gray-500 hover:text-cyber-accent" data-tooltip-content={t('tooltip.rename', 'Rename')}>✎</button>
+                                                                <button onClick={() => handleDeleteStatus(status.id)} className="text-gray-500 hover:text-red-500 bg-cyber-danger/10 hover:bg-cyber-danger text-white rounded w-6 h-6 flex items-center justify-center hover:brightness-110 transition-colors" data-tooltip-content={t('tooltip.delete', 'Delete')} data-tooltip-pos="left">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5">
+                                                                        <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                                                    </svg>
+                                                                </button>
+                                                            </>
+                                                        )}
+                                                    </div>
+                                                </>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <form onSubmit={handleAddStatus} className="flex gap-2">
+                                    <div className="relative flex-1">
+                                        <input
+                                            type="text"
+                                            data-testid="add-status-input"
+                                            placeholder={t('profile.task_statuses.new_status_placeholder', 'NEW STATUS NAME')}
+                                            value={newStatusName}
+                                            onChange={(e) => handleInputChange('new_status', e.target.value, setNewStatusName)}
+                                            onFocus={(e) => { e.target.select(); clearValidation(); }}
+                                            onInvalid={(e) => handleInvalid(e, 'new_status')}
+                                            className={`input-cyber text-xs w-full input-normal-case ${validationErrors.new_status ? 'border-cyber-secondary shadow-cyber-secondary' : ''}`}
+                                            maxLength={30}
+                                            required
+                                        />
+                                        {validationErrors.new_status && (
+                                            <div className="cyber-validation-bubble">
+                                                {t('auth.messages.input_required')}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <button type="submit" data-testid="add-status-btn" className="btn-cyber text-cyber-accent border-cyber-accent hover:bg-cyber-accent hover:text-black text-xs px-3" data-tooltip-content={t('tooltip.add', 'Add')}>
+                                        {t('profile.task_statuses.add', 'ADD')}
+                                    </button>
+                                </form>
+                            </div>
+                        )}
 
                         {/* 2FA Section */}
                         <div className="border border-cyber-success/30 bg-cyber-success/5 p-4 rounded shadow-[inset_0_0_15px_rgba(0,255,0,0.05)]">
@@ -1101,7 +1351,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate 
                                     <button
                                         data-testid="theme-switch-steampunk"
                                         onClick={() => setTheme('steampunk')}
-                                        className={`theme-preview-card theme-steampunk transition-all duration-300 relative ${theme === 'steampunk' ? 'border-2 border-[#c49e5d] bg-[#c49e5d]/20 shadow-[0_0_15px_rgba(196,158,93,0.4)] scale-[1.02]' : 'border-[#1f2937] bg-[#0a0a0a] hover:border-[#6b7280] scale-100'}`}
+                                        className={`theme-preview-card theme-steampunk transition-all duration-300 relative ${theme === 'steampunk' ? 'border-2 border-[#c49e5d] shadow-[0_0_15px_rgba(196,158,93,0.4)] scale-[1.02]' : 'border border-[#3d2010] hover:border-[#c49e5d]/50 scale-100'}`}
                                     >
                                         <div className="flex flex-col items-center gap-2 relative z-10 w-full h-full justify-center">
                                             <div className="text-[14px] font-bold tracking-[0.15em]" style={{ color: '#c49e5d' }}>

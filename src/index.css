@@ -349,15 +349,22 @@ body,
 
 
 /* Theme Selection Preview Cards */
+.theme-preview-card {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+}
+
 .theme-lcars .theme-preview-card {
   border-radius: 0.5rem !important;
   background: black !important;
   padding: 0.75rem !important;
   border-width: 2px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
 }
 
 /* -----------------------------------------
@@ -1605,7 +1612,7 @@ body.theme-renaissance .cyber-grid {
 }
 
 /* Atmospheric vignette + aged paper grain overlay */
-.theme-steampunk::after {
+body.theme-steampunk::after {
   content: "";
   position: fixed;
   top: 0;
@@ -1620,7 +1627,8 @@ body.theme-renaissance .cyber-grid {
 }
 
 /* Cards — riveted brass panel look */
-body.theme-steampunk .card-cyber {
+body.theme-steampunk .card-cyber,
+.theme-steampunk.theme-preview-card {
   background: linear-gradient(135deg, #261508 0%, #1a0f08 100%);
   border: 1px solid #6b4226;
   box-shadow:
@@ -1632,7 +1640,8 @@ body.theme-steampunk .card-cyber {
 }
 
 /* Rivets in card corners */
-body.theme-steampunk .card-cyber::before {
+body.theme-steampunk .card-cyber::before,
+.theme-steampunk.theme-preview-card::before {
   content: "";
   position: absolute;
   inset: 0;
