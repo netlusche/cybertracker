@@ -337,7 +337,7 @@
             "complete_all_tooltip": "Mark all selected directives as COMPLETE",
             "delete_all_tooltip": "Permanently DELETE all selected directives"
         },
-        "drop_zone": "여기에 지시어를 놓으세요"
+        "drop_zone": "DROP DIRECTIVES HERE"
     },
     "dashboard": {
         "operator_level": "요원 레벨",

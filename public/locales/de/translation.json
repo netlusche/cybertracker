@@ -337,7 +337,7 @@
             "complete_all_tooltip": "Alle ausgewählten Direktiven als ABGESCHLOSSEN markieren",
             "delete_all_tooltip": "Alle ausgewählten Direktiven dauerhaft LÖSCHEN"
         },
-        "drop_zone": "RICHTLINIEN HIER EINFÜGEN"
+        "drop_zone": "DIREKTIVEN HIER ABLEGEN"
     },
     "dashboard": {
         "operator_level": "OPERATOR-LEVEL",

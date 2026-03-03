@@ -337,7 +337,7 @@
             "complete_all_tooltip": "Oznacz wszystkie wybrane dyrektywy jako ZAKOŃCZONE",
             "delete_all_tooltip": "Trwale USUŃ wszystkie wybrane dyrektywy"
         },
-        "drop_zone": "USUŃ DYREKTYWY TUTAJ"
+        "drop_zone": "DROP DIRECTIVES HERE"
     },
     "dashboard": {
         "operator_level": "POZIOM OPERATORA",

@@ -337,7 +337,7 @@
             "complete_all_tooltip": "Markeer alle geselecteerde richtlijnen als VOLTOOID",
             "delete_all_tooltip": "VERWIJDER permanent alle geselecteerde richtlijnen"
         },
-        "drop_zone": "PLAATS DE RICHTLIJNEN HIER"
+        "drop_zone": "DROP DIRECTIVES HERE"
     },
     "dashboard": {
         "operator_level": "OPERATOR NIVEAU",

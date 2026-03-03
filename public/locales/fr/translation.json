@@ -337,7 +337,7 @@
             "complete_all_tooltip": "Marquer toutes les directives sélectionnées comme TERMINÉES",
             "delete_all_tooltip": "SUPPRIMER définitivement toutes les directives sélectionnées"
         },
-        "drop_zone": "DÉPOSEZ LES DIRECTIVES ICI"
+        "drop_zone": "DROP DIRECTIVES HERE"
     },
     "dashboard": {
         "operator_level": "NIVEAU D'OPÉRATEUR",

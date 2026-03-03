@@ -337,7 +337,7 @@
             "complete_all_tooltip": "将所有选定的指令标记为已完成",
             "delete_all_tooltip": "永久删除所有选定的指令"
         },
-        "drop_zone": "将指令拖放到此处"
+        "drop_zone": "DROP DIRECTIVES HERE"
     },
     "dashboard": {
         "operator_level": "操作员等级",
