@@ -121,7 +121,17 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
             const completedData = await completedRes.json();
             const completedTasks = completedData.data || (Array.isArray(completedData) ? completedData : []);
 
-            return [...openTasks, ...completedTasks];
+            const allKanbanTasks = [...openTasks, ...completedTasks];
+
+            // Deduplicate by ID to prevent React key collisions and visual doubling
+            const uniqueMap = new Map();
+            allKanbanTasks.forEach(t => {
+                if (!uniqueMap.has(t.id)) {
+                    uniqueMap.set(t.id, t);
+                }
+            });
+
+            return Array.from(uniqueMap.values());
         } catch (err) {
             console.error("Failed to fetch kanban tasks", err);
             return [];
