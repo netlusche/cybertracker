@@ -63,15 +63,22 @@ const KanbanCard = ({ task, onClick, onDelete }) => {
                     </button>
                 </div>
 
-                <div className="flex items-center justify-between mt-2 select-none">
-                    <div className="text-[10px] text-cyber-secondary font-mono xp-text">
+                <div className="flex items-center mt-2 select-none w-full">
+                    <div className="text-[10px] text-cyber-secondary font-mono xp-text flex-none min-w-[40px]">
                         +{task.points_value} XP
                     </div>
-                    {task.due_date && (
-                        <div className={`text-[10px] font-mono ${new Date(task.due_date) < new Date() && !isCompleted ? 'text-red-500 font-bold' : 'text-gray-400'}`}>
-                            {new Date(task.due_date).toLocaleDateString()}
+                    <div className="flex-1 flex justify-center px-2 overflow-hidden">
+                        <div className={`text-[8px] font-bold font-mono px-1.5 py-0.5 border rounded uppercase truncate ${isCompleted ? 'border-gray-600 text-gray-500 bg-black/20' : 'border-cyber-primary/30 text-cyber-primary/80 bg-cyber-primary/10'}`} title={task.category || 'GENERAL'}>
+                            {task.category || 'GENERAL'}
                         </div>
-                    )}
+                    </div>
+                    <div className="flex-none text-right min-w-[55px]">
+                        {task.due_date && (
+                            <div className={`text-[10px] font-mono ${new Date(task.due_date) < new Date() && !isCompleted ? 'text-red-500 font-bold' : 'text-gray-400'}`}>
+                                {new Date(task.due_date).toLocaleDateString()}
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
 
