@@ -338,7 +338,7 @@
             "complete_all_tooltip": "Отметить все выбранные директивы как ЗАВЕРШЕННЫЕ",
             "delete_all_tooltip": "Навсегда УДАЛИТЬ все выбранные директивы"
         },
-        "drop_zone": "DROP DIRECTIVES HERE"
+        "drop_zone": "ПЕРЕТАЩИТЕ ДИРЕКТИВЫ СЮДА"
     },
     "dashboard": {
         "operator_level": "УРОВЕНЬ ОПЕРАТИВНИКА",

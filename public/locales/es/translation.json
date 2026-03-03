@@ -338,7 +338,7 @@
             "complete_all_tooltip": "Marcar todas las directivas seleccionadas como COMPLETADAS",
             "delete_all_tooltip": "ELIMINAR permanentemente todas las directivas seleccionadas"
         },
-        "drop_zone": "DROP DIRECTIVES HERE"
+        "drop_zone": "SOLTAR DIRECTIVAS AQUÍ"
     },
     "dashboard": {
         "operator_level": "NIVEL DE OPERATIVO",

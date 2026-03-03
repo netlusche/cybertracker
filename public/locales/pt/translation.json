@@ -338,7 +338,7 @@
             "complete_all_tooltip": "Marcar todas as diretrizes selecionadas como CONCLUÍDAS",
             "delete_all_tooltip": "EXCLUIR permanentemente todas as diretrizes selecionadas"
         },
-        "drop_zone": "DROP DIRECTIVES HERE"
+        "drop_zone": "SOLTE AS DIRETIVAS AQUI"
     },
     "dashboard": {
         "operator_level": "NÍVEL DE OPERADOR",

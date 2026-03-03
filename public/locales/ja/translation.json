@@ -338,7 +338,7 @@
             "complete_all_tooltip": "選択したすべてのディレクティブを完了としてマーク",
             "delete_all_tooltip": "選択したすべてのディレクティブを完全に削除します"
         },
-        "drop_zone": "DROP DIRECTIVES HERE"
+        "drop_zone": "ここにディレクティブをドロップ"
     },
     "dashboard": {
         "operator_level": "オペレーターレベル",
