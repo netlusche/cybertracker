@@ -15,7 +15,8 @@
         "focus_enter_tooltip": "Siirry tarkennustilaan",
         "focus_exit_tooltip": "Poistu tarkennustilasta",
         "kanban_enter": "Siirry Kanban-tilaan",
-        "exit_kanban": "POISTU KANBANISTA"
+        "exit_kanban": "POISTU KANBANISTA",
+        "kanban": "KANBAN"
     },
     "auth": {
         "title": "NETRUNNER-KIRJAUDU",

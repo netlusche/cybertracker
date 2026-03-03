@@ -15,7 +15,8 @@
         "focus_enter_tooltip": "Ga naar de focusmodus",
         "focus_exit_tooltip": "Verlaat de focusmodus",
         "kanban_enter": "Ga naar de Kanban-modus",
-        "exit_kanban": "VERLAAT KANBAN"
+        "exit_kanban": "VERLAAT KANBAN",
+        "kanban": "KANBAN"
     },
     "auth": {
         "title": "NETRUNNER LOGIN",

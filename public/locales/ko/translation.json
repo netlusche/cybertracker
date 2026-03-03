@@ -15,7 +15,8 @@
         "focus_enter_tooltip": "집중 모드 들어가기",
         "focus_exit_tooltip": "초점 모드 종료",
         "kanban_enter": "칸반 모드 시작",
-        "exit_kanban": "칸반 종료"
+        "exit_kanban": "칸반 종료",
+        "kanban": "칸반"
     },
     "auth": {
         "title": "넷러너 로그인",

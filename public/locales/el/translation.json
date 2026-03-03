@@ -15,7 +15,8 @@
         "focus_enter_tooltip": "Μπείτε στη λειτουργία εστίασης",
         "focus_exit_tooltip": "Έξοδος από τη λειτουργία εστίασης",
         "kanban_enter": "Εισαγάγετε τη λειτουργία Kanban",
-        "exit_kanban": "ΕΞΟΔΟΣ ΚΑΝΜΠΑΝ"
+        "exit_kanban": "ΕΞΟΔΟΣ ΚΑΝΜΠΑΝ",
+        "kanban": "ΚΑΝΜΠΑΝ"
     },
     "auth": {
         "title": "ΣΥΝΔΕΣΗ NETRUNNER",

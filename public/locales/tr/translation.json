@@ -15,7 +15,8 @@
         "focus_enter_tooltip": "Odak Moduna Girin",
         "focus_exit_tooltip": "Odak Modundan Çık",
         "kanban_enter": "Kanban Moduna Girin",
-        "exit_kanban": "KANBAN'DAN ÇIKIŞ"
+        "exit_kanban": "KANBAN'DAN ÇIKIŞ",
+        "kanban": "KANBAN"
     },
     "auth": {
         "title": "NETRUNNER GİRİŞİ",

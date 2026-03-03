@@ -15,7 +15,8 @@
         "focus_enter_tooltip": "Rufen Sie den Fokusmodus auf",
         "focus_exit_tooltip": "Verlassen Sie den Fokusmodus",
         "kanban_enter": "Wechseln Sie in den Kanban-Modus",
-        "exit_kanban": "KANBAN VERLASSEN"
+        "exit_kanban": "KANBAN VERLASSEN",
+        "kanban": "KANBAN"
     },
     "auth": {
         "title": "NETRUNNER-LOGIN",

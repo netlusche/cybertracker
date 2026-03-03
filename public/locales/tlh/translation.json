@@ -14,8 +14,9 @@
         "focus_exit": "BUS YIMEV",
         "focus_enter_tooltip": "buS Qaw yI'el",
         "focus_exit_tooltip": "buS Qaw yImev",
-        "kanban_enter": "Enter Kanban Mode",
-        "exit_kanban": "EXIT KANBAN"
+        "kanban_enter": "qanban yIghang",
+        "exit_kanban": "QANBAN YIMEV",
+        "kanban": "qanban"
     },
     "auth": {
         "title": "GHOM'EL QAW",
@@ -690,7 +691,7 @@
         "last_page": "Page Qaw",
         "toggle_2fa": "2FA Qaw tlho' Qaw",
         "toggle_strict_pwd": "Qaw tlhe' QawseH Qaw tlho' Qaw",
-        "exit_kanban": "Exit Kanban Mode"
+        "exit_kanban": "QANBAN YIMEV"
     },
     "quotes": [
         "Qaw tlho' Qaw, Qaw tlho' Qaw.",

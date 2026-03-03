@@ -15,7 +15,8 @@
         "focus_enter_tooltip": "Entre no modo de foco",
         "focus_exit_tooltip": "Sair do modo de foco",
         "kanban_enter": "Entre no modo Kanban",
-        "exit_kanban": "SAIR DO KANBAN"
+        "exit_kanban": "SAIR DO KANBAN",
+        "kanban": "KANBAN"
     },
     "auth": {
         "title": "LOGIN NETRUNNER",

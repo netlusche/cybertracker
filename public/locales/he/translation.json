@@ -15,7 +15,8 @@
         "focus_enter_tooltip": "היכנס למצב פוקוס",
         "focus_exit_tooltip": "צא ממצב פוקוס",
         "kanban_enter": "היכנס למצב Kanban",
-        "exit_kanban": "צא מKANBAN"
+        "exit_kanban": "צא מKANBAN",
+        "kanban": "קנבן"
     },
     "auth": {
         "title": "כניסת נטראנר",

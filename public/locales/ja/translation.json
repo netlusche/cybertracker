@@ -15,7 +15,8 @@
         "focus_enter_tooltip": "フォーカスモードに入る",
         "focus_exit_tooltip": "フォーカスモードを終了する",
         "kanban_enter": "カンバンモードに入る",
-        "exit_kanban": "出口かんばん"
+        "exit_kanban": "出口かんばん",
+        "kanban": "カンバン"
     },
     "auth": {
         "title": "ネットランナーログイン",

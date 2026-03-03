@@ -15,7 +15,8 @@
         "focus_enter_tooltip": "Войдите в режим фокусировки",
         "focus_exit_tooltip": "Выйти из режима фокусировки",
         "kanban_enter": "Войдите в режим Канбан",
-        "exit_kanban": "ВЫХОД КАНБАН"
+        "exit_kanban": "ВЫХОД КАНБАН",
+        "kanban": "КАНБАН"
     },
     "auth": {
         "title": "ВХОД НЕТРАННЕРА",

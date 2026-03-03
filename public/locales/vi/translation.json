@@ -15,7 +15,8 @@
         "focus_enter_tooltip": "Vào Chế độ lấy nét",
         "focus_exit_tooltip": "Thoát Chế độ lấy nét",
         "kanban_enter": "Vào chế độ Kanban",
-        "exit_kanban": "THOÁT KANBAN"
+        "exit_kanban": "THOÁT KANBAN",
+        "kanban": "KANBAN"
     },
     "auth": {
         "title": "ĐĂNG NHẬP NETRUNNER",

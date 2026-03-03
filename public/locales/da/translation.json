@@ -15,7 +15,8 @@
         "focus_enter_tooltip": "Gå ind i fokustilstand",
         "focus_exit_tooltip": "Afslut fokustilstand",
         "kanban_enter": "Gå ind i Kanban-tilstand",
-        "exit_kanban": "AFSLUT KANBAN"
+        "exit_kanban": "AFSLUT KANBAN",
+        "kanban": "KANBAN"
     },
     "auth": {
         "title": "NETRUNNER LOGIN",

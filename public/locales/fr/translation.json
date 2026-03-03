@@ -15,7 +15,8 @@
         "focus_enter_tooltip": "Passer en mode mise au point",
         "focus_exit_tooltip": "Quitter le mode de mise au point",
         "kanban_enter": "Passer en mode Kanban",
-        "exit_kanban": "QUITTER LE KANBAN"
+        "exit_kanban": "QUITTER LE KANBAN",
+        "kanban": "KANBAN"
     },
     "auth": {
         "title": "CONNEXION NETRUNNER",

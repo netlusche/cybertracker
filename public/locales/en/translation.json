@@ -15,7 +15,8 @@
         "focus_exit": "EXIT FOCUS",
         "focus_exit_tooltip": "Exit Focus Mode",
         "kanban_enter": "Enter Kanban Mode",
-        "exit_kanban": "EXIT KANBAN"
+        "exit_kanban": "EXIT KANBAN",
+        "kanban": "KANBAN"
     },
     "auth": {
         "title": "NETRUNNER LOGIN",

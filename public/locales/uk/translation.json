@@ -15,7 +15,8 @@
         "focus_enter_tooltip": "Увійдіть у режим фокусування",
         "focus_exit_tooltip": "Вийти з режиму фокусування",
         "kanban_enter": "Увійдіть у режим Канбан",
-        "exit_kanban": "ВИХІД З КАНБАНУ"
+        "exit_kanban": "ВИХІД З КАНБАНУ",
+        "kanban": "КАНБАН"
     },
     "auth": {
         "title": "ВХІД НЕТРАНЕРА",

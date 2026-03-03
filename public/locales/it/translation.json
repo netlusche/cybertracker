@@ -15,7 +15,8 @@
         "focus_enter_tooltip": "Accedi alla modalità di messa a fuoco",
         "focus_exit_tooltip": "Uscire dalla modalità di messa a fuoco",
         "kanban_enter": "Entra in modalità Kanban",
-        "exit_kanban": "USCIRE DA KANBAN"
+        "exit_kanban": "USCIRE DA KANBAN",
+        "kanban": "KANBAN"
     },
     "auth": {
         "title": "ACCESSO NETRUNNER",

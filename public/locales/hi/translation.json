@@ -15,7 +15,8 @@
         "focus_enter_tooltip": "फ़ोकस मोड दर्ज करें",
         "focus_exit_tooltip": "फोकस मोड से बाहर निकलें",
         "kanban_enter": "कानबन मोड दर्ज करें",
-        "exit_kanban": "कंबन से बाहर निकलें"
+        "exit_kanban": "कंबन से बाहर निकलें",
+        "kanban": "कानबान"
     },
     "auth": {
         "title": "नेट रनर लॉगिन",

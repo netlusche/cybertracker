@@ -15,7 +15,8 @@
         "focus_enter_tooltip": "Wejdź w tryb skupienia",
         "focus_exit_tooltip": "Wyjdź z trybu ostrości",
         "kanban_enter": "Wejdź w tryb Kanban",
-        "exit_kanban": "WYJDŹ Z KANBANA"
+        "exit_kanban": "WYJDŹ Z KANBANA",
+        "kanban": "KANBAN"
     },
     "auth": {
         "title": "LOGOWANIE NETRUNNERA",

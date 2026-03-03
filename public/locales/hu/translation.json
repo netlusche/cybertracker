@@ -15,7 +15,8 @@
         "focus_enter_tooltip": "Lépjen be a Fókusz módba",
         "focus_exit_tooltip": "Lépjen ki a fókusz módból",
         "kanban_enter": "Lépjen be a Kanban módba",
-        "exit_kanban": "LÉPJ ki a KANBAN-ból"
+        "exit_kanban": "LÉPJ ki a KANBAN-ból",
+        "kanban": "KANBAN"
     },
     "auth": {
         "title": "NETRUNNER BEJELENTKEZÉS",

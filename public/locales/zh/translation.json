@@ -15,7 +15,8 @@
         "focus_enter_tooltip": "进入对焦模式",
         "focus_exit_tooltip": "退出对焦模式",
         "kanban_enter": "进入看板模式",
-        "exit_kanban": "退出看板"
+        "exit_kanban": "退出看板",
+        "kanban": "看板"
     },
     "auth": {
         "title": "网络跑者登录",
