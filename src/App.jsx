@@ -452,7 +452,7 @@ function App() {
                   </button>
                 )}
                 {!isFocusMode && !isKanbanMode && (
-                  <button data-testid="logout-btn" onClick={handleFullLogout} className={`absolute top-0 right-0 lg:static text-[10px] md:text-xs transition-colors whitespace-nowrap ${theme === 'lcars' ? 'bg-[#ffaa00] text-black font-bold uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-cyber-danger/50 text-cyber-danger hover:bg-cyber-danger hover:text-white px-2 py-1 rounded'}`} data-tooltip-content={t('tooltip.logout', 'Logout')}>
+                  <button data-testid="logout-btn" onClick={handleFullLogout} className={`absolute top-0 right-0 lg:static text-[10px] md:text-xs transition-colors whitespace-nowrap ${theme === 'lcars' ? 'bg-[#ffaa00] text-black font-bold uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'border border-cyber-danger/50 text-cyber-danger hover:bg-cyber-danger hover:text-white px-2 py-1 rounded'}`} data-tooltip-content={t('tooltip.logout', 'Logout')} data-tooltip-pos="bottom">
                     {t('header.logout')}
                   </button>
                 )}
