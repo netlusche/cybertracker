@@ -34,7 +34,7 @@ const KanbanColumn = ({ status, tasks, onTaskClick, onDelete }) => {
                 ))}
 
                 {tasks.length === 0 && (
-                    <div className="h-full flex items-center justify-center text-gray-600 text-xs font-mono font-bold uppercase italic opacity-50 select-none pb-8 border-2 border-dashed border-gray-800 rounded m-2">
+                    <div className="h-full flex items-center justify-center text-gray-400 text-xs font-mono font-bold uppercase italic opacity-60 select-none pb-8 border-2 border-dashed border-gray-600 rounded m-2">
                         {t('tasks.drop_zone', 'DROP DIRECTIVES HERE')}
                     </div>
                 )}
