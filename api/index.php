@@ -64,11 +64,14 @@ $router->post('auth/resend_email_2fa', [AuthController::class , 'resendEmail2fa'
 // --- Task Routes ---
 $router->get('tasks', [TaskController::class , 'index']);
 $router->get('tasks/calendar', [TaskController::class , 'calendar']);
+$router->get('calendar/feed', [TaskController::class , 'calendarFeed']);
 $router->get('tasks/download', [TaskController::class , 'downloadFile']);
 $router->post('tasks', [TaskController::class , 'store']);
 $router->post('tasks/upload', [TaskController::class , 'uploadFiles']);
 $router->put('tasks', [TaskController::class , 'update']);
+$router->put('tasks/bulk_update', [TaskController::class , 'bulkUpdate']);
 $router->delete('tasks', [TaskController::class , 'destroy']);
+$router->delete('tasks/bulk_delete', [TaskController::class , 'bulkDelete']);
 $router->delete('tasks/bulk_delete_completed', [TaskController::class , 'bulkDeleteCompleted']);
 
 // --- Task Notes Routes ---
@@ -105,6 +108,8 @@ $router->delete('task_statuses', [TaskStatusController::class , 'destroy']);
 
 // --- User Routes ---
 $router->get('user/stats', [UserController::class , 'getStats']);
+$router->get('user/calendar_token', [UserController::class , 'getCalendarToken']);
+$router->post('user/calendar_token', [UserController::class , 'generateCalendarToken']);
 
 // --- Dev Utilities --
 $router->post('dev/toggle_mail_logging', [AdminController::class , 'toggleMailLogging']);
@@ -122,7 +127,8 @@ $csrfExemptRoutes = [
     'auth/reset_password',
     'auth/verify_2fa',
     'auth/resend_email_2fa',
-    'dev/toggle_mail_logging'
+    'dev/toggle_mail_logging',
+    'calendar/feed'
 ];
 
 if (!in_array($route, $csrfExemptRoutes)) {

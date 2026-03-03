@@ -183,12 +183,12 @@ try {
         last_login TIMESTAMP NULL DEFAULT NULL,
         theme VARCHAR(20) DEFAULT 'cyberpunk',
         language VARCHAR(10) DEFAULT 'en',
+        calendar_token VARCHAR(64) UNIQUE DEFAULT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )";
     $pdo->exec($sqlUsers);
     echo "Table 'users' check/create complete.<br>\n";
 
-    // Add columns if missing (Schema Evolution)
     $newColumns = [
         'role' => "VARCHAR(20) DEFAULT 'user'",
         'two_factor_enabled' => "BOOLEAN DEFAULT 0",
@@ -202,7 +202,8 @@ try {
         'reset_expires' => "DATETIME DEFAULT NULL",
         'last_login' => "TIMESTAMP NULL DEFAULT NULL",
         'theme' => "VARCHAR(20) DEFAULT 'cyberpunk'",
-        'language' => "VARCHAR(10) DEFAULT 'en'"
+        'language' => "VARCHAR(10) DEFAULT 'en'",
+        'calendar_token' => "VARCHAR(64) DEFAULT NULL"
     ];
 
     foreach ($newColumns as $col => $def) {
@@ -210,6 +211,12 @@ try {
             $pdo->exec("ALTER TABLE users ADD COLUMN $col $def");
             echo "Column '$col' added to users.<br>\n";
         }
+    }
+
+    try {
+        $pdo->exec("CREATE UNIQUE INDEX IF NOT EXISTS idx_users_calendar_token ON users(calendar_token) WHERE calendar_token IS NOT NULL");
+    } catch (PDOException $e) {
+        // Ignore if unsupported or already exists
     }
 
     // --- TASKS TABLE ---
@@ -412,11 +419,11 @@ try {
         }
         $directives = [
             ['i18n:initial_tasks.enforce_2fa_title', 'Work', 1, 15, 'i18n:initial_tasks.enforce_2fa_desc'],
-            ['OVERRIDE DEFAULT ACCESS: Update Access Key or initialize new Operative ID and terminate \'admin\' account.', 'Security', 1, 15, 'CRITICAL: The default administrator credentials represent a severe security vulnerability. You must immediately provision a personalized operative account with elevated privileges, or change the default access key to a high-entropy passphrase.'],
-            ['PURGE INSTALLER CORE: Terminate \'install.php\' from the server grid immediately.', 'Security', 1, 10, 'Leaving the installation script active on a production grid allows unauthorized entities to re-initialize the database, potentially exposing or destroying all operational data. Delete the file immediately.'],
-            ['ACTIVATE NEURAL ENCRYPTION: Navigate to Admin Console and toggle \'STRICT_PASSWORD_POLICY\' to Level 1.', 'Security', 1, 10, 'Activating the strict password policy ensures all new operatives utilize cryptographic-grade access keys, preventing brute-force neural intrusions. Go to the Admin Panel and enforce this setting.'],
-            ['SCRUB RESIDUAL TRACES: Remove \'install_test_user.php\' and other leftover test nodes.', 'Security', 2, 5, 'Clean up any leftover testing scripts that were used to validate the system deployment. These unmonitored endpoints are prime vectors for exploitation.'],
-            ['CALIBRATE NEURAL LINK: Perform a System Reset to optimize your ocular data stream.', 'System', 3, 5, 'The initial boot sequence may leave fragmented data packets in your visual buffer. A quick system refresh will align your UI components correctly and ensure everything is loaded cleanly into RAM.'],
+            ['OVERRIDE DEFAULT ACCESS: Update Access Key or initialize new Operative ID and terminate \'admin\' account.', 'Work', 1, 15, 'CRITICAL: The default administrator credentials represent a severe security vulnerability. You must immediately provision a personalized operative account with elevated privileges, or change the default access key to a high-entropy passphrase.'],
+            ['PURGE INSTALLER CORE: Terminate \'install.php\' from the server grid immediately.', 'Work', 1, 10, 'Leaving the installation script active on a production grid allows unauthorized entities to re-initialize the database, potentially exposing or destroying all operational data. Delete the file immediately.'],
+            ['ACTIVATE NEURAL ENCRYPTION: Navigate to Admin Console and toggle \'STRICT_PASSWORD_POLICY\' to Level 1.', 'Work', 1, 10, 'Activating the strict password policy ensures all new operatives utilize cryptographic-grade access keys, preventing brute-force neural intrusions. Go to the Admin Panel and enforce this setting.'],
+            ['SCRUB RESIDUAL TRACES: Remove \'install_test_user.php\' and other leftover test nodes.', 'Work', 2, 5, 'Clean up any leftover testing scripts that were used to validate the system deployment. These unmonitored endpoints are prime vectors for exploitation.'],
+            ['CALIBRATE NEURAL LINK: Perform a System Reset to optimize your ocular data stream.', 'Work', 3, 5, 'The initial boot sequence may leave fragmented data packets in your visual buffer. A quick system refresh will align your UI components correctly and ensure everything is loaded cleanly into RAM.'],
             ['UPGRADE COFFEE PROTOCOL: Ensure Operative Fuel levels are at maximum stability.', 'Work', 3, 5, 'The most critical variable in any system architecture is the biological component. Maintain optimal hydration and caffeine levels to ensure peak performance.']
         ];
 

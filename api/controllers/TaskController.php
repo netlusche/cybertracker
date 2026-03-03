@@ -40,6 +40,93 @@ class TaskController extends Controller
         $this->jsonResponse($tasks);
     }
 
+    public function calendarFeed()
+    {
+        // Public endpoint, authenticates via token GET param
+        $token = $_GET['token'] ?? '';
+        if (empty($token)) {
+            $this->errorResponse('Access denied', 403);
+        }
+
+        $user = $this->userRepo->findByCalendarToken($token);
+        if (!$user) {
+            $this->errorResponse('Invalid token', 403);
+        }
+
+        $userId = $user['id'];
+        $tasks = $this->taskRepo->getCalendarTasks($userId);
+
+        // Generate ICS format
+        $output = "BEGIN:VCALENDAR\r\n";
+        $output .= "VERSION:2.0\r\n";
+        $output .= "PRODID:-//CyberTasker//WebCal//EN\r\n";
+        $output .= "CALSCALE:GREGORIAN\r\n";
+        $output .= "X-WR-CALNAME:CyberTasker Directives (" . $user['username'] . ")\r\n";
+
+        foreach ($tasks as $task) {
+            if (empty($task['due_date'])) {
+                continue;
+            }
+
+            // Parse dates
+            $dtStart = date('Ymd\THis', strtotime($task['due_date']));
+            $dtEnd = date('Ymd\THis', strtotime($task['due_date'] . ' +1 hour')); // 1 hr default block
+            $dtStamp = date('Ymd\THis'); // Now
+
+            $uid = "cybertasker-" . $task['id'] . "@" . ($_SERVER['HTTP_HOST'] ?? 'localhost');
+
+            $title = $task['title'];
+            if (!empty($task['category'])) {
+                $title = "[" . $task['category'] . "] " . $title;
+            }
+
+            switch ($task['priority']) {
+                case 1:
+                    $prioLabel = " [HIGH PRIO]";
+                    break;
+                case 3:
+                    $prioLabel = " [LOW PRIO]";
+                    break;
+                default:
+                    $prioLabel = "";
+                    break;
+            }
+            $title .= $prioLabel;
+
+            $output .= "BEGIN:VEVENT\r\n";
+            $output .= "UID:$uid\r\n";
+            $output .= "DTSTAMP:$dtStamp\r\n";
+            $output .= "DTSTART:$dtStart\r\n";
+            $output .= "DTEND:$dtEnd\r\n";
+            $output .= "SUMMARY:" . $this->escapeIcal($title) . "\r\n";
+            // Security constraint: Explicitly excluding DESCRIPTION for data minimization
+            // $output .= "DESCRIPTION:" . $this->escapeIcal($task['description']) . "\\n"; 
+            $output .= "END:VEVENT\r\n";
+        }
+
+        $output .= "END:VCALENDAR\r\n";
+
+        // Output headers for ICS download
+        header('Content-Type: text/calendar; charset=utf-8');
+        header('Content-Disposition: inline; filename="cybertasker_feed.ics"');
+        header('Cache-Control: private, max-age=0, must-revalidate');
+
+        echo $output;
+        exit();
+    }
+
+    private function escapeIcal($string)
+    {
+        if (empty($string))
+            return '';
+        $string = str_replace('\\', '\\\\', $string);
+        $string = str_replace(';', '\\;', $string);
+        $string = str_replace(',', '\\,', $string);
+        $string = str_replace("\n", '\\n', $string);
+        $string = str_replace("\r", '', $string);
+        return $string;
+    }
+
     public function store()
     {
         $this->requireAuth();
@@ -86,6 +173,59 @@ class TaskController extends Controller
             $this->errorResponse('Forbidden', 403);
         }
 
+        $changed = $this->processTaskUpdate($id, $data, $task);
+        if (!$changed) {
+            $this->jsonResponse(['message' => 'No changes']);
+        }
+
+        $this->jsonResponse(['message' => 'Task updated']);
+    }
+
+    public function bulkUpdate()
+    {
+        $this->requireAuth();
+        $data = $this->getJsonBody();
+
+        if (!isset($data['task_ids']) || !is_array($data['task_ids'])) {
+            $this->errorResponse('task_ids array is required');
+        }
+
+        $updatedCount = 0;
+        foreach ($data['task_ids'] as $id) {
+            $task = $this->taskRepo->getTaskById($id, $this->userId);
+            if ($task) {
+                $changed = $this->processTaskUpdate($id, $data, $task);
+                if ($changed) {
+                    $updatedCount++;
+                }
+            }
+        }
+
+        $this->jsonResponse([
+            'message' => 'Tasks updated',
+            'updated_count' => $updatedCount
+        ]);
+    }
+
+    public function bulkDelete()
+    {
+        $this->requireAuth();
+        $data = $this->getJsonBody();
+
+        if (!isset($data['task_ids']) || !is_array($data['task_ids'])) {
+            $this->errorResponse('task_ids array is required');
+        }
+
+        $deletedCount = $this->taskRepo->deleteMultipleTasks($data['task_ids'], $this->userId);
+
+        $this->jsonResponse([
+            'message' => 'Tasks deleted',
+            'deleted_count' => $deletedCount
+        ]);
+    }
+
+    protected function processTaskUpdate(int $id, array $data, array $task): bool
+    {
         $fields = [];
         $params = [];
 
@@ -247,12 +387,12 @@ class TaskController extends Controller
         }
 
         if (empty($fields)) {
-            $this->jsonResponse(['message' => 'No changes']);
+            return false;
         }
 
         $this->taskRepo->updateTaskFields($id, $fields, $params);
 
-        $this->jsonResponse(['message' => 'Task updated']);
+        return true;
     }
 
     public function destroy()

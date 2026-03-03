@@ -102,3 +102,14 @@ Release 2.8 dient als finales "Aufpolieren" der Agenten-Erfahrung vor dem große
 - [ ] Der Endpunkt gibt die Daten on-the-fly als kombinierten `text/calendar` (iCalendar / `.ics`) Stream aus, der von externen Kalender-Apps gelesen werden kann.
 - [ ] **QA**: Ein Playwright E2E Test prüft, dass der URL-Link im UI existiert und der Feed-Endpoint den korrekten `text/calendar` Datentyp ausspuckt.
 
+
+---
+
+### US-2.8.8: Categorize Installation Directives
+**Als** Administrator nach Erst-Installation
+**möchte ich**, dass die Basis-Direktiven der Kategorie 'Work' zugeordnet werden,
+**damit** das Dashboard direkt ein aufgeräumtes und sinnvolles Filter-Beispiel zeigt.
+
+**Akzeptanzkriterien:**
+- [ ] `api/install.php` ordnet den initiierten Tasks bei der automatischen Datenbank-Befüllung die Kategorie 'Work' zu statt 'Security' oder 'System'.
+

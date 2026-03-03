@@ -5,7 +5,7 @@ import CyberConfirm from './CyberConfirm';
 import CyberCalendar from './CyberCalendar';
 import DirectiveModal from './DirectiveModal';
 
-const TaskCard = ({ task, user, categories, taskStatuses = [], onToggleStatus, onUpdateTask, onDelete, activeCalendarTaskId, setActiveCalendarTaskId, onDuplicate }) => {
+const TaskCard = ({ task, user, categories, taskStatuses = [], onToggleStatus, onUpdateTask, onDelete, activeCalendarTaskId, setActiveCalendarTaskId, onDuplicate, isSelected = false, onSelect = null }) => {
     const { t } = useTranslation();
     const displayTitle = task.title?.startsWith('i18n:') ? t(task.title.replace('i18n:', '')) : task.title;
     const displayDesc = task.description?.startsWith('i18n:') ? t(task.description.replace('i18n:', '')) : task.description;
@@ -55,9 +55,9 @@ const TaskCard = ({ task, user, categories, taskStatuses = [], onToggleStatus, o
     }, [isDatePickerOpen, setActiveCalendarTaskId]);
 
     const priorityColors = {
-        1: 'border-l-4 border-red-500',   // High
+        1: 'border-l-4 border-cyber-danger',   // High
         2: 'border-l-4 border-cyber-warning', // Medium
-        3: 'border-l-4 border-green-500',  // Low
+        3: 'border-l-4 border-cyber-success',  // Low
     };
 
     const priorityLabels = {
@@ -201,9 +201,23 @@ const TaskCard = ({ task, user, categories, taskStatuses = [], onToggleStatus, o
 
     return (
         <>
-            <div ref={cardRef} className={`card-cyber relative group transition-all duration-300 card-priority-${task.priority} ${isDatePickerOpen ? 'z-[100]' : 'hover:z-50 focus-within:z-50'} ${task.status == 1 ? 'opacity-50 grayscale' : ''} ${priorityColors[task.priority] || ''}`}>
-                <div className="flex justify-between items-start">
-                    <div className="flex-1">
+            <div ref={cardRef} className={`card-cyber relative group transition-all duration-300 card-priority-${task.priority} ${isDatePickerOpen ? 'z-[100]' : 'hover:z-50 focus-within:z-50'} ${task.status == 1 ? 'opacity-50 grayscale' : ''} ${priorityColors[task.priority] || ''} ${isSelected ? 'border shadow-[0_0_15px_var(--theme-primary)] bg-cyber-primary/5' : ''}`}>
+                <div className="flex justify-between items-start gap-3">
+                    {onSelect && (
+                        <div className="pt-1 select-none flex-shrink-0">
+                            <button
+                                onClick={() => onSelect(task.id)}
+                                className={`w-5 h-5 flex items-center justify-center border-2 transition-colors duration-200 focus:outline-none ${isSelected ? 'bg-cyber-primary border-cyber-primary text-black' : 'border-cyber-primary/50 text-transparent hover:border-cyber-primary'}`}
+                                style={{ boxShadow: isSelected ? '0 0 10px var(--theme-primary)' : 'none' }}
+                                data-testid={`task-checkbox-${task.id}`}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 font-bold">
+                                    <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    )}
+                    <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-3 mb-3">
                             <div className="min-w-[5rem] w-auto max-w-[8rem]">
                                 <CyberSelect

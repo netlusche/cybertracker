@@ -9,6 +9,9 @@
   --theme-primary: #00ffff;
   --theme-secondary: #ff00ff;
   --theme-success: #00ff00;
+  --theme-danger: #ff0055;
+  --theme-warning: #ffaa00;
+  --theme-info: #00ffff;
   --theme-accent: #bc13fe;
   --theme-card: rgba(30, 30, 30, 0.8);
   --theme-text: #e0e0e0;
@@ -46,6 +49,9 @@ body,
   --theme-primary: #00ffff;
   --theme-secondary: #ff00ff;
   --theme-success: #00ff00;
+  --theme-danger: #ff0055;
+  --theme-warning: #ffaa00;
+  --theme-info: #00ffff;
   --theme-accent: #bc13fe;
   --theme-card: rgba(30, 30, 30, 0.8);
   --theme-text: #e0e0e0;

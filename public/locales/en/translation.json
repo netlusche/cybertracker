@@ -163,7 +163,16 @@
       "cypher_confirm": "SECURITY CONFIRMATION",
       "cypher_confirm_msg": "EXECUTE ACCESS KEY UPDATE PROTOCOL? THIS ACTION WILL REQUIRE RE-AUTHENTICATION.",
       "status_purge": "STATUS PURGE",
-      "status_purge_confirm": "STATUS PURGE WILL VOID ALL ASSOCIATED DIRECTIVE STATES. PROCEED WITH DELETION?"
+      "status_purge_confirm": "STATUS PURGE WILL VOID ALL ASSOCIATED DIRECTIVE STATES. PROCEED WITH DELETION?",
+      "webcal_regenerate_confirm": "Are you sure? This will revoke access for all matching active feeds until you update them with the new link."
+    },
+    "webcal": {
+      "title": "WEBCAL COMLINK",
+      "description": "Subscribe to an active feed of your open directives in any compatible Calendar application.",
+      "copied": "FEED URL COPIED",
+      "regenerate": "REGENERATE LINK / REVOKE ACCESS",
+      "generate": "GENERATE WEBCAL LINK",
+      "generated_success": "NEW WEBCAL LINK GENERATED"
     },
     "categories": {
       "protocols": "CATEGORY PROTOCOLS",
@@ -315,6 +324,15 @@
         "reset": "Reset",
         "reset_tooltip": "Resets all active filters"
       }
+    },
+    "batch_actions": {
+      "selected": "{{count}} DIRECTIVE(S) SELECTED",
+      "complete_all": "COMPLETE ALL",
+      "delete_all": "DELETE ALL",
+      "delete_confirm": "WARNING: THIS WILL PERMANENTLY DELETE ALL SELECTED DIRECTIVES. PROCEED?",
+      "clear_selection": "CLEAR SELECTION",
+      "complete_all_tooltip": "Mark all selected directives as COMPLETE",
+      "delete_all_tooltip": "Permanently DELETE all selected directives"
     }
   },
   "dashboard": {

@@ -492,9 +492,66 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate,
     const [editingStatusId, setEditingStatusId] = useState(null);
     const [editingStatusName, setEditingStatusName] = useState('');
 
+    // --- WebCal Management ---
+    const [calendarToken, setCalendarToken] = useState('');
+
     useEffect(() => {
         loadCategories();
+        loadCalendarToken();
     }, []);
+
+    const loadCalendarToken = async () => {
+        try {
+            const res = await apiFetch('api/index.php?route=user/calendar_token');
+            const data = await res.json();
+            if (res.ok && data.token) {
+                setCalendarToken(data.token);
+            }
+        } catch (err) { console.error("Failed to load calendar token"); }
+    };
+
+    const handleRegenerateWebCalToken = async () => {
+        const doGenerate = async () => {
+            try {
+                const res = await apiFetch('api/index.php?route=user/calendar_token', { method: 'POST' });
+                const data = await res.json();
+                if (res.ok) {
+                    setCalendarToken(data.token);
+                    setMessage(t('profile.webcal.generated_success', 'NEW WEBCAL LINK GENERATED'));
+                    setTimeout(() => setMessage(''), 3000);
+                } else {
+                    setAlertModal({
+                        show: true,
+                        title: t('profile.alerts.security_alert'),
+                        message: data.error || 'Failed to generate token',
+                        variant: 'pink'
+                    });
+                }
+            } catch (err) {
+                setAlertModal({
+                    show: true,
+                    title: t('common.net_error'),
+                    message: t('profile.messages.net_error'),
+                    variant: 'pink'
+                });
+            }
+        };
+
+        if (calendarToken) {
+            setConfirmModal({
+                show: true,
+                title: t('profile.alerts.security_alert'),
+                variant: "purple",
+                message: t('profile.alerts.webcal_regenerate_confirm', 'Are you sure? This will revoke access for all matching active feeds until you update them with the new link.'),
+                onConfirm: async () => {
+                    setConfirmModal({ show: false, message: '', onConfirm: null, title: '', variant: '' });
+                    await doGenerate();
+                }
+            });
+        } else {
+            await doGenerate();
+        }
+    };
 
     const loadCategories = async () => {
         try {
@@ -1125,6 +1182,51 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate,
                                     onUpdate={(email, pass) => handleUpdateEmail(email, pass)}
                                     t={t}
                                 />
+                            </div>
+                        </div>
+
+                        {/* WebCal Comlink Section */}
+                        <div className="border border-cyber-accent/30 bg-cyber-accent/5 p-4 rounded">
+                            <h3 className="text-cyber-accent font-bold mb-3 flex items-center gap-2 tracking-widest text-sm">
+                                <span>📅</span> {t('profile.webcal.title', 'WEBCAL COMLINK')}
+                            </h3>
+                            <p className="text-xs text-gray-400 mb-3">
+                                {t('profile.webcal.description', 'Subscribe to an active feed of your open directives in any compatible Calendar application.')}
+                            </p>
+
+                            <div className="flex flex-col gap-3">
+                                {calendarToken ? (
+                                    <>
+                                        <div className="relative">
+                                            <input
+                                                type="text"
+                                                readOnly
+                                                value={`${window.location.origin}${window.location.pathname.replace(/\/$/, '')}/api/index.php?route=calendar/feed&token=${calendarToken}`}
+                                                className="input-cyber text-xs w-full p-2 bg-black/50 font-mono text-gray-300 cursor-copy"
+                                                onClick={(e) => {
+                                                    e.target.select();
+                                                    navigator.clipboard.writeText(e.target.value);
+                                                    setMessage(t('profile.webcal.copied', 'FEED URL COPIED'));
+                                                    setTimeout(() => setMessage(''), 3000);
+                                                }}
+                                                title={t('tooltip.click_to_copy', 'Click to copy')}
+                                            />
+                                        </div>
+                                        <button
+                                            onClick={handleRegenerateWebCalToken}
+                                            className="btn-cyber border-cyber-danger text-cyber-danger hover:bg-cyber-danger hover:text-white text-xs py-2 px-4 self-start"
+                                        >
+                                            {t('profile.webcal.regenerate', 'REGENERATE LINK / REVOKE ACCESS')}
+                                        </button>
+                                    </>
+                                ) : (
+                                    <button
+                                        onClick={handleRegenerateWebCalToken}
+                                        className="btn-cyber btn-cyber-accent text-xs py-2 px-4 self-start"
+                                    >
+                                        {t('profile.webcal.generate', 'GENERATE WEBCAL LINK')}
+                                    </button>
+                                )}
                             </div>
                         </div>
 

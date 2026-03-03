@@ -84,6 +84,27 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
         }
     }, [user, filters, onUnauthorized]);
 
+    const fetchAllOpenTasks = useCallback(async () => {
+        if (!user) return [];
+        try {
+            // specifically ask for limit=1000 and status=0 (open) to bypass dashboard pagination
+            const params = new URLSearchParams({
+                page: 1,
+                limit: 1000,
+                status: '0'
+            });
+
+            const res = await apiFetch(`api/index.php?route=tasks&${params.toString()}`);
+            if (res.status === 401) return [];
+
+            const responseData = await res.json();
+            return responseData.data || (Array.isArray(responseData) ? responseData : []);
+        } catch (err) {
+            console.error("Failed to fetch all open tasks for focus mode", err);
+            return [];
+        }
+    }, [user]);
+
     useEffect(() => {
         if (delayedRefresh > 0) {
             fetchTasks(pagination.currentPage);
@@ -203,6 +224,7 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
         refreshTaskStatuses,
         fetchTaskStatuses,
         fetchTasks,
+        fetchAllOpenTasks,
         handleAddTask,
         handleToggleStatus,
         handleUpdateTask,

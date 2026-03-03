@@ -146,6 +146,26 @@ class UserRepository extends Repository
         $this->pdo->prepare("UPDATE users SET reset_token = NULL, reset_expires = NULL WHERE id = ?")->execute([$userId]);
     }
 
+    // Calendar Token Management
+    public function findByCalendarToken(string $token)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE calendar_token = ?");
+        $stmt->execute([$token]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function generateCalendarToken(int $userId): string
+    {
+        $token = bin2hex(random_bytes(32));
+        $this->pdo->prepare("UPDATE users SET calendar_token = ? WHERE id = ?")->execute([$token, $userId]);
+        return $token;
+    }
+
+    public function clearCalendarToken(int $userId): void
+    {
+        $this->pdo->prepare("UPDATE users SET calendar_token = NULL WHERE id = ?")->execute([$userId]);
+    }
+
     // 2FA Management
     public function enableTotp2fa(int $userId, string $secret, string $backupCodesJson): void
     {

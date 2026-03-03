@@ -117,11 +117,11 @@ if (file_exists($manualSource)) {
 // INJECT SECURITY DIRECTIVES
 $directives = [
     ['[MANDATORY] Review Authentication Logs', 'Work', 1, 15, 'CRITICAL: The default administrator credentials represent a severe security vulnerability. You must immediately provision a personalized operative account with elevated privileges, or change the default access key to a high-entropy passphrase.'],
-    ['OVERRIDE DEFAULT ACCESS: Update Access Key for Admin_Alpha.', 'Security', 1, 15, 'CRITICAL: The default administrator credentials represent a severe security vulnerability. You must immediately provision a personalized operative account with elevated privileges, or change the default access key to a high-entropy passphrase.'],
-    ['PURGE INSTALLER CORE: Ensure no external endpoints remain active.', 'Security', 1, 10, 'Leaving the installation script active on a production grid allows unauthorized entities to re-initialize the database, potentially exposing or destroying all operational data. Delete the file immediately.'],
-    ['ACTIVATE NEURAL ENCRYPTION: Strict Password Policy is enforced.', 'Security', 1, 10, 'Activating the strict password policy ensures all new operatives utilize cryptographic-grade access keys, preventing brute-force neural intrusions. Go to the Admin Panel and enforce this setting.'],
-    ['SCRUB RESIDUAL TRACES: Remove old test nodes.', 'Security', 2, 5, 'Clean up any leftover testing scripts that were used to validate the system deployment. These unmonitored endpoints are prime vectors for exploitation.'],
-    ['CALIBRATE NEURAL LINK: Perform System Reset to align UI components.', 'System', 3, 5, 'The initial boot sequence may leave fragmented data packets in your visual buffer. A quick system refresh will align your UI components correctly and ensure everything is loaded cleanly into RAM.'],
+    ['OVERRIDE DEFAULT ACCESS: Update Access Key for Admin_Alpha.', 'Work', 1, 15, 'CRITICAL: The default administrator credentials represent a severe security vulnerability. You must immediately provision a personalized operative account with elevated privileges, or change the default access key to a high-entropy passphrase.'],
+    ['PURGE INSTALLER CORE: Ensure no external endpoints remain active.', 'Work', 1, 10, 'Leaving the installation script active on a production grid allows unauthorized entities to re-initialize the database, potentially exposing or destroying all operational data. Delete the file immediately.'],
+    ['ACTIVATE NEURAL ENCRYPTION: Strict Password Policy is enforced.', 'Work', 1, 10, 'Activating the strict password policy ensures all new operatives utilize cryptographic-grade access keys, preventing brute-force neural intrusions. Go to the Admin Panel and enforce this setting.'],
+    ['SCRUB RESIDUAL TRACES: Remove old test nodes.', 'Work', 2, 5, 'Clean up any leftover testing scripts that were used to validate the system deployment. These unmonitored endpoints are prime vectors for exploitation.'],
+    ['CALIBRATE NEURAL LINK: Perform System Reset to align UI components.', 'Work', 3, 5, 'The initial boot sequence may leave fragmented data packets in your visual buffer. A quick system refresh will align your UI components correctly and ensure everything is loaded cleanly into RAM.'],
     ['UPGRADE COFFEE PROTOCOL: Ensure Operative Fuel levels are maxed.', 'Work', 3, 5, 'The most critical variable in any system architecture is the biological component. Maintain optimal hydration and caffeine levels to ensure peak performance.']
 ];
 
@@ -138,13 +138,20 @@ foreach ($directives as $d) {
     $stmtTask->execute([$adminId, $d[0], $d[1], $d[2], $d[3], $files, $d[4]]);
 }
 
+$targetCategories = ['Work', 'Personal', 'Code', 'Finance', 'Health'];
+$insertCatStmt = $pdo->prepare("INSERT OR IGNORE INTO user_categories (user_id, name, is_default) VALUES (?, ?, ?)");
+foreach ($targetCategories as $cat) {
+    $isDefault = ($cat === 'Work') ? 1 : 0;
+    $insertCatStmt->execute([$adminId, $cat, $isDefault]);
+}
+
 // 1.2 Inject 50 dummy directives for Admin_Alpha pagination test
 echo "   [+] Injecting 50 directives for Admin_Alpha pagination test...\n";
 for ($i = 1; $i <= 50; $i++) {
     $title = "Admin Pagination Directive No. " . str_pad($i, 2, '0', STR_PAD_LEFT);
     $priority = ($i % 3) + 1;
     $status = 0;
-    $category = "Security";
+    $category = $targetCategories[array_rand($targetCategories)];
     $points = 10;
     $dueDate = date('Y-m-d H:i:s', strtotime("+" . ($i % 10) . " days"));
     $stmtTask->execute([$adminId, $title, $category, $priority, $points, null, 'Dummy padding task for pagination tests...']);
@@ -165,6 +172,12 @@ $hashedCodes = array_map(function ($c) {
 }, $backupCodes);
 $userRepo->enableTotp2fa($betaId, $testSecret, json_encode($hashedCodes));
 
+foreach ($targetCategories as $cat) {
+    $isDefault = ($cat === 'Work') ? 1 : 0;
+    $insertCatStmt->execute([$betaId, $cat, $isDefault]);
+}
+
+
 // Statuses initialized by UserRepository::create
 
 echo "   [V] Op_Beta created (ID: $betaId, 2FA Enabled)\n";
@@ -175,7 +188,7 @@ for ($i = 1; $i <= 55; $i++) {
     $title = "Pagination Test Directive No. " . str_pad($i, 2, '0', STR_PAD_LEFT);
     $priority = ($i % 3) + 1; // Maps to 1, 2, 3
     $status = ($i % 5 === 0) ? 1 : 0; // Every 5th task is completed
-    $category = "Work"; // Default category from repo creation
+    $category = $targetCategories[array_rand($targetCategories)];
     $points = 10;
 
     $dueDate = date('Y-m-d H:i:s', strtotime("+" . ($i % 10) . " days"));

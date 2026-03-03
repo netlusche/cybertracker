@@ -205,6 +205,23 @@ class TaskRepository extends Repository
         return $stmt->rowCount();
     }
 
+    public function deleteMultipleTasks(array $taskIds, int $userId): int
+    {
+        if (empty($taskIds)) {
+            return 0;
+        }
+
+        $placeholders = rtrim(str_repeat('?,', count($taskIds)), ',');
+        $sql = "DELETE FROM tasks WHERE id IN ($placeholders) AND user_id = ?";
+
+        $params = $taskIds;
+        $params[] = $userId;
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->rowCount();
+    }
+
     public function checkIfUserHasCompletedTasks(int $userId): bool
     {
         $stmt = $this->pdo->prepare("SELECT 1 FROM tasks WHERE user_id = ? AND status = 1 LIMIT 1");

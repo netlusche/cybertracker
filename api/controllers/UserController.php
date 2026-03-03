@@ -22,4 +22,20 @@ class UserController extends Controller
 
         $this->jsonResponse($user ?: []);
     }
+
+    public function getCalendarToken()
+    {
+        $this->requireAuth();
+        $user = $this->userRepo->findById($this->userId);
+
+        $this->jsonResponse(['token' => $user['calendar_token']]);
+    }
+
+    public function generateCalendarToken()
+    {
+        $this->requireAuth();
+        $token = $this->userRepo->generateCalendarToken($this->userId);
+
+        $this->jsonResponse(['token' => $token, 'message' => 'Token generated successfully.']);
+    }
 }

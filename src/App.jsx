@@ -13,6 +13,7 @@ import LanguageSwitcher from './components/LanguageSwitcher';
 import CalendarModal from './components/CalendarModal';
 import DirectiveModal from './components/DirectiveModal';
 import CyberConfirm from './components/CyberConfirm';
+import BatchActionBar from './components/BatchActionBar';
 import { apiFetch } from './utils/api';
 import { useTheme } from './utils/ThemeContext';
 import { useAuth } from './hooks/useAuth';
@@ -47,6 +48,7 @@ function App() {
     refreshTaskStatuses,
     fetchTaskStatuses,
     fetchTasks,
+    fetchAllOpenTasks,
     handleAddTask,
     handleToggleStatus,
     handleUpdateTask,
@@ -62,53 +64,120 @@ function App() {
   const [taskPrefill, setTaskPrefill] = useState(null);
   const [showPurgeConfirm, setShowPurgeConfirm] = useState(false);
   const [isFocusMode, setIsFocusMode] = useState(false);
+  const [focusTasksQueue, setFocusTasksQueue] = useState([]);
   const [dossierContext, setDossierContext] = useState(null);
   const [focusSkipIndex, setFocusSkipIndex] = useState(0);
   const [focusAnimatingNext, setFocusAnimatingNext] = useState(false);
   const [focusCompleting, setFocusCompleting] = useState(false);
 
-  // Advanced Task Sorting for Focus Mode
-  const getFocusTask = () => {
-    // 1. Filter out completed tasks
-    const openTasks = [...tasks].filter(t => t.status == 0);
+  const [selectedTasks, setSelectedTasks] = useState([]);
+  const [showBulkDeleteConfirm, setShowBulkDeleteConfirm] = useState(false);
 
-    // We intentionally re-sort for Focus mode to guarantee absolute determinism
-    // which the dashboard (created_at DESC) doesn't strictly follow for identical priorities
-    openTasks.sort((a, b) => {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
+  const handleSelectTask = (taskId) => {
+    setSelectedTasks(prev =>
+      prev.includes(taskId) ? prev.filter(id => id !== taskId) : [...prev, taskId]
+    );
+  };
 
-      const aIsOverdue = a.due_date && new Date(a.due_date) < today;
-      const bIsOverdue = b.due_date && new Date(b.due_date) < today;
+  const handleClearSelection = () => {
+    setSelectedTasks([]);
+  };
 
-      if (aIsOverdue && !bIsOverdue) return -1;
-      if (!aIsOverdue && bIsOverdue) return 1;
-
-      if (a.priority !== b.priority) {
-        return a.priority - b.priority;
+  const handleBulkComplete = async () => {
+    if (selectedTasks.length === 0) return;
+    try {
+      const res = await apiFetch('api/index.php?route=tasks/bulk_update', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ task_ids: selectedTasks, status: 1, workflow_status: 'completed' })
+      });
+      if (res.ok) {
+        import('./utils/confetti').then(({ triggerNeonConfetti }) => triggerNeonConfetti(theme));
+        setSelectedTasks([]);
+        fetchTasks(pagination.currentPage);
+        if (fetchUserStats) fetchUserStats();
       }
+    } catch (err) {
+      console.error("Bulk complete error", err);
+    }
+  };
 
-      if (a.due_date && !b.due_date) return -1;
-      if (!a.due_date && b.due_date) return 1;
-      if (a.due_date && b.due_date) {
-        const dateDiff = new Date(a.due_date) - new Date(b.due_date);
-        if (dateDiff !== 0) return dateDiff;
+  const confirmBulkDelete = async () => {
+    setShowBulkDeleteConfirm(false);
+    if (selectedTasks.length === 0) return;
+    try {
+      const res = await apiFetch('api/index.php?route=tasks/bulk_delete', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ task_ids: selectedTasks })
+      });
+      if (res.ok) {
+        setSelectedTasks([]);
+        fetchTasks(1);
       }
+    } catch (err) {
+      console.error("Bulk delete error", err);
+    }
+  };
 
-      // Tie-breaker: Oldest created first (smaller ID) for predictable queue
-      return a.id - b.id;
-    });
+  const loadFocusQueue = async () => {
+    try {
+      // We intentionally re-sort for Focus mode to guarantee absolute determinism
+      const allOpenTasks = await fetchAllOpenTasks();
 
-    // 2. Apply skip index
-    if (focusSkipIndex >= openTasks.length) {
-      if (openTasks.length > 0) {
+      if (!allOpenTasks || !Array.isArray(allOpenTasks)) {
+        console.warn("loadFocusQueue: allOpenTasks is not a valid array:", allOpenTasks);
+        setFocusTasksQueue([]);
         setFocusSkipIndex(0);
-        return openTasks[0];
+        return;
       }
+
+      const sortedTasks = [...allOpenTasks];
+      sortedTasks.sort((a, b) => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const aIsOverdue = a.due_date && new Date(a.due_date) < today;
+        const bIsOverdue = b.due_date && new Date(b.due_date) < today;
+
+        if (aIsOverdue && !bIsOverdue) return -1;
+        if (!aIsOverdue && bIsOverdue) return 1;
+
+        if (a.priority !== b.priority) {
+          return a.priority - b.priority;
+        }
+
+        if (a.due_date && !b.due_date) return -1;
+        if (!a.due_date && b.due_date) return 1;
+        if (a.due_date && b.due_date) {
+          const dateDiff = new Date(a.due_date) - new Date(b.due_date);
+          if (dateDiff !== 0) return dateDiff;
+        }
+
+        return a.id - b.id;
+      });
+
+      setFocusTasksQueue(sortedTasks);
+      setFocusSkipIndex(0);
+    } catch (e) {
+      console.error("Failed to load focus queue", e);
+      setFocusTasksQueue([]);
+      setFocusSkipIndex(0);
+    }
+  };
+
+  const getFocusTask = () => {
+    if (!focusTasksQueue || focusTasksQueue.length === 0) {
       return null;
     }
 
-    return openTasks[focusSkipIndex];
+    if (focusSkipIndex >= focusTasksQueue.length) {
+      // Return the first element securely if skip index gets out of bounds
+      // The actual state reset should happen safely via effects or handlers if needed, not during render
+      return focusTasksQueue[0];
+    }
+
+    return focusTasksQueue[focusSkipIndex];
   };
 
   const focusTask = getFocusTask();
@@ -127,11 +196,12 @@ function App() {
     setFocusCompleting(true);
     try {
       await handleToggleStatus(focusTask);
+      // Remove it locally from the focus queue so it doesn't reappear
+      setFocusTasksQueue(prev => prev.filter(t => t.id !== focusTask.id));
+
       // Wait for the complete animation before rendering the next suitable task
       setTimeout(() => {
         setFocusCompleting(false);
-        // We do NOT increment the skip index here, because the completed task is
-        // removed from the openTasks array automatically, shifting the next task right under us at the same index
       }, 500);
     } catch (err) {
       console.error("Focus mode complete error", err);
@@ -222,7 +292,7 @@ function App() {
       <div className="fixed inset-0 pointer-events-none opacity-10 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] cyber-grid"></div>
 
       <div className="max-w-3xl mx-auto relative z-10">
-        <header className="mb-8 flex flex-col lg:flex-row lg:flex-wrap justify-between items-start lg:items-center gap-4 border-b border-cyber-gray pb-4">
+        <header className={`mb-8 flex flex-col lg:flex-row lg:flex-wrap justify-between items-start lg:items-center gap-4 border-b border-cyber-gray pb-4 ${isFocusMode ? 'relative z-50 transition-all duration-500' : ''}`}>
           <div className="w-full lg:w-auto">
             <h1 className="text-3xl md:text-4xl font-bold flex items-center gap-3">
               <a href="./" className="flex items-center gap-3 hover:opacity-80 transition-opacity no-underline text-inherit">
@@ -321,8 +391,11 @@ function App() {
                 <button
                   data-testid="focus-btn"
                   onClick={() => {
-                    setIsFocusMode(!isFocusMode);
-                    setFocusSkipIndex(0);
+                    const newMode = !isFocusMode;
+                    setIsFocusMode(newMode);
+                    if (newMode) {
+                      loadFocusQueue();
+                    }
                   }}
                   className={`text-[10px] md:text-xs transition-colors font-bold whitespace-nowrap ${isFocusMode
                     ? (theme === 'lcars' ? 'bg-white text-black uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'bg-cyber-primary text-black px-4 py-1.5 rounded shadow-[0_0_15px_var(--theme-primary)] hover:bg-opacity-80 uppercase tracking-widest')
@@ -354,7 +427,7 @@ function App() {
         ) : isFocusMode ? (
           <>
             {/* Overlay to focus the user (uses the native theme background heavily obscured, matching light/dark correctly) */}
-            <div className="fixed inset-0 bg-cyber-bg/95 z-40 pointer-events-none"></div>
+            <div className="fixed inset-0 bg-cyber-black/95 z-40 pointer-events-none"></div>
 
             <div className="flex items-center justify-center min-h-[70vh] relative z-50 w-full text-left">
               <div className="w-full">
@@ -421,6 +494,8 @@ function App() {
                       onDelete={handleDelete}
                       activeCalendarTaskId={activeCalendarTaskId}
                       setActiveCalendarTaskId={setActiveCalendarTaskId}
+                      isSelected={selectedTasks.includes(task.id)}
+                      onSelect={handleSelectTask}
                       onDuplicate={(taskToDuplicate) => {
                         setTaskPrefill({ ...taskToDuplicate, timestamp: Date.now() });
                       }}
@@ -546,6 +621,24 @@ function App() {
           onConfirm={confirmPurgeCompleted}
           onCancel={() => setShowPurgeConfirm(false)}
           neonColor="red"
+        />
+      )}
+
+      {showBulkDeleteConfirm && (
+        <CyberConfirm
+          message={t('tasks.batch_actions.delete_confirm', 'WARNING: THIS WILL PERMANENTLY DELETE ALL SELECTED DIRECTIVES. PROCEED?')}
+          onConfirm={confirmBulkDelete}
+          onCancel={() => setShowBulkDeleteConfirm(false)}
+          neonColor="red"
+        />
+      )}
+
+      {selectedTasks.length > 0 && !isFocusMode && (
+        <BatchActionBar
+          selectedCount={selectedTasks.length}
+          onCompleteAll={handleBulkComplete}
+          onDeleteAll={() => setShowBulkDeleteConfirm(true)}
+          onClearSelection={handleClearSelection}
         />
       )}
     </div>

@@ -15,6 +15,8 @@ const FocusHeroCard = ({
 }) => {
     const { t } = useTranslation();
 
+    const isConfirming = React.useRef(false);
+
     if (!task) {
         return (
             <div className="card-cyber w-full max-w-3xl mx-auto border-cyber-success shadow-[0_0_20px_var(--theme-success)] animate-pulse">
@@ -28,8 +30,6 @@ const FocusHeroCard = ({
 
     const displayTitle = task.title?.startsWith('i18n:') ? t(task.title.replace('i18n:', '')) : task.title;
     const displayDesc = task.description?.startsWith('i18n:') ? t(task.description.replace('i18n:', '')) : task.description;
-
-    const isConfirming = React.useRef(false);
 
     const handleWorkflowStatusChange = async (newStatus) => {
         if (task.status == 1 || isConfirming.current) return;
@@ -142,14 +142,16 @@ const FocusHeroCard = ({
                             let subTotal = 0;
                             let subCompleted = 0;
                             try {
-                                if (task.subroutines_json) {
+                                if (task.subroutines_json && typeof task.subroutines_json === 'string') {
                                     const parsed = JSON.parse(task.subroutines_json);
                                     if (Array.isArray(parsed) && parsed.length > 0) {
                                         subTotal = parsed.length;
                                         subCompleted = parsed.filter(s => s.completed).length;
                                     }
                                 }
-                            } catch (e) { }
+                            } catch (e) {
+                                console.warn("Could not parse subroutines JSON in FocusHeroCard", e);
+                            }
 
                             if (subTotal > 0) {
                                 const isAllCompleted = subCompleted === subTotal;
