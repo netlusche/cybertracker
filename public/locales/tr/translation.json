@@ -13,7 +13,9 @@
         "focus_enter": "ODAK",
         "focus_exit": "ODAKTAN ÇIK",
         "focus_enter_tooltip": "Odak Moduna Girin",
-        "focus_exit_tooltip": "Odak Modundan Çık"
+        "focus_exit_tooltip": "Odak Modundan Çık",
+        "kanban_enter": "Kanban Moduna Girin",
+        "exit_kanban": "KANBAN'DAN ÇIKIŞ"
     },
     "auth": {
         "title": "NETRUNNER GİRİŞİ",
@@ -334,7 +336,8 @@
             "clear_selection": "CLEAR SELECTION",
             "complete_all_tooltip": "Mark all selected directives as COMPLETE",
             "delete_all_tooltip": "Permanently DELETE all selected directives"
-        }
+        },
+        "drop_zone": "YÖNERGELERİ BURAYA BIRAKIN"
     },
     "dashboard": {
         "operator_level": "OPERATÖR SEVİYESİ",
@@ -686,7 +689,8 @@
         "next_page": "Sonraki Sayfa",
         "last_page": "Son Sayfa",
         "toggle_2fa": "2FA Zorunluluğunu Aç/Kapat",
-        "toggle_strict_pwd": "Sıkı Parola Politikasını Aç/Kapat"
+        "toggle_strict_pwd": "Sıkı Parola Politikasını Aç/Kapat",
+        "exit_kanban": "Kanban Modundan Çık"
     },
     "quotes": [
         "Sessizleştikçe, daha fazlasını duyabilirsin.",

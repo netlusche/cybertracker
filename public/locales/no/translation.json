@@ -13,7 +13,9 @@
         "focus_enter": "FOKUS",
         "focus_exit": "AVSLUTT FOKUS",
         "focus_enter_tooltip": "Gå inn i fokusmodus",
-        "focus_exit_tooltip": "Avslutt fokusmodus"
+        "focus_exit_tooltip": "Avslutt fokusmodus",
+        "kanban_enter": "Gå inn i Kanban-modus",
+        "exit_kanban": "AVSLUTT KANBAN"
     },
     "auth": {
         "title": "NETRUNNER PÅLOGGING",
@@ -334,7 +336,8 @@
             "clear_selection": "CLEAR SELECTION",
             "complete_all_tooltip": "Mark all selected directives as COMPLETE",
             "delete_all_tooltip": "Permanently DELETE all selected directives"
-        }
+        },
+        "drop_zone": "SLIP DIREKTIVEN HER"
     },
     "dashboard": {
         "operator_level": "OPERATØRNIVÅ",
@@ -686,7 +689,8 @@
         "next_page": "Neste side",
         "last_page": "Siste side",
         "toggle_2fa": "Veksle Håndhev 2FA",
-        "toggle_strict_pwd": "Veksle Streng Passordpolicy"
+        "toggle_strict_pwd": "Veksle Streng Passordpolicy",
+        "exit_kanban": "Avslutt Kanban-modus"
     },
     "quotes": [
         "Jo stillere du blir, jo mer kan du høre.",

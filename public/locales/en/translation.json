@@ -13,7 +13,9 @@
     "focus_enter": "FOCUS",
     "focus_enter_tooltip": "Enter Focus Mode",
     "focus_exit": "EXIT FOCUS",
-    "focus_exit_tooltip": "Exit Focus Mode"
+    "focus_exit_tooltip": "Exit Focus Mode",
+    "kanban_enter": "Enter Kanban Mode",
+    "exit_kanban": "EXIT KANBAN"
   },
   "auth": {
     "title": "NETRUNNER LOGIN",
@@ -250,6 +252,7 @@
     "new_directive": "NEW DIRECTIVE",
     "placeholder": "Enter directive...",
     "add": "ADD",
+    "drop_zone": "DROP DIRECTIVES HERE",
     "priority": "PRIORITY",
     "category": "CATEGORY",
     "due_date": "DUE DATE",
@@ -661,6 +664,7 @@
     "drag": "Drag to reorder",
     "cancel": "Cancel",
     "save": "Save",
+    "exit_kanban": "Exit Kanban Mode",
     "language": "Change Language",
     "show_password": "Show Password",
     "hide_password": "Hide Password",

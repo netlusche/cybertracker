@@ -13,7 +13,9 @@
         "focus_enter": "TẬP TRUNG",
         "focus_exit": "THOÁT TẬP TRUNG",
         "focus_enter_tooltip": "Vào Chế độ lấy nét",
-        "focus_exit_tooltip": "Thoát Chế độ lấy nét"
+        "focus_exit_tooltip": "Thoát Chế độ lấy nét",
+        "kanban_enter": "Vào chế độ Kanban",
+        "exit_kanban": "THOÁT KANBAN"
     },
     "auth": {
         "title": "ĐĂNG NHẬP NETRUNNER",
@@ -334,7 +336,8 @@
             "clear_selection": "CLEAR SELECTION",
             "complete_all_tooltip": "Mark all selected directives as COMPLETE",
             "delete_all_tooltip": "Permanently DELETE all selected directives"
-        }
+        },
+        "drop_zone": "GỬI CHỈ DẪN TẠI ĐÂY"
     },
     "dashboard": {
         "operator_level": "CẤP ĐỘ ĐẶC VỤ",
@@ -686,7 +689,8 @@
         "next_page": "Trang tiếp",
         "last_page": "Trang cuối",
         "toggle_2fa": "Chuyển đổi Thực thi 2FA",
-        "toggle_strict_pwd": "Chuyển đổi Chính sách Mật khẩu Nghiêm ngặt"
+        "toggle_strict_pwd": "Chuyển đổi Chính sách Mật khẩu Nghiêm ngặt",
+        "exit_kanban": "Thoát chế độ Kanban"
     },
     "quotes": [
         "Bạn càng im lặng, bạn càng có thể nghe nhiều hơn.",

@@ -13,7 +13,9 @@
         "focus_enter": "集中",
         "focus_exit": "出口フォーカス",
         "focus_enter_tooltip": "フォーカスモードに入る",
-        "focus_exit_tooltip": "フォーカスモードを終了する"
+        "focus_exit_tooltip": "フォーカスモードを終了する",
+        "kanban_enter": "カンバンモードに入る",
+        "exit_kanban": "出口かんばん"
     },
     "auth": {
         "title": "ネットランナーログイン",
@@ -334,7 +336,8 @@
             "clear_selection": "選択をクリア",
             "complete_all_tooltip": "選択したすべてのディレクティブを完了としてマーク",
             "delete_all_tooltip": "選択したすべてのディレクティブを完全に削除します"
-        }
+        },
+        "drop_zone": "ここにディレクティブをドロップします"
     },
     "dashboard": {
         "operator_level": "オペレーターレベル",
@@ -686,7 +689,8 @@
         "next_page": "次のページ",
         "last_page": "最後のページ",
         "toggle_2fa": "2FA強制を切り替える",
-        "toggle_strict_pwd": "厳格なパスワードポリシーを切り替える"
+        "toggle_strict_pwd": "厳格なパスワードポリシーを切り替える",
+        "exit_kanban": "カンバンモードを終了する"
     },
     "quotes": [
         "静かになればなるほど、より多くのことが聞こえる。",

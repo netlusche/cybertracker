@@ -13,7 +13,9 @@
         "focus_enter": "FOCO",
         "focus_exit": "SAIR DO FOCO",
         "focus_enter_tooltip": "Entre no modo de foco",
-        "focus_exit_tooltip": "Sair do modo de foco"
+        "focus_exit_tooltip": "Sair do modo de foco",
+        "kanban_enter": "Entre no modo Kanban",
+        "exit_kanban": "SAIR DO KANBAN"
     },
     "auth": {
         "title": "LOGIN NETRUNNER",
@@ -334,7 +336,8 @@
             "clear_selection": "LIMPAR SELEÇÃO",
             "complete_all_tooltip": "Marcar todas as diretrizes selecionadas como CONCLUÍDAS",
             "delete_all_tooltip": "EXCLUIR permanentemente todas as diretrizes selecionadas"
-        }
+        },
+        "drop_zone": "DEIXE AS DIRETRIZES AQUI"
     },
     "dashboard": {
         "operator_level": "NÍVEL DE OPERADOR",
@@ -686,7 +689,8 @@
         "next_page": "Próxima Página",
         "last_page": "Última Página",
         "toggle_2fa": "Alternar Imposição de 2FA",
-        "toggle_strict_pwd": "Alternar Política de Senha Rígida"
+        "toggle_strict_pwd": "Alternar Política de Senha Rígida",
+        "exit_kanban": "Sair do modo Kanban"
     },
     "quotes": [
         "Quanto mais silencioso você se torna, mais você pode ouvir.",

@@ -13,7 +13,9 @@
         "focus_enter": "重点",
         "focus_exit": "退出焦点",
         "focus_enter_tooltip": "进入对焦模式",
-        "focus_exit_tooltip": "退出对焦模式"
+        "focus_exit_tooltip": "退出对焦模式",
+        "kanban_enter": "进入看板模式",
+        "exit_kanban": "退出看板"
     },
     "auth": {
         "title": "网络跑者登录",
@@ -334,7 +336,8 @@
             "clear_selection": "清除选择",
             "complete_all_tooltip": "将所有选定的指令标记为已完成",
             "delete_all_tooltip": "永久删除所有选定的指令"
-        }
+        },
+        "drop_zone": "将指令拖放到此处"
     },
     "dashboard": {
         "operator_level": "操作员等级",
@@ -686,7 +689,8 @@
         "next_page": "下一页",
         "last_page": "最后一页",
         "toggle_2fa": "切换强制2FA",
-        "toggle_strict_pwd": "切换严格密码策略"
+        "toggle_strict_pwd": "切换严格密码策略",
+        "exit_kanban": "退出看板模式"
     },
     "quotes": [
         "你越安静，能听到的越多。",

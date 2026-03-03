@@ -13,7 +13,9 @@
         "focus_enter": "ENFOCAR",
         "focus_exit": "SALIR DEL ENFOQUE",
         "focus_enter_tooltip": "Ingrese al modo de enfoque",
-        "focus_exit_tooltip": "Salir del modo de enfoque"
+        "focus_exit_tooltip": "Salir del modo de enfoque",
+        "kanban_enter": "Ingrese al modo Kanban",
+        "exit_kanban": "SALIR DE kanban"
     },
     "auth": {
         "title": "INICIO DE SESIÓN NETRUNNER",
@@ -334,7 +336,8 @@
             "clear_selection": "BORRAR SELECCIÓN",
             "complete_all_tooltip": "Marcar todas las directivas seleccionadas como COMPLETADAS",
             "delete_all_tooltip": "ELIMINAR permanentemente todas las directivas seleccionadas"
-        }
+        },
+        "drop_zone": "DEJE LAS DIRECTIVAS AQUÍ"
     },
     "dashboard": {
         "operator_level": "NIVEL DE OPERATIVO",
@@ -686,7 +689,8 @@
         "next_page": "Página Siguiente",
         "last_page": "Última Página",
         "toggle_2fa": "Alternar Forzar 2FA",
-        "toggle_strict_pwd": "Alternar Política de Contraseña Estricta"
+        "toggle_strict_pwd": "Alternar Política de Contraseña Estricta",
+        "exit_kanban": "Salir del modo Kanban"
     },
     "quotes": [
         "Cuanto más callado te vuelves, más puedes oír.",

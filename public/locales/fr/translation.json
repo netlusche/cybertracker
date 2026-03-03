@@ -13,7 +13,9 @@
         "focus_enter": "SE CONCENTRER",
         "focus_exit": "QUITTER LE FOCUS",
         "focus_enter_tooltip": "Passer en mode mise au point",
-        "focus_exit_tooltip": "Quitter le mode de mise au point"
+        "focus_exit_tooltip": "Quitter le mode de mise au point",
+        "kanban_enter": "Passer en mode Kanban",
+        "exit_kanban": "QUITTER LE KANBAN"
     },
     "auth": {
         "title": "CONNEXION NETRUNNER",
@@ -334,7 +336,8 @@
             "clear_selection": "EFFACER LA SÉLECTION",
             "complete_all_tooltip": "Marquer toutes les directives sélectionnées comme TERMINÉES",
             "delete_all_tooltip": "SUPPRIMER définitivement toutes les directives sélectionnées"
-        }
+        },
+        "drop_zone": "DÉPOSEZ LES DIRECTIVES ICI"
     },
     "dashboard": {
         "operator_level": "NIVEAU D'OPÉRATEUR",
@@ -686,7 +689,8 @@
         "next_page": "Page Suivante",
         "last_page": "Dernière Page",
         "toggle_2fa": "Activer/Désactiver l'Application 2FA",
-        "toggle_strict_pwd": "Activer/Désactiver la Politique de Mot de Passe Stricte"
+        "toggle_strict_pwd": "Activer/Désactiver la Politique de Mot de Passe Stricte",
+        "exit_kanban": "Quitter le mode Kanban"
     },
     "quotes": [
         "Plus vous devenez silencieux, plus vous pouvez entendre.",

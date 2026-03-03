@@ -13,7 +13,9 @@
         "focus_enter": "MESSA A FUOCO",
         "focus_exit": "ESCI DAL FUOCO",
         "focus_enter_tooltip": "Accedi alla modalità di messa a fuoco",
-        "focus_exit_tooltip": "Uscire dalla modalità di messa a fuoco"
+        "focus_exit_tooltip": "Uscire dalla modalità di messa a fuoco",
+        "kanban_enter": "Entra in modalità Kanban",
+        "exit_kanban": "USCIRE DA KANBAN"
     },
     "auth": {
         "title": "ACCESSO NETRUNNER",
@@ -334,7 +336,8 @@
             "clear_selection": "CANCELLA SELEZIONE",
             "complete_all_tooltip": "Segna tutte le direttive selezionate come COMPLETATE",
             "delete_all_tooltip": "ELIMINA in modo permanente tutte le direttive selezionate"
-        }
+        },
+        "drop_zone": "TROVI LE DIRETTIVE QUI"
     },
     "dashboard": {
         "operator_level": "LIVELLO OPERATIVO",
@@ -686,7 +689,8 @@
         "next_page": "Pagina Successiva",
         "last_page": "Ultima Pagina",
         "toggle_2fa": "Attiva/Disattiva Imposta 2FA",
-        "toggle_strict_pwd": "Attiva/Disattiva Politica Password Rigorosa"
+        "toggle_strict_pwd": "Attiva/Disattiva Politica Password Rigorosa",
+        "exit_kanban": "Esci dalla modalità Kanban"
     },
     "quotes": [
         "Più diventi silenzioso, più puoi sentire.",

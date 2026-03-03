@@ -13,7 +13,9 @@
         "focus_enter": "FOCUS",
         "focus_exit": "VERLAAT FOCUS",
         "focus_enter_tooltip": "Ga naar de focusmodus",
-        "focus_exit_tooltip": "Verlaat de focusmodus"
+        "focus_exit_tooltip": "Verlaat de focusmodus",
+        "kanban_enter": "Ga naar de Kanban-modus",
+        "exit_kanban": "VERLAAT KANBAN"
     },
     "auth": {
         "title": "NETRUNNER LOGIN",
@@ -334,7 +336,8 @@
             "clear_selection": "SELECTIE WISSEN",
             "complete_all_tooltip": "Markeer alle geselecteerde richtlijnen als VOLTOOID",
             "delete_all_tooltip": "VERWIJDER permanent alle geselecteerde richtlijnen"
-        }
+        },
+        "drop_zone": "PLAATS DE RICHTLIJNEN HIER"
     },
     "dashboard": {
         "operator_level": "OPERATOR NIVEAU",
@@ -686,7 +689,8 @@
         "next_page": "Volgende Pagina",
         "last_page": "Laatste Pagina",
         "toggle_2fa": "2FA Afdwingen Wisselen",
-        "toggle_strict_pwd": "Strikt Wachtwoordbeleid Wisselen"
+        "toggle_strict_pwd": "Strikt Wachtwoordbeleid Wisselen",
+        "exit_kanban": "Verlaat de Kanban-modus"
     },
     "quotes": [
         "Hoe stiller je wordt, hoe meer je kunt horen.",

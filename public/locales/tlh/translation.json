@@ -13,7 +13,9 @@
         "focus_enter": "YIBUS",
         "focus_exit": "BUS YIMEV",
         "focus_enter_tooltip": "buS Qaw yI'el",
-        "focus_exit_tooltip": "buS Qaw yImev"
+        "focus_exit_tooltip": "buS Qaw yImev",
+        "kanban_enter": "Enter Kanban Mode",
+        "exit_kanban": "EXIT KANBAN"
     },
     "auth": {
         "title": "GHOM'EL QAW",
@@ -334,7 +336,8 @@
             "clear_selection": "CHOQ YITEQ",
             "complete_all_tooltip": "hoch choq yita'",
             "delete_all_tooltip": "hoch choq yiqaw'"
-        }
+        },
+        "drop_zone": "DROP DIRECTIVES HERE"
     },
     "dashboard": {
         "operator_level": "VANGWI' TLHOB",
@@ -686,7 +689,8 @@
         "next_page": "Page Qaw",
         "last_page": "Page Qaw",
         "toggle_2fa": "2FA Qaw tlho' Qaw",
-        "toggle_strict_pwd": "Qaw tlhe' QawseH Qaw tlho' Qaw"
+        "toggle_strict_pwd": "Qaw tlhe' QawseH Qaw tlho' Qaw",
+        "exit_kanban": "Exit Kanban Mode"
     },
     "quotes": [
         "Qaw tlho' Qaw, Qaw tlho' Qaw.",

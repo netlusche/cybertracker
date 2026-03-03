@@ -13,7 +13,9 @@
         "focus_enter": "केंद्र",
         "focus_exit": "फोकस से बाहर निकलें",
         "focus_enter_tooltip": "फ़ोकस मोड दर्ज करें",
-        "focus_exit_tooltip": "फोकस मोड से बाहर निकलें"
+        "focus_exit_tooltip": "फोकस मोड से बाहर निकलें",
+        "kanban_enter": "कानबन मोड दर्ज करें",
+        "exit_kanban": "कंबन से बाहर निकलें"
     },
     "auth": {
         "title": "नेट रनर लॉगिन",
@@ -334,7 +336,8 @@
             "clear_selection": "CLEAR SELECTION",
             "complete_all_tooltip": "Mark all selected directives as COMPLETE",
             "delete_all_tooltip": "Permanently DELETE all selected directives"
-        }
+        },
+        "drop_zone": "निर्देश यहां छोड़ें"
     },
     "dashboard": {
         "operator_level": "ऑपरेटर स्तर",
@@ -686,7 +689,8 @@
         "next_page": "अगला पृष्ठ",
         "last_page": "अंतिम पृष्ठ",
         "toggle_2fa": "2FA लागू करें टॉगल करें",
-        "toggle_strict_pwd": "सख्त पासवर्ड नीति टॉगल करें"
+        "toggle_strict_pwd": "सख्त पासवर्ड नीति टॉगल करें",
+        "exit_kanban": "कानबन मोड से बाहर निकलें"
     },
     "quotes": [
         "आप जितने शांत होंगे, उतना ही अधिक सुन पाएंगे।",

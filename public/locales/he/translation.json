@@ -13,7 +13,9 @@
         "focus_enter": "מוֹקֵד",
         "focus_exit": "יציאה מפוקוס",
         "focus_enter_tooltip": "היכנס למצב פוקוס",
-        "focus_exit_tooltip": "צא ממצב פוקוס"
+        "focus_exit_tooltip": "צא ממצב פוקוס",
+        "kanban_enter": "היכנס למצב Kanban",
+        "exit_kanban": "צא מKANBAN"
     },
     "auth": {
         "title": "כניסת נטראנר",
@@ -334,7 +336,8 @@
             "clear_selection": "CLEAR SELECTION",
             "complete_all_tooltip": "Mark all selected directives as COMPLETE",
             "delete_all_tooltip": "Permanently DELETE all selected directives"
-        }
+        },
+        "drop_zone": "זרוק הנחיות כאן"
     },
     "dashboard": {
         "operator_level": "רמת מפעיל",
@@ -686,7 +689,8 @@
         "next_page": "עמוד הבא",
         "last_page": "עמוד אחרון",
         "toggle_2fa": "החלף אכיפת אימות דו-שלבי",
-        "toggle_strict_pwd": "החלף מדיניות סיסמאות קפדנית"
+        "toggle_strict_pwd": "החלף מדיניות סיסמאות קפדנית",
+        "exit_kanban": "צא ממצב Kanban"
     },
     "quotes": [
         "ככל שאתה שקט יותר, כך אתה יכול לשמוע יותר.",

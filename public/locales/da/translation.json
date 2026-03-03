@@ -13,7 +13,9 @@
         "focus_enter": "FOKUS",
         "focus_exit": "AFSLUT FOKUS",
         "focus_enter_tooltip": "Gå ind i fokustilstand",
-        "focus_exit_tooltip": "Afslut fokustilstand"
+        "focus_exit_tooltip": "Afslut fokustilstand",
+        "kanban_enter": "Gå ind i Kanban-tilstand",
+        "exit_kanban": "AFSLUT KANBAN"
     },
     "auth": {
         "title": "NETRUNNER LOGIN",
@@ -334,7 +336,8 @@
             "clear_selection": "CLEAR SELECTION",
             "complete_all_tooltip": "Mark all selected directives as COMPLETE",
             "delete_all_tooltip": "Permanently DELETE all selected directives"
-        }
+        },
+        "drop_zone": "DROP DIREKTIVER HER"
     },
     "dashboard": {
         "operator_level": "OPERATØRNIVEAU",
@@ -686,7 +689,8 @@
         "next_page": "Næste side",
         "last_page": "Sidste side",
         "toggle_2fa": "Skift Håndhæv 2FA",
-        "toggle_strict_pwd": "Skift Streng Adgangsnøglepolitik"
+        "toggle_strict_pwd": "Skift Streng Adgangsnøglepolitik",
+        "exit_kanban": "Afslut Kanban-tilstand"
     },
     "quotes": [
         "Jo mere stille du bliver, jo mere kan du høre.",

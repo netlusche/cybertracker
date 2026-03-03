@@ -13,7 +13,9 @@
         "focus_enter": "CENTRUM",
         "focus_exit": "WYJDŹ Z FOCUSU",
         "focus_enter_tooltip": "Wejdź w tryb skupienia",
-        "focus_exit_tooltip": "Wyjdź z trybu ostrości"
+        "focus_exit_tooltip": "Wyjdź z trybu ostrości",
+        "kanban_enter": "Wejdź w tryb Kanban",
+        "exit_kanban": "WYJDŹ Z KANBANA"
     },
     "auth": {
         "title": "LOGOWANIE NETRUNNERA",
@@ -334,7 +336,8 @@
             "clear_selection": "WYCZYŚĆ WYBÓR",
             "complete_all_tooltip": "Oznacz wszystkie wybrane dyrektywy jako ZAKOŃCZONE",
             "delete_all_tooltip": "Trwale USUŃ wszystkie wybrane dyrektywy"
-        }
+        },
+        "drop_zone": "USUŃ DYREKTYWY TUTAJ"
     },
     "dashboard": {
         "operator_level": "POZIOM OPERATORA",
@@ -686,7 +689,8 @@
         "next_page": "Następna Strona",
         "last_page": "Ostatnia Strona",
         "toggle_2fa": "Przełącz Wymuszanie 2FA",
-        "toggle_strict_pwd": "Przełącz Ścisłą Politykę Haseł"
+        "toggle_strict_pwd": "Przełącz Ścisłą Politykę Haseł",
+        "exit_kanban": "Wyjdź z trybu Kanban"
     },
     "quotes": [
         "Im ciszej się stajesz, tym więcej możesz usłyszeć.",

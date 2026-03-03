@@ -13,7 +13,9 @@
         "focus_enter": "FOCUS",
         "focus_exit": "POISTU FOCUSISTA",
         "focus_enter_tooltip": "Siirry tarkennustilaan",
-        "focus_exit_tooltip": "Poistu tarkennustilasta"
+        "focus_exit_tooltip": "Poistu tarkennustilasta",
+        "kanban_enter": "Siirry Kanban-tilaan",
+        "exit_kanban": "POISTU KANBANISTA"
     },
     "auth": {
         "title": "NETRUNNER-KIRJAUDU",
@@ -334,7 +336,8 @@
             "clear_selection": "CLEAR SELECTION",
             "complete_all_tooltip": "Mark all selected directives as COMPLETE",
             "delete_all_tooltip": "Permanently DELETE all selected directives"
-        }
+        },
+        "drop_zone": "PUDOTA DIREKTIIVIT TÄSTÄ"
     },
     "dashboard": {
         "operator_level": "OPERAATTORITASO",
@@ -686,7 +689,8 @@
         "next_page": "Seuraava sivu",
         "last_page": "Viimeinen sivu",
         "toggle_2fa": "Vaihda 2FA:n pakottamista",
-        "toggle_strict_pwd": "Vaihda tiukkaa salasanakäytäntöä"
+        "toggle_strict_pwd": "Vaihda tiukkaa salasanakäytäntöä",
+        "exit_kanban": "Poistu Kanban-tilasta"
     },
     "quotes": [
         "Mitä hiljaisemmaksi tulet, sitä enemmän voit kuulla.",

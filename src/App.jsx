@@ -433,8 +433,10 @@ function App() {
                       fetchTasks(pagination.currentPage); // refresh normal dashboard just in case
                     }}
                     className={`text-[10px] md:text-xs transition-colors font-bold whitespace-nowrap ${theme === 'lcars' ? 'bg-white text-black uppercase rounded-full px-4 py-1.5 hover:brightness-110' : 'bg-cyber-primary text-black px-4 py-1.5 rounded shadow-[0_0_15px_var(--theme-primary)] hover:bg-opacity-80 uppercase tracking-widest'}`}
+                    data-tooltip-content={t('tooltip.exit_kanban', 'Exit Kanban Mode')}
+                    data-tooltip-pos="bottom"
                   >
-                    EXIT KANBAN
+                    {t('header.exit_kanban', 'EXIT KANBAN')}
                   </button>
                 )}
 

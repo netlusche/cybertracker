@@ -13,7 +13,9 @@
         "focus_enter": "ΕΣΤΙΑ",
         "focus_exit": "ΕΞΟΔΟΣ ΕΣΤΙΑΣΗ",
         "focus_enter_tooltip": "Μπείτε στη λειτουργία εστίασης",
-        "focus_exit_tooltip": "Έξοδος από τη λειτουργία εστίασης"
+        "focus_exit_tooltip": "Έξοδος από τη λειτουργία εστίασης",
+        "kanban_enter": "Εισαγάγετε τη λειτουργία Kanban",
+        "exit_kanban": "ΕΞΟΔΟΣ ΚΑΝΜΠΑΝ"
     },
     "auth": {
         "title": "ΣΥΝΔΕΣΗ NETRUNNER",
@@ -334,7 +336,8 @@
             "clear_selection": "CLEAR SELECTION",
             "complete_all_tooltip": "Mark all selected directives as COMPLETE",
             "delete_all_tooltip": "Permanently DELETE all selected directives"
-        }
+        },
+        "drop_zone": "ΑΠΟΣΤΟΛΗ ΤΩΝ ΟΔΗΓΙΩΝ ΕΔΩ"
     },
     "dashboard": {
         "operator_level": "ΕΠΙΠΕΔΟ ΠΡΑΚΤΟΡΑ",
@@ -686,7 +689,8 @@
         "next_page": "Επόμενη Σελίδα",
         "last_page": "Τελευταία Σελίδα",
         "toggle_2fa": "Εναλλαγή Επιβολής 2FA",
-        "toggle_strict_pwd": "Εναλλαγή Αυστηρής Πολιτικής Κωδικών Πρόσβασης"
+        "toggle_strict_pwd": "Εναλλαγή Αυστηρής Πολιτικής Κωδικών Πρόσβασης",
+        "exit_kanban": "Έξοδος από τη λειτουργία Kanban"
     },
     "quotes": [
         "Όσο πιο ήσυχος γίνεσαι, τόσο περισσότερα μπορείς να ακούσεις.",

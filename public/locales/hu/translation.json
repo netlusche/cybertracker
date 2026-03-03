@@ -13,7 +13,9 @@
         "focus_enter": "FÓKUSZ",
         "focus_exit": "EXIT FOCUS",
         "focus_enter_tooltip": "Lépjen be a Fókusz módba",
-        "focus_exit_tooltip": "Lépjen ki a fókusz módból"
+        "focus_exit_tooltip": "Lépjen ki a fókusz módból",
+        "kanban_enter": "Lépjen be a Kanban módba",
+        "exit_kanban": "LÉPJ ki a KANBAN-ból"
     },
     "auth": {
         "title": "NETRUNNER BEJELENTKEZÉS",
@@ -334,7 +336,8 @@
             "clear_selection": "CLEAR SELECTION",
             "complete_all_tooltip": "Mark all selected directives as COMPLETE",
             "delete_all_tooltip": "Permanently DELETE all selected directives"
-        }
+        },
+        "drop_zone": "DODD IDE AZ IRÁNYELVEKET"
     },
     "dashboard": {
         "operator_level": "OPERÁTOR SZINT",
@@ -686,7 +689,8 @@
         "next_page": "Következő oldal",
         "last_page": "Utolsó oldal",
         "toggle_2fa": "2FA érvényesítésének váltása",
-        "toggle_strict_pwd": "Szigorú jelszó irányelv váltása"
+        "toggle_strict_pwd": "Szigorú jelszó irányelv váltása",
+        "exit_kanban": "Lépjen ki a Kanban módból"
     },
     "quotes": [
         "Minél csendesebb leszel, annál többet hallasz.",

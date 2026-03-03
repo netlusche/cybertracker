@@ -13,7 +13,9 @@
         "focus_enter": "FOKUS",
         "focus_exit": "AVSLUTA FOKUS",
         "focus_enter_tooltip": "Gå in i fokusläge",
-        "focus_exit_tooltip": "Avsluta fokusläge"
+        "focus_exit_tooltip": "Avsluta fokusläge",
+        "kanban_enter": "Gå in i Kanban-läge",
+        "exit_kanban": "AVSLUTA KANBAN"
     },
     "auth": {
         "title": "NETRUNNER-INLOGGNING",
@@ -334,7 +336,8 @@
             "clear_selection": "CLEAR SELECTION",
             "complete_all_tooltip": "Mark all selected directives as COMPLETE",
             "delete_all_tooltip": "Permanently DELETE all selected directives"
-        }
+        },
+        "drop_zone": "SLIPPA DIREKTIV HÄR"
     },
     "dashboard": {
         "operator_level": "OPERATÖRSNIVÅ",
@@ -686,7 +689,8 @@
         "next_page": "Nästa sida",
         "last_page": "Sista sidan",
         "toggle_2fa": "Växla Tvinga 2FA",
-        "toggle_strict_pwd": "Växla Strikt lösenordspolicy"
+        "toggle_strict_pwd": "Växla Strikt lösenordspolicy",
+        "exit_kanban": "Avsluta Kanban-läge"
     },
     "quotes": [
         "Ju tystare du blir, desto mer kan du höra.",

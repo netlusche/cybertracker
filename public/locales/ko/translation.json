@@ -13,7 +13,9 @@
         "focus_enter": "집중하다",
         "focus_exit": "포커스 종료",
         "focus_enter_tooltip": "집중 모드 들어가기",
-        "focus_exit_tooltip": "초점 모드 종료"
+        "focus_exit_tooltip": "초점 모드 종료",
+        "kanban_enter": "칸반 모드 시작",
+        "exit_kanban": "칸반 종료"
     },
     "auth": {
         "title": "넷러너 로그인",
@@ -334,7 +336,8 @@
             "clear_selection": "CLEAR SELECTION",
             "complete_all_tooltip": "Mark all selected directives as COMPLETE",
             "delete_all_tooltip": "Permanently DELETE all selected directives"
-        }
+        },
+        "drop_zone": "여기에 지시어를 놓으세요"
     },
     "dashboard": {
         "operator_level": "요원 레벨",
@@ -686,7 +689,8 @@
         "next_page": "다음 페이지",
         "last_page": "마지막 페이지",
         "toggle_2fa": "2단계 인증 강제 적용 토글",
-        "toggle_strict_pwd": "엄격한 비밀번호 정책 토글"
+        "toggle_strict_pwd": "엄격한 비밀번호 정책 토글",
+        "exit_kanban": "칸반 모드 종료"
     },
     "quotes": [
         "조용해질수록 더 많은 것을 들을 수 있다.",
