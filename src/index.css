@@ -2489,6 +2489,21 @@ body.theme-steampunk .input-cyber:focus {
   border-color: transparent transparent var(--theme-primary) transparent;
 }
 
+[data-tooltip-content][data-tooltip-pos="bottom-left"]::after {
+  bottom: auto;
+  top: 120%;
+  left: 0;
+  transform: translateX(0) translateY(-10px);
+}
+
+[data-tooltip-content][data-tooltip-pos="bottom-left"]::before {
+  bottom: auto;
+  top: calc(120% - 4px);
+  left: 15px;
+  transform: translateX(0);
+  border-color: transparent transparent var(--theme-primary) transparent;
+}
+
 [data-tooltip-content][data-tooltip-pos="left"]::after {
   bottom: 50%;
   left: auto;
@@ -2547,6 +2562,11 @@ body.theme-steampunk .input-cyber:focus {
   transform: translateX(-50%) translateY(0);
 }
 
+[data-tooltip-content][data-tooltip-pos="bottom-left"]:hover::after,
+[data-tooltip-content][data-tooltip-pos="bottom-left"]:focus-visible::after {
+  transform: translateX(0) translateY(0);
+}
+
 /* Specific transform resets for visible state based on pos */
 [data-tooltip-content]:hover::after,
 [data-tooltip-content]:focus-visible::after {
@@ -2557,6 +2577,11 @@ body.theme-steampunk .input-cyber:focus {
 [data-tooltip-content][data-tooltip-pos="bottom"]:hover::after,
 [data-tooltip-content][data-tooltip-pos="bottom"]:focus-visible::after {
   transform: translateX(-50%) translateY(0);
+}
+
+[data-tooltip-content][data-tooltip-pos="bottom-left"]:hover::after,
+[data-tooltip-content][data-tooltip-pos="bottom-left"]:focus-visible::after {
+  transform: translateX(0) translateY(0);
 }
 
 [data-tooltip-content][data-tooltip-pos="left"]:hover::after,
