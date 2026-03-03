@@ -218,50 +218,54 @@ const TaskCard = ({ task, user, categories, taskStatuses = [], onToggleStatus, o
                         </div>
                     )}
                     <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-3 mb-3">
-                            <div className="min-w-[5rem] w-auto max-w-[8rem]">
-                                <CyberSelect
-                                    value={task.category}
-                                    onChange={handleCategoryChange}
-                                    options={(Array.isArray(categories) && categories.length > 0 ? categories : [{ name: task.category }]).map(cat => {
-                                        const catName = cat.name || cat;
-                                        return { value: catName, label: catName };
-                                    })}
-                                    neonColor="green"
-                                    className="text-[10px] font-bold h-7 uppercase tracking-wider"
-                                    disabled={task.status == 1}
-                                />
-                            </div>
+                        <div className="flex flex-col gap-2 mb-3">
+                            <div className="flex items-center gap-3">
+                                <div className="min-w-[5rem] w-auto max-w-[8rem]">
+                                    <CyberSelect
+                                        value={task.category}
+                                        onChange={handleCategoryChange}
+                                        options={(Array.isArray(categories) && categories.length > 0 ? categories : [{ name: task.category }]).map(cat => {
+                                            const catName = cat.name || cat;
+                                            return { value: catName, label: catName };
+                                        })}
+                                        neonColor="green"
+                                        className="text-[10px] font-bold h-7 uppercase tracking-wider"
+                                        disabled={task.status == 1}
+                                    />
+                                </div>
 
-                            <div className="w-[120px]">
-                                <CyberSelect
-                                    value={String(task.priority)}
-                                    onChange={handlePriorityChange}
-                                    options={[
-                                        { value: '1', label: t('common.high') },
-                                        { value: '2', label: t('common.med') },
-                                        { value: '3', label: t('common.low') }
-                                    ]}
-                                    neonColor={priorityNeonColors[task.priority]}
-                                    className="text-[10px] font-bold h-7"
-                                    wrapperClassName={`marvel-select-prio-${task.priority}`}
-                                    disabled={task.status == 1}
-                                />
+                                <div className="w-[120px]">
+                                    <CyberSelect
+                                        value={String(task.priority)}
+                                        onChange={handlePriorityChange}
+                                        options={[
+                                            { value: '1', label: t('common.high') },
+                                            { value: '2', label: t('common.med') },
+                                            { value: '3', label: t('common.low') }
+                                        ]}
+                                        neonColor={priorityNeonColors[task.priority]}
+                                        className="text-[10px] font-bold h-7"
+                                        wrapperClassName={`marvel-select-prio-${task.priority}`}
+                                        disabled={task.status == 1}
+                                    />
+                                </div>
                             </div>
 
                             {taskStatuses.length > 0 && (
-                                <div className="w-[140px]">
-                                    <CyberSelect
-                                        value={task.workflow_status || 'open'}
-                                        onChange={handleWorkflowStatusChange}
-                                        options={taskStatuses.map(status => ({
-                                            value: status.name,
-                                            label: status.is_system ? t(`tasks.status_${status.name.toLowerCase().replace(' ', '_')}`, status.name) : status.name
-                                        }))}
-                                        neonColor="cyan"
-                                        className="text-[9px] font-bold h-7 uppercase tracking-wider"
-                                        disabled={task.status == 1}
-                                    />
+                                <div className="flex items-center gap-3">
+                                    <div className="w-[140px]">
+                                        <CyberSelect
+                                            value={task.workflow_status || 'open'}
+                                            onChange={handleWorkflowStatusChange}
+                                            options={taskStatuses.map(status => ({
+                                                value: status.name,
+                                                label: status.is_system ? t(`tasks.status_${status.name.toLowerCase().replace(' ', '_')}`, status.name) : status.name
+                                            }))}
+                                            neonColor="cyan"
+                                            className="text-[9px] font-bold h-7 uppercase tracking-wider"
+                                            disabled={task.status == 1}
+                                        />
+                                    </div>
                                 </div>
                             )}
                         </div>
