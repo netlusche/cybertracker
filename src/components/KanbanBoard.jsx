@@ -87,9 +87,15 @@ const KanbanBoard = ({ tasks, taskStatuses, onUpdateTask, onToggleStatus, onTask
     };
 
     // Columns Configuration
+    // Filter out 'completed' since it's a dropzone, and 'open' to prevent duplicates
+    const filteredStatuses = taskStatuses.filter(ts =>
+        ts.name.toLowerCase() !== 'completed' &&
+        ts.name.toLowerCase() !== 'open'
+    );
+
     const columns = [
-        { id: 'open', name: 'Open', is_system: true },
-        ...taskStatuses
+        { id: 'open', name: 'open', is_system: true },
+        ...filteredStatuses
     ];
 
     return (
