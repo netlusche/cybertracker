@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { DndContext, useSensor, useSensors, PointerSensor, KeyboardSensor, closestCorners } from '@dnd-kit/core';
+import { DndContext, useSensor, useSensors, PointerSensor, TouchSensor, KeyboardSensor, closestCorners } from '@dnd-kit/core';
 import { useDroppable } from '@dnd-kit/core';
 import { useTranslation } from 'react-i18next';
 import KanbanColumn from './KanbanColumn';
@@ -22,6 +22,12 @@ const KanbanBoard = ({ tasks, taskStatuses, onUpdateTask, onToggleStatus, onDele
         useSensor(PointerSensor, {
             activationConstraint: {
                 distance: 5, // minimum distance to drag before it starts
+            },
+        }),
+        useSensor(TouchSensor, {
+            activationConstraint: {
+                delay: 250,
+                tolerance: 5,
             },
         }),
         useSensor(KeyboardSensor)

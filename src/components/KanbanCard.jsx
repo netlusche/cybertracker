@@ -45,7 +45,7 @@ const KanbanCard = ({ task, onClick, onDelete }) => {
                 {...attributes}
                 {...listeners}
                 onClick={() => onClick(task)}
-                className={`card-cyber p-3 mb-2 cursor-grab active:cursor-grabbing hover:bg-white/5 transition-colors relative group ${priorityColors[task.priority] || ''} ${isCompleted ? 'opacity-50 grayscale hover:grayscale-0' : ''}`}
+                className={`card-cyber touch-none p-3 mb-2 cursor-grab active:cursor-grabbing hover:bg-white/5 transition-colors relative group ${priorityColors[task.priority] || ''} ${isCompleted ? 'opacity-50 grayscale hover:grayscale-0' : ''}`}
             >
                 <div className="flex justify-between items-start gap-2">
                     <h4 className={`text-sm font-bold text-white mb-1 line-clamp-2 leading-tight select-none ${isCompleted ? 'line-through text-gray-400' : ''}`}>

@@ -672,6 +672,7 @@ function App() {
           task={showDossierForTask}
           user={user}
           categories={categories}
+          taskStatuses={taskStatuses}
           onUpdate={async (task, updates) => {
             // Update the single task state in App context here
             const success = await handleUpdateTask(task, updates);
