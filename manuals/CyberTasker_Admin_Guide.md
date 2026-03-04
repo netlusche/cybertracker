@@ -1,6 +1,6 @@
-# CyberTasker v2.8.0 - Administration Guide
+# CyberTasker v2.9.0 - Administration Guide
 
-![CyberTasker Logo](images/cybertasker_logo_horizontal.png)
+![CyberTasker Logo](../images/logo_big.png)
 
 > [!WARNING]
 > This document contains restricted system information. Unauthorized distribution is a violation of Weyland-Yutani corporate security protocols.
@@ -11,6 +11,8 @@ Welcome to the CyberTasker Administration Console documentation. This guide outl
 
 When deploying CyberTasker to a new server grid, the database is initially empty. 
 Navigating to the root directory will automatically trigger the `install.php` sequence. You can select your operational language from the dropdown menu, which will automatically become the system default for the master account.
+
+![CyberTasker Initialization](../images/1_System Initianalization.png)
 
 ### Zero-Config Auto-Lock
 CyberTasker features a self-locking installation mechanism:
@@ -28,8 +30,9 @@ The main panel displays a paginated list of all registered Operatives.
 *   **Promote / Downgrade:** You can forcefully alter the clearance level of any user. Promote a trusted `user` to `admin`, or downgrade a rogue `admin` back to standard `user` status.
 *   **Reset Cypher (Password Reset):** If an Operative is locked out of their neural link, use the `RESET PWD` function. This will forcefully overwrite their password to the system default (`password`) and flag them to change it upon their next login.
 *   **Erase (Account Termination):** The `ERASE` button permanently deletes the user's account, all of their directives, sub-routines, and attached files from the database. **This action cannot be undone.**
+*   **Automated Ghost Purge (Background):** Note that the system core helps maintain database hygiene automatically. Any unverified operatives or accounts left entirely stagnant past the maximum corporate retention limit are deleted automatically via scheduled cron jobs before major grid upgrades, minimizing manual oversight.
 
-![Admin Terminal Data Grid](images/cybertasker_admin_populated_2fa_1771862180719.png)
+![Admin Terminal Data Grid](../images/9_Admin_Panel.png)
 
 ### 2.2 Bio-Lock (2FA) Management
 Security is paramount. The Admin grid allows you to monitor the 2FA status of all personnel.
@@ -59,4 +62,4 @@ By toggling the `Enforce Email 2FA` switch:
 
 ---
 > **End of Guide**
-> Maintain constant vigilance over the grid, Admin. (v2.6)
+> Maintain constant vigilance over the grid, Admin. (v2.9)
