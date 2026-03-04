@@ -16,8 +16,17 @@ if (file_exists(__DIR__ . '/config.local.php')) {
 }
 
 // Database configuration defaults (used if not defined in config.local.php)
-if (!defined('DB_TYPE'))
-    define('DB_TYPE', 'sqlite'); // 'mysql' or 'sqlite' (default)
+// Auto-detect DB_TYPE for backward compatibility with v2.8.0 configs
+if (!defined('DB_TYPE')) {
+    // If the user clearly has custom MySQL settings in config.local.php, use mysql
+    if (defined('DB_PASS') && DB_PASS !== 'Your_DB_Password' && DB_PASS !== '') {
+        define('DB_TYPE', 'mysql');
+    }
+    else {
+        define('DB_TYPE', 'sqlite'); // fallback default
+    }
+}
+
 if (!defined('DB_HOST'))
     define('DB_HOST', 'localhost');
 if (!defined('DB_NAME'))
