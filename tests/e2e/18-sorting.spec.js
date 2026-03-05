@@ -28,10 +28,10 @@ test.describe('Dashboard Sorting Rules', () => {
         await page.locator('.calendar-container button').filter({ hasText: '>' }).last().click();
         await page.locator('.calendar-container .cursor-pointer.text-sm').first().click();
 
-        await directiveInput.press('Enter');
+        await page.getByRole('button', { name: /Add/i }).click();
 
         // Wait for creation
-        await page.waitForTimeout(500);
+        await expect(page.locator('.card-cyber').filter({ hasText: futureHighPrioTitle })).toBeVisible({ timeout: 10000 });
 
         // Create Overdue Low Priority Task
         await directiveInput.fill(overdueLowPrioTitle);
@@ -46,10 +46,10 @@ test.describe('Dashboard Sorting Rules', () => {
         await page.locator('.calendar-container button').filter({ hasText: '<' }).first().click(); // click it twice to be safe
         await page.locator('.calendar-container .cursor-pointer.text-sm').first().click();
 
-        await directiveInput.press('Enter');
+        await page.getByRole('button', { name: /Add/i }).click();
 
         // Wait for creation
-        await page.waitForTimeout(1000);
+        await expect(page.locator('.card-cyber').filter({ hasText: overdueLowPrioTitle })).toBeVisible({ timeout: 10000 });
 
         // Both tasks are created. Now we check the global dashboard list.
         // Get all task titles on the current page.

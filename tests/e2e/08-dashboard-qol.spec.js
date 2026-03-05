@@ -148,7 +148,7 @@ test.describe('Dashboard Quality of Life Features (Release 2.4)', () => {
         const newTaskInput = page.locator('#new-directive-input');
         await expect(newTaskInput).toBeVisible();
         await newTaskInput.fill(uniqueTitle);
-        await newTaskInput.press('Enter');
+        await page.getByRole('button', { name: /Add/i }).click();
 
         const newTask = page.locator('.card-cyber').filter({ hasText: uniqueTitle }).first();
         await expect(newTask).toBeVisible({ timeout: 10000 });
