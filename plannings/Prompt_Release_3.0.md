@@ -47,3 +47,4 @@ Für Release 3.1 und 4.0 werden wir ständig neue Spalten (z.B. `team_id`) an Ta
 
 ### Dein erster Schritt
 Bitte antworte mit "Acknowledge", lies dir per Tool-Aufruf die Dateien `.cursorrules`, `manuals/MASTER_TEST_PLAN.md` und `manuals/Technical_Reference.md` durch, und schlage mir dann in einem `implementation_plan.md` vor, mit welchem Epic (1 bis 4) wir beginnen sollen.
+Als allererste Git-Aktion erstellst du zwingend einen neuen Branch namens `major_3.0` ausgehend vom aktuellen `main` Branch und arbeitest ausschließlich auf diesem neuen Branch.
