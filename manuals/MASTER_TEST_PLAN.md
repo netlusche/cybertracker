@@ -1,6 +1,6 @@
-# CyberTasker: Master Automated Test Plan v2.1.0
+# CyberTasker: Master Automated Test Plan v2.9.1
 
-This plan outlines the end-to-end testing strategy for CyberTasker v2.1.0. The goal is to verify all functional requirements, multi-theming architecture, and OWASP-aligned security hardening using automated browser sessions and backend audits.
+This plan outlines the end-to-end testing strategy for CyberTasker up through v2.9.1. The goal is to verify all functional requirements, multi-theming architecture, and OWASP-aligned security hardening using automated browser sessions and backend audits.
 
 ---
 
@@ -47,6 +47,15 @@ The suite has been hardened against "flakiness" using the following patterns:
    ```bash
    php api/seed_test_data.php
    ```
+
+### 🛑 Anti-Flakiness Protocol (React State Synchronization) [CRITICAL]
+When writing or modifying Playwright tests involving React Forms, **you MUST follow these synchronization rules to prevent CI 409 Conflict/Timeout errors:**
+- **BAN implicit `press('Enter')`**: Never use `.press('Enter')` on input fields to submit forms. React is asynchronous; this causes overlapping synthetic events and duplicate backend submissions.
+- **USE explicit clicks**: Always submit forms by explicitly locating and clicking the submit button:
+  `await page.getByRole('button', { name: /Add|✓/i }).click();`
+- **AWAIT State Clearing**: Immediately after clicking submit, wait for the form input to naturally clear. This proves the React state tree executed successfully and prevents race conditions for the next `fill()` action:
+  `await expect(input).toHaveValue('');`
+- **AWAIT Fetch Responses**: Never rely on tailwind class changes (`toHaveClass('bg-success')`) to verify that a state toggle (like an active filter pill) finished processing. Instead, wrap the click in a `Promise.all` waiting for the outgoing network request to resolve: `page.waitForResponse(res => res.url().includes('tasks'))`.
 
 ---
 
@@ -475,3 +484,27 @@ Every execution run generates a `test_report.md` tracking pass/fail rates, backe
 - **Validation**:
   - The `calendar_token` is generated securely.
   - The API endpoint returns a perfectly formatted `text/calendar` iCal stream containing the operative's active directives.
+
+---
+
+## 📅 test-suite-18: Release 2.9 & 2.9.1 Features
+
+### TS-18.1: Kanban Mode Activation & Rendering [AUTOMATED] (20-kanban-board.spec.js)
+- **Scenario**: Click the KANBAN toggle in the dashboard header.
+- **Validation**:
+  - Main directive input and list view disappear.
+  - Kanban board overlay mounts gracefully with horizontal scrolling.
+  - Dynamic columns are generated based on the user's custom task statuses (Default: OPEN, COMPLETED + Custom).
+  - Empty columns display the "DROP DIRECTIVES HERE" structural placeholder.
+
+### TS-18.2: Kanban Drag & Drop Execution [AUTOMATED]
+- **Scenario**: Drag an active directive from the OPEN column into a custom status column, and then into the COMPLETED column.
+- **Validation**: 
+  - Dropping on a custom status explicitly updates `workflow_status` while keeping the main `status` active (0).
+  - Dropping on COMPLETED explicitly resolves the task (`status` 1) and visually degrades it to grayscale.
+
+### TS-18.3: Mobile Touch Drag & Drop Constraints [MANUAL]
+- **Scenario**: Emulate a Smartphone/Tablet on the Kanban board (Release 2.9.1 Touch DND patch).
+- **Validation**:
+  - Swiping left/right horizontally scrolls the column container natively without activating card dragging.
+  - Pressing and holding a card for `250ms` firmly attaches it to the finger, applying `.touch-none` CSS properties, and allows dragging to adjacent columns without camera panning interference.

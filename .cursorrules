@@ -1,0 +1,16 @@
+# CyberTasker Agent Instructions
+
+When developing features or writing E2E tests for the CyberTasker project, you MUST strictly adhere to the following protocols to maintain stability and thematic consistency:
+
+1. **E2E React State Synchronization [CRITICAL]**:
+   ALWAYS read the "Anti-Flakiness Protocol (React State Synchronization)" section in `manuals/MASTER_TEST_PLAN.md` before writing or modifying any Playwright test. 
+   - NEVER use `.press('Enter')` for React form submissions.
+   - ALWAYS use explicit clicks: `await page.getByRole('button', { name: /Add|✓/i }).click();`
+   - ALWAYS await state clearing immediately after: `await expect(input).toHaveValue('');`
+   - ALWAYS await network fetches using `page.waitForResponse` before verifying UI state changes (like active filter pills).
+
+2. **Thematic Integrity**:
+   Consult `THEME_GUIDELINES.md` for styling. Use the established Cyberpunk, LCARS, Matrix, etc. vocabularies. Do not hardcode colors; use custom CSS variables.
+
+3. **Translations**:
+   All new text must be added to the central `translation.json` files as per `manuals/TRANSLATION_GUIDELINES.md`.
