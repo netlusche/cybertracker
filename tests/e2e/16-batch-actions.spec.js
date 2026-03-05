@@ -20,14 +20,17 @@ test.describe('TS-16: Batch Actions (Multi-Select Operations)', () => {
         await createInput.fill(task1);
         await page.getByRole('button', { name: /Add/i }).click();
         await expect(page.locator('.card-cyber').filter({ hasText: task1 })).toBeVisible({ timeout: 10000 });
+        await expect(createInput).toHaveValue('');
 
         await createInput.fill(task2);
         await page.getByRole('button', { name: /Add/i }).click();
         await expect(page.locator('.card-cyber').filter({ hasText: task2 })).toBeVisible({ timeout: 10000 });
+        await expect(createInput).toHaveValue('');
 
         await createInput.fill(task3);
         await page.getByRole('button', { name: /Add/i }).click();
         await expect(page.locator('.card-cyber').filter({ hasText: task3 })).toBeVisible({ timeout: 10000 });
+        await expect(createInput).toHaveValue('');
 
         // 3. Find the checkboxes by data-testid
         const card1 = page.locator('.card-cyber').filter({ hasText: task1 });

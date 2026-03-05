@@ -12,6 +12,7 @@ test.describe('WebCal Feed (US-2.8.7)', () => {
             page.waitForResponse(res => res.url().includes('calendar_token') && res.request().method() === 'GET'),
             page.click('button:has-text("PROFILE")')
         ]);
+        await page.waitForTimeout(500); // React needs time to update calendar token state after the fetch
         await expect(page.locator('text=WEBCAL COMLINK')).toBeVisible();
 
         // Check for the Generate WebCal Link button if not generated yet, or Regenerate
@@ -81,6 +82,7 @@ test.describe('WebCal Feed (US-2.8.7)', () => {
             page.waitForResponse(res => res.url().includes('calendar_token') && res.request().method() === 'GET'),
             page.click('button:has-text("PROFILE")')
         ]);
+        await page.waitForTimeout(500); // Wait for React state
         const generateBtn = page.locator('button:has-text("GENERATE WEBCAL LINK")');
         if (await generateBtn.isVisible()) {
             await expect(generateBtn).toBeEnabled();

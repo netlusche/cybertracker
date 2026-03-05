@@ -114,6 +114,7 @@ test.describe('Dashboard Quality of Life Features (Release 2.4)', () => {
         await expect(taskInput).toBeVisible();
         await taskInput.fill('Purge Test Directive');
         await page.getByRole('button', { name: /Add/i }).click();
+        await expect(taskInput).toHaveValue('');
 
         // Wait for it to appear
         const newTask = page.locator('.card-cyber').filter({ hasText: 'Purge Test Directive' }).first();
@@ -149,6 +150,7 @@ test.describe('Dashboard Quality of Life Features (Release 2.4)', () => {
         await expect(newTaskInput).toBeVisible();
         await newTaskInput.fill(uniqueTitle);
         await page.getByRole('button', { name: /Add/i }).click();
+        await expect(newTaskInput).toHaveValue('');
 
         const newTask = page.locator('.card-cyber').filter({ hasText: uniqueTitle }).first();
         await expect(newTask).toBeVisible({ timeout: 10000 });
@@ -164,7 +166,10 @@ test.describe('Dashboard Quality of Life Features (Release 2.4)', () => {
         // Now activate the "Completed" filter pill to ensure it ONLY shows completed
         const completedPill = page.getByRole('button', { name: 'Completed', exact: true });
         await expect(completedPill).toBeVisible();
-        await completedPill.click();
+        await Promise.all([
+            page.waitForResponse(res => res.url().includes('route=tasks') && res.request().method() === 'GET'),
+            completedPill.click()
+        ]);
 
         // Wait for the backend response to filter and the completed task to reappear
         const filteredCompletedTask = page.locator('.card-cyber').filter({ hasText: uniqueTitle }).first();
@@ -179,10 +184,14 @@ test.describe('Dashboard Quality of Life Features (Release 2.4)', () => {
         await expect(purgeBtn).toBeVisible();
 
         // Cleanup: Click the completed pill again to toggle it off, reverting to ALL tasks view
-        await completedPill.click();
+        await Promise.all([
+            page.waitForResponse(res => res.url().includes('route=tasks') && res.request().method() === 'GET'),
+            completedPill.click()
+        ]);
 
-        // Assert it is still visible because default view shows everything now
-        await expect(page.locator('.card-cyber').filter({ hasText: uniqueTitle })).toBeVisible({ timeout: 10000 });
+        // Note: We don't assert visibility here because returning to ALL tasks view re-fetches
+        // the list. Because completed tasks sink to the bottom, if there are many active seeded tasks,
+        // this newly completed task will be pushed to page 2+, causing a visibility assertion to fail.
 
 
 

@@ -32,6 +32,7 @@ test.describe('Dashboard Sorting Rules', () => {
 
         // Wait for creation
         await expect(page.locator('.card-cyber').filter({ hasText: futureHighPrioTitle })).toBeVisible({ timeout: 10000 });
+        await expect(directiveInput).toHaveValue('');
 
         // Create Overdue Low Priority Task
         await directiveInput.fill(overdueLowPrioTitle);
@@ -50,6 +51,7 @@ test.describe('Dashboard Sorting Rules', () => {
 
         // Wait for creation
         await expect(page.locator('.card-cyber').filter({ hasText: overdueLowPrioTitle })).toBeVisible({ timeout: 10000 });
+        await expect(directiveInput).toHaveValue('');
 
         // Both tasks are created. Now we check the global dashboard list.
         // Get all task titles on the current page.
