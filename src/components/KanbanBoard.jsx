@@ -92,9 +92,9 @@ const KanbanBoard = ({ tasks, taskStatuses, onUpdateTask, onToggleStatus, onDele
 
     return (
         <DndContext sensors={sensors} collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
-            <div className="fixed inset-0 top-0 pt-32 bg-cyber-black/95 z-40 pb-12 flex items-center justify-center">
+            <div className="fixed inset-0 top-0 pt-16 bg-cyber-black/95 z-40 pb-12 flex items-start justify-center">
                 {/* Horizontal Scrolling Area */}
-                <div className="w-full max-w-full overflow-x-auto overflow-y-hidden px-4 md:px-8 pb-4 custom-scrollbar flex items-center h-full">
+                <div className="w-full max-w-full overflow-x-auto overflow-y-hidden px-4 md:px-8 pb-4 custom-scrollbar flex items-start h-full mt-4">
                     <div className="flex gap-6 h-[75vh] min-h-[500px] items-start mx-auto">
                         {columns.map(status => {
                             const columnTasks = localTasks.filter(t => {

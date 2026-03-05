@@ -2455,7 +2455,7 @@ body.theme-steampunk .input-cyber:focus {
   visibility: hidden;
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
   pointer-events: none;
-  z-index: 50;
+  z-index: 9999;
   box-shadow: var(--shadow-primary);
 }
 
@@ -2473,7 +2473,7 @@ body.theme-steampunk .input-cyber:focus {
   visibility: hidden;
   transition: opacity 0.2s ease, visibility 0.2s;
   pointer-events: none;
-  z-index: 50;
+  z-index: 9999;
 }
 
 /* Modifiers for Tooltip Position */
