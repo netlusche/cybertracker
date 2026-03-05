@@ -1,7 +1,7 @@
 # Planning: Release 3.0 (Architektur & Basis für Multitenancy)
 
 ## Themen & Fokuspunkte
-*Dieses Release ist das Fundament für die Zukunft von CyberTasker. Der Umfang des Refactorings ist so signifikant, dass wir es zum Major-Release 3.0 aufwerten (AI-Lokalisierung wurde in 2.7 ausgegliedert). Der Fokus liegt auf massiven Code-Konsolidierungen und architektonischen Umbauten, um das System auf Mandantenfähigkeit (Teams, Release 3.1) und Whitelabeling (Branchen, Release 3.2) vorzubereiten.*
+*Dieses Release ist das Fundament für die Zukunft von CyberTasker. Der Umfang des Refactorings ist so signifikant, dass wir es zum Major-Release 3.0 aufwerten (AI-Lokalisierung wurde in 2.7 ausgegliedert). Der Fokus liegt auf massiven Code-Konsolidierungen und architektonischen Umbauten, um das System auf Mandantenfähigkeit (Teams, Release 3.1) und Whitelabeling (Branchen, Release 4.0) vorzubereiten.*
 
 **Wichtige Architektonische Leitplanke:**
 CyberTasker muss zwingend mit einfachen Shared-Hosting Umgebungen (wie z.B. **Strato Hosting Plus**) kompatibel bleiben. Das Backend bleibt Vanilla PHP (kein Node.js Daemon, keine komplexen Build-Pipelines auf dem Server). Moderne Architekturmuster (Middlewares, Repositories) müssen rein in PHP 8+ abgebildet werden.
