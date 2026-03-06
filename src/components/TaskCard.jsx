@@ -4,8 +4,14 @@ import CyberSelect from './CyberSelect';
 import CyberConfirm from './CyberConfirm';
 import CyberCalendar from './CyberCalendar';
 import DirectiveModal from './DirectiveModal';
+import { useTaskContext } from '../contexts/TaskContext';
+import { useCategoryContext } from '../contexts/CategoryContext';
+import { useStatusContext } from '../contexts/StatusContext';
 
-const TaskCard = ({ task, user, categories, taskStatuses = [], onToggleStatus, onUpdateTask, onDelete, activeCalendarTaskId, setActiveCalendarTaskId, onDuplicate, isSelected = false, onSelect = null }) => {
+const TaskCard = ({ task, user, activeCalendarTaskId, setActiveCalendarTaskId, onDuplicate, isSelected = false, onSelect = null }) => {
+    const { handleToggleStatus: onToggleStatus, handleUpdateTask: onUpdateTask, handleDelete: onDelete } = useTaskContext();
+    const { categories } = useCategoryContext();
+    const { taskStatuses = [] } = useStatusContext();
     const { t } = useTranslation();
     const displayTitle = task.title?.startsWith('i18n:') ? t(task.title.replace('i18n:', '')) : task.title;
     const displayDesc = task.description?.startsWith('i18n:') ? t(task.description.replace('i18n:', '')) : task.description;
@@ -479,8 +485,6 @@ const TaskCard = ({ task, user, categories, taskStatuses = [], onToggleStatus, o
                 <DirectiveModal
                     task={task}
                     user={user}
-                    categories={categories}
-                    taskStatuses={taskStatuses}
                     onClose={() => setShowDossier(false)}
                     onUpdate={onUpdateTask}
                     onDuplicate={(t) => {

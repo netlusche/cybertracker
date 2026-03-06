@@ -6,6 +6,8 @@ import CyberCalendar from './CyberCalendar';
 import CyberConfirm from './CyberConfirm';
 import CyberSelect from './CyberSelect';
 import { useFocusTrap } from '../hooks/useFocusTrap';
+import { useCategoryContext } from '../contexts/CategoryContext';
+import { useStatusContext } from '../contexts/StatusContext';
 import {
     DndContext,
     closestCenter,
@@ -98,7 +100,9 @@ const SortableSubroutine = ({
 };
 
 
-const DirectiveModal = ({ task, user, categories, taskStatuses = [], onClose, onUpdate, onDuplicate }) => {
+const DirectiveModal = ({ task, user, onClose, onUpdate, onDuplicate }) => {
+    const { categories } = useCategoryContext();
+    const { taskStatuses = [] } = useStatusContext();
     const { t } = useTranslation();
     const { theme } = useTheme();
     const fileInputRef = useRef(null);

@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import CyberSelect from './CyberSelect';
 import CyberDateInput from './CyberDateInput';
+import { useTaskContext } from '../contexts/TaskContext';
+import { useCategoryContext } from '../contexts/CategoryContext';
 
-const TaskForm = ({ onAddTask, categoryRefreshTrigger, categories = [], prefillData = null }) => {
+const TaskForm = ({ prefillData = null }) => {
+    const { handleAddTask: onAddTask } = useTaskContext();
+    const { categories } = useCategoryContext();
     const { t } = useTranslation();
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('');

@@ -1,15 +1,21 @@
-import { useState, useCallback, useEffect } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { apiFetch } from '../utils/api';
 import { triggerNeonConfetti } from '../utils/confetti';
 import { useTheme } from '../utils/ThemeContext';
 
-export function useTasks(user, fetchUserStats, onUnauthorized) {
+const TaskContext = createContext();
+
+export function useTaskContext() {
+    const context = useContext(TaskContext);
+    if (!context) {
+        throw new Error('useTaskContext must be used within a TaskProvider');
+    }
+    return context;
+}
+
+export function TaskProvider({ children, user, fetchUserStats, onUnauthorized }) {
     const [tasks, setTasks] = useState([]);
     const [pagination, setPagination] = useState({ currentPage: 1, totalPages: 1, totalTasks: 0 });
-    const [categoryRefreshTrigger, setCategoryRefreshTrigger] = useState(0);
-    const [categories, setCategories] = useState([]);
-    const [taskStatuses, setTaskStatuses] = useState([]);
-    const [statusRefreshTrigger, setStatusRefreshTrigger] = useState(0);
     const [delayedRefresh, setDelayedRefresh] = useState(0);
     const { theme } = useTheme();
 
@@ -21,39 +27,11 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
         completed: false
     });
 
-    const refreshCategories = useCallback(() => setCategoryRefreshTrigger(prev => prev + 1), []);
-    const refreshTaskStatuses = useCallback(() => setStatusRefreshTrigger(prev => prev + 1), []);
-
-    const fetchCategories = useCallback(async () => {
-        try {
-            const res = await apiFetch('api/index.php?route=categories');
-            if (res.ok) {
-                const data = await res.json();
-                if (Array.isArray(data)) {
-                    setCategories(data);
-                }
-            }
-        } catch (err) {
-            console.error("Failed to fetch categories", err);
-        }
-    }, []);
-
-    const fetchTaskStatuses = useCallback(async () => {
-        try {
-            const res = await apiFetch('api/index.php?route=task_statuses');
-            if (res.ok) {
-                const data = await res.json();
-                if (Array.isArray(data)) {
-                    setTaskStatuses(data);
-                }
-            }
-        } catch (err) {
-            console.error("Failed to fetch task statuses", err);
-        }
-    }, []);
-
     const fetchTasks = useCallback(async (page = 1) => {
-        if (!user) return;
+        if (!user) {
+            setTasks([]);
+            return;
+        }
         try {
             const params = new URLSearchParams({
                 page,
@@ -87,7 +65,6 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
     const fetchAllOpenTasks = useCallback(async () => {
         if (!user) return [];
         try {
-            // specifically ask for limit=1000 and status=0 (open) to bypass dashboard pagination
             const params = new URLSearchParams({
                 page: 1,
                 limit: 1000,
@@ -108,14 +85,12 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
     const fetchKanbanTasks = useCallback(async () => {
         if (!user) return [];
         try {
-            // Fetch open tasks
             const openParams = new URLSearchParams({ page: 1, limit: 1000, status: '0' });
             const openRes = await apiFetch(`api/index.php?route=tasks&${openParams.toString()}`);
             if (openRes.status === 401) return [];
             const openData = await openRes.json();
             const openTasks = openData.data || (Array.isArray(openData) ? openData : []);
 
-            // Fetch recent completed tasks to populate the Completed column
             const completedParams = new URLSearchParams({ page: 1, limit: 30, status: '1' });
             const completedRes = await apiFetch(`api/index.php?route=tasks&${completedParams.toString()}`);
             const completedData = await completedRes.json();
@@ -123,7 +98,6 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
 
             const allKanbanTasks = [...openTasks, ...completedTasks];
 
-            // Deduplicate by ID to prevent React key collisions and visual doubling
             const uniqueMap = new Map();
             allKanbanTasks.forEach(t => {
                 if (!uniqueMap.has(t.id)) {
@@ -143,6 +117,12 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
             fetchTasks(pagination.currentPage);
         }
     }, [delayedRefresh, fetchTasks, pagination.currentPage]);
+
+    // Automatically fetch page 1 when filters change (search, priority, category, completion status)
+    useEffect(() => {
+        fetchTasks(1);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filters]);
 
     const handleAddTask = useCallback(async (newTask) => {
         try {
@@ -197,7 +177,6 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
 
     const handleUpdateTask = useCallback(async (task, updates) => {
         try {
-            // Optimistically update local state
             const body = typeof updates === 'string'
                 ? { id: task.id, title: updates }
                 : { id: task.id, ...updates };
@@ -206,7 +185,6 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
                 t.id == task.id ? { ...t, ...body } : t
             ));
 
-            // If it's a UI-only update like a subquery count trigger, return early
             if (updates && typeof updates === 'object' && Object.keys(updates).length === 1 && updates.notes_count !== undefined) {
                 return true;
             }
@@ -242,20 +220,12 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
         }
     }, [pagination.currentPage, fetchTasks]);
 
-    return {
+    const value = {
         tasks,
         setTasks,
         pagination,
         filters,
         setFilters,
-        categories,
-        categoryRefreshTrigger,
-        refreshCategories,
-        fetchCategories,
-        taskStatuses,
-        statusRefreshTrigger,
-        refreshTaskStatuses,
-        fetchTaskStatuses,
         fetchTasks,
         fetchAllOpenTasks,
         fetchKanbanTasks,
@@ -264,4 +234,10 @@ export function useTasks(user, fetchUserStats, onUnauthorized) {
         handleUpdateTask,
         handleDelete
     };
+
+    return (
+        <TaskContext.Provider value={value}>
+            {children}
+        </TaskContext.Provider>
+    );
 }

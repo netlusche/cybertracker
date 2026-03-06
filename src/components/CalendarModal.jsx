@@ -2,8 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../utils/ThemeContext';
 import { useFocusTrap } from '../hooks/useFocusTrap';
+import { useTaskContext } from '../contexts/TaskContext';
 
-const CalendarModal = ({ tasks, onClose, onOpenDossier }) => {
+const CalendarModal = ({ onClose, onOpenDossier }) => {
+    const { tasks } = useTaskContext();
     const { t } = useTranslation();
     const { theme } = useTheme();
     const [currentDate, setCurrentDate] = useState(new Date());

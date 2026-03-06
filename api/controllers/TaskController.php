@@ -162,11 +162,14 @@ class TaskController extends Controller
     {
         $this->requireAuth();
         $data = $this->getJsonBody();
+
         if (!isset($data['id'])) {
             $this->errorResponse('ID is required');
         }
 
         $id = $data['id'];
+        file_put_contents('/Users/frank/Antigravity/CyberTasker3.0/api_error.log', "UPDATE CALLED FOR ID $id: " . json_encode($data) . "\n", FILE_APPEND);
+
 
         $task = $this->taskRepo->getTaskById($id, $this->userId);
         if (!$task) {

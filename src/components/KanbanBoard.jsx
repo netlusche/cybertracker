@@ -3,11 +3,13 @@ import { DndContext, useSensor, useSensors, PointerSensor, TouchSensor, Keyboard
 import { useDroppable } from '@dnd-kit/core';
 import { useTranslation } from 'react-i18next';
 import KanbanColumn from './KanbanColumn';
+import { useTaskContext } from '../contexts/TaskContext';
+import { useStatusContext } from '../contexts/StatusContext';
 
-// Removed CompletedDropzone
-
-const KanbanBoard = ({ tasks, taskStatuses, onUpdateTask, onToggleStatus, onDelete, onTaskClick }) => {
+const KanbanBoard = ({ tasks, onDelete, onTaskClick }) => {
     const { t } = useTranslation();
+    const { handleUpdateTask: onUpdateTask, handleToggleStatus: onToggleStatus } = useTaskContext();
+    const { taskStatuses = [] } = useStatusContext();
 
     // We maintain a local copy of tasks to allow instant UI updates 
     // before the server responds, ensuring a snappy drag-and-drop experience.

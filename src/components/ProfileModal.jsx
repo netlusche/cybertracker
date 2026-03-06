@@ -5,6 +5,8 @@ import CyberAlert from './CyberAlert';
 import { useTheme } from '../utils/ThemeContext';
 import { apiFetch } from '../utils/api';
 import { useFocusTrap } from '../hooks/useFocusTrap';
+import { useCategoryContext } from '../contexts/CategoryContext';
+import { useStatusContext } from '../contexts/StatusContext';
 
 // Internal reusable component for password fields with toggle
 const PasswordInput = ({ value, onChange, placeholder, className, required = false, onInvalid, error, t, onFocus }) => {
@@ -49,8 +51,10 @@ const PasswordInput = ({ value, onChange, placeholder, className, required = fal
 
 
 
-const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate, taskStatuses, onStatusUpdate }) => {
+const ProfileModal = ({ user, onClose, onLogout, onUserUpdate }) => {
     const { t, i18n } = useTranslation();
+    const { refreshCategories } = useCategoryContext();
+    const { taskStatuses, refreshTaskStatuses: refreshStatuses } = useStatusContext();
     const { theme, setTheme } = useTheme();
     const modalRef = useRef(null);
     useFocusTrap(modalRef);
@@ -573,7 +577,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate,
             if (res.ok) {
                 setNewCatName('');
                 loadCategories();
-                if (onCategoryUpdate) onCategoryUpdate();
+                refreshCategories();
             }
         } catch (err) {
             setAlertModal({
@@ -601,7 +605,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate,
             if (res.ok) {
                 setEditingCatId(null);
                 loadCategories();
-                if (onCategoryUpdate) onCategoryUpdate();
+                refreshCategories();
             }
         } catch (err) {
             setAlertModal({
@@ -627,7 +631,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate,
                     });
                     if (res.ok) {
                         loadCategories();
-                        if (onCategoryUpdate) onCategoryUpdate();
+                        refreshCategories();
                     } else {
                         setAlertModal({
                             show: true,
@@ -657,7 +661,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate,
             });
             if (res.ok) {
                 loadCategories();
-                if (onCategoryUpdate) onCategoryUpdate();
+                refreshCategories();
             }
         } catch (err) {
             setAlertModal({
@@ -680,7 +684,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate,
             });
             if (res.ok) {
                 setNewStatusName('');
-                if (onStatusUpdate) onStatusUpdate();
+                refreshStatuses();
             } else {
                 const data = await res.json();
                 setAlertModal({
@@ -716,7 +720,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate,
             });
             if (res.ok) {
                 setEditingStatusId(null);
-                if (onStatusUpdate) onStatusUpdate();
+                refreshStatuses();
             } else {
                 const data = await res.json();
                 setAlertModal({
@@ -749,7 +753,7 @@ const ProfileModal = ({ user, onClose, onLogout, onUserUpdate, onCategoryUpdate,
                         method: 'DELETE'
                     });
                     if (res.ok) {
-                        if (onStatusUpdate) onStatusUpdate();
+                        refreshStatuses();
                     } else {
                         setAlertModal({
                             show: true,

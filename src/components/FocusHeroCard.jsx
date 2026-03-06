@@ -1,18 +1,19 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import CyberSelect from './CyberSelect';
+import { useTaskContext } from '../contexts/TaskContext';
+import { useStatusContext } from '../contexts/StatusContext';
 
 const FocusHeroCard = ({
     task,
-    categories,
-    taskStatuses = [],
     onToggleStatus,
-    onUpdateTask,
     onSkip,
     onOpenDossier,
     isSkipping = false,
     isCompleting = false
 }) => {
+    const { handleUpdateTask: onUpdateTask } = useTaskContext();
+    const { taskStatuses = [] } = useStatusContext();
     const { t } = useTranslation();
 
     const isConfirming = React.useRef(false);

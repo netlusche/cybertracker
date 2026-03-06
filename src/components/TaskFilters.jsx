@@ -2,8 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../utils/ThemeContext';
 import CyberSelect from './CyberSelect';
+import { useTaskContext } from '../contexts/TaskContext';
+import { useCategoryContext } from '../contexts/CategoryContext';
 
-const TaskFilters = ({ filters, onFilterChange, categories, hasCompletedTasks, onPurgeCompleted }) => {
+const TaskFilters = ({ onPurgeCompleted }) => {
+    const { filters, setFilters: onFilterChange, pagination } = useTaskContext();
+    const { categories } = useCategoryContext();
+    const hasCompletedTasks = pagination.hasCompletedTasks;
     const { t } = useTranslation();
     const { theme } = useTheme();
     const [localSearch, setLocalSearch] = useState(filters.search || '');
