@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. The format is based on the system's aesthetic release history.
 
+# CyberTasker 3.0.0 (The Architecture & Migration Update)
+
+### 🏗️ Backend Refactoring & Scalability
+*   **Data Access Layer Isolation**: Refactored the monolithic PHP backend by extracting all raw SQL queries from controllers into dedicated, highly testable `TaskRepository` and `UserRepository` classes.
+*   **API Middleware Pipeline**: Implemented a modern middleware architecture (`MiddlewareInterface`, `CsrfMiddleware`) to standardize HTTP request interception, payload validation, and pre-flight security checks across all `api/index.php` routes.
+*   **Unified Response Formatter**: Standardized all backend JSON outputs through a central `sendResponse()` utility, eliminating inconsistent payload structures between successful operations and error states.
+
+### ⚛️ Frontend State Mastery
+*   **Centralized State Management**: Transitioned critical dashboard state distribution away from fragile prop-drilling into a unified React Context API (`CyberContext`). This drastically improves component render efficiency and synchronizes global states (tasks, categories, filters) instantly.
+
+### ⚙️ Automation & Test Hardening
+*   **Bulletproof Database Teardown**: Deprecated flaky CLI-based database cleanup commands (`execSync(sqlite3...)`) within Plawright tests. Integrated a pure PHP backend hook (`e2e_clear_user_tasks.php`) capable of cleanly wiping test tasks across both SQLite and MariaDB simultaneously via PDO.
+*   **Synchronous UI Interaction API**: Implemented strict network `waitForResponse` intercepts across the entire E2E test suite (Focus Mode, Batch Actions, Sorting) to completely eliminate CI race conditions caused by asynchronous React renders catching up to Playwright clicks.
+
+---
+
 # CyberTasker 2.9.1 (Hotfix)
 
 *   **Fix**: Touch-Support (`@dnd-kit/core` TouchSensor) für mobile Geräte im Kanban-Board hinzugefügt.

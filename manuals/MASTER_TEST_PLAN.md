@@ -1,6 +1,6 @@
-# CyberTasker: Master Automated Test Plan v2.9.1
+# CyberTasker: Master Automated Test Plan v3.0.0
 
-This plan outlines the end-to-end testing strategy for CyberTasker up through v2.9.1. The goal is to verify all functional requirements, multi-theming architecture, and OWASP-aligned security hardening using automated browser sessions and backend audits.
+This plan outlines the end-to-end testing strategy for CyberTasker up through v3.0.0. The goal is to verify all functional requirements, multi-theming architecture, and OWASP-aligned security hardening using automated browser sessions and backend audits.
 
 ---
 
@@ -487,7 +487,7 @@ Every execution run generates a `test_report.md` tracking pass/fail rates, backe
 
 ---
 
-## 📅 test-suite-18: Release 2.9 & 2.9.1 Features
+## 📅 test-suite-18: Release 2.9 & 3.0.0 Features
 
 ### TS-18.1: Kanban Mode Activation & Rendering [AUTOMATED] (20-kanban-board.spec.js)
 - **Scenario**: Click the KANBAN toggle in the dashboard header.
@@ -504,7 +504,7 @@ Every execution run generates a `test_report.md` tracking pass/fail rates, backe
   - Dropping on COMPLETED explicitly resolves the task (`status` 1) and visually degrades it to grayscale.
 
 ### TS-18.3: Mobile Touch Drag & Drop Constraints [MANUAL]
-- **Scenario**: Emulate a Smartphone/Tablet on the Kanban board (Release 2.9.1 Touch DND patch).
+- **Scenario**: Emulate a Smartphone/Tablet on the Kanban board (Release 3.0.0 Touch DND patch).
 - **Validation**:
   - Swiping left/right horizontally scrolls the column container natively without activating card dragging.
   - Pressing and holding a card for `250ms` firmly attaches it to the finger, applying `.touch-none` CSS properties, and allows dragging to adjacent columns without camera panning interference.
