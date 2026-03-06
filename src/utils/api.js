@@ -23,5 +23,17 @@ export const apiFetch = async (url, options = {}) => {
         }
     }
 
-    return fetch(url, { ...options, headers });
+    // Prevent browser caching for GET requests by default
+    const finalOptions = { ...options, headers };
+    if (!finalOptions.method || finalOptions.method.toUpperCase() === 'GET') {
+        const urlObj = new URL(url, window.location.origin);
+        urlObj.searchParams.append('_t', Date.now());
+        url = urlObj.toString();
+        // Also add cache control headers just in case
+        finalOptions.cache = 'no-store';
+        finalOptions.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
+        finalOptions.headers['Pragma'] = 'no-cache';
+    }
+
+    return fetch(url, finalOptions);
 };
