@@ -1,4 +1,4 @@
-# CyberTasker v2.9.1 - Technical Reference
+# CyberTasker v3.0.0 - Technical Reference
 
 This document provides a highly detailed technical blueprint for CyberTasker, functioning as the single source of truth for the system's architecture, database schemas, and critical operational flows. 
 

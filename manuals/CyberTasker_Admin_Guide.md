@@ -1,4 +1,4 @@
-# CyberTasker v2.9.1 - Administration Guide
+# CyberTasker v3.0.0 - Administration Guide
 
 ![CyberTasker Logo](../images/logo_big.png)
 
