@@ -37,6 +37,18 @@ test.describe('TS-10: Custom Task Statuses', () => {
         await editInput.fill(renamedStatusName);
         await page.getByRole('button', { name: '✓' }).click();
 
+        // Wait for the success alert to appear and then disappear before proceeding, 
+        // to prevent it from intercepting the click on the close button.
+        // We use a try/catch block because the alert might appear and disappear
+        // faster than Playwright can catch it, or might not actually overlap the button.
+        const alertBox = page.getByTestId('cyber-alert');
+        try {
+            await alertBox.waitFor({ state: 'visible', timeout: 2000 });
+            await alertBox.waitFor({ state: 'hidden', timeout: 5000 });
+        } catch (e) {
+            // Alert didn't appear or already gone, safe to proceed
+        }
+
         // Verify it was renamed (wait for the alert or the text to change)
         await expect(page.getByText(renamedStatusName)).toBeVisible();
 
