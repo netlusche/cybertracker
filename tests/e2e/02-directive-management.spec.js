@@ -157,10 +157,9 @@ test.describe('Directive Management Pagination', () => {
         await page.waitForTimeout(1000);
 
 
-        // Find the generated active task (the completed one has vanished from the active view)
+        // Find the generated active task (and the grayed out completed one)
         const activeTasks = page.locator('.card-cyber').filter({ hasText: uniqueTitle });
-        await expect(activeTasks).toHaveCount(1);
-        await expect(activeTasks.first()).not.toHaveClass(/opacity-50/); // It's the new fresh one
+        await expect(activeTasks).toHaveCount(2);
 
         // Wait for potential background refresh to replace DOM
         await page.waitForTimeout(2000);
@@ -249,12 +248,12 @@ test.describe('Directive Management Pagination', () => {
         await checkBtn.click();
 
         // Wait a bit for the async update to finish, the task becomes grayed out
-        // Wait for the delayedRefresh (2s) to fetch the fresh dashboard which hides completed tasks
-        await page.waitForTimeout(3000);
+        await page.waitForTimeout(1000);
 
-        // Find the task (there should be ZERO on the main dashboard now, because it didn't duplicate and is completed)
+        // Find the task (there should only be ONE, the completed one, because it shouldn't duplicate)
         const activeTasks = page.locator('.card-cyber').filter({ hasText: uniqueTitle });
-        await expect(activeTasks).toHaveCount(0);
+        await expect(activeTasks).toHaveCount(1);
+        await expect(activeTasks.first()).toHaveClass(/opacity-50/);
 
         // Activate Completed Pill to see the completed task
         const completedPill = page.getByRole('button', { name: 'Completed', exact: true });

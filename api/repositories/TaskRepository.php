@@ -4,15 +4,16 @@ require_once __DIR__ . '/Repository.php';
 
 class TaskRepository extends Repository
 {
-    private function buildWhereParams(int $userId, string $search, ?int $priority, ?string $category, bool $overdue, bool $completed): array
+    private function buildWhereParams(int $userId, string $search, ?int $priority, ?string $category, bool $overdue, bool $completed, ?int $status = null): array
     {
         $where = ["user_id = ?"];
         $params = [$userId];
 
         if ($completed) {
             $where[] = "status = 1";
-        } else {
-            $where[] = "status = 0";
+        } elseif ($status !== null) {
+            $where[] = "status = ?";
+            $params[] = $status;
         }
 
         if ($search) {
@@ -35,9 +36,9 @@ class TaskRepository extends Repository
         return ['where' => implode(' AND ', $where), 'params' => $params];
     }
 
-    public function countFilteredTasks(int $userId, string $search, ?int $priority, ?string $category, bool $overdue, bool $completed): int
+    public function countFilteredTasks(int $userId, string $search, ?int $priority, ?string $category, bool $overdue, bool $completed, ?int $status = null): int
     {
-        $build = $this->buildWhereParams($userId, $search, $priority, $category, $overdue, $completed);
+        $build = $this->buildWhereParams($userId, $search, $priority, $category, $overdue, $completed, $status);
         $whereSql = $build['where'];
         $params = $build['params'];
 
@@ -47,9 +48,9 @@ class TaskRepository extends Repository
         return (int)$stmt->fetchColumn();
     }
 
-    public function getFilteredTasks(int $userId, string $search, ?int $priority, ?string $category, bool $overdue, bool $completed, int $limit, int $offset): array
+    public function getFilteredTasks(int $userId, string $search, ?int $priority, ?string $category, bool $overdue, bool $completed, int $limit, int $offset, ?int $status = null): array
     {
-        $build = $this->buildWhereParams($userId, $search, $priority, $category, $overdue, $completed);
+        $build = $this->buildWhereParams($userId, $search, $priority, $category, $overdue, $completed, $status);
         $whereSql = $build['where'];
         $params = $build['params'];
 

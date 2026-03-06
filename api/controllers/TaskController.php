@@ -16,9 +16,10 @@ class TaskController extends Controller
         $category = isset($_GET['category']) && $_GET['category'] !== '' ? $_GET['category'] : null;
         $overdue = isset($_GET['overdue']) && $_GET['overdue'] === 'true';
         $completed = isset($_GET['completed']) && $_GET['completed'] === 'true';
+        $statusParam = isset($_GET['status']) && $_GET['status'] !== '' ? (int)$_GET['status'] : null;
 
-        $totalParam = $this->taskRepo->countFilteredTasks($this->userId, $search, $priority, $category, $overdue, $completed);
-        $tasks = $this->taskRepo->getFilteredTasks($this->userId, $search, $priority, $category, $overdue, $completed, $limit, $offset);
+        $totalParam = $this->taskRepo->countFilteredTasks($this->userId, $search, $priority, $category, $overdue, $completed, $statusParam);
+        $tasks = $this->taskRepo->getFilteredTasks($this->userId, $search, $priority, $category, $overdue, $completed, $limit, $offset, $statusParam);
         $hasCompletedTasks = $this->taskRepo->checkIfUserHasCompletedTasks($this->userId);
 
         $this->jsonResponse([
