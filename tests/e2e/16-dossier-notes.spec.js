@@ -29,7 +29,9 @@ test.describe('US-2.8.3: Dossier Notes', () => {
         // 1. Create a new Directive
         const newTaskInput = page.getByPlaceholder(/Enter directive|Neue Direktive/i);
         await newTaskInput.fill(uniqueTaskName);
+        const responsePromise = page.waitForResponse(response => response.url().includes('route=tasks') && response.request().method() === 'POST' && response.status() === 200);
         await page.getByRole('button', { name: /Add/i }).click();
+        await responsePromise;
         await expect(newTaskInput).toHaveValue('');
 
         // Wait for it to appear

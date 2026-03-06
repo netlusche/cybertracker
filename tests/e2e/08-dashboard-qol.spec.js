@@ -113,7 +113,9 @@ test.describe('Dashboard Quality of Life Features (Release 2.4)', () => {
         const taskInput = page.locator('#new-directive-input');
         await expect(taskInput).toBeVisible();
         await taskInput.fill('Purge Test Directive');
+        const responsePromise1 = page.waitForResponse(response => response.url().includes('route=tasks') && response.request().method() === 'POST' && response.status() === 200);
         await page.getByRole('button', { name: /Add/i }).click();
+        await responsePromise1;
         await expect(taskInput).toHaveValue('');
 
         // Wait for it to appear
@@ -149,7 +151,9 @@ test.describe('Dashboard Quality of Life Features (Release 2.4)', () => {
         const newTaskInput = page.locator('#new-directive-input');
         await expect(newTaskInput).toBeVisible();
         await newTaskInput.fill(uniqueTitle);
+        const responsePromise2 = page.waitForResponse(response => response.url().includes('route=tasks') && response.request().method() === 'POST' && response.status() === 200);
         await page.getByRole('button', { name: /Add/i }).click();
+        await responsePromise2;
         await expect(newTaskInput).toHaveValue('');
 
         const newTask = page.locator('.card-cyber').filter({ hasText: uniqueTitle }).first();
@@ -208,7 +212,9 @@ test.describe('Dashboard Quality of Life Features (Release 2.4)', () => {
 
         // 1. Create task
         await taskInput.fill(uniqueTitle);
+        const responsePromise3 = page.waitForResponse(response => response.url().includes('route=tasks') && response.request().method() === 'POST' && response.status() === 200);
         await page.getByRole('button', { name: /Add/i }).click();
+        await responsePromise3;
 
         const newTask = page.locator('.card-cyber').filter({ hasText: uniqueTitle }).first();
         await expect(newTask).toBeVisible({ timeout: 10000 });

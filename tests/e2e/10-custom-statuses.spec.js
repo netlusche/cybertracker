@@ -49,7 +49,9 @@ test.describe('TS-10: Custom Task Statuses', () => {
         const taskTitle = `Test Task for Status Dropdown ${Date.now()}`;
         const titleInput = page.getByPlaceholder('Enter directive...');
         await titleInput.fill(taskTitle);
+        const responsePromise = page.waitForResponse(response => response.url().includes('route=tasks') && response.request().method() === 'POST' && response.status() === 200);
         await page.getByRole('button', { name: /Add/i }).click();
+        await responsePromise;
         await expect(titleInput).toHaveValue('');
 
         // Wait for task to appear

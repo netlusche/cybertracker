@@ -28,7 +28,9 @@ test.describe('Dashboard Sorting Rules', () => {
         await page.locator('.calendar-container button').filter({ hasText: '>' }).last().click();
         await page.locator('.calendar-container .cursor-pointer.text-sm').first().click();
 
+        const responsePromise1 = page.waitForResponse(response => response.url().includes('route=tasks') && response.request().method() === 'POST' && response.status() === 200);
         await page.getByRole('button', { name: /Add/i }).click();
+        await responsePromise1;
 
         // Wait for creation
         await expect(page.locator('.card-cyber').filter({ hasText: futureHighPrioTitle })).toBeVisible({ timeout: 10000 });
@@ -47,7 +49,9 @@ test.describe('Dashboard Sorting Rules', () => {
         await page.locator('.calendar-container button').filter({ hasText: '<' }).first().click(); // click it twice to be safe
         await page.locator('.calendar-container .cursor-pointer.text-sm').first().click();
 
+        const responsePromise2 = page.waitForResponse(response => response.url().includes('route=tasks') && response.request().method() === 'POST' && response.status() === 200);
         await page.getByRole('button', { name: /Add/i }).click();
+        await responsePromise2;
 
         // Wait for creation
         await expect(page.locator('.card-cyber').filter({ hasText: overdueLowPrioTitle })).toBeVisible({ timeout: 10000 });

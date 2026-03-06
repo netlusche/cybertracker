@@ -41,9 +41,12 @@ test.describe('Kanban Board', () => {
         for (let i = 0; i < titles.length; i++) {
             const dirInput = page.getByPlaceholder('Enter directive...');
             await dirInput.fill(titles[i]);
+            const responsePromise = page.waitForResponse(response => response.url().includes('route=tasks') && response.request().method() === 'POST' && response.status() === 200);
             await page.getByRole('button', { name: /Add/i }).click();
+            await responsePromise;
             await expect(dirInput).toHaveValue('');
-            await page.waitForTimeout(500); // allow creation
+            await expect(page.locator('.card-cyber').filter({ hasText: titles[i] })).toBeVisible({ timeout: 10000 });
+            await page.waitForTimeout(200); // allow creation buffer
         }
 
         // Activate Kanban Mode

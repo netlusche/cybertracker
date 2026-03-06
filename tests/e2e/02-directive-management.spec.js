@@ -137,7 +137,9 @@ test.describe('Directive Management Pagination', () => {
         await page.getByText('Daily').last().click();
 
         // Submit via ADD button and wait for input clear
+        const responsePromise1 = page.waitForResponse(response => response.url().includes('route=tasks') && response.request().method() === 'POST' && response.status() === 200);
         await page.getByRole('button', { name: /Add/i }).click();
+        await responsePromise1;
         await expect(titleInput).toHaveValue('');
 
         // Search for the new task to bring it to page 1
@@ -231,7 +233,9 @@ test.describe('Directive Management Pagination', () => {
         await page.locator('.calendar-container .cursor-pointer:not(.opacity-50)').first().click();
 
         // Submit via ADD button
+        const responsePromise2 = page.waitForResponse(response => response.url().includes('route=tasks') && response.request().method() === 'POST' && response.status() === 200);
         await page.getByRole('button', { name: /Add/i }).click();
+        await responsePromise2;
         await expect(titleInput).toHaveValue('');
 
         // Search for the task to bring it to page 1
