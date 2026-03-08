@@ -724,5 +724,8 @@
         "Je ne peux pas te laisser faire ça, Dave.",
         "Les androïdes rêvent-ils de moutons électriques ?",
         "La résistance est futile."
-    ]
+    ],
+    "seo": {
+        "description": "CyberTasker – Votre tableau de bord de productivité ultime de style cyberpunk. Organisez des tâches, maîtrisez des missions et améliorez votre vie !"
+    }
 }

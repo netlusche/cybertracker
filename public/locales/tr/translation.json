@@ -724,5 +724,8 @@
         "Bunu yapmana izin veremem, Dave.",
         "Androidler elektrikli koyun düşler mi?",
         "Direniş boşuna."
-    ]
+    ],
+    "seo": {
+        "description": "CyberTasker – En üst düzey siberpunk tarzı üretkenlik kontrol paneliniz. Görevleri düzenleyin, görevlerde ustalaşın ve hayatınızın seviyesini yükseltin!"
+    }
 }

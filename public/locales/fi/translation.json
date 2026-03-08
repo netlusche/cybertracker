@@ -724,5 +724,8 @@
         "En voi antaa sinun tehdä sitä, Dave.",
         "Haaveilevatko androidit sähkölampaista?",
         "Vastus on turhaa."
-    ]
+    ],
+    "seo": {
+        "description": "CyberTasker – Täydellinen kyberpunk-tyylinen tuottavuuden kojelauta. Järjestä tehtäviä, hallitse tehtäviä ja nosta elämäsi tasoa!"
+    }
 }

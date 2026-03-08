@@ -724,5 +724,8 @@
         "Non posso permetterti di farlo, Dave.",
         "Gli androidi sognano pecore elettriche?",
         "La resistenza è futile."
-    ]
+    ],
+    "seo": {
+        "description": "CyberTasker: la tua dashboard di produttività definitiva in stile cyberpunk. Organizza compiti, completa missioni e fai salire di livello la tua vita!"
+    }
 }

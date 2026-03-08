@@ -724,5 +724,8 @@
         "Nem engedhetem meg, Dave.",
         "Álmodnak-e az androidok elektromos bárányokkal?",
         "Az ellenállás hiábavaló."
-    ]
+    ],
+    "seo": {
+        "description": "CyberTasker – Az Ön tökéletes cyberpunk stílusú termelékenységi irányítópultja. Szervezd meg a feladatokat, hajts végre küldetéseket, és emelj szintre életedet!"
+    }
 }

@@ -18,6 +18,9 @@
         "exit_kanban": "EXIT KANBAN",
         "kanban": "KANBAN"
     },
+    "seo": {
+        "description": "CyberTasker – Your ultimate cyberpunk-style productivity dashboard. Organize tasks, master missions, and level up your life!"
+    },
     "auth": {
         "title": "NETRUNNER LOGIN",
         "new_identity": "NEW IDENTITY",

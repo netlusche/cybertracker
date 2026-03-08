@@ -724,5 +724,8 @@
         "Das kann ich dich nicht tun lassen, Dave.",
         "Träumen Androiden von elektrischen Schafen?",
         "Widerstand ist zwecklos."
-    ]
+    ],
+    "seo": {
+        "description": "CyberTasker – Ihr ultimatives Produktivitäts-Dashboard im Cyberpunk-Stil. Organisiere Aufgaben, meistere Missionen und verbessere dein Leben!"
+    }
 }

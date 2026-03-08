@@ -724,5 +724,8 @@
         "No puedo permitirte hacer eso, Dave.",
         "¿Sueñan los androides con ovejas eléctricas?",
         "La resistencia es fútil."
-    ]
+    ],
+    "seo": {
+        "description": "CyberTasker: su panel de productividad de estilo cyberpunk definitivo. ¡Organiza tareas, domina misiones y sube de nivel tu vida!"
+    }
 }

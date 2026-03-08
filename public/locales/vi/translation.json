@@ -724,5 +724,8 @@
         "Tôi không thể để anh làm điều đó, Dave.",
         "Người máy có mơ về cừu điện không?",
         "Kháng cự là vô ích."
-    ]
+    ],
+    "seo": {
+        "description": "CyberTasker – Bảng điều khiển năng suất theo phong cách cyberpunk tối ưu của bạn. Sắp xếp nhiệm vụ, làm chủ nhiệm vụ và thăng cấp cuộc sống của bạn!"
+    }
 }
